@@ -43,7 +43,41 @@ List (and hyperlink) the lessons/packages which need to be covered before this l
 
 ## Model structures
 
-Lesson content
+### Model types
+
+*Outbreak* definition
+
+*Epidemic* definition
+
+<!-- Check model library -->
+
+::::::::::::::::::::::::::::::::::::: callout
+## Check model equations
+When using existing model structures always check the model assumptions. Ask questions such as:
+
+- How is transmission modelled? 
+- What parameters are included?
+- How many state variables are there?
+
+There can be subtle differences in model structures for the same infection/outbreak type which can be missed without studying the equations.
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+
+### An epidemic model
+
+<!-- Default epidemic model -->
+
+$C_i,j$ rows $i$ and columns $j$
+
+$$
+\begin{aligned}
+\frac{dS_i}{dt} & = - \beta S_i \sum_j C_{i,j} I_j -\nu_t S_i \\
+\frac{dE_i}{dt} &= \beta S_i\sum_j C_{i,j} I_j - \alpha E_i \\
+\frac{dI_i}{dt} &= \alpha E_i - \gamma I_i \\
+\frac{dR_i}{dt} &=\gamma I_i \\
+\frac{dV_i}{dt} &=\nu_t S_i\\
+\end{aligned}
+$$
 
 ::::::::::::::::::::::::::::::::::::: challenge 
 
