@@ -6,9 +6,10 @@ exercises: 5 # exercise time in minutes
 
 :::::::::::::::::::::::::::::::::::::: questions 
 
+- How do I generate predictions of disease trajectories?
 - What model structure do I need?
 - How do I read in a social contact matrix? 
-- How do I run a model simulation?
+
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -42,17 +43,16 @@ List (and hyperlink) the lessons/packages which need to be covered before this l
 :::::::::::::::::::::::::::::::::
 
 ## Model structures
+To generate predictions of infectious disease trajectories, we must first select a mathematical model to use.
 
-### Model types
+In `epidemics` models are defined as either *epidemic* models or *outbreak* models. *Epidemic* models focus on directly transmitted diseases with pandemic potential (such as influenza and Covid), and *outbreak* models,  focus on diseases that are not expected to have pandemic potential (such as Ebola).
 
-*Outbreak* definition
+There is a library of epidemic and outbreak models to choose from in `epidemics`. Models are prefixed with either epidemic or outbreak, and suffixed by the infection name. In this tutorial, we will use the default epidemic model, `epidemic_default` which is described in the next section.
 
-*Epidemic* definition
-
-<!-- Check model library -->
+<!-- To view this library XXX.. -->
 
 ::::::::::::::::::::::::::::::::::::: callout
-## Check model equations
+### Check model equations
 When using existing model structures always check the model assumptions. Ask questions such as:
 
 - How is transmission modelled? 
@@ -65,9 +65,8 @@ There can be subtle differences in model structures for the same infection/outbr
 
 ### An epidemic model
 
-<!-- Default epidemic model -->
+The default epidemic model is an age-structured SEIR-V model described by a system of ordinary differential equations. For each age group $i$, individuals are classed as either susceptible $S$, infected but not yet infectious $E$, infectious $I$, recovered $R$ or vaccinated $V$. 
 
-$C_i,j$ rows $i$ and columns $j$
 
 $$
 \begin{aligned}
@@ -78,6 +77,15 @@ $$
 \frac{dV_i}{dt} &=\nu_t S_i\\
 \end{aligned}
 $$
+Model parameters are as follows :
+
+- transmission rate $\beta$
+- contact matrix $C_i,j$ (rows $i$ and columns $j$)
+- rate of becoming infectious $\alpha$
+- recovery rate $\gamma$
+- time dependent vaccination rate $\nu_t$.
+
+
 
 ::::::::::::::::::::::::::::::::::::: challenge 
 
