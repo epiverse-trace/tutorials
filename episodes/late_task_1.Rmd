@@ -55,9 +55,9 @@ There is a library of epidemic and outbreak models to choose from in `epidemics`
 ### Check model equations
 When using existing model structures always check the model assumptions. Ask questions such as:
 
-- How is transmission modelled? 
-- What parameters are included?
-- How many state variables are there?
+- How is transmission modelled?
+- What interventions are modelled? 
+- What state variables are there and how do they relate to assumptions about infection?
 
 There can be subtle differences in model structures for the same infection/outbreak type which can be missed without studying the equations.
 ::::::::::::::::::::::::::::::::::::::::::::::::
@@ -67,17 +67,7 @@ There can be subtle differences in model structures for the same infection/outbr
 
 The default epidemic model is an age-structured SEIR-V model described by a system of ordinary differential equations. For each age group $i$, individuals are classed as either susceptible $S$, infected but not yet infectious $E$, infectious $I$, recovered $R$ or vaccinated $V$. 
 
-
-$$
-\begin{aligned}
-\frac{dS_i}{dt} & = - \beta S_i \sum_j C_{i,j} I_j -\nu_t S_i \\
-\frac{dE_i}{dt} &= \beta S_i\sum_j C_{i,j} I_j - \alpha E_i \\
-\frac{dI_i}{dt} &= \alpha E_i - \gamma I_i \\
-\frac{dR_i}{dt} &=\gamma I_i \\
-\frac{dV_i}{dt} &=\nu_t S_i\\
-\end{aligned}
-$$
-Model parameters are as follows :
+The model parameters are as follows :
 
 - transmission rate $\beta$
 - contact matrix $C_{i,j}$ (rows $i$ and columns $j$)
@@ -85,7 +75,29 @@ Model parameters are as follows :
 - recovery rate $\gamma$
 - time dependent vaccination rate $\nu_t$.
 
-<!-- Follow on sentence to next lesson -->
+
+$$
+\begin{aligned}
+\frac{dS_i}{dt} & = - \beta S_i \sum_j C_{i,j} I_j -\nu_{t} S_i \\
+\frac{dE_i}{dt} &= \beta S_i\sum_j C_{i,j} I_j - \alpha E_i \\
+\frac{dI_i}{dt} &= \alpha E_i - \gamma I_i \\
+\frac{dR_i}{dt} &=\gamma I_i \\
+\frac{dV_i}{dt} &=\nu_{t} S_i\\
+\end{aligned}
+$$
+
+From the model structure we see that :
+
+- there is heterogeneity in contacts between age groups,
+- there is no loss of immunity,
+- only susceptible are vaccinated.
+
+To generate trajectories using our model, we need the following :  
+
+- contact matrix,
+- demographic structure,
+- parameter values,
+- initial conditions. 
 
 ## Contact matrix and demography
 
@@ -181,7 +193,7 @@ contact_data
 
 ## Running simulations
 
-<!-- Initial conditions, prepare population, output, visualize  -->
+<!-- Simulate without interventions. Initial conditions, prepare population, output, visualize  -->
 
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
