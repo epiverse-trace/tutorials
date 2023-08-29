@@ -5,7 +5,7 @@ exercises: 5 # exercise time in minutes
 ---
 
 ```{r setup, echo= FALSE}
-library(epidemics)
+library(epidemics);library(ggplot2)
 ```
 
 
@@ -31,7 +31,90 @@ Using the R package `epidemics`, learn how to:
 
 In this tutorial, we will use the R package `epidemics` to generate trajectories of disease spread.
 
-<!-- Why do we generate predictoins, add example plot -->
+<!-- Why do we generate predictions-->
+
+
+```{r traj, echo = FALSE, message= FALSE}
+# load contact and population data from socialmixr::polymod
+polymod <- socialmixr::polymod
+contact_data <- socialmixr::contact_matrix(
+  polymod,
+  countries = "United Kingdom",
+  age.limits = c(0, 20, 40),
+  symmetric = TRUE
+)
+
+# prepare contact matrix
+contact_matrix <- t(contact_data$matrix)
+
+# prepare the demography vector
+demography_vector <- contact_data$demography$population
+names(demography_vector) <- rownames(contact_matrix)
+
+# initial conditions: one in every 1 million is infected
+initial_i <- 1e-6
+initial_conditions <- c(
+  S = 1 - initial_i, E = 0, I = initial_i, R = 0, V = 0
+)
+
+# build for all age groups
+initial_conditions <- rbind(
+  initial_conditions,
+  initial_conditions,
+  initial_conditions
+)
+rownames(initial_conditions) <- rownames(contact_matrix)
+
+# prepare the population to model as affected by the epidemic
+uk_population <- population(
+  name = "UK",
+  contact_matrix = contact_matrix,
+  demography_vector = demography_vector,
+  initial_conditions = initial_conditions
+)
+
+# simulate a pandemic, with an R0,
+# an infectious period, and an pre-infectious period
+influenza <- infection(
+  name = "influenza",
+  r0 = 1.5,
+  preinfectious_period = 3,
+  infectious_period = 7
+)
+
+# an intervention to close schools
+
+# run an epidemic model using `epidemic()`
+output <- epidemic_default_cpp(
+  population = uk_population,
+  infection = influenza,
+  intervention = NULL,
+  time_end = 600, increment = 1.0
+)
+
+ggplot(output[compartment == "infectious", ]) +
+  geom_line(
+    aes(time, value, colour = demography_group)
+  ) +
+  scale_colour_brewer(
+    palette = "Dark2",
+    labels = rownames(contact_matrix),
+    name = "Age group"
+  ) +
+  scale_y_continuous(
+    labels = scales::comma,
+    name = "Infectious indivduals"
+  ) +
+  labs(
+    x = "Model time (days)"
+  ) +
+  theme_classic() +
+  theme(
+    legend.position = "top"
+  )
+
+```
+
 
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: instructor
 
@@ -119,7 +202,7 @@ To run our model we need to specify the model parameters. For this tutorial, we 
 - rate of transition from exposed to infectious $\alpha$ (preinfectious period=$1/\alpha$),
 - recovery rate $\gamma$ (infectious period=$1/\gamma$).
 
-We will learn how to specify the contact matrix $C$ in the next lesson. 
+We will learn how to specify the contact matrix $C$ in the next section. 
 
 ::::::::::::::::::::::::::::::::::::: callout
 ### The basic reproduction number $R_0$
@@ -146,7 +229,7 @@ influenza <- infection(
 
 ```
 
-<!-- ### Load parameters from previous lessons  -->
+<!-- ### Load parameters from previous tutorials  -->
 
 
 ## Contact matrix and demography
