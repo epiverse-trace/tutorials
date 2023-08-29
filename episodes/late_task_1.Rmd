@@ -25,7 +25,7 @@ Using the R package `epidemics`, learn how to:
 
 ## Introduction
 
-Introductory text
+Introductory text, `epidemics`
 
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: instructor
 
@@ -67,7 +67,7 @@ There can be subtle differences in model structures for the same infection/outbr
 
 The default epidemic model is an age-structured SEIR-V model described by a system of ordinary differential equations. For each age group $i$, individuals are classed as either susceptible $S$, infected but not yet infectious $E$, infectious $I$, recovered $R$ or vaccinated $V$. 
 
-The model parameters are as follows :
+The model parameters and equations are as follows :
 
 - transmission rate $\beta$
 - contact matrix $C_{i,j}$ (rows $i$ and columns $j$)
@@ -90,14 +90,14 @@ From the model structure we see that :
 
 - there is heterogeneity in contacts between age groups,
 - there is no loss of immunity,
-- only susceptible are vaccinated.
+- only susceptibles are vaccinated.
 
 To generate trajectories using our model, we need the following :  
 
-- contact matrix,
-- demographic structure,
-- parameter values,
-- initial conditions. 
+1.  contact matrix,
+2.  demographic structure,
+3.  parameter values,
+4.  initial conditions. 
 
 ## Contact matrix and demography
 
