@@ -80,18 +80,28 @@ $$
 Model parameters are as follows :
 
 - transmission rate $\beta$
-- contact matrix $C_i,j$ (rows $i$ and columns $j$)
+- contact matrix $C_{i,j}$ (rows $i$ and columns $j$)
 - rate of becoming infectious $\alpha$
 - recovery rate $\gamma$
 - time dependent vaccination rate $\nu_t$.
 
+<!-- Follow on sentence to next lesson -->
+
+## Contact matrix and demography
+
+<!-- Introduce social contact matrix  -->
 
 
 ::::::::::::::::::::::::::::::::::::: challenge 
 
-## Challenge 1 : can the learner run existing code
+## Load contact and population data
 
-Load contact and population data from socialmixr::polymod
+Using the R package `socialmixr`, run the following lines of R code to obtain the contact matrix for the United Kingdom for the year age bins:
+
++ [0,20)
++ [20, 40)
++ 40 +
+
 
 ```r
 polymod <- socialmixr::polymod
@@ -101,7 +111,9 @@ contact_data <- socialmixr::contact_matrix(
   age.limits = c(0, 20, 40),
   symmetric = TRUE
 )
-contact_data
+# prepare contact matrix
+contact_matrix <- t(contact_data$matrix)
+contact_matrix
 ```
 
 :::::::::::::::::::::::: solution 
@@ -116,27 +128,27 @@ contact_data <- socialmixr::contact_matrix(
   age.limits = c(0, 20, 40),
   symmetric = TRUE
 )
-contact_data
+# prepare contact matrix
+contact_matrix <- t(contact_data$matrix)
+contact_matrix
 ```
 
 
 :::::::::::::::::::::::::::::::::
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
+<!-- Demography vector  -->
 
-## Contact matrix and demography
-
-Lesson content
-
-::::::::::::::::::::::::::::::::::::: callout
-## Explainer
-Add additional maths (or epi) content for novice learners
-
-::::::::::::::::::::::::::::::::::::::::::::::::
+```{r demography}
+# prepare the demography vector
+demography_vector <- contact_data$demography$population
+names(demography_vector) <- rownames(contact_matrix)
+demography_vector
+```
 
 ::::::::::::::::::::::::::::::::::::: challenge 
 
-## Challenge 2 : edit code/answer a question
+## Load contact and population data for Poland
 
 Load contact and population data for Poland from socialmixr::polymod using the following age bins:
 
@@ -161,11 +173,15 @@ contact_data
 
 ## Model parameters
 
-Lesson content
+### Example
+
+
+<!-- ### Load parameters from previous lessons  -->
+
 
 ## Running simulations
 
-Lesson content
+<!-- Initial conditions, prepare population, output, visualize  -->
 
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
