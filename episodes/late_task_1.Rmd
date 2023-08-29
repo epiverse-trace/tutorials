@@ -4,6 +4,11 @@ teaching: 10 # teaching time in minutes
 exercises: 5 # exercise time in minutes
 ---
 
+```{r setup, echo= FALSE}
+library(epidemics)
+```
+
+
 :::::::::::::::::::::::::::::::::::::: questions 
 
 - How do I generate predictions of disease trajectories?
@@ -75,10 +80,10 @@ The default epidemic model is an age-structured SEIR-V model described by a syst
 
 The model parameters and equations are as follows :
 
-- transmission rate $\beta$
-- contact matrix $C_{i,j}$ (rows $i$ and columns $j$)
-- rate of becoming infectious $\alpha$
-- recovery rate $\gamma$
+- transmission rate $\beta$,
+- contact matrix $C$ (a square $i \times j$ matrix),
+- rate of transition from exposed to infectious $\alpha$ (preinfectious period=$1/\alpha$),
+- recovery rate $\gamma$ (infectious period = $1/\gamma$),
 - time dependent vaccination rate $\nu_t$.
 
 
@@ -100,14 +105,53 @@ From the model structure we see that :
 
 To generate trajectories using our model, we need the following :  
 
-1.  contact matrix,
-2.  demographic structure,
-3.  parameter values,
+1.  parameter values,
+2.  contact matrix,
+3.  demographic structure,
 4.  initial conditions. 
+
+
+## Model parameters
+
+To run our model we need to specify the model parameters. For this tutorial, we will assume there are no interventions (including vaccination). Therefore, the parameters we need values for are: 
+
+- transmission rate $\beta$,
+- rate of transition from exposed to infectious $\alpha$ (preinfectious period=$1/\alpha$),
+- recovery rate $\gamma$ (infectious period=$1/\gamma$).
+
+We will learn how to specify the contact matrix $C$ in the next lesson. 
+
+::::::::::::::::::::::::::::::::::::: callout
+### The basic reproduction number $R_0$
+The basic reproduction number, $R_0$, for the SEIR model is: 
+
+$$ R_0 = \frac{\beta}{\gamma}.$$ 
+
+Therefore, we can rewrite the transmission rate, $\beta$, as:
+
+$$ \beta = R_0 \gamma.$$
+
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+In `epidemics`, we use the function `infection` to pass the values of, $R_0$, the preinfectious period ($1/\alpha$) and the infectious period ($1/\gamma$) as follows.
+
+```{r, eval = FALSE}
+influenza <- infection(
+  name = "influenza",
+  r0 = 1.5,
+  preinfectious_period = 3,
+  infectious_period = 7
+)
+
+```
+
+<!-- ### Load parameters from previous lessons  -->
+
 
 ## Contact matrix and demography
 
-<!-- Introduce social contact matrix  -->
+<!-- Introduce social contact matrix, square matrix $i$ rows and $j$ columns  -->
 
 
 ::::::::::::::::::::::::::::::::::::: challenge 
@@ -188,13 +232,6 @@ contact_data
 ```
 :::::::::::::::::::::::::::::::::
 ::::::::::::::::::::::::::::::::::::::::::::::::
-
-## Model parameters
-
-### Example
-
-
-<!-- ### Load parameters from previous lessons  -->
 
 
 ## Running simulations
