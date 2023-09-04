@@ -36,7 +36,7 @@ Using the R package `epidemics`, learn how to:
 
 ## Introduction
 
-Mathematical models are useful tools for generating future trajectories of disease spread. Such models can be used to evalute the implementation of non-pharmaceutical and pharmaceutical interventions while accounting for factors such as age.
+Mathematical models are useful tools for generating future trajectories of disease spread. Such models can be used to evaluate the implementation of non-pharmaceutical and pharmaceutical interventions while accounting for factors such as age.
 
 In this tutorial, we will use the R package `epidemics` to generate trajectories of disease spread. By the end of this tutorial, you will be able to generate the trajectory below showing the number of infectious individuals in different age categories through time.
 
@@ -96,7 +96,6 @@ influenza <- infection(
 output <- epidemic_default_cpp(
   population = uk_population,
   infection = influenza,
-  intervention = NULL,
   time_end = 600, increment = 1.0
 )
 
@@ -219,7 +218,7 @@ $$ \beta = R_0 \gamma.$$
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
-In `epidemics`, we use the function `infection` to pass the values of, $R_0$, the preinfectious period ($1/\alpha$) and the infectious period ($1/\gamma$) as follows.
+In `epidemics`, we use the function `infection` to create an infection object containing the values of, $R_0$, the preinfectious period ($1/\alpha$) and the infectious period ($1/\gamma$) as follows.
 
 ```{r, eval = FALSE}
 influenza <- infection(
@@ -312,7 +311,7 @@ contact_data
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
 
-## Running simulations
+## Generating trajectories
 
 We have prepared our parameter values, contact matrix and demography vector. Now we must set the initial conditions, prepare the population and run the model. 
 
@@ -352,16 +351,23 @@ initial_conditions
 
 ### Running the model
 
-Demography vector
+The final steps to run the model for the given parameters and initial conditions, is to specify the the demographic structure and then prepare the population. 
+
+The demographic vector must be a named vector containing the number of individual in each age group of our given population. In this example, we can extract the demographic information from the `contact_data` object that we obtained using the `socialmixr` package.
 
 ```{r demography}
-# prepare the demography vector
 demography_vector <- contact_data$demography$population
 names(demography_vector) <- rownames(contact_matrix)
 demography_vector
 ```
 
-prepare population
+To run the model we need the following inputs:
+
+- a population object,
+- an infection object, 
+- an optional number of time steps.
+
+We have already created our infection object `influenza`. To create our population object, we call the function `population` specifying a name, the contact matrix, the demography vector and the initial conditions.
 
 ```{r population}
 uk_population <- population(
@@ -372,22 +378,18 @@ uk_population <- population(
 )
 ```
 
-run model
+
+No we are ready to run our model. We will specify `time_end=600` to run the model for 600 days.
 
 ```{r run_model}
 output <- epidemic_default_cpp(
   population = uk_population,
   infection = influenza,
-  intervention = NULL,
-  time_end = 600, increment = 1.0
+  time_end = 600
 )
+head(output)
 ```
-
-
-something on time end, increments and parameters 
-
-visualise output
-
+Our model output consists of the number of individuals in each compartment in each age group through time.We can visualise the infectious individuals only (those in the $I$ class) through time.
 
 ```{r visualise}
 ggplot(output[compartment == "infectious", ]) +
@@ -413,6 +415,15 @@ ggplot(output[compartment == "infectious", ]) +
 
 ```
 
+
+::::::::::::::::::::::::::::::::::::: callout
+### Time increment
+
+Note that there is a default argument of `increment = 1`. This relates to the time step of the ODE solver. When the parameters and maximum number of time steps is days, the default increment is one day.
+
+The choice of increment will depend on the timescale of the parameters, and the rate at which events can occur. In general, the increment should smaller than the fastest event. For example, if parameters are on a monthly time scale, but some events will occur within a month, then the increment should be less than one month.
+
+::::::::::::::::::::::::::::::::::::::::::::::::
 
 
 
