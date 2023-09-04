@@ -27,12 +27,18 @@ Using the R package `epidemics`, learn how to:
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
+::::::::::::::::::::::::::::::::::::: prereq
+
+## Prerequisites
++ Prior knowledge of ordinary differential equations is beneficial 
+:::::::::::::::::::::::::::::::::
+
+
 ## Introduction
 
-In this tutorial, we will use the R package `epidemics` to generate trajectories of disease spread.
+Mathematical models are useful tools for generating future trajectories of disease spread. Such models can be used to evalute the implementation of non-pharmaceutical and pharmaceutical interventions while accounting for factors such as age.
 
-<!-- Why do we generate predictions-->
-
+In this tutorial, we will use the R package `epidemics` to generate trajectories of disease spread. By the end of this tutorial, you will be able to generate the trajectory below showing the number of infectious individuals in different age categories through time.
 
 ```{r traj, echo = FALSE, message= FALSE}
 # load contact and population data from socialmixr::polymod
@@ -132,11 +138,6 @@ if(!require("pak")) install.packages("pak")
 pak::pak("epiverse-trace/epidemics")
 ```
 
-::::::::::::::::::::::::::::::::::::: prereq
-
-## Prerequisites
-+ Prior knowledge of ordinary differential equations is beneficial 
-:::::::::::::::::::::::::::::::::
 
 ## Model structures
 To generate predictions of infectious disease trajectories, we must first select a mathematical model to use.
@@ -194,7 +195,6 @@ To generate trajectories using our model, we need the following :
 2.  contact matrix,
 3.  demographic structure,
 4.  initial conditions. 
-
 
 ## Model parameters
 
