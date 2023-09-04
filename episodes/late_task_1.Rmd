@@ -234,7 +234,7 @@ influenza <- infection(
 <!-- ### Load parameters from previous tutorials  -->
 
 
-## Contact matrix and demography
+### Contact matrix
 
 <!-- Introduce social contact matrix, square matrix $i$ rows and $j$ columns  -->
 
@@ -284,14 +284,7 @@ contact_matrix
 :::::::::::::::::::::::::::::::::
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
-<!-- Demography vector  -->
 
-```{r demography}
-# prepare the demography vector
-demography_vector <- contact_data$demography$population
-names(demography_vector) <- rownames(contact_matrix)
-demography_vector
-```
 
 ::::::::::::::::::::::::::::::::::::: challenge 
 
@@ -356,7 +349,17 @@ initial_conditions <- rbind(
 rownames(initial_conditions) <- rownames(contact_matrix)
 initial_conditions
 ```
-### Prepare population
+
+### Running the model
+
+Demography vector
+
+```{r demography}
+# prepare the demography vector
+demography_vector <- contact_data$demography$population
+names(demography_vector) <- rownames(contact_matrix)
+demography_vector
+```
 
 prepare population
 
@@ -368,8 +371,6 @@ uk_population <- population(
   initial_conditions = initial_conditions
 )
 ```
-
-### Running the model
 
 run model
 
