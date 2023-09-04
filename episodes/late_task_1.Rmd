@@ -53,15 +53,19 @@ names(demography_vector) <- rownames(contact_matrix)
 
 # initial conditions: one in every 1 million is infected
 initial_i <- 1e-6
-initial_conditions <- c(
+initial_conditions_inf <- c(
   S = 1 - initial_i, E = 0, I = initial_i, R = 0, V = 0
+)
+
+initial_conditions_free <- c(
+  S = 1, E = 0, I = 0, R = 0, V = 0
 )
 
 # build for all age groups
 initial_conditions <- rbind(
-  initial_conditions,
-  initial_conditions,
-  initial_conditions
+  initial_conditions_inf,
+  initial_conditions_free,
+  initial_conditions_free
 )
 rownames(initial_conditions) <- rownames(contact_matrix)
 
@@ -81,8 +85,6 @@ influenza <- infection(
   preinfectious_period = 3,
   infectious_period = 7
 )
-
-# an intervention to close schools
 
 # run an epidemic model using `epidemic()`
 output <- epidemic_default_cpp(
@@ -319,7 +321,98 @@ contact_data
 
 ## Running simulations
 
-<!-- Simulate without interventions. Initial conditions, prepare population, output, visualize  -->
+We have prepared our parameter values, contact matrix and demography vector. Now we must set the initial conditions, prepare the population and run the model. 
+
+### Initial conditions
+
+The initial conditions are the proportion of individuals in each disease state $S$, $E$, $I$ and $R$ for each age group at time 0. In this example, we have three age groups : [0,20),  [20,40) , 40+. Let's assume that in the youngest age category one in a million individuals are infectious and the remaining age categories are infection free. 
+
+The initial conditions in the first age category are $S(0)=1-\frac{1}{1,000,000}$, $E(0) =0$, $I(0)=\frac{1}{1,000,000}$, $R(0)=0$. This is specified as a vector as follows:
+
+```{r initial_inf}
+initial_i <- 1e-6
+initial_conditions_inf <- c(
+  S = 1 - initial_i, E = 0, I = initial_i, R = 0, V = 0
+)
+```
+
+For the age categories that are free from infection, the initial conditions are $S(0)=1$, $E(0) =0$, $I(0)=0$, $R(0)=0$. We specify this as follows,
+
+```{r initial_free}
+initial_conditions_free <- c(
+  S = 1, E = 0, I = 0, R = 0, V = 0
+)
+```
+
+We combine the three initial conditions vectors into one matrix, 
+
+```{r initial condtions}
+# build for all age groups
+initial_conditions <- rbind(
+  initial_conditions_inf,
+  initial_conditions_free,
+  initial_conditions_free
+)
+rownames(initial_conditions) <- rownames(contact_matrix)
+initial_conditions
+```
+### Prepare population
+
+prepare population
+
+```{r population}
+uk_population <- population(
+  name = "UK",
+  contact_matrix = contact_matrix,
+  demography_vector = demography_vector,
+  initial_conditions = initial_conditions
+)
+```
+
+### Running the model
+
+run model
+
+```{r run_model}
+output <- epidemic_default_cpp(
+  population = uk_population,
+  infection = influenza,
+  intervention = NULL,
+  time_end = 600, increment = 1.0
+)
+```
+
+
+something on time end, increments and parameters 
+
+visualise output
+
+
+```{r visualise}
+ggplot(output[compartment == "infectious", ]) +
+  geom_line(
+    aes(time, value, colour = demography_group)
+  ) +
+  scale_colour_brewer(
+    palette = "Dark2",
+    labels = rownames(contact_matrix),
+    name = "Age group"
+  ) +
+  scale_y_continuous(
+    labels = scales::comma,
+    name = "Infectious indivduals"
+  ) +
+  labs(
+    x = "Model time (days)"
+  ) +
+  theme_classic() +
+  theme(
+    legend.position = "top"
+  )
+
+```
+
+
 
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
