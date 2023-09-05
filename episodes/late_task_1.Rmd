@@ -2,6 +2,8 @@
 title: 'Simulating transmission scenarios'
 teaching: 10 # teaching time in minutes
 exercises: 5 # exercise time in minutes
+bibliography: references.bib
+link-citations: true
 ---
 
 ```{r setup, echo= FALSE}
@@ -13,7 +15,7 @@ library(epidemics);library(ggplot2)
 
 - How do I generate predictions of disease trajectories?
 - What model structure do I need?
-- How do I read in a social contact matrix? 
+- What inputs do I require for a model simulation? 
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -38,7 +40,7 @@ Using the R package `epidemics`, learn how to:
 
 Mathematical models are useful tools for generating future trajectories of disease spread. Such models can be used to evaluate the implementation of non-pharmaceutical and pharmaceutical interventions while accounting for factors such as age.
 
-In this tutorial, we will use the R package `epidemics` to generate trajectories of disease spread. By the end of this tutorial, you will be able to generate the trajectory below showing the number of infectious individuals in different age categories through time.
+In this tutorial, we will use the R package [`epidemics`](https://github.com/epiverse-trace/epidemics) to generate trajectories of disease spread. By the end of this tutorial, you will be able to generate the trajectory below showing the number of infectious individuals in different age categories through time.
 
 ```{r traj, echo = FALSE, message= FALSE}
 # load contact and population data from socialmixr::polymod
@@ -235,7 +237,9 @@ influenza <- infection(
 
 ### Contact matrix
 
-<!-- Introduce social contact matrix, square matrix $i$ rows and $j$ columns  -->
+The contact matrix is a square matrix consisting of rows/columns equal to the number age groups. Each element represents the frequency of contacts between age groups. 
+
+Contact matrices can be estimated from surveys or contact data, or synthetic ones can be used. We will use the R package [`socialmixr`](https://cran.r-project.org/web/packages/socialmixr/) to load in a contact matrix estimated from POLYMOD survey data [(Mossong et al. 2008)](https://doi.org/10.1371/journal.pmed.0050074).
 
 
 ::::::::::::::::::::::::::::::::::::: challenge 
@@ -244,15 +248,14 @@ influenza <- infection(
 
 Using the R package `socialmixr`, run the following lines of R code to obtain the contact matrix for the United Kingdom for the year age bins:
 
-+ [0,20)
-+ [20, 40)
-+ 40 +
-
++ age between 0 and 20 years,
++ age between 20 and 40,
++ 40 years and over.
 
 ```r
 polymod <- socialmixr::polymod
 contact_data <- socialmixr::contact_matrix(
-  polymod,
+  survey = polymod,
   countries = "United Kingdom",
   age.limits = c(0, 20, 40),
   symmetric = TRUE
@@ -283,31 +286,16 @@ contact_matrix
 :::::::::::::::::::::::::::::::::
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
+The result is a square matrix with rows and columns for each age group. 
 
+Contact matrices can be loaded from other sources, but they must be in the correct format to be used in `epidemics`.
 
-::::::::::::::::::::::::::::::::::::: challenge 
+::::::::::::::::::::::::::::::::::::: callout
+### Why would a contact matrix be non-symmetric?
 
-## Load contact and population data for Poland
+One of the arguments of the function `contact_matrix` was `symmetric=TRUE`. This means that the off diagonal elements are equal to each other. This makes sense as it means that the frequency of contact between age group 1 and 2, is the same as age group 2 and 1.
 
-Load contact and population data for Poland from socialmixr::polymod using the following age bins:
-
-+ [0,15)
-+ [15, 50)
-+ 50 +
-
-:::::::::::::::::::::::: solution 
-
-```{r polymod_poland}
-polymod <- socialmixr::polymod
-contact_data <- socialmixr::contact_matrix(
-  polymod,
-  countries = "Poland",
-  age.limits = c(0, 15, 50),
-  symmetric = TRUE
-)
-contact_data
-```
-:::::::::::::::::::::::::::::::::
+However, when contact matrices are estimated from surveys or other sources, the *reported* number of contacts may differ by age group resulting in a non-symmetric contact matrix [(Prem et al 2021)](https://doi.org/10.1371/journal.pcbi.1009098).
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
 
