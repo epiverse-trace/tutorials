@@ -60,7 +60,8 @@ contact: 'team@carpentries.org' # FIXME
 # Order of episodes in your lesson
 episodes:
 - introduction.Rmd
-- late_task_1.Rmd
+- simulating_transmission.Rmd
+- model_choices.Rmd
 
 # Information for Learners
 learners:

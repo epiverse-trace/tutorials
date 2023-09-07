@@ -1,0 +1,53 @@
+---
+title: 'Choosing the right model'
+teaching: 45 # teaching time in minutes
+exercises: 30 # exercise time in minutes
+
+---
+
+```{r setup, echo= FALSE}
+library(epidemics);library(ggplot2)
+```
+
+
+:::::::::::::::::::::::::::::::::::::: questions 
+
+-
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+::::::::::::::::::::::::::::::::::::: objectives
+
+-
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+::::::::::::::::::::::::::::::::::::: prereq
+
+## Prerequisites
++ 
+:::::::::::::::::::::::::::::::::
+
+
+## Introduction
+
+
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: instructor
+
+Inline instructor notes can help inform instructors of timing challenges
+associated with the lessons. They appear in the "Instructor View"
+
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+## Accessing model library
+
+## Choosing a model
+
+## Challenge  
+
+::::::::::::::::::::::::::::::::::::: keypoints 
+
+- 
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
