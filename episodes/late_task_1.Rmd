@@ -1,7 +1,7 @@
 ---
-title: 'Simulating transmission scenarios'
-teaching: 10 # teaching time in minutes
-exercises: 5 # exercise time in minutes
+title: 'Simulating transmission'
+teaching: 45 # teaching time in minutes
+exercises: 30 # exercise time in minutes
 bibliography: references.bib
 link-citations: true
 ---
@@ -38,7 +38,7 @@ Using the R package `epidemics`, learn how to:
 
 ## Introduction
 
-Mathematical models are useful tools for generating future trajectories of disease spread. Such models can be used to evaluate the implementation of non-pharmaceutical and pharmaceutical interventions while accounting for factors such as age.
+Mathematical models are useful tools for generating future trajectories of disease spread. Models can be used to evaluate the implementation of non-pharmaceutical and pharmaceutical interventions while accounting for factors such as age.
 
 In this tutorial, we will use the R package [`epidemics`](https://github.com/epiverse-trace/epidemics) to generate trajectories of disease spread. By the end of this tutorial, you will be able to generate the trajectory below showing the number of infectious individuals in different age categories through time.
 
@@ -147,7 +147,6 @@ In `epidemics` models are defined as either *epidemic* models or *outbreak* mode
 
 There is a library of epidemic and outbreak models to choose from in `epidemics`. Models are prefixed with either epidemic or outbreak, and suffixed by the infection name. In this tutorial, we will use the default epidemic model, `epidemic_default` which is described in the next section.
 
-<!-- To view this library XXX.. -->
 
 ::::::::::::::::::::::::::::::::::::: callout
 ### Check model equations
@@ -168,7 +167,7 @@ The default epidemic model is an age-structured SEIR-V model described by a syst
 The model parameters and equations are as follows :
 
 - transmission rate $\beta$,
-- contact matrix $C$ (a square $i \times j$ matrix),
+- contact matrix $C$ containing the frequency of contacts between age groups (a square $i \times j$ matrix),
 - rate of transition from exposed to infectious $\alpha$ (preinfectious period=$1/\alpha$),
 - recovery rate $\gamma$ (infectious period = $1/\gamma$),
 - time dependent vaccination rate $\nu_t$.
@@ -186,8 +185,8 @@ $$
 
 From the model structure we see that :
 
-- there is heterogeneity in contacts between age groups,
-- there is no loss of immunity,
+- the contact matrix $C$ allows for heterogeneity in contacts between age groups,
+- there is no loss of immunity (there are no flows out of the recovered or vaccinated states),
 - only susceptibles are vaccinated.
 
 To generate trajectories using our model, we need the following :  
@@ -207,18 +206,6 @@ To run our model we need to specify the model parameters. For this tutorial, we 
 
 We will learn how to specify the contact matrix $C$ in the next section. 
 
-::::::::::::::::::::::::::::::::::::: callout
-### The basic reproduction number $R_0$
-The basic reproduction number, $R_0$, for the SEIR model is: 
-
-$$ R_0 = \frac{\beta}{\gamma}.$$ 
-
-Therefore, we can rewrite the transmission rate, $\beta$, as:
-
-$$ \beta = R_0 \gamma.$$
-
-
-::::::::::::::::::::::::::::::::::::::::::::::::
 
 In `epidemics`, we use the function `infection` to create an infection object containing the values of, $R_0$, the preinfectious period ($1/\alpha$) and the infectious period ($1/\gamma$) as follows.
 
@@ -232,12 +219,28 @@ influenza <- infection(
 
 ```
 
+::::::::::::::::::::::::::::::::::::: callout
+### The basic reproduction number $R_0$
+The basic reproduction number, $R_0$, for the SEIR model is: 
+
+$$ R_0 = \frac{\beta}{\gamma}.$$ 
+
+Therefore, we can rewrite the transmission rate, $\beta$, as:
+
+$$ \beta = R_0 \gamma.$$
+
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+
 <!-- ### Load parameters from previous tutorials  -->
 
 
 ### Contact matrix
 
 The contact matrix is a square matrix consisting of rows/columns equal to the number age groups. Each element represents the frequency of contacts between age groups. 
+
+If we believe that transmission of an infection is driven by contact, and that contact rates are very different for different age groups, then specifying a contact matrix allows us to account for age specific rates of transmission. 
 
 Contact matrices can be estimated from surveys or contact data, or synthetic ones can be used. We will use the R package [`socialmixr`](https://cran.r-project.org/web/packages/socialmixr/) to load in a contact matrix estimated from POLYMOD survey data [(Mossong et al. 2008)](https://doi.org/10.1371/journal.pmed.0050074).
 
@@ -286,16 +289,12 @@ contact_matrix
 :::::::::::::::::::::::::::::::::
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
-The result is a square matrix with rows and columns for each age group. 
-
-Contact matrices can be loaded from other sources, but they must be in the correct format to be used in `epidemics`.
+The result is a square matrix with rows and columns for each age group. Contact matrices can be loaded from other sources, but they must be in the correct format to be used in `epidemics`.
 
 ::::::::::::::::::::::::::::::::::::: callout
 ### Why would a contact matrix be non-symmetric?
 
-One of the arguments of the function `contact_matrix` was `symmetric=TRUE`. This means that the off diagonal elements are equal to each other. This makes sense as it means that the frequency of contact between age group 1 and 2, is the same as age group 2 and 1.
-
-However, when contact matrices are estimated from surveys or other sources, the *reported* number of contacts may differ by age group resulting in a non-symmetric contact matrix [(Prem et al 2021)](https://doi.org/10.1371/journal.pcbi.1009098).
+One of the arguments of the function `contact_matrix` is `symmetric=TRUE`. This means that the total number of contacts of age group 1 with age group 2, should be the same as the total number of contacts of age group 2 and age group 1 (see the `socialmixr` [vignette](https://cran.r-project.org/web/packages/socialmixr/vignettes/socialmixr.html) for more detail). However, when contact matrices are estimated from surveys or other sources, the *reported* number of contacts may differ by age group resulting in a non-symmetric contact matrix [(Prem et al 2021)](https://doi.org/10.1371/journal.pcbi.1009098).
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
 
@@ -305,7 +304,7 @@ We have prepared our parameter values, contact matrix and demography vector. Now
 
 ### Initial conditions
 
-The initial conditions are the proportion of individuals in each disease state $S$, $E$, $I$ and $R$ for each age group at time 0. In this example, we have three age groups : [0,20),  [20,40) , 40+. Let's assume that in the youngest age category one in a million individuals are infectious and the remaining age categories are infection free. 
+The initial conditions are the proportion of individuals in each disease state $S$, $E$, $I$ and $R$ for each age group at time 0. In this example, we have three age groups age between 0 and 20 years, age between 20 and 40 years and over. Let's assume that in the youngest age category, one in a million individuals are infectious, and the remaining age categories are infection free. 
 
 The initial conditions in the first age category are $S(0)=1-\frac{1}{1,000,000}$, $E(0) =0$, $I(0)=\frac{1}{1,000,000}$, $R(0)=0$. This is specified as a vector as follows:
 
@@ -339,9 +338,13 @@ initial_conditions
 
 ### Running the model
 
-The final steps to run the model for the given parameters and initial conditions, is to specify the the demographic structure and then prepare the population. 
+To run the model we need the following inputs:
 
-The demographic vector must be a named vector containing the number of individual in each age group of our given population. In this example, we can extract the demographic information from the `contact_data` object that we obtained using the `socialmixr` package.
+- an infection object, 
+- a population object,
+- an optional number of time steps.
+
+We have already created our infection object `influenza`. The population object requires a vector containing the demographic structure of the population. The demographic vector must be a named vector containing the number of individuals in each age group of our given population. In this example, we can extract the demographic information from the `contact_data` object that we obtained using the `socialmixr` package.
 
 ```{r demography}
 demography_vector <- contact_data$demography$population
@@ -349,13 +352,7 @@ names(demography_vector) <- rownames(contact_matrix)
 demography_vector
 ```
 
-To run the model we need the following inputs:
-
-- a population object,
-- an infection object, 
-- an optional number of time steps.
-
-We have already created our infection object `influenza`. To create our population object, we call the function `population` specifying a name, the contact matrix, the demography vector and the initial conditions.
+To create our population object, we call the function `population` specifying a name, the contact matrix, the demography vector and the initial conditions.
 
 ```{r population}
 uk_population <- population(
@@ -365,7 +362,6 @@ uk_population <- population(
   initial_conditions = initial_conditions
 )
 ```
-
 
 No we are ready to run our model. We will specify `time_end=600` to run the model for 600 days.
 
@@ -377,7 +373,7 @@ output <- epidemic_default_cpp(
 )
 head(output)
 ```
-Our model output consists of the number of individuals in each compartment in each age group through time.We can visualise the infectious individuals only (those in the $I$ class) through time.
+Our model output consists of the number of individuals in each compartment in each age group through time. We can visualise the infectious individuals only (those in the $I$ class) through time.
 
 ```{r visualise}
 ggplot(output[compartment == "infectious", ]) +
@@ -405,7 +401,7 @@ ggplot(output[compartment == "infectious", ]) +
 
 
 ::::::::::::::::::::::::::::::::::::: callout
-### Time increment
+### Time increments
 
 Note that there is a default argument of `increment = 1`. This relates to the time step of the ODE solver. When the parameters and maximum number of time steps is days, the default increment is one day.
 
@@ -413,11 +409,13 @@ The choice of increment will depend on the timescale of the parameters, and the 
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
+## Summary 
 
+In this tutorial, we have learnt how to generate disease trajectories using a mathematical model. Once a model has been chosen, the parameters and other inputs must be specified in the correct way to perform model simulations. In the next tutorial, we will consider how to choose the right model for different tasks. 
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
-- Summarise the key points of the lesson using bullet points
-
+- Disease trajectories can be generated using the R package `epidemics`
+- Contact matrices can be estimated from different sources
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
