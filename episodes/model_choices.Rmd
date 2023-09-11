@@ -12,20 +12,21 @@ library(epidemics);library(ggplot2)
 
 :::::::::::::::::::::::::::::::::::::: questions 
 
--
+- What model structure do I need for my task?
+
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
 ::::::::::::::::::::::::::::::::::::: objectives
 
--
+- Learn how to access the model library in `epidemics`
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
 ::::::::::::::::::::::::::::::::::::: prereq
 
 ## Prerequisites
-+ 
++ Complete tutorial 'Simulating transmission'
 :::::::::::::::::::::::::::::::::
 
 

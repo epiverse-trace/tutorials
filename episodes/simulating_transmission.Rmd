@@ -12,8 +12,7 @@ library(epidemics);library(ggplot2)
 :::::::::::::::::::::::::::::::::::::: questions 
 
 - How do I generate predictions of disease trajectories?
-- What model structure do I need?
-- What inputs do I require for a model simulation? 
+- What inputs are needed for a model simulation? 
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
