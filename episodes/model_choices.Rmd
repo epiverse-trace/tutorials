@@ -1,5 +1,5 @@
 ---
-title: 'Choosing the right model'
+title: 'Choosing a model'
 teaching: 45 # teaching time in minutes
 exercises: 30 # exercise time in minutes
 
@@ -12,7 +12,7 @@ library(epidemics);library(ggplot2)
 
 :::::::::::::::::::::::::::::::::::::: questions 
 
-- What model structure do I need for my task?
+- How do I choose a model for my task?
 
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
@@ -20,6 +20,7 @@ library(epidemics);library(ggplot2)
 ::::::::::::::::::::::::::::::::::::: objectives
 
 - Learn how to access the model library in `epidemics`
+- Understand the model requirements for a question 
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -32,6 +33,7 @@ library(epidemics);library(ggplot2)
 
 ## Introduction
 
+Using mathematical models in outbreak analysis does not necessarily require developing a new model. There are existing models for different infections, interventions and transmission patterns which can be used to answer new questions. In this tutorial, we will learn how to choose an existing model to generate predictions for a given scenario.
 
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: instructor
 
@@ -40,11 +42,72 @@ associated with the lessons. They appear in the "Instructor View"
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
-## Accessing model library
+### Choosing a model 
 
-## Choosing a model
+When deciding whether an existing model can be used, we must consider :
 
-## Challenge  
++ What is the infection/disease of interest? 
++ Is the modelling exercise for a disease with pandemic potential or a localised outbreak?
++ What is the outcome of interest?
++ Will any interventions be modelled? 
+
+A model may already exist for your study disease, or there may be a model for an infection that has the same transmission pathways and epidemiological features that can be used. 
+
+Model structures differ for whether the disease has pandemic potential or not. We refer to such models as epidemic (pandemic potential) or outbreak (no pandemic potential). The choice between these two types of model will depend on the disease of interest and the question which will be answered with the modelling work.
+
+The outcome of interest can be a feature of a mathematical model. It may be that you interested in the predicted numbers of infection through time, or in a specific outcome such as hospitalisations or cases of severe disease.
+
+Finally, interventions such as vaccination may be of interest. A model may or may not have the capability to predict the impact of different interventions on different timescales (continuous time or at discrete time points). We will discuss interventions in detail in the next tutorial.
+
+
+### Accessing the model library
+ 
+The R package `epidemics` contains functions to run existing models. In `epidemics` we can choose from epidemic or outbreak models. Models are prefixed with either epidemic or outbreak, and suffixed by the infection name. To view the model library...
+
+## Challenge
+
+::::::::::::::::::::::::::::::::::::: challenge 
+
+## Generate predictions of XX caused by infection with XX
+
+You have been asked to generate initial predictions of XX after an introduction of XX in a susceptible population. 
+
+You have been given the following information :
+
++ the country of interest has a population of XX with contact matrix XX,
++ the infection is introduced all age groups XX, with one in a million individuals infected
+
+Select a model from the `epidemics` model library, specify the necessary inputs and create a visualisation of the predicted XX through time.
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+
+```{css, echo=FALSE}
+.spoiler {
+  visibility: hidden;
+}
+
+.spoiler::before {
+  visibility: visible;
+  content: "HINT : What model should I use?"
+}
+
+.spoiler:hover {
+  visibility: visible;
+}
+
+.spoiler:hover::before {
+  display: none;
+}
+```
+
+
+[You require a model which will generate predictions of infection without pandemic potential, so we need an *outbreak* model. ]{.spoiler}
+
+### Answer
+
+An appropriate choice of model for this challenge should include...
+
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
