@@ -210,7 +210,7 @@ In `epidemics`, we use the function `infection` to create an infection object co
 ```{r, eval = FALSE}
 influenza <- infection(
   name = "influenza",
-  r0 = 1.46,
+  r0 = 1.5,
   preinfectious_period = 3,
   infectious_period = 7
 )
