@@ -37,8 +37,7 @@ Using mathematical models in outbreak analysis does not necessarily require deve
 
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: instructor
 
-Inline instructor notes can help inform instructors of timing challenges
-associated with the lessons. They appear in the "Instructor View"
+The focus of this tutorial is understanding existing models to decide if they are appropriate for a defined question. 
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 

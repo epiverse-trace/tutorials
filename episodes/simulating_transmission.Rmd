@@ -33,6 +33,7 @@ Using the R package `epidemics`, learn how to:
 :::::::::::::::::::::::::::::::::
 
 
+
 ## Introduction
 
 Mathematical models are useful tools for generating future trajectories of disease spread. Models can be used to evaluate the implementation of non-pharmaceutical and pharmaceutical interventions while accounting for factors such as age.
@@ -124,8 +125,7 @@ ggplot(output[compartment == "infectious", ]) +
 
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: instructor
 
-Inline instructor notes can help inform instructors of timing challenges
-associated with the lessons. They appear in the "Instructor View"
+By the end of this tutorial, learners should be able to replicate the above image on their own computers.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
