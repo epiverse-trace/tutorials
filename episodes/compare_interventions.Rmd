@@ -51,7 +51,7 @@ In mathematical modelling, we must make assumptions about how NPIs will affect t
 #### Effect of school closures on COVID-19 spread
 We want to investigate the effect of school closures on reducing the number of infected and infectious with COVID-19 through time. 
 
-Using an SEIR model (`epidemic_default` in the R package `epidemics`) we set $R_0 = 2.7$, preinfectious_period $= 3$ and the infectious_period $= 7$ (parameters adapted from [Davies et al. (2020)](https://doi.org/10.1016/S2468-2667(20)30133-X)). We load a contact matrix with 5 yearly age bins using `socialmixr` and assume that one in every 1 million in each 5 year age group is infectious.
+Using an SEIR model (`epidemic_default()` in the R package `{epidemics}`) we set $R_0 = 2.7$, preinfectious_period $= 3$ and the infectious_period $= 7$ (parameters adapted from [Davies et al. (2020)](https://doi.org/10.1016/S2468-2667(20)30133-X)). We load a contact matrix with 5 yearly age bins using `{socialmixr}` and assume that one in every 1 million in each 5 year age group is infectious.
 
 We assume that school closure will reduce the contact rates between school aged children (aged 0-15) and individuals aged 15 and over, and will cause a small reduction in the contact rate between adults (aged 15 and over).
 
