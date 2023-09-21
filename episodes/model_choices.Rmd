@@ -68,11 +68,11 @@ The R package `epidemics` contains functions to run existing models. In `epidemi
 
 *Coming soon*
 
-<!-- ::::::::::::::::::::::::::::::::::::: challenge  -->
+<!-- ::::::::::::::::::::::::::::::::::::: challenge -->
 
 <!-- ## Generate predictions of XX caused by infection with XX -->
 
-<!-- You have been asked to generate initial predictions of XX after an introduction of XX in a susceptible population.  -->
+<!-- You have been asked to generate initial predictions of XX after an introduction of XX in a susceptible population. -->
 
 <!-- You have been given the following information : -->
 
@@ -81,34 +81,45 @@ The R package `epidemics` contains functions to run existing models. In `epidemi
 
 <!-- Select a model from the `epidemics` model library, specify the necessary inputs and create a visualisation of the predicted XX through time. -->
 
+<!-- ::::::::::::::::: hint -->
+
+<!-- ### HINT 1 : What model should I use? -->
+
+<!-- You require a model which will generate predictions of infection without pandemic potential, so we need an *outbreak* model. -->
+
+<!-- ::::::::::::::::: checklist -->
+
+<!-- ### Check model equations -->
+
+<!-- - How is transmission modelled? -->
+<!-- - What interventions are modelled?  -->
+<!-- - What state variables are there and how do they relate to assumptions about infection? -->
+
+<!-- ::::::::::::::::::::::::::: -->
+
+
+<!-- :::::::::::::::::::::: -->
+
+
+<!-- ::::::::::::::::: hint -->
+
+<!-- ### HINT 2 -->
+
+
+
+<!-- :::::::::::::::::::::: -->
+
+<!-- ::::::::::::::::: solution -->
+
+<!-- ### SOLUTION  -->
+
+
+
+
+<!-- :::::::::::::::::::::::::: -->
+
 <!-- :::::::::::::::::::::::::::::::::::::::::::::::: -->
 
-
-<!-- ```{css, echo=FALSE} -->
-<!-- .spoiler { -->
-<!--   visibility: hidden; -->
-<!-- } -->
-
-<!-- .spoiler::before { -->
-<!--   visibility: visible; -->
-<!--   content: "HINT : What model should I use?" -->
-<!-- } -->
-
-<!-- .spoiler:hover { -->
-<!--   visibility: visible; -->
-<!-- } -->
-
-<!-- .spoiler:hover::before { -->
-<!--   display: none; -->
-<!-- } -->
-<!-- ``` -->
-
-
-<!-- [You require a model which will generate predictions of infection without pandemic potential, so we need an *outbreak* model. ]{.spoiler} -->
-
-<!-- ### Answer -->
-
-<!-- An appropriate choice of model for this challenge should include... -->
 
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
