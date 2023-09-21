@@ -149,7 +149,7 @@ There is a library of epidemic and outbreak models to choose from in `epidemics`
 ### Check model equations
 When using existing model structures always check the model assumptions. Ask questions such as:
 
-- How is transmission modelled?
+- How is transmission modelled? e.g. direct or indirect, airborne or vector-borne
 - What interventions are modelled? 
 - What state variables are there and how do they relate to assumptions about infection?
 
