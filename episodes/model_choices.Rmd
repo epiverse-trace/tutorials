@@ -62,7 +62,13 @@ Finally, interventions such as vaccination may be of interest. A model may or ma
 
 ### Accessing the model library
  
-The R package `epidemics` contains functions to run existing models. In `epidemics` we can choose from epidemic or outbreak models. Models are prefixed with either epidemic or outbreak, and suffixed by the infection name. Functionality to view the model library will be added in the future.
+The R package `epidemics` contains functions to run existing models. In `epidemics` we can choose from epidemic or outbreak models. Models are prefixed with either epidemic or outbreak, and suffixed by the infection name. The names of available models can be found using the function `get_model_names()`.
+
+```{r}
+get_model_names(model_type = "epidemic")
+```
+
+Currently the only model type available is epidemic, further model types will be added in future.
 
 ## Challenge
 
