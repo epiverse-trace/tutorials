@@ -185,6 +185,17 @@ From the model structure we see that :
 
 This model also has the functionality to include vaccination and tracks the number of vaccinated individuals through time. We will cover the use of interventions in future tutorials.
 
+::::::::::::::::::::::::::::::::::::: callout
+### Exposed, infected, infectious
+
+Confusion sometimes arises when referring to the terms 'exposed', 'infected' and 'infectious' in mathematical modelling. Infection occurs after a person has been exposed, but in modelling terms individuals that are 'exposed' are treated as already infected. 
+
+We will use the following definitions for our state variables:
+
++ $E$ = Exposed : infected **but not yet** infectious,
++ $I$ = Infectious: infected **and** infectious.
+::::::::::::::::::::::::::::::::::::::::::::::::
+
 
 To generate trajectories using our model, we need the following :  
 
