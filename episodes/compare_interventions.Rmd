@@ -80,7 +80,7 @@ output_school <- epidemic_default_cpp(
 We see that with the intervention in place, the infection still spreads through the population. To quantify the effect of the intervention we need to compare our intervention scenario to a counter factual scenario. 
 
 
-```{r, echo = FALSE}
+```{r, echo = FALSE, message = FALSE}
 polymod <- socialmixr::polymod
 contact_data <- socialmixr::contact_matrix(
   polymod,

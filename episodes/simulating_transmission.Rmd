@@ -270,7 +270,7 @@ contact_matrix
 
 ## Output
  
-```{r polymod_uk, echo = FALSE}
+```{r polymod_uk, echo = FALSE, message = FALSE}
  polymod <- socialmixr::polymod
 contact_data <- socialmixr::contact_matrix(
   polymod,
