@@ -28,6 +28,10 @@ library(epidemics);library(ggplot2)
 
 ## Prerequisites
 + Complete tutorial 'Simulating transmission'
+
+This tutorial has the following concept dependencies:
+
+**Outbreak response** : Intervention types.
 :::::::::::::::::::::::::::::::::
 
 

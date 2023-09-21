@@ -29,7 +29,14 @@ Using the R package `epidemics`, learn how to:
 ::::::::::::::::::::::::::::::::::::: prereq
 
 ## Prerequisites
-+ Prior knowledge of ordinary differential equations is beneficial 
+
+This tutorial has the following concept dependencies: 
+
+**Modelling** : Components of infectious disease models e.g. state variables, parameters, initial conditions, Ordinary differential equations.
+
+**Epidemic theory** : Transmission, Reproduction number.
+
+**Data science**  : For loops.
 :::::::::::::::::::::::::::::::::
 
 
