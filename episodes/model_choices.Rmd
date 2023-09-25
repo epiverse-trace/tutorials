@@ -61,13 +61,21 @@ Finally, interventions such as vaccination may be of interest. A model may or ma
 
 ### Accessing the model library
  
-The R package `epidemics` contains functions to run existing models. In `epidemics` we can choose from epidemic or outbreak models. Models are prefixed with either epidemic or outbreak, and suffixed by the infection name. The names of available models can be found using the function `get_model_names()`.
+The R package `epidemics` contains functions to run existing models. In `epidemics` we can choose from epidemic or outbreak models. Models are prefixed with either epidemic or outbreak, and suffixed by the infection name. 
+
+*Outbreak* models focus on diseases that are not expected to have pandemic potential (such as Ebola). When predicted numbers of infection are small, stochastic variation in output can have an effect on whether an outbreak takes off or not. Outbreaks are usually smaller in magnitude than epidemics, so its often appropriate to use a stochastic model to characterise the uncertainty in the early stages of the outbreak.
+
+*Epidemic* models are usually deterministic models focusing on diseases with pandemic potential. Epidemics are larger in magnitude than outbreaks and so a deterministic model is suitable as we have less interest in the stochastic variation in output. 
+
+The names of available models can be found using the function `get_model_names()`.
 
 ```{r}
 get_model_names(model_type = "epidemic")
 ```
 
 Currently the only model type available is epidemic, further model types will be added in future.
+
+
 
 ## Challenge
 

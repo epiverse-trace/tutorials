@@ -14,6 +14,9 @@ Infection can be passed on via contact with infectious particles in the air
 
 ## D
 
+#### Deterministic models
+For given initial conditions and parameters, a model that will always have the same trajectory e.g. ODEs models.
+
 #### Direct transmission
 
 Directly transmitted infections are passed on via contact between humans
@@ -50,7 +53,11 @@ Indirectly transmitted infections are passed on to humans via contact with vecto
 
 <!-- ## R -->
 
-<!-- ## S -->
+## S
+
+#### Stochastic model
+A model that includes some stochastic process resulting in variation in model simulations for the same initial conditions and parameters. 
+
 
 <!-- ## T -->
 
