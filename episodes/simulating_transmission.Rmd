@@ -4,8 +4,9 @@ teaching: 45 # teaching time in minutes
 exercises: 30 # exercise time in minutes 
 ---
 
-```{r setup, echo= FALSE}
-library(epidemics);library(ggplot2);library(data.table)
+```{r setup, echo= FALSE, warning = FALSE, message=FALSE}
+library(epidemics);library(ggplot2);library(data.table);library(DiagrammeR);library(webshot)
+webshot::install_phantomjs(force = TRUE)
 ```
 
 
@@ -147,7 +148,7 @@ pak::pak("epiverse-trace/epidemics")
 ## Model structures
 To generate predictions of infectious disease trajectories, we must first select a mathematical model to use.
 
-In `epidemics` models are defined as either *epidemic* models or *outbreak* models. *Epidemic* models focus on directly transmitted diseases with pandemic potential (such as influenza and Covid), and *outbreak* models,  focus on diseases that are not expected to have pandemic potential (such as Ebola).
+In `epidemics` models are defined as either *epidemic* models or *outbreak* models. *Epidemic* models focus on directly transmitted diseases with pandemic potential (such as influenza and Covid), and *outbreak* models, focus on diseases that are not expected to have pandemic potential (such as Ebola).
 
 There is a library of epidemic and outbreak models to choose from in `epidemics`. Models are prefixed with either epidemic or outbreak, and suffixed by the infection name. In this tutorial, we will use the default epidemic model, `epidemic_default()` which is described in the next section.
 
@@ -167,6 +168,39 @@ There can be subtle differences in model structures for the same infection/outbr
 ### An epidemic model for pandemic influenza
 
 We want to generate disease trajectories of an influenza strain with pandemic potential. We will use the default epidemic model in `epidemics`, an age-structured SEIR model described by a system of ordinary differential equations. For each age group $i$, individuals are classed as either susceptible $S$, infected but not yet infectious $E$, infectious $I$ or recovered $R$. 
+
+```{r diagram, echo = FALSE}
+DiagrammeR::grViz("digraph {
+  
+  # graph statement
+  #################
+  graph [layout = dot,
+         rankdir = LR,
+         overlap = true,
+         fontsize = 10]
+
+  # nodes
+  #######
+  node [shape = square,           
+       fixedsize = true
+       width = 1.3] 
+       
+       S
+       E
+       I
+       R
+
+  # edges
+  #######
+  S -> E [label = ' infection']
+  E -> I [label = ' onset of \ninfectiousness']
+  I -> R [label = ' recovery']
+
+}")
+
+```
+
+
 
 The model parameters and equations are as follows :
 
