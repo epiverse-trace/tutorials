@@ -148,9 +148,7 @@ pak::pak("epiverse-trace/epidemics")
 ## Model structures
 To generate predictions of infectious disease trajectories, we must first select a mathematical model to use.
 
-In `epidemics` models are defined as either *epidemic* models or *outbreak* models. *Epidemic* models focus on directly transmitted diseases with pandemic potential (such as influenza and Covid), and *outbreak* models focus on diseases that are not expected to have pandemic potential (such as Ebola).
-
-There is a library of epidemic and outbreak models to choose from in `epidemics`. Models are prefixed with either epidemic or outbreak, and suffixed by the infection name. In this tutorial, we will use the default epidemic model, `epidemic_default()` which is described in the next section.
+There is a library of models to choose from in `epidemics`. Models are prefixed with epidemic and suffixed by the infection name. In this tutorial, we will use the default epidemic model, `epidemic_default()` which is described in the next section.
 
 
 ::::::::::::::::::::::::::::::::::::: callout
@@ -161,7 +159,7 @@ When using existing model structures always check the model assumptions. Ask que
 - What interventions are modelled? 
 - What state variables are there and how do they relate to assumptions about infection?
 
-There can be subtle differences in model structures for the same infection/outbreak type which can be missed without studying the equations.
+There can be subtle differences in model structures for the same infection or outbreak type which can be missed without studying the equations.
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
 

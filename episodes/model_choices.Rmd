@@ -46,26 +46,24 @@ The focus of this tutorial is understanding existing models to decide if they ar
 When deciding whether an existing model can be used, we must consider :
 
 + What is the infection/disease of interest? 
-+ Is the modelling exercise for a disease with pandemic potential or a localised outbreak? 
-+ What is the outcome of interest?
-+ Will any interventions be modelled? 
 
 A model may already exist for your study disease, or there may be a model for an infection that has the same transmission pathways and epidemiological features that can be used. 
 
-Model structures differ for whether the disease has pandemic potential or not. We refer to such models as epidemic (pandemic potential) or outbreak (no pandemic potential). The choice between these two types of model will depend on the disease of interest and the question which will be answered with the modelling work.
++ Do we need a deterministic or stochastic model? 
+
+Model structures differ for whether the disease has pandemic potential or not. When predicted numbers of infection are small, stochastic variation in output can have an effect on whether an outbreak takes off or not. Outbreaks are usually smaller in magnitude than epidemics, so its often appropriate to use a stochastic model to characterise the uncertainty in the early stages of the outbreak. Epidemics are larger in magnitude than outbreaks and so a deterministic model is suitable as we have less interest in the stochastic variation in output. 
+
++ What is the outcome of interest?
 
 The outcome of interest can be a feature of a mathematical model. It may be that you interested in the predicted numbers of infection through time, or in a specific outcome such as hospitalisations or cases of severe disease.
 
-Finally, interventions such as vaccination may be of interest. A model may or may not have the capability to predict the impact of different interventions on different timescales (continuous time or at discrete time points). We will discuss interventions in detail in the next tutorial.
++ Will any interventions be modelled? 
 
+Finally, interventions such as vaccination may be of interest. A model may or may not have the capability to predict the impact of different interventions on different timescales (continuous time or at discrete time points). We will discuss interventions in detail in the next tutorial.
 
 ### Accessing the model library
  
-The R package `epidemics` contains functions to run existing models. In `epidemics` we can choose from epidemic or outbreak models. Models are prefixed with either epidemic or outbreak, and suffixed by the infection name. 
-
-*Outbreak* models focus on diseases that are not expected to have pandemic potential (such as Ebola). When predicted numbers of infection are small, stochastic variation in output can have an effect on whether an outbreak takes off or not. Outbreaks are usually smaller in magnitude than epidemics, so its often appropriate to use a stochastic model to characterise the uncertainty in the early stages of the outbreak.
-
-*Epidemic* models are usually deterministic models focusing on diseases with pandemic potential. Epidemics are larger in magnitude than outbreaks and so a deterministic model is suitable as we have less interest in the stochastic variation in output. 
+The R package `epidemics` contains functions to run existing models. Models are prefixed with epidemic and suffixed by the infection name. 
 
 The names of available models can be found using the function `get_model_names()`.
 
@@ -73,7 +71,10 @@ The names of available models can be found using the function `get_model_names()
 get_model_names(model_type = "epidemic")
 ```
 
-Currently the only model type available is epidemic, further model types will be added in future. To find out more about each model read the documentation using `?epidemic_ebola` and the package [vignettes]{https://epiverse-trace.github.io/epidemics/articles}. Recall the check model equation questions we can consider when trying to understand an existing model. 
+Currently the only model type available is epidemic, further model types will be added in future. To find out more about each model read the documentation using `?epidemic_ebola` and the package [vignettes](https://epiverse-trace.github.io/epidemics/articles). Recall the check model equation questions we can consider when trying to understand an existing model. 
+
+
+
 
 
 ::::::::::::::::::::::::::::::::::::: checklist
@@ -110,7 +111,7 @@ Consider the following questions:
 ::::::::::::::::::::::::::::::::::::: checklist
 
 + What is the infection/disease of interest? 
-+ Is the modelling exercise for a disease with pandemic potential or a localised outbreak?
++ Do we need a deterministic or stochastic model? 
 + What is the outcome of interest?
 + Will any interventions be modelled? 
 
@@ -126,13 +127,13 @@ Consider the following questions:
 
 
 + What is the infection/disease of interest? **Ebola**
-+ Is the modelling exercise for a disease with pandemic potential or a localised outbreak? **Localised outbreak**
++ Do we need a deterministic or stochastic model?  **A stochastic model would allow us to explore variation in the early stages of the outbreak**
 + What is the outcome of interest? **Number of infections**
 + Will any interventions be modelled? **No**
 
 #### `epidemic_default`
 
-A deterministic SEIR model with age specific direct transmission. The model is capable or predicting an Ebola type outbreak, but as the model is deterministic, we are not able to explore stochastic variation in the early stages of the outbreak.
+A deterministic SEIR model with age specific direct transmission. The model is capable of predicting an Ebola type outbreak, but as the model is deterministic, we are not able to explore stochastic variation in the early stages of the outbreak.
 
 
 #### `epidemic_ebola`
