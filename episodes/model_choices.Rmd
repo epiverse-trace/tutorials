@@ -46,7 +46,7 @@ The focus of this tutorial is understanding existing models to decide if they ar
 When deciding whether an existing model can be used, we must consider :
 
 + What is the infection/disease of interest? 
-+ Is the modelling exercise for a disease with pandemic potential or a localised outbreak?
++ Is the modelling exercise for a disease with pandemic potential or a localised outbreak? 
 + What is the outcome of interest?
 + Will any interventions be modelled? 
 
@@ -73,65 +73,77 @@ The names of available models can be found using the function `get_model_names()
 get_model_names(model_type = "epidemic")
 ```
 
-Currently the only model type available is epidemic, further model types will be added in future.
+Currently the only model type available is epidemic, further model types will be added in future. To find out more about each model read the documentation using `?epidemic_ebola` and the package [vignettes]{https://epiverse-trace.github.io/epidemics/articles}. Recall the check model equation questions we can consider when trying to understand an existing model. 
+
+
+::::::::::::::::::::::::::::::::::::: checklist
+### Check model equations
+
+- How is transmission modelled? e.g. direct or indirect, airborne or vector-borne
+- What interventions are modelled? 
+- What state variables are there and how do they relate to assumptions about infection?
+
+::::::::::::::::::::::::::::::::::::::::::::::::
 
 
 
 ## Challenge
 
-*Coming soon*
+::::::::::::::::::::::::::::::::::::: challenge
 
-<!-- ::::::::::::::::::::::::::::::::::::: challenge -->
+## What model?
 
-<!-- ## Generate predictions of XX caused by infection with XX -->
+You have been asked to explore the variation in numbers of infected individuals in the early stages of an Ebola outbreak. 
 
-<!-- You have been asked to generate initial predictions of XX after an introduction of XX in a susceptible population. -->
+Which of the following models would be an appropriate choice for this task:
 
-<!-- You have been given the following information : -->
++  `epidemic_default`
 
-<!-- + the country of interest has a population of XX with contact matrix XX, -->
-<!-- + the infection is introduced all age groups XX, with one in a million individuals infected -->
++ `epidemic_ebola`
 
-<!-- Select a model from the `epidemics` model library, specify the necessary inputs and create a visualisation of the predicted XX through time. -->
+::::::::::::::::: hint
 
-<!-- ::::::::::::::::: hint -->
+### HINT
 
-<!-- ### HINT 1 : What model should I use? -->
+Consider the following questions:
 
-<!-- You require a model which will generate predictions of infection without pandemic potential, so we need an *outbreak* model. -->
+::::::::::::::::::::::::::::::::::::: checklist
 
-<!-- ::::::::::::::::: checklist -->
++ What is the infection/disease of interest? 
++ Is the modelling exercise for a disease with pandemic potential or a localised outbreak?
++ What is the outcome of interest?
++ Will any interventions be modelled? 
 
-<!-- ### Check model equations -->
-
-<!-- - How is transmission modelled? -->
-<!-- - What interventions are modelled?  -->
-<!-- - What state variables are there and how do they relate to assumptions about infection? -->
-
-<!-- ::::::::::::::::::::::::::: -->
+::::::::::::::::::::::::::::::::::::::::::::::::
 
 
-<!-- :::::::::::::::::::::: -->
+::::::::::::::::::::::
 
 
-<!-- ::::::::::::::::: hint -->
+::::::::::::::::: solution
 
-<!-- ### HINT 2 -->
-
-
-
-<!-- :::::::::::::::::::::: -->
-
-<!-- ::::::::::::::::: solution -->
-
-<!-- ### SOLUTION  -->
+### SOLUTION
 
 
++ What is the infection/disease of interest? **Ebola**
++ Is the modelling exercise for a disease with pandemic potential or a localised outbreak? **Localised outbreak**
++ What is the outcome of interest? **Number of infections**
++ Will any interventions be modelled? **No**
+
+#### `epidemic_default`
+
+A deterministic SEIR model with age specific direct transmission. The model is capable or predicting an Ebola type outbreak, but as the model is deterministic, we are not able to explore stochastic variation in the early stages of the outbreak.
 
 
-<!-- :::::::::::::::::::::::::: -->
+#### `epidemic_ebola`
 
-<!-- :::::::::::::::::::::::::::::::::::::::::::::::: -->
+A stochastic SEIR model that was developed specifically for infection with Ebola. As this model is stochastic, it is the most appropriate choice to explore how variation in numbers of infected individuals in the early stages of an Ebola outbreak. 
+
+
+:::::::::::::::::::::::::::
+
+
+::::::::::::::::::::::::::::::::::::::::::::::::
 
 
 
