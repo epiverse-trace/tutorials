@@ -61,6 +61,7 @@ contact: 'team@carpentries.org' # FIXME
 episodes:
 - simulating_transmission.Rmd
 - model_choices.Rmd
+- modelling_interventions.Rmd
 - compare_interventions.Rmd
 
 # Information for Learners

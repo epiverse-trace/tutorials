@@ -1,0 +1,192 @@
+---
+title: 'Modelling interventions'
+teaching: 45 # teaching time in minutes
+exercises: 30 # exercise time in minutes
+
+---
+
+```{r setup, echo= FALSE}
+library(epidemics);library(ggplot2)
+```
+
+:::::::::::::::::::::::::::::::::::::: questions 
+
+- How do I investigate the effect of interventions on disease trajectories? 
+
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+::::::::::::::::::::::::::::::::::::: objectives
+
+- Learn how to implement pharmaceutical and non-pharmaceutical interventions
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+::::::::::::::::::::::::::::::::::::: prereq
+
+## Prerequisites
++ Complete tutorial 'Simulating transmission'
+
+This tutorial has the following concept dependencies:
+
+**Outbreak response** : Intervention types.
+:::::::::::::::::::::::::::::::::
+
+
+## Introduction
+
+Mathematical models can be used to generate predictions for the implementation of non-pharmaceutical and pharmaceutical interventions at different stages of an outbreak. In this tutorial, we will introduce how to include different interventions and evaluate their impact on disease spread.
+
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: instructor
+
+In this tutorial different types of intervention and how they can be modelled are introduced. Learners should be able to understand the underlying mechanism of these interventions (e.g. reduce contact rate) as well as how to implement the code to include such interventions.
+
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+## Non-pharmaceutical interventions
+
+Non-pharmaceutical interventions (NPIs) are measures put in place to reduce transmission that do not include taking medicine or vaccines. NPIs aim reduce contact between infectious and susceptible individuals. For example, washing hands, wearing masks and closures of school and workplaces.
+
+In mathematical modelling, we must make assumptions about how NPIs will affect transmission. This may include adding additional disease states or reducing the value of relevant parameters. 
+
+#### Effect of school closures on COVID-19 spread
+We want to investigate the effect of school closures on reducing the number of infected and infectious with COVID-19 through time. 
+
+Using an SEIR model (`epidemic_default()` in the R package `{epidemics}`) we set $R_0 = 2.7$, preinfectious_period $= 3$ and the infectious_period $= 7$ (parameters adapted from [Davies et al. (2020)](https://doi.org/10.1016/S2468-2667(20)30133-X)). We load a contact matrix with 5 yearly age bins using `{socialmixr}` and assume that one in every 1 million in each 5 year age group is infectious.
+
+We assume that school closure will reduce the contact rates between school aged children (aged 0-15) and individuals aged 15 and over, and will cause a small reduction in the contact rate between adults (aged 15 and over).
+
+```{r intervention}
+close_schools <- intervention(
+  name = "School closure",
+  type = "contacts",
+  time_begin = 50,
+  time_end = 150,
+  reduction = matrix(c(rep(0.5,3), rep(0.01, 13)))
+)
+
+```
+
+
+To run the model with an intervention we set ` intervention = close_schools` as follows:
+
+```{r school, eval = FALSE}
+output_school <- epidemic_default_cpp(
+  population = uk_population,
+  infection = covid,
+  intervention = list(contacts = close_schools),
+  time_end = 300, increment = 1.0
+)
+```
+
+
+We see that with the intervention in place, the infection still spreads through the population. 
+
+
+```{r, echo = FALSE, message = FALSE}
+polymod <- socialmixr::polymod
+contact_data <- socialmixr::contact_matrix(
+  polymod,
+  countries = "United Kingdom",
+  age.limits = seq(0, 90, by = 5),
+  symmetric = TRUE
+)
+
+# prepare contact matrix
+contact_matrix <- t(contact_data$matrix)
+
+# prepare the demography vector
+demography_vector <- contact_data$demography$population
+names(demography_vector) <- rownames(contact_matrix)
+
+# initial conditions: one in every 1 million is infected
+initial_i <- 1e-6
+initial_conditions <- c(
+  S = 1 - initial_i, E = 0, I = initial_i, R = 0, V = 0
+)
+
+# build for all age groups
+initial_conditions <- matrix(
+  rep(initial_conditions, dim(contact_matrix)[1]), ncol = 5, byrow = T,
+)
+rownames(initial_conditions) <- rownames(contact_matrix)
+
+# prepare the population to model as affected by the epidemic
+uk_population <- population(
+  name = "UK",
+  contact_matrix = contact_matrix,
+  demography_vector = demography_vector,
+  initial_conditions = initial_conditions
+)
+
+# simulate a pandemic, with an R0,
+# an infectious period, and an pre-infectious period
+covid <- infection(
+  r0 = 2.7,
+  preinfectious_period = 3,
+  infectious_period = 7
+)
+
+# an intervention to close schools
+close_schools <- intervention(
+  type = "contacts",
+  time_begin = 50,
+  time_end = 150,
+  reduction = matrix(c(rep(0.5,3), rep(0.01, 13)))
+)
+
+output_school <- epidemic_default_cpp(
+  population = uk_population,
+  infection = covid,
+  intervention = list(contacts = close_schools),
+  time_end = 300, increment = 1.0
+)
+ggplot(output_school[compartment == "infectious", ], aes(x = time, y = value)) +
+  stat_summary(
+    fun = sum,
+    color = "black",
+    geom = "line"
+  ) +
+  scale_y_continuous(
+    labels = scales::comma,
+    name = "Infectious indivduals"
+  ) +
+  labs(
+    x = "Model time (days)"
+  ) +
+  theme_classic() +
+  theme(
+    legend.position = "top"
+  ) +
+  geom_vline(
+    xintercept = c(close_schools$time_begin, close_schools$time_end),
+    colour = "gray",
+    linetype = "dashed",
+    linewidth = 0.2
+  ) +
+  annotate(
+    geom = "text",
+    label = "Schools closed",
+    colour = "gray",
+    x = 100, y = 400e3,
+    angle = 90,
+    vjust = "outward"
+  ) 
+
+```
+
+
+## Pharmaceutical interventions
+
+*Coming soon*
+
+## Multiple interventions
+
+*Coming soon*
+
+::::::::::::::::::::::::::::::::::::: keypoints 
+
+- Different types of intervention can be implemented using mathematical modelling
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
