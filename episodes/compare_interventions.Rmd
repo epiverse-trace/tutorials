@@ -9,7 +9,6 @@ exercises: 30 # exercise time in minutes
 library(epidemics);library(ggplot2)
 ```
 
-
 :::::::::::::::::::::::::::::::::::::: questions 
 
 - How do I investigate the effect of interventions on disease trajectories? 
@@ -60,9 +59,11 @@ We assume that school closure will reduce the contact rates between school aged 
 
 ```{r intervention}
 close_schools <- intervention(
+  name = "School closure",
+  type = "contacts",
   time_begin = 50,
   time_end = 150,
-  contact_reduction = matrix(c(rep(0.5,3), rep(0.01, 13)))
+  reduction = matrix(c(rep(0.5,3), rep(0.01, 13)))
 )
 
 ```
@@ -74,7 +75,7 @@ To run the model with an intervention we set ` intervention = close_schools` as 
 output_school <- epidemic_default_cpp(
   population = uk_population,
   infection = covid,
-  intervention = close_schools,
+  intervention = list(contacts = close_schools),
   time_end = 300, increment = 1.0
 )
 ```
@@ -129,15 +130,16 @@ covid <- infection(
 
 # an intervention to close schools
 close_schools <- intervention(
+  type = "contacts",
   time_begin = 50,
   time_end = 150,
-  contact_reduction = matrix(c(rep(0.5,3), rep(0.01, 13)))
+  reduction = matrix(c(rep(0.5,3), rep(0.01, 13)))
 )
 
 output_school <- epidemic_default_cpp(
   population = uk_population,
   infection = covid,
-  intervention = close_schools,
+  intervention = list(contacts = close_schools),
   time_end = 300, increment = 1.0
 )
 ggplot(output_school[compartment == "infectious", ], aes(x = time, y = value)) +
@@ -188,6 +190,8 @@ The *counter factual* is the scenario in which nothing changes, often referred t
 ## Pharmaceutical interventions
 
 *Coming soon*
+
+
 
 ## Challenge
 
