@@ -35,7 +35,7 @@ This tutorial has the following concept dependencies:
 
 ## Introduction
 
-Mathematical models can be used to generate predictions for the implementation of non-pharmaceutical and pharmaceutical interventions at different stages of an outbreak. In this tutorial, we will introduce how to include different interventions and evaluate their impact on disease spread.
+Mathematical models can be used to generate predictions for the implementation of non-pharmaceutical and pharmaceutical interventions at different stages of an outbreak. In this tutorial, we will introduce how to include different interventions in models.
 
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: instructor
 
@@ -50,45 +50,13 @@ Non-pharmaceutical interventions (NPIs) are measures put in place to reduce tran
 In mathematical modelling, we must make assumptions about how NPIs will affect transmission. This may include adding additional disease states or reducing the value of relevant parameters. 
 
 #### Effect of school closures on COVID-19 spread
-We want to investigate the effect of school closures on reducing the number of infected and infectious with COVID-19 through time. 
 
-Using an SEIR model (`epidemic_default()` in the R package `{epidemics}`) we set $R_0 = 2.7$, preinfectious_period $= 3$ and the infectious_period $= 7$ (parameters adapted from [Davies et al. (2020)](https://doi.org/10.1016/S2468-2667(20)30133-X)). We load a contact matrix with 5 yearly age bins using `{socialmixr}` and assume that one in every 1 million in each 5 year age group is infectious.
-
-We assume that school closure will reduce the contact rates between school aged children (aged 0-15) and individuals aged 15 and over, and will cause a small reduction in the contact rate between adults (aged 15 and over).
-
-```{r intervention}
-close_schools <- intervention(
-  name = "School closure",
-  type = "contacts",
-  time_begin = 50,
-  time_end = 150,
-  reduction = matrix(c(rep(0.5,3), rep(0.01, 13)))
-)
-
-```
-
-
-To run the model with an intervention we set ` intervention = close_schools` as follows:
-
-```{r school, eval = FALSE}
-output_school <- epidemic_default_cpp(
-  population = uk_population,
-  infection = covid,
-  intervention = list(contacts = close_schools),
-  time_end = 300, increment = 1.0
-)
-```
-
-
-We see that with the intervention in place, the infection still spreads through the population. 
-
-
-```{r, echo = FALSE, message = FALSE}
+```{r model_setup, echo = FALSE, message = FALSE}
 polymod <- socialmixr::polymod
 contact_data <- socialmixr::contact_matrix(
   polymod,
   countries = "United Kingdom",
-  age.limits = seq(0, 90, by = 5),
+  age.limits = c(0, 15, 65),
   symmetric = TRUE
 )
 
@@ -126,21 +94,73 @@ covid <- infection(
   preinfectious_period = 3,
   infectious_period = 7
 )
+```
 
-# an intervention to close schools
+
+We want to investigate the effect of school closures on reducing the number of individuals infectious with COVID-19 through time. We assume that a school closure will reduce the frequency of contacts within and between different age groups. 
+
+Using an SEIR model (`epidemic_default()` in the R package `{epidemics}`) we set $R_0 = 2.7$, preinfectious_period $= 3$ and the infectious_period $= 7$ (parameters adapted from [Davies et al. (2020)](https://doi.org/10.1016/S2468-2667(20)30133-X)). We load a contact matrix with age bins 0-18, 18-65, 65 years and older using `{socialmixr}` and assume that one in every 1 million in each age group is infectious at the start of the epidemic.
+
+We will assume that school closures will reduce the contacts between school aged children (aged 0-15) by 0.5, and will cause a small reduction (0.01) in the contacts between adults (aged 15 and over). 
+
+::::::::::::::::::::::::::::::::::::: callout
+### Effect of interventions on contacts
+
+The contact matrix is scaled down by proportions for the period in which the intervention is in place. To explain the reduction, consider a contact matrix for two age groups with equal number of contacts:
+
+```{r echo = FALSE}
+reduction <- matrix(c(0.5, 0.1))
+contact_matrix_example <- matrix(c(1,1,1,1), nrow = 2)
+contact_matrix_example
+```
+
+If the reduction is 50% in group 1 and 10% in group 2, the contact matrix during the intervention will be:
+
+```{r echo = FALSE}
+contact_matrix_example[1,] <- contact_matrix_example[1,] * (1-reduction[1])
+contact_matrix_example[,1] <- contact_matrix_example[,1] * (1-reduction[1])
+contact_matrix_example[2,] <- contact_matrix_example[2,] * (1-reduction[2])
+contact_matrix_example[,2] <- contact_matrix_example[,2] * (1-reduction[2])
+contact_matrix_example
+```
+
+The contacts within group 1 are reduced by 50% twice to accommodate for a 50% reduction in outgoing and incoming contacts ($1\times 0.5 \times 0.5 = 0.25$). Similarly, the contacts within group 2 are reduced by 10% twice. The contacts between group 1 and group 2 are reduced by 50% and then by 10% ($1 \times 0.5 \times 0.9= 0.45$). 
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+To include an intervention in our model we must create an `intervention` object. The inputs are the name of the intervention (`name`), the type of intervention (`contacts` or `rate`), the start time (`time_begin`), the end time (`time_end`) and the reduction (`reduction`). The values of the reduction matrix are specified in the same order as the age groups in the contact matrix. 
+
+```{r}
+rownames(contact_matrix)
+```
+
+Therefore, we specify ` reduction = matrix(c(0.5, 0.01, 0.01))`. We assume that the school closures start on day 50 and are in place for a further 100 days. Therefore our intervention object is : 
+
+```{r intervention}
 close_schools <- intervention(
+  name = "School closure",
   type = "contacts",
   time_begin = 50,
-  time_end = 150,
-  reduction = matrix(c(rep(0.5,3), rep(0.01, 13)))
+  time_end = 50 + 100,
+  reduction = matrix(c(0.5, 0.01, 0.01))
 )
 
+```
+
+To run the model with an intervention we set ` intervention = list(contacts = close_schools)` as follows:
+
+```{r school}
 output_school <- epidemic_default_cpp(
   population = uk_population,
   infection = covid,
   intervention = list(contacts = close_schools),
   time_end = 300, increment = 1.0
 )
+```
+
+We see that with the intervention in place, the infection still spreads through the population. 
+
+```{r plot_school, echo = FALSE, message = FALSE}
 ggplot(output_school[compartment == "infectious", ], aes(x = time, y = value)) +
   stat_summary(
     fun = sum,
@@ -168,8 +188,76 @@ ggplot(output_school[compartment == "infectious", ], aes(x = time, y = value)) +
     geom = "text",
     label = "Schools closed",
     colour = "gray",
-    x = 100, y = 400e3,
-    angle = 90,
+    x = (close_schools$time_end-close_schools$time_begin)/2+close_schools$time_begin, 
+    y = 10,
+    angle = 0,
+    vjust = "outward"
+  ) 
+
+```
+
+#### Effect of mask wearing on COVID-19 spread
+
+We can model the effect of other NPIs as reducing the value of relevant parameters. For example, we want to investigate the effect of mask wearing on the number of individuals infectious with COVID-19 through time. 
+
+We expect that mask wearing will reduce an individual's infectiousness. As we are using a population based model, we cannot make changes to individual behaviour and so assume that the transmission rate $\beta$ is reduced by a proportion due to mask wearing in the population. We specify this proportion, $\theta$ as product of the proportion wearing masks multiplied by the proportion reduction in transmissibility (adapted from [Li et al. 2020](https://doi.org/10.1371/journal.pone.0237691))
+
+We create an intervention object with `type = rate` and `reduction = 0.161`. Using parameters adapted from [Li et al. 2020](https://doi.org/10.1371/journal.pone.0237691) we have $\theta = 0.28 \times 0.575 = 0.161$. We assume that the mask wearing mandate starts at day 40 and is in place for 200 days.
+
+```{r masks}
+mask_mandate <- intervention(
+  name = "mask mandate",
+  type = "rate",
+  time_begin = 40,
+  time_end = 40 + 200,
+  reduction = 0.161
+)
+```
+
+To implement this intervention on the parameter $\beta$, we specify `intervention = list(beta = mask_mandate)`.
+
+```{r output_masks}
+output_masks <- epidemic_default_cpp(
+  population = uk_population,
+  infection = covid,
+  intervention = list(beta = mask_mandate),
+  time_end = 300, increment = 1.0
+)
+```
+
+
+
+```{r plot_masks, echo = FALSE, message = FALSE}
+ggplot(output_masks[compartment == "infectious", ], aes(x = time, y = value)) +
+  stat_summary(
+    fun = sum,
+    color = "black",
+    geom = "line"
+  ) +
+  scale_y_continuous(
+    labels = scales::comma,
+    name = "Infectious indivduals"
+  ) +
+  labs(
+    x = "Model time (days)"
+  ) +
+  theme_classic() +
+  theme(
+    legend.position = "top"
+  ) +
+  geom_vline(
+    xintercept = c(mask_mandate$time_begin, mask_mandate$time_end),
+    colour = "gray",
+    linetype = "dashed",
+    linewidth = 0.2
+  ) +
+  annotate(
+    geom = "text",
+    label = "Mask mandate",
+    colour = "gray",
+    x = (mask_mandate$time_end-mask_mandate$time_begin)/2+mask_mandate$time_begin, 
+    y = 10,
+    angle = 0,
     vjust = "outward"
   ) 
 
@@ -178,11 +266,121 @@ ggplot(output_school[compartment == "infectious", ], aes(x = time, y = value)) +
 
 ## Pharmaceutical interventions
 
-*Coming soon*
+Models can be used to investigate the effect of pharmaceutical interventions, such as vaccination. In this case, it is useful to add another disease state to track the number of vaccinated individuals through time. The diagram below shows an SEIRV model where susceptible individuals are vaccinated and then move to the $V$ class.
 
-## Multiple interventions
+```{r diagram_SEIRV, echo = FALSE}
+DiagrammeR::grViz("digraph {
+  
+  # graph statement
+  #################
+  graph [layout = dot,
+         rankdir = LR,
+         overlap = true,
+         fontsize = 10]
 
-*Coming soon*
+  # nodes
+  #######
+  node [shape = square,           
+       fixedsize = true
+       width = 1.3] 
+       
+       S
+       E
+       I
+       R
+       V
+
+  # edges
+  #######
+  S -> E [label = ' infection']
+  S -> V [label = ' vaccination']
+  E -> I [label = ' onset of \ninfectiousness']
+  I -> R [label = ' recovery']
+
+}")
+
+```
+
+The equations describing this model are as follows: 
+
+$$
+\begin{aligned}
+\frac{dS_i}{dt} & = - \beta S_i \sum_j C_{i,j} I_j -\nu_{t} S_i \\
+\frac{dE_i}{dt} &= \beta S_i\sum_j C_{i,j} I_j - \alpha E_i \\
+\frac{dI_i}{dt} &= \alpha E_i - \gamma I_i \\
+\frac{dR_i}{dt} &=\gamma I_i \\
+\frac{dV_i}{dt} & =\nu_{i,t} S_i\\
+\end{aligned}
+$$
+Individuals are vaccinated at an age group ($i$) specific time dependent ($t$) vaccination rate ($\nu$). The SEIR components of these equations are described in the tutorial Simulating transmission. 
+
+To explore the effect of vaccination we need to create a vaccination object. As vaccination is age group specific, we must pass an age groups specific vaccination rate $\nu$ and age group specific start and end times of the vaccination program. Here we will assume all age groups are vaccinated at the same rate and that the vaccination program starts on day 40 and is in place for 150 days.
+
+
+```{r vaccinate}
+# prepare a vaccination object
+vaccinate <- vaccination(
+  name = "vaccinate all",
+  time_begin = matrix(40, nrow(contact_matrix)),
+  time_end = matrix(40 + 150, nrow(contact_matrix)),
+  nu = matrix(c(0.01, 0.01, 0.01))
+)
+```
+
+We pass our vaccination object using `vaccination = vaccinate`:
+
+```{r output_vaccinate}
+output_vaccinate <- epidemic_default_cpp(
+  population = uk_population,
+  infection = covid,
+  vaccination = vaccinate,
+  time_end = 300, increment = 1.0
+)
+```
+
+Here we see that the total number of infectious individuals when vaccination is in place is much lower comapred to school closures and mask wearing interventions. 
+
+```{r plot_vaccinate, echo = FALSE, message = FALSE}
+ggplot(output_vaccinate[compartment == "infectious", ], aes(x = time, y = value)) +
+  stat_summary(
+    fun = sum,
+    color = "black",
+    geom = "line"
+  ) +
+  scale_y_continuous(
+    labels = scales::comma,
+    name = "Infectious indivduals"
+  ) +
+  labs(
+    x = "Model time (days)"
+  ) +
+  theme_classic() +
+  theme(
+    legend.position = "top"
+  ) +
+  geom_vline(
+    xintercept = c(vaccinate$time_begin, vaccinate$time_end),
+    colour = "gray",
+    linetype = "dashed",
+    linewidth = 0.2
+  ) +
+  annotate(
+    geom = "text",
+    label = "Vaccination",
+    colour = "gray",
+    x = (vaccinate$time_end-vaccinate$time_begin)/2+vaccinate$time_begin, 
+    y = 10,
+    angle = 0,
+    vjust = "outward"
+  ) 
+
+```
+
+
+## Summary
+
+Modelling interventions requires assumptions of how interventions affect model parameters such as contact matrices or parameter values. Next we want quantify the effect of an interventions. In the next tutorial, we will learn how to compare intervention scenarios against each other. 
+
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
