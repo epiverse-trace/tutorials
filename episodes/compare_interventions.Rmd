@@ -18,7 +18,7 @@ library(epidemics);library(ggplot2)
 
 ::::::::::::::::::::::::::::::::::::: objectives
 
-- Understand how to compare intervention scenarios against counter factual scenarios
+- Understand how to compare intervention scenarios
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -35,17 +35,18 @@ This tutorial has the following concept dependencies:
 
 ## Introduction
 
-To quantify the effect of the intervention we need to compare our intervention scenario to a counter factual scenario. The *counter factual* is the scenario in which nothing changes, often referred to as the 'do nothing' scenario. The counter factual scenario may include no interventions, or if we are investigating the potential impact of an additional intervention in the later stages of an outbreak there may be existing interventions in place. 
+In this tutorial we will compare intervention scenarios against each other. To quantify the effect of the intervention we need to compare our intervention scenario to a counter factual scenario. The *counter factual* is the scenario in which nothing changes, often referred to as the 'do nothing' scenario. The counter factual scenario may include no interventions, or if we are investigating the potential impact of an additional intervention in the later stages of an outbreak there may be existing interventions in place. 
+
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: instructor
+
+In this tutorial we introduce the concept of the counter factual and how to compare scenarios (counterfactual versus intervention) against each other. 
+
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
 
 ## Comparing scenarios
 
 *Coming soon*
-
-
-## RIVM Vacamole model
-
-*Coming soon*
-
 
 ## Challenge
 
