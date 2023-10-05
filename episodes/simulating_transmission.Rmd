@@ -5,7 +5,7 @@ exercises: 30 # exercise time in minutes
 ---
 
 ```{r setup, echo= FALSE, warning = FALSE, message=FALSE}
-library(epidemics);library(ggplot2);library(data.table);library(DiagrammeR);library(webshot)
+library(epidemics);library(ggplot2);library(data.table);require(DiagrammeR);library(webshot)
 webshot::install_phantomjs(force = TRUE)
 ```
 
@@ -535,7 +535,7 @@ ggplot(summary_output[compartment == "infectious" &  demography_group == "[0,20)
 ```
 
 
-Choosing which parameters to include uncertainty in depends on how well informed a parameter value is, how sensitivity model output is to parameter value changes and the purpose of the modelling task. 
+Deciding which parameters to include uncertainty in depends on a few factors: how well informed a parameter value is e.g. consistency of estimates from the literature; how sensitive model outputs are to parameter value changes; and the purpose of the modelling task. 
 
 ## Summary 
 
