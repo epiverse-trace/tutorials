@@ -91,15 +91,15 @@ uk_population <- population(
 # an infectious period, and an pre-infectious period
 covid <- infection(
   r0 = 2.7,
-  preinfectious_period = 3,
-  infectious_period = 7
+  preinfectious_period = 4,
+  infectious_period = 5.5
 )
 ```
 
 
 We want to investigate the effect of school closures on reducing the number of individuals infectious with COVID-19 through time. We assume that a school closure will reduce the frequency of contacts within and between different age groups. 
 
-Using an SEIR model (`epidemic_default()` in the R package `{epidemics}`) we set $R_0 = 2.7$, preinfectious_period $= 3$ and the infectious_period $= 7$ (parameters adapted from [Davies et al. (2020)](https://doi.org/10.1016/S2468-2667(20)30133-X)). We load a contact matrix with age bins 0-18, 18-65, 65 years and older using `{socialmixr}` and assume that one in every 1 million in each age group is infectious at the start of the epidemic.
+Using an SEIR model (`epidemic_default()` in the R package `{epidemics}`) we set $R_0 = 2.7$, preinfectious_period $= 4$ and the infectious_period $= 5.5$ (parameters adapted from [Davies et al. (2020)](https://doi.org/10.1016/S2468-2667(20)30133-X)). We load a contact matrix with age bins 0-18, 18-65, 65 years and older using `{socialmixr}` and assume that one in every 1 million in each age group is infectious at the start of the epidemic.
 
 We will assume that school closures will reduce the contacts between school aged children (aged 0-15) by 0.5, and will cause a small reduction (0.01) in the contacts between adults (aged 15 and over). 
 
