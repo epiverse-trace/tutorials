@@ -138,7 +138,7 @@ A deterministic SEIR model with age specific direct transmission. The model is c
 
 #### `epidemic_ebola`
 
-A stochastic SEIR model that was developed specifically for infection with Ebola. As this model is stochastic, it is the most appropriate choice to explore how variation in numbers of infected individuals in the early stages of an Ebola outbreak. 
+A stochastic SEIHFR (Susceptible, Exposed, Infectious, Hospitalised, Funeral, Femoved) model that was developed specifically for infection with Ebola. As this model is stochastic, it is the most appropriate choice to explore how variation in numbers of infected individuals in the early stages of an Ebola outbreak. 
 
 
 :::::::::::::::::::::::::::
