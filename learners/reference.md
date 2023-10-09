@@ -31,6 +31,10 @@ Directly transmitted infections are passed on via contact between humans
 
 ## I 
 
+#### Incubation period
+
+The time between infection and onset of infectiousness, same as 'Latent period'.
+
 #### Indirect transmission
 
 Indirectly transmitted infections are passed on to humans via contact with vectors, animals or contaminated environment
@@ -39,7 +43,12 @@ Indirectly transmitted infections are passed on to humans via contact with vecto
 
 <!-- ## K -->
 
-<!-- ## L -->
+## L
+
+#### Latent period
+
+The time between infection and onset of infectiousness, same as 'Incubation period'.
+
 
 <!-- ## M -->
 
