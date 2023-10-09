@@ -59,10 +59,10 @@ contact: 'team@carpentries.org' # FIXME
 
 # Order of episodes in your lesson
 episodes:
-- simulating_transmission.Rmd
-- model_choices.Rmd
-- modelling_interventions.Rmd
-- compare_interventions.Rmd
+- simulating-transmission.Rmd
+- model-choices.Rmd
+- modelling-interventions.Rmd
+- compare-interventions.Rmd
 
 # Information for Learners
 learners:
