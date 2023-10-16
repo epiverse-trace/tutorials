@@ -292,10 +292,10 @@ DiagrammeR::grViz("digraph {
 
   # edges
   #######
-  S -> E [label = ' infection']
-  S -> V [label = ' vaccination']
-  E -> I [label = ' onset of \ninfectiousness']
-  I -> R [label = ' recovery']
+  S -> E [label = ' infection (&beta;)']
+  S -> V [label = ' vaccination (&nu;)']
+  E -> I [label = ' onset of \ninfectiousness (&alpha;)']
+  I -> R [label = ' recovery (&gamma;)']
 
 }")
 
