@@ -61,21 +61,10 @@ The outcome of interest can be a feature of a mathematical model. It may be that
 
 Finally, interventions such as vaccination may be of interest. A model may or may not have the capability to predict the impact of different interventions on different timescales (continuous time or at discrete time points). We will discuss interventions in detail in the next tutorial.
 
-### Accessing the model library
+### Available  models
  
-The R package `epidemics` contains functions to run existing models. Models are prefixed with epidemic and suffixed by the infection name. 
-
-The names of available models can be found using the function `get_model_names()`.
-
-```{r}
-get_model_names(model_type = "epidemic")
-```
-
-Currently the only model type available is epidemic, further model types will be added in future. To find out more about each model read the documentation using `?epidemic_ebola` and the package [vignettes](https://epiverse-trace.github.io/epidemics/articles). Recall the check model equation questions we can consider when trying to understand an existing model. 
-
-
-
-
+The R package `epidemics` contains functions to run existing models.
+To find out what models are available see the package [vignettes](https://epiverse-trace.github.io/epidemics/articles). To learn more about each model read the documentation using `?epidemics::epidemic_ebola`. Recall the check model equation questions we can consider when trying to understand an existing model. 
 
 ::::::::::::::::::::::::::::::::::::: checklist
 ### Check model equations
@@ -138,7 +127,7 @@ A deterministic SEIR model with age specific direct transmission. The model is c
 
 #### `epidemic_ebola`
 
-A stochastic SEIHFR (Susceptible, Exposed, Infectious, Hospitalised, Funeral, Femoved) model that was developed specifically for infection with Ebola. As this model is stochastic, it is the most appropriate choice to explore how variation in numbers of infected individuals in the early stages of an Ebola outbreak. 
+A stochastic SEIHFR (Susceptible, Exposed, Infectious, Hospitalised, Funeral, Removed) model that was developed specifically for infection with Ebola. As this model is stochastic, it is the most appropriate choice to explore how variation in numbers of infected individuals in the early stages of an Ebola outbreak. 
 
 
 :::::::::::::::::::::::::::
