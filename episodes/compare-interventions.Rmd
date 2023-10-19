@@ -13,7 +13,7 @@ library(epidemics);library(ggplot2)
 
 - How can I quantify the effect of an intervention?
 
-
+ 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
 ::::::::::::::::::::::::::::::::::::: objectives
@@ -43,6 +43,76 @@ In this tutorial we introduce the concept of the counter factual and how to comp
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
+## Vacamole model
+
+The Vacamole model is a deterministic model based on a system of ODEs in [Ainslie et al. 2022]( https://doi.org/10.2807/1560-7917.ES.2022.27.44.2101090). The model consist of 11 compartments, individuals are classed as one of the folliwng:
+
++ susceptible, $S$,
++ partial vaccination ($V_1$), fully vaccination ($V_2$),
++ exposed, $E$ and exposed while vaccinated, $E_V$,
++ infectious, $I$ and infectious while vaccinated, $I_V$,
++ hospitalised, $H$ and hospitalised while vaccinated, $H_V$,
++ dead, $D$,
++ recovered, $R$.
+
+The diagram below describes the flow of individuals through the different compartments. 
+
+```{r, echo = FALSE}
+DiagrammeR::grViz("digraph {
+
+  # graph statement
+  #################
+  graph [layout = dot,
+         rankdir = LR,
+         overlap = true,
+         fontsize = 10]
+
+  # nodes
+  #######
+  node [shape = square,
+       fixedsize = true
+       width = 1.3]
+
+       S
+       E
+       Ev [label = 'E@_{V}']
+       I
+       Iv [label = 'I@_{V}']
+       H
+       Hv [label = 'H@_{V}']
+       D
+       R
+       V1 [label = 'V@_{1}']
+       V2 [label = 'V@_{2}']
+
+
+  # edges
+  #######
+  S -> E [label = ' infection (&beta;) ']
+  S -> V1 [label = ' vaccination (&nu;1)']
+  V1 -> E [label = ' infection (&beta;)']
+  V1 -> V2 [label = ' vaccination\n(second dose) (&nu;2)']
+  V2 -> Ev [label = ' infection (&beta;)']
+  Ev -> Iv [label = ' onset of \ninfectiousness (&alpha;) ']
+  E -> I [label = ' onset of \ninfectiousness (&alpha;) ']
+  I -> H [label = ' hospitalisation (&eta;)']
+  Iv -> Hv [label = ' hospitalisation (&eta;@_{V})']
+  I -> D [label = ' death (&omega;)']
+  I -> R [label = ' recovery (&gamma;)']
+  Iv -> D [label = ' death (&omega;@_{V})']
+  Iv -> R [label = ' recovery (&gamma;)']
+  Hv -> D [label = ' death (&omega;@_{V})']
+  Hv -> R [label = ' recovery (&gamma;)']
+  H -> D [label = ' death (&omega;)']
+  H -> R [label = ' recovery (&gamma;)']
+
+      subgraph {
+        rank = same; S; V1;V2;
+      }
+}")
+```
+
+See `?epidemics::epidemic_vacamole.R` for detail on how to run the model. 
 
 ## Comparing scenarios
 
