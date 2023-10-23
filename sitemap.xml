@@ -52,6 +52,9 @@
     <loc>https://epiverse-trace.github.io/tutorials/instructor/reference.html</loc>
   </url>
   <url>
+    <loc>https://epiverse-trace.github.io/tutorials/instructor/template.html</loc>
+  </url>
+  <url>
     <loc>https://epiverse-trace.github.io/tutorials/instructor-notes.html</loc>
   </url>
   <url>
@@ -65,5 +68,8 @@
   </url>
   <url>
     <loc>https://epiverse-trace.github.io/tutorials/reference.html</loc>
+  </url>
+  <url>
+    <loc>https://epiverse-trace.github.io/tutorials/template.html</loc>
   </url>
 </urlset>
