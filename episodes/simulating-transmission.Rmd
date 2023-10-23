@@ -4,8 +4,9 @@ teaching: 45 # teaching time in minutes
 exercises: 30 # exercise time in minutes 
 ---
 
-```{r setup, echo= FALSE, warning = FALSE, message=FALSE}
-library(epidemics);library(ggplot2);library(data.table);require(DiagrammeR);library(webshot)
+```{r setup, echo= FALSE, message = FALSE, warning = FALSE}
+require(ggplot2);require(data.table);require(DiagrammeR);require(webshot);require(pak)
+pak::pak("epiverse-trace/epidemics"); library(epidemics)
 webshot::install_phantomjs(force = TRUE)
 ```
 
