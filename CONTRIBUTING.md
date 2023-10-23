@@ -82,7 +82,7 @@ For a tutorial your role could be of a __Developer__, __Reviewer__, or __Maintai
 
 #### Developer:
 
-If you need to work with the most recent versions:
+If you need to work with the most recent versions of packages:
 
 - Use [`sandpaper::update_cache()`](https://carpentries.github.io/sandpaper/reference/dependency_management.html). This will: 
   + Fetch updates from CRAN or GitHub,
@@ -90,7 +90,7 @@ If you need to work with the most recent versions:
   + Update the cache. This is located in a folder called `renv/library/` in the same directory of the `renv.lock`, only visible locally.
 - Push the updated `renv.lock` file to the GitHub “development branch”.
 
-If you need to work with a specific stable version:
+If you need to work with a specific stable version of a package:
 
 - Use [`sandpaper::pin_version()`](https://carpentries.github.io/sandpaper/articles/building-with-renv.html#pinning-specific-package-versions). This will:
   + Update the `renv.lock` file with the specific version,
@@ -111,10 +111,26 @@ You can follow this steps:
 
 You can follow this references:
 
-- Update these steps from any discussion on issues.
+- Update steps above from any discussion on issues.
 - Review how to [maintain a Healthy Infrastructure](https://carpentries.github.io/sandpaper-docs/update.html).
 - Review how to [Automate a Pull Request](https://carpentries.github.io/sandpaper-docs/pull-request.html#automated-pull-requests). Lessons outside of the carpentries need to [set up a Pull Request bot](https://carpentries.github.io/sandpaper-docs/pull-request.html#automated-pull-requests) with the [Carpentries Apprentice bot](https://github.com/carpentries-bot).
 
+### Writing guidelines
+
+To write a new episode, follow these guidelines
+
+- Add new `.Rmd` files to the `episode/` folder.
+- Add file name to the `config.yaml` under `episodes:` in the order you want the tutorials to appear in.
+- Add required data sets to the `episodes/data/` folder.
+- Add glossary terms to `learners/reference.md`.
+- Add commonly used links to `links.md`.
+- Add a visible callout for prerequisites at the beginning following the [ETK modules notation](https://github.com/epiverse-trace/tutorials/issues/19) 
+- Add an [introduction section](https://github.com/epiverse-trace/tutorials/issues/17) with the expected summative assessment 
+- Add diagrams using Diagrammer with greek letters for parameters to [visually represent mathematical models](https://github.com/epiverse-trace/tutorials/issues/21).  
+  - Use [callouts](https://carpentries.github.io/sandpaper-docs/instructor/component-guide.html) for complementary concepts and function arguments details.  
+  - Review how callouts need to be [coded in plain text](https://github.com/carpentries/sandpaper-docs/blob/main/learners/component-guide.md?plain=1). 
+  - Review when to use the [spoiler snipped](https://carpentries.github.io/sandpaper-docs/aio.html#use-spoilers-instead-of-floating-solution-blocks). 
+- Request a review via PR.
 
 ### Using GitHub
 
