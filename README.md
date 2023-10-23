@@ -16,10 +16,11 @@ R.
 
 ## Usage
 
+Visualize this content as a webpage at
+<https://epiverse-trace.github.io/tutorials/>
+
 To build the website locally, please refer to [the contributing
 guidelines](CONTRIBUTING.md).
-
-<!-- Visualize this content as a webpage at <https://epiverse-trace.github.io/tutorials/> -->
 
 ## Contributing
 
