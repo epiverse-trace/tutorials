@@ -103,7 +103,7 @@ You can follow this steps:
 
 - Clone the repo or Pull the branch on Rstudio.
 - Checkout to the branch to review.
-- Use [`renv::restore()`](https://carpentries.github.io/sandpaper/reference/dependency_management.html#details) to align the packages in your cache with the ones in the `renv.lock` file (defined by the Developer).
+- Use [`sandpaper::manage_deps()`](https://carpentries.github.io/sandpaper/reference/dependency_management.html) to align the packages in your cache with the ones in the `renv.lock` file (defined by the Developer).
 - Render lesson with [`sandpaper::build_lesson()`](https://carpentries.github.io/sandpaper/reference/build_lesson.html). This will open an html tab in your browser to review.
 - Make any edit suggestion in the `.Rmd` files inside the `episodes/` folder.
 
@@ -112,6 +112,7 @@ You can follow this steps:
 You can follow this references:
 
 - Update steps above from any discussion on issues.
+- Keep branches up to date with `main`.
 - Review how to [maintain a Healthy Infrastructure](https://carpentries.github.io/sandpaper-docs/update.html).
 - Review how to [Automate a Pull Request](https://carpentries.github.io/sandpaper-docs/pull-request.html#automated-pull-requests). Lessons outside of the carpentries need to [set up a Pull Request bot](https://carpentries.github.io/sandpaper-docs/pull-request.html#automated-pull-requests) with the [Carpentries Apprentice bot](https://github.com/carpentries-bot).
 
