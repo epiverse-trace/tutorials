@@ -3,6 +3,10 @@
     "Version": "4.3.1",
     "Repositories": [
       {
+        "Name": "epiverse-trace",
+        "URL": "https://epiverse-trace.r-universe.dev"
+      },
+      {
         "Name": "carpentries",
         "URL": "https://carpentries.r-universe.dev"
       },
@@ -410,14 +414,8 @@
     "epidemics": {
       "Package": "epidemics",
       "Version": "0.0.0.9000",
-      "Source": "GitHub",
-      "RemoteType": "github",
-      "RemoteHost": "api.github.com",
-      "RemoteRepo": "epidemics",
-      "RemoteUsername": "epiverse-trace",
-      "RemotePkgRef": "epiverse-trace/epidemics",
-      "RemoteRef": "HEAD",
-      "RemoteSha": "6004c3a7e50be7b127070c4e96a011630307df17",
+      "Source": "Repository",
+      "Repository": "https://epiverse-trace.r-universe.dev",
       "Requirements": [
         "BH",
         "Rcpp",
