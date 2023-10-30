@@ -524,6 +524,9 @@ ggplot(output_samples ,aes(time, value)) +
                alpha = 0.3) +
   facet_grid(
     cols = vars(demography_group)
+  ) +
+  theme_grey(
+    base_size = 15
   )
 ```
 
