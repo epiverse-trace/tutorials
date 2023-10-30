@@ -5,8 +5,13 @@ exercises: 30 # exercise time in minutes
 ---
 
 ```{r setup, echo= FALSE, message = FALSE, warning = FALSE}
-require(ggplot2);require(data.table);require(DiagrammeR);require(webshot);require(pak)
-pak::pak("epiverse-trace/epidemics"); library(epidemics)
+require(ggplot2)
+require(data.table)
+require(DiagrammeR)
+require(webshot)
+require(pak)
+pak::pak("epiverse-trace/epidemics")
+library(epidemics)
 webshot::install_phantomjs(force = TRUE)
 ```
 
@@ -128,7 +133,6 @@ ggplot(output[compartment == "infectious", ]) +
   theme(
     legend.position = "top"
   )
-
 ```
 
 
@@ -141,7 +145,7 @@ By the end of this tutorial, learners should be able to replicate the above imag
 The first step is to install the R packages `epidemics`.
 
 ```{r installation, eval = FALSE}
-if(!require("pak")) install.packages("pak")
+if (!require("pak")) install.packages("pak")
 pak::pak("epiverse-trace/epidemics")
 ```
 
@@ -170,7 +174,7 @@ We want to generate disease trajectories of an influenza strain with pandemic po
 
 ```{r diagram, echo = FALSE}
 DiagrammeR::grViz("digraph {
-  
+
   # graph statement
   #################
   graph [layout = dot,
@@ -180,10 +184,10 @@ DiagrammeR::grViz("digraph {
 
   # nodes
   #######
-  node [shape = square,           
+  node [shape = square,
        fixedsize = true
-       width = 1.3] 
-       
+       width = 1.3]
+
        S
        E
        I
@@ -196,7 +200,6 @@ DiagrammeR::grViz("digraph {
   I -> R [label = ' recovery (&gamma;)']
 
 }")
-
 ```
 
 
@@ -265,7 +268,6 @@ influenza <- infection(
   preinfectious_period = 3,
   infectious_period = 7
 )
-
 ```
 
 ::::::::::::::::::::::::::::::::::::: callout
@@ -322,7 +324,7 @@ contact_matrix
 ## Output
  
 ```{r polymod_uk, echo = FALSE, message = FALSE}
- polymod <- socialmixr::polymod
+polymod <- socialmixr::polymod
 contact_data <- socialmixr::contact_matrix(
   polymod,
   countries = "United Kingdom",
@@ -445,7 +447,6 @@ ggplot(output[compartment == "infectious", ]) +
   theme(
     legend.position = "top"
   )
-
 ```
 
 
@@ -476,7 +477,7 @@ R0_vec <- rnorm(100, 1.5, 0.05)
 # set up empty list to store model simulations
 output_list <- list()
 # for each sample from R0_vec
-for(i in 1:length(R0_vec)){
+for (i in 1:length(R0_vec)) {
   # create infection object
   influenza <- infection(
     name = "influenza",
@@ -490,7 +491,7 @@ for(i in 1:length(R0_vec)){
     infection = influenza,
     time_end = 600, increment = 1.0
   )
-  # store model simulation 
+  # store model simulation
   output_list[[i]] <- output
 }
 ```
@@ -502,17 +503,19 @@ for(i in 1:length(R0_vec)){
 # combine all model simulations
 output_reps <- rbindlist(output_list, idcol = "sim")
 # calculate the mean and 95% quantile across time, demography group and disease state
-summary_output <- output_reps[ ,list(mean_value = mean(value), 
-                                 l_q_value = quantile(value, probs = 0.025),
-                                 u_q_value = quantile(value, probs = 0.975)), 
-                                 by = list(time, demography_group, compartment)]
-
+summary_output <- output_reps[, list(
+  mean_value = mean(value),
+  l_q_value = quantile(value, probs = 0.025),
+  u_q_value = quantile(value, probs = 0.975)
+),
+by = list(time, demography_group, compartment)
+]
 ```
 
 4. Visualise output
 
 ```{r  plot}
-ggplot(summary_output[compartment == "infectious" &  demography_group == "[0,20)", ]) +
+ggplot(summary_output[compartment == "infectious" & demography_group == "[0,20)", ]) +
   geom_line(
     aes(time, mean_value)
   ) +
@@ -526,13 +529,12 @@ ggplot(summary_output[compartment == "infectious" &  demography_group == "[0,20)
   theme_classic() +
   theme(
     legend.position = "top"
-  )+
+  ) +
   geom_ribbon(
-    aes(x = time, ymin = l_q_value, ymax = u_q_value), 
+    aes(x = time, ymin = l_q_value, ymax = u_q_value),
     linetype = 2, alpha = 0.1
-  )+
-  ggtitle("Infectious indivduals aged 0 - 20") 
-
+  ) +
+  ggtitle("Infectious indivduals aged 0 - 20")
 ```
 
 

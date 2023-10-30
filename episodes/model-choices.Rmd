@@ -144,7 +144,7 @@ DiagrammeR::grViz("digraph {
        E
        I
        R
-       
+
   # edges
   #######
   S -> E [label = ' infection']
@@ -176,14 +176,14 @@ DiagrammeR::grViz("digraph {
   node [shape = square,
        fixedsize = true
        width = 1.3]
-       
+
        S
        E
        I
        H
        F
        R
-       
+
   # edges
   #######
   S -> E [label = ' infection ']

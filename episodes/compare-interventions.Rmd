@@ -6,8 +6,10 @@ exercises: 30 # exercise time in minutes
 ---
 
 ```{r setup, echo= FALSE, message = FALSE, warning = FALSE}
-require(ggplot2);require(pak)
-pak::pak("epiverse-trace/epidemics"); library(epidemics)
+require(ggplot2)
+require(pak)
+pak::pak("epiverse-trace/epidemics")
+library(epidemics)
 ```
 
 :::::::::::::::::::::::::::::::::::::: questions 
@@ -59,8 +61,7 @@ The Vacamole model is a deterministic model based on a system of ODEs in [Ainsli
 The diagram below describes the flow of individuals through the different compartments. 
 
 ```{r, echo = FALSE}
-DiagrammeR::grViz("digraph {
-
+DiagrammeR::grViz("digraph{
   # graph statement
   #################
   graph [layout = dot,
@@ -107,9 +108,9 @@ DiagrammeR::grViz("digraph {
   H -> D [label = ' death (&omega;)']
   H -> R [label = ' recovery (&gamma;)']
 
-      subgraph {
-        rank = same; S; V1;V2;
-      }
+  subgraph {
+  rank = same; S; V1;V2;
+  }
 }")
 ```
 
@@ -157,4 +158,3 @@ See `?epidemics::epidemic_vacamole.R` for detail on how to run the model.
 - The counter factual scenario must be defined to make comparisons
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
-

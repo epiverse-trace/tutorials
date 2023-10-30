@@ -6,8 +6,10 @@ exercises: 30 # exercise time in minutes
 ---
 
 ```{r setup, echo= FALSE, message = FALSE, warning = FALSE}
-require(ggplot2);require(pak)
-pak::pak("epiverse-trace/epidemics"); library(epidemics)
+require(ggplot2)
+require(pak)
+pak::pak("epiverse-trace/epidemics")
+library(epidemics)
 ```
 
 :::::::::::::::::::::::::::::::::::::: questions 
@@ -76,7 +78,8 @@ initial_conditions <- c(
 
 # build for all age groups
 initial_conditions <- matrix(
-  rep(initial_conditions, dim(contact_matrix)[1]), ncol = 5, byrow = T,
+  rep(initial_conditions, dim(contact_matrix)[1]),
+  ncol = 5, byrow = T,
 )
 rownames(initial_conditions) <- rownames(contact_matrix)
 
@@ -111,17 +114,17 @@ The contact matrix is scaled down by proportions for the period in which the int
 
 ```{r echo = FALSE}
 reduction <- matrix(c(0.5, 0.1))
-contact_matrix_example <- matrix(c(1,1,1,1), nrow = 2)
+contact_matrix_example <- matrix(c(1, 1, 1, 1), nrow = 2)
 contact_matrix_example
 ```
 
 If the reduction is 50% in group 1 and 10% in group 2, the contact matrix during the intervention will be:
 
 ```{r echo = FALSE}
-contact_matrix_example[1,] <- contact_matrix_example[1,] * (1-reduction[1])
-contact_matrix_example[,1] <- contact_matrix_example[,1] * (1-reduction[1])
-contact_matrix_example[2,] <- contact_matrix_example[2,] * (1-reduction[2])
-contact_matrix_example[,2] <- contact_matrix_example[,2] * (1-reduction[2])
+contact_matrix_example[1, ] <- contact_matrix_example[1, ] * (1 - reduction[1])
+contact_matrix_example[, 1] <- contact_matrix_example[, 1] * (1 - reduction[1])
+contact_matrix_example[2, ] <- contact_matrix_example[2, ] * (1 - reduction[2])
+contact_matrix_example[, 2] <- contact_matrix_example[, 2] * (1 - reduction[2])
 contact_matrix_example
 ```
 
@@ -145,7 +148,6 @@ close_schools <- intervention(
   time_end = 50 + 100,
   reduction = matrix(c(0.5, 0.01, 0.01))
 )
-
 ```
 
 To run the model with an intervention we set ` intervention = list(contacts = close_schools)` as follows:
@@ -189,12 +191,12 @@ ggplot(output_school[compartment == "infectious", ], aes(x = time, y = value)) +
     geom = "text",
     label = "Schools closed",
     colour = "gray",
-    x = (close_schools$time_end-close_schools$time_begin)/2+close_schools$time_begin, 
+    x = (close_schools$time_end - close_schools$time_begin) / 2 +
+      close_schools$time_begin,
     y = 10,
     angle = 0,
     vjust = "outward"
-  ) 
-
+  )
 ```
 
 #### Effect of mask wearing on COVID-19 spread
@@ -256,12 +258,12 @@ ggplot(output_masks[compartment == "infectious", ], aes(x = time, y = value)) +
     geom = "text",
     label = "Mask mandate",
     colour = "gray",
-    x = (mask_mandate$time_end-mask_mandate$time_begin)/2+mask_mandate$time_begin, 
+    x = (mask_mandate$time_end - mask_mandate$time_begin) / 2 +
+      mask_mandate$time_begin,
     y = 10,
     angle = 0,
     vjust = "outward"
-  ) 
-
+  )
 ```
 
 
@@ -271,7 +273,7 @@ Models can be used to investigate the effect of pharmaceutical interventions, su
 
 ```{r diagram_SEIRV, echo = FALSE}
 DiagrammeR::grViz("digraph {
-  
+
   # graph statement
   #################
   graph [layout = dot,
@@ -281,10 +283,10 @@ DiagrammeR::grViz("digraph {
 
   # nodes
   #######
-  node [shape = square,           
+  node [shape = square,
        fixedsize = true
-       width = 1.3] 
-       
+       width = 1.3]
+
        S
        E
        I
@@ -299,7 +301,6 @@ DiagrammeR::grViz("digraph {
   I -> R [label = ' recovery (&gamma;)']
 
 }")
-
 ```
 
 The equations describing this model are as follows: 
@@ -342,7 +343,10 @@ output_vaccinate <- epidemic_default_cpp(
 Here we see that the total number of infectious individuals when vaccination is in place is much lower compared to school closures and mask wearing interventions. 
 
 ```{r plot_vaccinate, echo = FALSE, message = FALSE}
-ggplot(output_vaccinate[compartment == "infectious", ], aes(x = time, y = value)) +
+ggplot(
+  output_vaccinate[compartment == "infectious", ],
+  aes(x = time, y = value)
+) +
   stat_summary(
     fun = sum,
     color = "black",
@@ -369,12 +373,11 @@ ggplot(output_vaccinate[compartment == "infectious", ], aes(x = time, y = value)
     geom = "text",
     label = "Vaccination",
     colour = "gray",
-    x = (vaccinate$time_end-vaccinate$time_begin)/2+vaccinate$time_begin, 
+    x = (vaccinate$time_end - vaccinate$time_begin) / 2 + vaccinate$time_begin,
     y = 10,
     angle = 0,
     vjust = "outward"
-  ) 
-
+  )
 ```
 
 
@@ -388,4 +391,3 @@ Modelling interventions requires assumptions of how interventions affect model p
 - Different types of intervention can be implemented using mathematical modelling
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
-
