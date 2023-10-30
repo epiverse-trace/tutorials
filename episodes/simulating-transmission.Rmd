@@ -176,7 +176,7 @@ There can be subtle differences in model structures for the same infection or ou
 
 We want to generate disease trajectories of an influenza strain with pandemic potential. We will use the default epidemic model in `epidemics`, an age-structured SEIR model described by a system of ordinary differential equations. For each age group $i$, individuals are classed as either susceptible $S$, infected but not yet infectious $E$, infectious $I$ or recovered $R$. 
 
-```{r diagram, echo = FALSE}
+```{r diagram, echo = FALSE, message = FALSE}
 DiagrammeR::grViz("digraph {
 
   # graph statement

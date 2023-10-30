@@ -60,7 +60,7 @@ The Vacamole model is a deterministic model based on a system of ODEs in [Ainsli
 
 The diagram below describes the flow of individuals through the different compartments. 
 
-```{r, echo = FALSE}
+```{r, echo = FALSE, message = FALSE}
 DiagrammeR::grViz("digraph{
   # graph statement
   #################

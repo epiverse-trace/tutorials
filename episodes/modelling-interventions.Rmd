@@ -279,7 +279,7 @@ ggplot(output_masks[compartment == "infectious", ], aes(x = time, y = value)) +
 
 Models can be used to investigate the effect of pharmaceutical interventions, such as vaccination. In this case, it is useful to add another disease state to track the number of vaccinated individuals through time. The diagram below shows an SEIRV model where susceptible individuals are vaccinated and then move to the $V$ class.
 
-```{r diagram_SEIRV, echo = FALSE}
+```{r diagram_SEIRV, echo = FALSE, message = FALSE}
 DiagrammeR::grViz("digraph {
 
   # graph statement

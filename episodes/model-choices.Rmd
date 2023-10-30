@@ -127,7 +127,7 @@ Consider the following questions:
 
 A deterministic SEIR model with age specific direct transmission. 
 
-```{r diagram, echo = FALSE}
+```{r diagram, echo = FALSE, message = FALSE}
 DiagrammeR::grViz("digraph {
   # graph statement
   #################
@@ -161,7 +161,7 @@ The model is capable of predicting an Ebola type outbreak, but as the model is d
 
 A stochastic SEIHFR (Susceptible, Exposed, Infectious, Hospitalised, Funeral, Removed) model that was developed specifically for infection with Ebola.
 
-```{r, echo = FALSE}
+```{r, echo = FALSE, message = FALSE}
 DiagrammeR::grViz("digraph {
 
   # graph statement
