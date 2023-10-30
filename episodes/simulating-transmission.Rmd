@@ -6,7 +6,8 @@ exercises: 30 # exercise time in minutes
 
 ```{r setup, echo= FALSE, message = FALSE, warning = FALSE}
 require(ggplot2)
-require(data.table)
+require(testthat)
+require(tidyverse)
 require(DiagrammeR)
 require(webshot)
 require(pak)
@@ -42,8 +43,6 @@ This tutorial has the following concept dependencies:
 **Modelling** : Components of infectious disease models e.g. state variables, parameters, initial conditions, Ordinary differential equations.
 
 **Epidemic theory** : Transmission, Reproduction number.
-
-**Data science**  : For loops.
 :::::::::::::::::::::::::::::::::
 
 
@@ -479,72 +478,53 @@ R0_vec <- rnorm(100, 1.5, 0.05)
 
 2. Run the model 100 times with $R_0$ equal to a different sample each time
 
-```{r for_loop}
-# set up empty list to store model simulations
-output_list <- list()
-# for each sample from R0_vec
-for (i in 1:length(R0_vec)) {
-  # create infection object
-  influenza <- infection(
-    name = "influenza",
-    r0 = R0_vec[i],
-    preinfectious_period = 3,
-    infectious_period = 7
-  )
-  # run an epidemic model using `epidemic()`
-  output <- epidemic_default_cpp(
-    population = uk_population,
-    infection = influenza,
-    time_end = 600, increment = 1.0
-  )
-  # store model simulation
-  output_list[[i]] <- output
-}
+```{r samples}
+output_samples <- Map(
+ R0_vec,
+  seq_along(R0_vec),
+  f = function(x, i) {
+  # create infection object for R0 value
+    influenza <- infection(
+      name = "influenza",
+      r0 = x,
+      preinfectious_period = 3,
+      infectious_period = 7
+    )
+
+    # run an epidemic model using `epidemic()`
+    output <- epidemic_default_cpp(
+      population = uk_population,
+      infection = influenza,
+      time_end = 600, increment = 1.0
+    )
+
+    # extract infectious individuals 
+    output <- output[compartment == "infectious"]
+
+    # assign scenario number
+    output[, c("scenario", "R") := list(i, x)]
+
+    output
+  }
+)
+
+# combine to prepare for plotting
+output_samples <- bind_rows(output_samples)
 ```
 
 
-3. Calculate the mean and 95% quantiles of number of infectious individuals across each model simulation
-
-```{r calc_mean}
-# combine all model simulations
-output_reps <- rbindlist(output_list, idcol = "sim")
-# calculate the mean and 95% quantile across time, demography group and disease state
-summary_output <- output_reps[, list(
-  mean_value = mean(value),
-  l_q_value = quantile(value, probs = 0.025),
-  u_q_value = quantile(value, probs = 0.975)
-),
-by = list(time, demography_group, compartment)
-]
-```
-
-4. Visualise output
+3. Calculate the mean and 95% quantiles of number of infectious individuals across each model simulation and visualise output
 
 ```{r  plot, fig.width = 10}
-ggplot(summary_output[compartment == "infectious" & demography_group == "[0,20)", ]) +
-  geom_line(
-    aes(time, mean_value),
-    linewidth = 1
-  ) +
-  scale_y_continuous(
-    labels = scales::comma,
-    name = "Infectious indivduals"
-  ) +
-  labs(
-    x = "Model time (days)"
-  ) +
-  theme_classic() +
-  theme(
-    legend.position = "top"
-  ) +
-  theme_grey(
-    base_size = 15
-  ) +
-  geom_ribbon(
-    aes(x = time, ymin = l_q_value, ymax = u_q_value),
-    linetype = 2, alpha = 0.1
-  ) +
-  ggtitle("Infectious indivduals aged 0 - 20")
+ggplot(output_samples ,aes(time, value)) +
+  stat_summary(geom = "line", fun = mean) +
+  stat_summary(geom = "ribbon", 
+               fun.min = function(z) { quantile(z, 0.025) },
+               fun.max = function(z) { quantile(z, 0.975) }, 
+               alpha = 0.3) +
+  facet_grid(
+    cols = vars(demography_group)
+  )
 ```
 
 
