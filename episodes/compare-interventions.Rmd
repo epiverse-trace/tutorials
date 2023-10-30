@@ -77,15 +77,15 @@ DiagrammeR::grViz("digraph{
 
        S
        E
-       Ev [label = 'E@_{V}']
+       Ev [label = 'E@_{V}', style = filled, fillcolour = 'gray']
        I
-       Iv [label = 'I@_{V}']
+       Iv [label = 'I@_{V}', style = filled, fillcolour = 'gray']
        H
-       Hv [label = 'H@_{V}']
+       Hv [label = 'H@_{V}', style = filled, fillcolour = 'gray']
        D
        R
-       V1 [label = 'V@_{1}']
-       V2 [label = 'V@_{2}']
+       V1 [label = 'V@_{1}', style = filled, fillcolour = 'gray']
+       V2 [label = 'V@_{2}', style = filled, fillcolour = 'gray']
 
 
   # edges
