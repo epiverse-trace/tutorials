@@ -454,7 +454,7 @@ ggplot(output[compartment == "infectious", ]) +
 
 Note that there is a default argument of `increment = 1`. This relates to the time step of the ODE solver. When the parameters and maximum number of time steps is days, the default increment is one day.
 
-The choice of increment will depend on the timescale of the parameters, and the rate at which events can occur. In general, the increment should smaller than the fastest event. For example, if parameters are on a monthly time scale, but some events will occur within a month, then the increment should be less than one month.
+The choice of increment will depend on the time scale of the parameters, and the rate at which events can occur. In general, the increment should smaller than the fastest event. For example, if parameters are on a monthly time scale, but some events will occur within a month, then the increment should be less than one month.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
