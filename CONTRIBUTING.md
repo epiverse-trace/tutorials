@@ -10,7 +10,7 @@ welcome.
 By contributing, you agree that we may redistribute your work under [our
 license](LICENSE.md). In exchange, we will address your issues and/or assess
 your change proposal as promptly as we can, and help you become a member of our
-community. Everyone involved in [The Epiverse-TRACE][cp-site] agrees to abide by
+community. Everyone involved in [Epiverse-TRACE][cp-site] agrees to abide by
 our [code of conduct](CODE_OF_CONDUCT.md).
 
 ### How to Contribute
@@ -175,7 +175,7 @@ community listed at <https://github.com/epiverse-trace/> including via social
 media, slack, newsletters, and email lists. You can also [reach us by
 email][contact].
 
-[repo]: https://example.com/FIXME
+[repo]: https://github.com/epiverse-trace/tutorials/
 [repo-issues]: https://github.com/epiverse-trace/tutorials/issues
 [contact]: mailto:andree.valle-campos@lshtm.ac.uk
 [cp-site]: https://epiverse-trace.github.io/
