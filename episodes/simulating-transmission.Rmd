@@ -40,9 +40,9 @@ Using the R package `epidemics`, learn how to:
 
 This tutorial has the following concept dependencies: 
 
-**Modelling** : Components of infectious disease models e.g. state variables, parameters, initial conditions, Ordinary differential equations.
+**Modelling** : [Components of infectious disease models](https://doi.org/10.1038/s41592-020-0856-2) e.g. state variables, parameters, initial conditions, Ordinary differential equations.
 
-**Epidemic theory** : Transmission, Reproduction number.
+**Epidemic theory** : [Transmission](https://doi.org/10.1155/2011/267049), [Reproduction number](https://doi.org/10.3201/eid2501.171901).
 :::::::::::::::::::::::::::::::::
 
 
