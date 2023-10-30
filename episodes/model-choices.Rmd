@@ -58,7 +58,7 @@ Model structures differ for whether the disease has pandemic potential or not. W
 
 + What is the outcome of interest?
 
-The outcome of interest can be a feature of a mathematical model. It may be that you interested in the predicted numbers of infection through time, or in a specific outcome such as hospitalisations or cases of severe disease.
+The outcome of interest can be a feature of a mathematical model. It may be that you are interested in the predicted numbers of infection through time, or in a specific outcome such as hospitalisations or cases of severe disease.
 
 + Will any interventions be modelled? 
 
