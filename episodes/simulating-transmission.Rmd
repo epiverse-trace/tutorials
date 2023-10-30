@@ -54,7 +54,7 @@ Mathematical models are useful tools for generating future trajectories of disea
 
 In this tutorial, we will use the R package `{epidemics}` to generate trajectories of influenza spread. By the end of this tutorial, you will be able to generate the trajectory below showing the number of infectious individuals in different age categories through time.
 
-```{r traj, echo = FALSE, message= FALSE}
+```{r traj, echo = FALSE, message= FALSE, fig.width = 10}
 # load contact and population data from socialmixr::polymod
 polymod <- socialmixr::polymod
 contact_data <- socialmixr::contact_matrix(
@@ -115,7 +115,8 @@ output <- epidemic_default_cpp(
 
 ggplot(output[compartment == "infectious", ]) +
   geom_line(
-    aes(time, value, colour = demography_group)
+    aes(time, value, colour = demography_group),
+    linewidth = 1
   ) +
   scale_colour_brewer(
     palette = "Dark2",
@@ -132,6 +133,9 @@ ggplot(output[compartment == "infectious", ]) +
   theme_classic() +
   theme(
     legend.position = "top"
+  ) +
+  theme_grey(
+    base_size = 15
   )
 ```
 
@@ -426,10 +430,11 @@ head(output)
 ```
 Our model output consists of the number of individuals in each compartment in each age group through time. We can visualise the infectious individuals only (those in the $I$ class) through time.
 
-```{r visualise}
+```{r visualise, fig.width = 10}
 ggplot(output[compartment == "infectious", ]) +
   geom_line(
-    aes(time, value, colour = demography_group)
+    aes(time, value, colour = demography_group),
+    linewidth = 1
   ) +
   scale_colour_brewer(
     palette = "Dark2",
@@ -446,6 +451,9 @@ ggplot(output[compartment == "infectious", ]) +
   theme_classic() +
   theme(
     legend.position = "top"
+  ) +
+  theme_grey(
+    base_size = 15
   )
 ```
 
@@ -514,10 +522,11 @@ by = list(time, demography_group, compartment)
 
 4. Visualise output
 
-```{r  plot}
+```{r  plot, fig.width = 10}
 ggplot(summary_output[compartment == "infectious" & demography_group == "[0,20)", ]) +
   geom_line(
-    aes(time, mean_value)
+    aes(time, mean_value),
+    linewidth = 1
   ) +
   scale_y_continuous(
     labels = scales::comma,
@@ -529,6 +538,9 @@ ggplot(summary_output[compartment == "infectious" & demography_group == "[0,20)"
   theme_classic() +
   theme(
     legend.position = "top"
+  ) +
+    theme_grey(
+    base_size = 15
   ) +
   geom_ribbon(
     aes(x = time, ymin = l_q_value, ymax = u_q_value),

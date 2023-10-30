@@ -163,12 +163,13 @@ output_school <- epidemic_default_cpp(
 
 We see that with the intervention in place, the infection still spreads through the population. 
 
-```{r plot_school, echo = FALSE, message = FALSE}
+```{r plot_school, echo = FALSE, message = FALSE, fig.width = 10}
 ggplot(output_school[compartment == "infectious", ], aes(x = time, y = value)) +
   stat_summary(
     fun = sum,
     color = "black",
-    geom = "line"
+    geom = "line",
+    linewidth = 1
   ) +
   scale_y_continuous(
     labels = scales::comma,
@@ -181,16 +182,19 @@ ggplot(output_school[compartment == "infectious", ], aes(x = time, y = value)) +
   theme(
     legend.position = "top"
   ) +
+  theme_grey(
+    base_size = 15
+  ) +
   geom_vline(
     xintercept = c(close_schools$time_begin, close_schools$time_end),
-    colour = "gray",
+    colour = "black",
     linetype = "dashed",
     linewidth = 0.2
   ) +
   annotate(
     geom = "text",
     label = "Schools closed",
-    colour = "gray",
+    colour = "black",
     x = (close_schools$time_end - close_schools$time_begin) / 2 +
       close_schools$time_begin,
     y = 10,
@@ -230,12 +234,13 @@ output_masks <- epidemic_default_cpp(
 
 
 
-```{r plot_masks, echo = FALSE, message = FALSE}
+```{r plot_masks, echo = FALSE, message = FALSE, fig.width = 10}
 ggplot(output_masks[compartment == "infectious", ], aes(x = time, y = value)) +
   stat_summary(
     fun = sum,
     color = "black",
-    geom = "line"
+    geom = "line",
+    linewidth = 1,
   ) +
   scale_y_continuous(
     labels = scales::comma,
@@ -248,16 +253,19 @@ ggplot(output_masks[compartment == "infectious", ], aes(x = time, y = value)) +
   theme(
     legend.position = "top"
   ) +
+  theme_grey(
+    base_size = 15
+  ) +
   geom_vline(
     xintercept = c(mask_mandate$time_begin, mask_mandate$time_end),
-    colour = "gray",
+    colour = "black",
     linetype = "dashed",
     linewidth = 0.2
   ) +
   annotate(
     geom = "text",
     label = "Mask mandate",
-    colour = "gray",
+    colour = "black",
     x = (mask_mandate$time_end - mask_mandate$time_begin) / 2 +
       mask_mandate$time_begin,
     y = 10,
@@ -342,7 +350,7 @@ output_vaccinate <- epidemic_default_cpp(
 
 Here we see that the total number of infectious individuals when vaccination is in place is much lower compared to school closures and mask wearing interventions. 
 
-```{r plot_vaccinate, echo = FALSE, message = FALSE}
+```{r plot_vaccinate, echo = FALSE, message = FALSE, fig.width = 10}
 ggplot(
   output_vaccinate[compartment == "infectious", ],
   aes(x = time, y = value)
@@ -350,7 +358,8 @@ ggplot(
   stat_summary(
     fun = sum,
     color = "black",
-    geom = "line"
+    geom = "line",
+    linewidth = 1,
   ) +
   scale_y_continuous(
     labels = scales::comma,
@@ -363,16 +372,19 @@ ggplot(
   theme(
     legend.position = "top"
   ) +
+  theme_grey(
+    base_size = 15
+  ) +
   geom_vline(
     xintercept = c(vaccinate$time_begin, vaccinate$time_end),
-    colour = "gray",
+    colour = "black",
     linetype = "dashed",
     linewidth = 0.2
   ) +
   annotate(
     geom = "text",
     label = "Vaccination",
-    colour = "gray",
+    colour = "black",
     x = (vaccinate$time_end - vaccinate$time_begin) / 2 + vaccinate$time_begin,
     y = 10,
     angle = 0,
