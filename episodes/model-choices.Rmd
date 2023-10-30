@@ -67,7 +67,7 @@ Finally, interventions such as vaccination may be of interest. A model may or ma
 ### Available  models
  
 The R package `epidemics` contains functions to run existing models.
-To find out what models are available see the package [vignettes](https://epiverse-trace.github.io/epidemics/articles). To learn more about each model read the documentation using `?epidemics::epidemic_ebola`. Recall the check model equation questions we can consider when trying to understand an existing model. 
+For details on the models that are available, see the package [vignettes](https://epiverse-trace.github.io/epidemics/articles). To learn how to run the models in R, read the documentation using `?epidemics::epidemic_ebola`. Remember to use the 'Check model equation' questions to help your understanding of an  existing model. 
 
 ::::::::::::::::::::::::::::::::::::: checklist
 ### Check model equations
