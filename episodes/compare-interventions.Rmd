@@ -40,6 +40,13 @@ This tutorial has the following concept dependencies:
 
 In this tutorial we will compare intervention scenarios against each other. To quantify the effect of the intervention we need to compare our intervention scenario to a counter factual scenario. The *counter factual* is the scenario in which nothing changes, often referred to as the 'do nothing' scenario. The counter factual scenario may include no interventions, or if we are investigating the potential impact of an additional intervention in the later stages of an outbreak there may be existing interventions in place. 
 
+We must also decide what our *outcome of interest* is to make comparisons between intervention and counter factual scenarios. The outcome of interest can be:
+
++ a model outcome, e.g. number of infections or hospitalisations,
++ a metric such as the epidemic peak time or size,
++ a measure that uses the model outcomes such as QALY/DALYs.
+
+
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: instructor
 
 In this tutorial we introduce the concept of the counter factual and how to compare scenarios (counter factual versus intervention) against each other. 
