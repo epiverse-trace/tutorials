@@ -533,7 +533,7 @@
     },
     "socialmixr": {
       "Package": "socialmixr",
-      "Version": "0.3.0",
+      "Version": "0.3.1",
       "Source": "Repository",
       "Repository": "CRAN",
       "Requirements": [
@@ -550,7 +550,7 @@
         "wpp2017",
         "xml2"
       ],
-      "Hash": "70e8d107f01e2c1b54154c3aa6200e00"
+      "Hash": "216ff8ff8fd4793dc7e80d69fa955671"
     },
     "spam": {
       "Package": "spam",
