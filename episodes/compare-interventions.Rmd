@@ -48,7 +48,7 @@ In this tutorial we introduce the concept of the counter factual and how to comp
 
 ## Vacamole model
 
-The Vacamole model is a deterministic model based on a system of ODEs in [Ainslie et al. 2022]( https://doi.org/10.2807/1560-7917.ES.2022.27.44.2101090). The model consist of 11 compartments, individuals are classed as one of the following:
+The Vacamole model is a deterministic model based on a system of ODEs in [Ainslie et al. 2022]( https://doi.org/10.2807/1560-7917.ES.2022.27.44.2101090). The model consists of 11 compartments, individuals are classed as one of the following:
 
 + susceptible, $S$,
 + partial vaccination ($V_1$), fully vaccination ($V_2$),
