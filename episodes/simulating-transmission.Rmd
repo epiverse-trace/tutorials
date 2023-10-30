@@ -537,7 +537,7 @@ ggplot(summary_output[compartment == "infectious" & demography_group == "[0,20)"
   theme(
     legend.position = "top"
   ) +
-    theme_grey(
+  theme_grey(
     base_size = 15
   ) +
   geom_ribbon(
