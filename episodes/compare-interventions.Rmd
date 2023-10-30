@@ -1,5 +1,5 @@
 ---
-title: 'Comparing interventions'
+title: 'Comparing public health outcomes of interventions'
 teaching: 45 # teaching time in minutes
 exercises: 30 # exercise time in minutes
 
