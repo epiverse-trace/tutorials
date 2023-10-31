@@ -13,6 +13,9 @@
     <loc>https://epiverse-trace.github.io/tutorials/aio.html</loc>
   </url>
   <url>
+    <loc>https://epiverse-trace.github.io/tutorials/compare-interventions.html</loc>
+  </url>
+  <url>
     <loc>https://epiverse-trace.github.io/tutorials/images.html</loc>
   </url>
   <url>
@@ -31,6 +34,9 @@
     <loc>https://epiverse-trace.github.io/tutorials/instructor/aio.html</loc>
   </url>
   <url>
+    <loc>https://epiverse-trace.github.io/tutorials/instructor/compare-interventions.html</loc>
+  </url>
+  <url>
     <loc>https://epiverse-trace.github.io/tutorials/instructor/images.html</loc>
   </url>
   <url>
@@ -46,10 +52,19 @@
     <loc>https://epiverse-trace.github.io/tutorials/instructor/key-points.html</loc>
   </url>
   <url>
+    <loc>https://epiverse-trace.github.io/tutorials/instructor/model-choices.html</loc>
+  </url>
+  <url>
+    <loc>https://epiverse-trace.github.io/tutorials/instructor/modelling-interventions.html</loc>
+  </url>
+  <url>
     <loc>https://epiverse-trace.github.io/tutorials/instructor/profiles.html</loc>
   </url>
   <url>
     <loc>https://epiverse-trace.github.io/tutorials/instructor/reference.html</loc>
+  </url>
+  <url>
+    <loc>https://epiverse-trace.github.io/tutorials/instructor/simulating-transmission.html</loc>
   </url>
   <url>
     <loc>https://epiverse-trace.github.io/tutorials/instructor/template.html</loc>
@@ -64,10 +79,19 @@
     <loc>https://epiverse-trace.github.io/tutorials/key-points.html</loc>
   </url>
   <url>
+    <loc>https://epiverse-trace.github.io/tutorials/model-choices.html</loc>
+  </url>
+  <url>
+    <loc>https://epiverse-trace.github.io/tutorials/modelling-interventions.html</loc>
+  </url>
+  <url>
     <loc>https://epiverse-trace.github.io/tutorials/profiles.html</loc>
   </url>
   <url>
     <loc>https://epiverse-trace.github.io/tutorials/reference.html</loc>
+  </url>
+  <url>
+    <loc>https://epiverse-trace.github.io/tutorials/simulating-transmission.html</loc>
   </url>
   <url>
     <loc>https://epiverse-trace.github.io/tutorials/template.html</loc>
