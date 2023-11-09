@@ -343,9 +343,9 @@ next tutorial.</p>
 existing models. For details on the models that are available, see the
 package <a href="https://epiverse-trace.github.io/epidemics/articles" class="external-link">vignettes</a>.
 To learn how to run the models in R, read the documentation using
-<code>?epidemics::epidemic_ebola</code>. Remember to use the ‘Check
-model equation’ questions to help your understanding of an existing
-model.</p>
+<code>?epidemics::model_ebola_r</code>. Remember to use the questions in
+the ‘<a href="#check-model-equations">Check model equation</a>’
+checklist to help your understanding of an existing model.</p>
 <div id="check-model-equations" class="callout checklist">
 <div class="callout-square">
 <i class="callout-icon" data-feather="check-square"></i>
@@ -377,8 +377,8 @@ about infection?</li>
 individuals in the early stages of an Ebola outbreak.</p>
 <p>Which of the following models would be an appropriate choice for this
 task:</p>
-<ul><li><p><code>epidemic_default</code></p></li>
-<li><p><code>epidemic_ebola</code></p></li>
+<ul><li><p><code>model_default_cpp()</code></p></li>
+<li><p><code>model_ebola_r()</code></p></li>
 </ul></div>
 </div>
 </div>
@@ -389,7 +389,7 @@ task:</p>
   HINT
   </h4>
 </button>
-<div id="collapseHint1" class="accordion-collapse collapse" aria-labelledby="headingHint1" data-bs-parent="#accordionHint1">
+<div id="collapseHint1" class="accordion-collapse collapse" data-bs-parent="#accordionHint1" aria-labelledby="headingHint1">
 <div class="accordion-body">
 <p>Consider the following questions:</p>
 <div id="checklist2" class="callout checklist">
@@ -418,7 +418,7 @@ task:</p>
   SOLUTION
   </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <ul><li>What is the infection/disease of interest?
 <strong>Ebola</strong>
@@ -433,26 +433,18 @@ infections</strong>
 <li>Will any interventions be modelled? <strong>No</strong>
 </li>
 </ul><div class="section level4">
-<h4 id="epidemic_default"><code>epidemic_default</code><a class="anchor" aria-label="anchor" href="#epidemic_default"></a></h4>
+<h4 id="model_default_cpp"><code>model_default_cpp()</code><a class="anchor" aria-label="anchor" href="#model_default_cpp"></a></h4>
 <p>A deterministic SEIR model with age specific direct transmission.</p>
-<!--html_preserve-->
-<div id="htmlwidget-133f080a5048e6f8c46b" class="grViz html-widget html-fill-item-overflow-hidden html-fill-item" style="width:504px;height:504px;">
-
-</div>
-<script type="application/json" data-for="htmlwidget-133f080a5048e6f8c46b">{"x":{"diagram":"digraph {\n  # graph statement\n  #################\n  graph [layout = dot,\n         rankdir = LR,\n         overlap = true,\n         fontsize = 10]\n  # nodes\n  #######\n  node [shape = square,\n       fixedsize = true,\n       width = 1.3]\n       S\n       E\n       I\n       R\n\n  # edges\n  #######\n  S -> E [label = \" infection\"]\n  E -> I [label = \" onset of \ninfectiousness\"]\n  I -> R [label = \" recovery\"]\n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script><!--/html_preserve--><p>The model is capable of predicting an Ebola type outbreak, but as the
+<figure><img src="fig/model-choices-rendered-diagram-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>The model is capable of predicting an Ebola type outbreak, but as the
 model is deterministic, we are not able to explore stochastic variation
 in the early stages of the outbreak.</p>
 </div>
 <div class="section level4">
-<h4 id="epidemic_ebola"><code>epidemic_ebola</code><a class="anchor" aria-label="anchor" href="#epidemic_ebola"></a></h4>
+<h4 id="model_ebola_r"><code>model_ebola_r()</code><a class="anchor" aria-label="anchor" href="#model_ebola_r"></a></h4>
 <p>A stochastic SEIHFR (Susceptible, Exposed, Infectious, Hospitalised,
 Funeral, Removed) model that was developed specifically for infection
 with Ebola.</p>
-<!--html_preserve-->
-<div id="htmlwidget-2bce1f548a563a09141f" class="grViz html-widget html-fill-item-overflow-hidden html-fill-item" style="width:504px;height:504px;">
-
-</div>
-<script type="application/json" data-for="htmlwidget-2bce1f548a563a09141f">{"x":{"diagram":"digraph {\n\n  # graph statement\n  #################\n  graph [layout = dot,\n  rankdir = LR,\n  overlap = true,\n  fontsize = 10]\n\n  # nodes\n  #######\n  node [shape = square,\n       fixedsize = true\n       width = 1.3]\n\n       S\n       E\n       I\n       H\n       F\n       R\n\n  # edges\n  #######\n  S -> E [label = \" infection \"]\n  E -> I [label = \" onset of \ninfectiousness\"]\n  I -> F [label = \" death \n(funeral) \"]\n  F -> R [label = \" safe burial\"]\n  I -> H [label = \" hospitalisation\"]\n  H -> R [label = \" recovery or \nsafe burial\"]\n\n  subgraph {\n    rank = same; I; F;\n  }\n  subgraph {\n    rank = same; H; R;\n  }\n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script><!--/html_preserve--><p>As this model is stochastic, it is the most appropriate choice to
+<figure><img src="fig/model-choices-rendered-unnamed-chunk-1-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>As this model is stochastic, it is the most appropriate choice to
 explore how variation in numbers of infected individuals in the early
 stages of an Ebola outbreak.</p>
 </div>
