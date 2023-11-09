@@ -251,7 +251,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Comparing public health outcomes of interventions</h1>
-        <p> Last updated on 2023-10-31 | 
+        <p> Last updated on 2023-11-09 | 
         
         <a href="https://github.com/epiverse-trace/tutorials/edit/main/episodes/compare-interventions.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
         
@@ -294,8 +294,10 @@
 <h3 class="callout-title">Prerequisites<a class="anchor" aria-label="anchor" href="#prerequisites"></a>
 </h3>
 <div class="callout-content">
-<ul><li>Complete tutorials ‘Simulating transmission’ and ‘Modelling
-interventions’</li>
+<ul><li>Complete tutorials <a href="simulating-transmission.html">Simulating
+transmission</a> and <a href="modelling-interventions.html">Modelling
+interventions</a>
+</li>
 </ul><p>This tutorial has the following concept dependencies:</p>
 <p><strong>Outbreak response</strong> : <a href="https://www.cdc.gov/nonpharmaceutical-interventions/" class="external-link">Intervention
 types</a>.</p>
@@ -354,7 +356,11 @@ hospitalised while vaccinated, <span class="math inline">\(H_V\)</span>,</li>
 <li>recovered, <span class="math inline">\(R\)</span>.</li>
 </ul><p>The diagram below describes the flow of individuals through the
 different compartments.</p>
-<figure><img src="../fig/compare-interventions-rendered-unnamed-chunk-1-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>See <code>?epidemics::epidemic_vacamole</code> for detail on how to
+<!--html_preserve-->
+<div id="htmlwidget-ca6af240f574fa8839fc" class="grViz html-widget html-fill-item-overflow-hidden html-fill-item" style="width:504px;height:504px;">
+
+</div>
+<script type="application/json" data-for="htmlwidget-ca6af240f574fa8839fc">{"x":{"diagram":"digraph{\n  # graph statement\n  #################\n  graph [layout = dot,\n         rankdir = LR,\n         overlap = true,\n         fontsize = 10]\n\n  # nodes\n  #######\n  node [shape = square,\n       fixedsize = true\n       width = 1.3]\n\n       S\n       E\n       Ev [label = <E<FONT POINT-SIZE=\"8\"><SUB>V<\/SUB><\/FONT>>, style = filled, fillcolour = \"gray\"]\n       I\n       Iv [label = <I<FONT POINT-SIZE=\"8\"><SUB>V<\/SUB><\/FONT>>, style = filled, fillcolour = \"gray\"]\n       H\n       Hv [label = <H<FONT POINT-SIZE=\"8\"><SUB>V<\/SUB><\/FONT>>, style = filled, fillcolour = \"gray\"]\n       D\n       R\n       V1 [label = <V<FONT POINT-SIZE=\"8\"><SUB>1<\/SUB><\/FONT>>, style = filled, fillcolour = \"gray\"]\n       V2 [label = <V<FONT POINT-SIZE=\"8\"><SUB>2<\/SUB><\/FONT>>, style = filled, fillcolour = \"gray\"]\n\n\n  # edges\n  #######\n  S -> E [label = \" infection (&beta;) \"]\n  S -> V1 [label = \" vaccination (&nu;1)\"]\n  V1 -> E [label = \" infection (&beta;)\"]\n  V1 -> V2 [label = \" vaccination\n(second dose) (&nu;2)\"]\n  V2 -> Ev [label = \" infection (&beta;)\"]\n  Ev -> Iv [label = \" onset of \ninfectiousness (&alpha;) \"]\n  E -> I [label = \" onset of \ninfectiousness (&alpha;) \"]\n  I -> H [label = \" hospitalisation (&eta;)\"]\n  Iv -> Hv [label = < hospitalisation (&eta;<FONT POINT-SIZE=\"8\"><SUB>V<\/SUB><\/FONT>)>]\n  I -> D [label = \" death (&omega;)\"]\n  I -> R [label = \" recovery (&gamma;)\"]\n  Iv -> D [label = < death (&omega;<FONT POINT-SIZE=\"8\"><SUB>V<\/SUB><\/FONT>)>]\n  Iv -> R [label = \" recovery (&gamma;)\"]\n  Hv -> D [label = < death (&omega;<FONT POINT-SIZE=\"8\"><SUB>V<\/SUB><\/FONT>)>]\n  Hv -> R [label = \" recovery (&gamma;)\"]\n  H -> D [label = \" death (&omega;)\"]\n  H -> R [label = \" recovery (&gamma;)\"]\n\n  subgraph {\n  rank = same; S; V1;V2;\n  }\n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script><!--/html_preserve--><p>See <code>?epidemics::epidemic_vacamole</code> for detail on how to
 run the model.</p>
 </section><section id="comparing-scenarios"><h2 class="section-heading">Comparing scenarios<a class="anchor" aria-label="anchor" href="#comparing-scenarios"></a>
 </h2>
@@ -447,7 +453,7 @@ any links that you are not going to use.
   "url": "https://epiverse-trace.github.io/tutorials/instructor/compare-interventions.html",
   "identifier": "https://epiverse-trace.github.io/tutorials/instructor/compare-interventions.html",
   "dateCreated": "2023-11-09",
-  "dateModified": "2023-10-31",
+  "dateModified": "2023-11-09",
   "datePublished": "2023-11-09"
 }
 

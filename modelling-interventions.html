@@ -252,7 +252,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Modelling interventions</h1>
-        <p> Last updated on 2023-10-31 | 
+        <p> Last updated on 2023-11-09 | 
         
         <a href="https://github.com/epiverse-trace/tutorials/edit/main/episodes/modelling-interventions.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
         
@@ -295,7 +295,9 @@ interventions</li>
 <h3 class="callout-title">Prerequisites<a class="anchor" aria-label="anchor" href="#prerequisites"></a>
 </h3>
 <div class="callout-content">
-<ul><li>Complete tutorial ‘Simulating transmission’</li>
+<ul><li>Complete tutorial <a href="simulating-transmission.html">Simulating
+transmission</a>
+</li>
 </ul><p>This tutorial has the following concept dependencies:</p>
 <p><strong>Outbreak response</strong> : <a href="https://www.cdc.gov/nonpharmaceutical-interventions/" class="external-link">Intervention
 types</a>.</p>
@@ -408,10 +410,15 @@ Therefore our intervention object is :</p>
 <span>  reduction <span class="op">=</span> <span class="fu">matrix</span><span class="op">(</span><span class="fu">c</span><span class="op">(</span><span class="fl">0.5</span>, <span class="fl">0.01</span>, <span class="fl">0.01</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre>
 </div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error in epidemic_default_cpp(population = uk_population, infection = covid, : could not find function "epidemic_default_cpp"</code></pre>
+</div>
 <p>To run the model with an intervention we set
 <code>intervention = list(contacts = close_schools)</code> as
 follows:</p>
-<div class="codewrapper sourceCode" id="cb6">
+<div class="codewrapper sourceCode" id="cb7">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -422,11 +429,21 @@ follows:</p>
 <span>  time_end <span class="op">=</span> <span class="fl">300</span>, increment <span class="op">=</span> <span class="fl">1.0</span></span>
 <span><span class="op">)</span></span></code></pre>
 </div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error in epidemic_default_cpp(population = uk_population, infection = covid, : could not find function "epidemic_default_cpp"</code></pre>
+</div>
 <p>We see that with the intervention (solid line) in place, the
 infection still spreads through the population, though the epidemic peak
 is smaller than the baseline with no intervention in place (dashed
 line).</p>
-<figure><img src="fig/modelling-interventions-rendered-plot_school-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure></div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'output_school' not found</code></pre>
+</div>
+</div>
 <div class="section level4">
 <h4 id="effect-of-mask-wearing-on-covid-19-spread">Effect of mask wearing on COVID-19 spread<a class="anchor" aria-label="anchor" href="#effect-of-mask-wearing-on-covid-19-spread"></a></h4>
 <p>We can model the effect of other NPIs as reducing the value of
@@ -447,7 +464,7 @@ we have proportion wearing masks = coverage <span class="math inline">\(\times\)
 reduction in transmissibility = <span class="math inline">\(0.575\)</span>. Therefore, <span class="math inline">\(\theta = 0.2835 \times 0.575 = 0.163\)</span>. We
 assume that the mask wearing mandate starts at day 40 and is in place
 for 200 days.</p>
-<div class="codewrapper sourceCode" id="cb7">
+<div class="codewrapper sourceCode" id="cb10">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -461,7 +478,7 @@ for 200 days.</p>
 </div>
 <p>To implement this intervention on the parameter <span class="math inline">\(\beta\)</span>, we specify
 <code>intervention = list(beta = mask_mandate)</code>.</p>
-<div class="codewrapper sourceCode" id="cb8">
+<div class="codewrapper sourceCode" id="cb11">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -472,7 +489,17 @@ for 200 days.</p>
 <span>  time_end <span class="op">=</span> <span class="fl">300</span>, increment <span class="op">=</span> <span class="fl">1.0</span></span>
 <span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="fig/modelling-interventions-rendered-plot_masks-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure></div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error in epidemic_default_cpp(population = uk_population, infection = covid, : could not find function "epidemic_default_cpp"</code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'output_masks' not found</code></pre>
+</div>
+</div>
 </section><section id="pharmaceutical-interventions"><h2 class="section-heading">Pharmaceutical interventions<a class="anchor" aria-label="anchor" href="#pharmaceutical-interventions"></a>
 </h2>
 <hr class="half-width"><p>Models can be used to investigate the effect of pharmaceutical
@@ -480,7 +507,11 @@ interventions, such as vaccination. In this case, it is useful to add
 another disease state to track the number of vaccinated individuals
 through time. The diagram below shows an SEIRV model where susceptible
 individuals are vaccinated and then move to the <span class="math inline">\(V\)</span> class.</p>
-<figure><img src="fig/modelling-interventions-rendered-diagram_SEIRV-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>The equations describing this model are as follows:</p>
+<!--html_preserve-->
+<div id="htmlwidget-f0beb0255d025fcdcecd" class="grViz html-widget html-fill-item-overflow-hidden html-fill-item" style="width:504px;height:504px;">
+
+</div>
+<script type="application/json" data-for="htmlwidget-f0beb0255d025fcdcecd">{"x":{"diagram":"digraph {\n\n  # graph statement\n  #################\n  graph [layout = dot,\n         rankdir = LR,\n         overlap = true,\n         fontsize = 10]\n\n  # nodes\n  #######\n  node [shape = square,\n       fixedsize = true\n       width = 1.3]\n\n       S\n       E\n       I\n       R\n       V\n\n  # edges\n  #######\n  S -> E [label = \" infection (&beta;)\"]\n  S -> V [label = \" vaccination (&nu;)\"]\n  E -> I [label = \" onset of \ninfectiousness (&alpha;)\"]\n  I -> R [label = \" recovery (&gamma;)\"]\n\n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script><!--/html_preserve--><p>The equations describing this model are as follows:</p>
 <p><span class="math display">\[
 \begin{aligned}
 \frac{dS_i}{dt} &amp; = - \beta S_i \sum_j C_{i,j} I_j -\nu_{t} S_i \\
@@ -498,7 +529,7 @@ age group specific start and end times of the vaccination program. Here
 we will assume all age groups are vaccinated at the same rate and that
 the vaccination program starts on day 40 and is in place for 150
 days.</p>
-<div class="codewrapper sourceCode" id="cb9">
+<div class="codewrapper sourceCode" id="cb14">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -512,7 +543,7 @@ days.</p>
 </div>
 <p>We pass our vaccination object using
 <code>vaccination = vaccinate</code>:</p>
-<div class="codewrapper sourceCode" id="cb10">
+<div class="codewrapper sourceCode" id="cb15">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -523,10 +554,20 @@ days.</p>
 <span>  time_end <span class="op">=</span> <span class="fl">300</span>, increment <span class="op">=</span> <span class="fl">1.0</span></span>
 <span><span class="op">)</span></span></code></pre>
 </div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error in epidemic_default_cpp(population = uk_population, infection = covid, : could not find function "epidemic_default_cpp"</code></pre>
+</div>
 <p>Here we see that the total number of infectious individuals when
 vaccination is in place is much lower compared to school closures and
 mask wearing interventions.</p>
-<figure><img src="fig/modelling-interventions-rendered-plot_vaccinate-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure></section><section id="summary"><h2 class="section-heading">Summary<a class="anchor" aria-label="anchor" href="#summary"></a>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'output_vaccinate' not found</code></pre>
+</div>
+</section><section id="summary"><h2 class="section-heading">Summary<a class="anchor" aria-label="anchor" href="#summary"></a>
 </h2>
 <hr class="half-width"><p>Modelling interventions requires assumptions of how interventions
 affect model parameters such as contact matrices or parameter values.
@@ -609,7 +650,7 @@ any links that you are not going to use.
   "url": "https://epiverse-trace.github.io/tutorials/modelling-interventions.html",
   "identifier": "https://epiverse-trace.github.io/tutorials/modelling-interventions.html",
   "dateCreated": "2023-11-09",
-  "dateModified": "2023-10-31",
+  "dateModified": "2023-11-09",
   "datePublished": "2023-11-09"
 }
 
