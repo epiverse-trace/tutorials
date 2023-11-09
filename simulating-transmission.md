@@ -43,14 +43,7 @@ Mathematical models are useful tools for generating future trajectories of disea
 
 In this tutorial, we will use the R package `{epidemics}` to generate trajectories of influenza spread. By the end of this tutorial, you will be able to generate the trajectory below showing the number of infectious individuals in different age categories through time.
 
-
-```{.error}
-Error in epidemic_default_cpp(population = uk_population, infection = influenza, : could not find function "epidemic_default_cpp"
-```
-
-```{.error}
-Error in eval(expr, envir, enclos): object 'output' not found
-```
+<img src="fig/simulating-transmission-rendered-traj-1.png" style="display: block; margin: auto;" />
 
 
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: instructor
@@ -71,7 +64,7 @@ pak::pak("epiverse-trace/epidemics")
 ## Model structures
 To generate predictions of infectious disease trajectories, we must first select a mathematical model to use.
 
-There is a library of models to choose from in `epidemics`. Models are prefixed with epidemic and suffixed by the infection name. In this tutorial, we will use the default epidemic model, `epidemic_default()` which is described in the next section.
+There is a library of models to choose from in `epidemics`. Models are prefixed with `model` and suffixed by the name of infection (e.g. ebola) or a different identifier (e.g. default), and whether the model has a R or C++ code base. In this tutorial, we will use the default epidemic model, `model_default_cpp()` which is described in the next section.
 
 
 ::::::::::::::::::::::::::::::::::::: callout
@@ -320,23 +313,22 @@ No we are ready to run our model. We will specify `time_end=600` to run the mode
 
 
 ```r
-output <- epidemic_default_cpp(
+output <- model_default_cpp(
   population = uk_population,
   infection = influenza,
   time_end = 600
 )
-```
-
-```{.error}
-Error in epidemic_default_cpp(population = uk_population, infection = influenza, : could not find function "epidemic_default_cpp"
-```
-
-```r
 head(output)
 ```
 
-```{.error}
-Error in eval(expr, envir, enclos): object 'output' not found
+```{.output}
+   time demography_group compartment    value
+1:    0           [0,20) susceptible 14799275
+2:    0          [20,40) susceptible 16526302
+3:    0              40+ susceptible 28961159
+4:    0           [0,20)     exposed        0
+5:    0          [20,40)     exposed        0
+6:    0              40+     exposed        0
 ```
 Our model output consists of the number of individuals in each compartment in each age group through time. We can visualise the infectious individuals only (those in the $I$ class) through time.
 
@@ -368,9 +360,7 @@ ggplot(output[compartment == "infectious", ]) +
   )
 ```
 
-```{.error}
-Error in eval(expr, envir, enclos): object 'output' not found
-```
+<img src="fig/simulating-transmission-rendered-visualise-1.png" style="display: block; margin: auto;" />
 
 
 ::::::::::::::::::::::::::::::::::::: callout
@@ -412,7 +402,7 @@ output_samples <- Map(
     )
 
     # run an epidemic model using `epidemic()`
-    output <- epidemic_default_cpp(
+    output <- model_default_cpp(
       population = uk_population,
       infection = influenza,
       time_end = 600, increment = 1.0
@@ -427,19 +417,9 @@ output_samples <- Map(
     output
   }
 )
-```
 
-```{.error}
-Error in epidemic_default_cpp(population = uk_population, infection = influenza, : could not find function "epidemic_default_cpp"
-```
-
-```r
 # combine to prepare for plotting
 output_samples <- bind_rows(output_samples)
-```
-
-```{.error}
-Error in eval(expr, envir, enclos): object 'output_samples' not found
 ```
 
 
@@ -461,9 +441,7 @@ ggplot(output_samples ,aes(time, value)) +
   )
 ```
 
-```{.error}
-Error in eval(expr, envir, enclos): object 'output_samples' not found
-```
+<img src="fig/simulating-transmission-rendered-plot-1.png" style="display: block; margin: auto;" />
 
 
 Deciding which parameters to include uncertainty in depends on a few factors: how well informed a parameter value is e.g. consistency of estimates from the literature; how sensitive model outputs are to parameter value changes; and the purpose of the modelling task. 

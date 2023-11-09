@@ -54,7 +54,7 @@ In mathematical modelling, we must make assumptions about how NPIs will affect t
 
 We want to investigate the effect of school closures on reducing the number of individuals infectious with COVID-19 through time. We assume that a school closure will reduce the frequency of contacts within and between different age groups. 
 
-Using an SEIR model (`epidemic_default()` in the R package `{epidemics}`) we set $R_0 = 2.7$, preinfectious period $= 4$ and the infectious_period $= 5.5$ (parameters adapted from [Davies et al. (2020)](https://doi.org/10.1016/S2468-2667(20)30133-X)). We load a contact matrix with age bins 0-18, 18-65, 65 years and older using `{socialmixr}` and assume that one in every 1 million in each age group is infectious at the start of the epidemic.
+Using an SEIR model (`model_default_cpp()` in the R package `{epidemics}`) we set $R_0 = 2.7$, preinfectious period $= 4$ and the infectious_period $= 5.5$ (parameters adapted from [Davies et al. (2020)](https://doi.org/10.1016/S2468-2667(20)30133-X)). We load a contact matrix with age bins 0-18, 18-65, 65 years and older using `{socialmixr}` and assume that one in every 1 million in each age group is infectious at the start of the epidemic.
 
 We will assume that school closures will reduce the contacts between school aged children (aged 0-15) by 0.5, and will cause a small reduction (0.01) in the contacts between adults (aged 15 and over). 
 
@@ -108,16 +108,13 @@ close_schools <- intervention(
 ```
 
 
-```{.error}
-Error in epidemic_default_cpp(population = uk_population, infection = covid, : could not find function "epidemic_default_cpp"
-```
 
 
 To run the model with an intervention we set ` intervention = list(contacts = close_schools)` as follows:
 
 
 ```r
-output_school <- epidemic_default_cpp(
+output_school <- model_default_cpp(
   population = uk_population,
   infection = covid,
   intervention = list(contacts = close_schools),
@@ -125,17 +122,10 @@ output_school <- epidemic_default_cpp(
 )
 ```
 
-```{.error}
-Error in epidemic_default_cpp(population = uk_population, infection = covid, : could not find function "epidemic_default_cpp"
-```
-
 
 We see that with the intervention (solid line) in place, the infection still spreads through the population, though the epidemic peak is smaller than the baseline with no intervention in place (dashed line).
 
-
-```{.error}
-Error in eval(expr, envir, enclos): object 'output_school' not found
-```
+<img src="fig/modelling-interventions-rendered-plot_school-1.png" style="display: block; margin: auto;" />
 
 #### Effect of mask wearing on COVID-19 spread
 
@@ -160,7 +150,7 @@ To implement this intervention on the parameter $\beta$, we specify `interventio
 
 
 ```r
-output_masks <- epidemic_default_cpp(
+output_masks <- model_default_cpp(
   population = uk_population,
   infection = covid,
   intervention = list(beta = mask_mandate),
@@ -168,24 +158,16 @@ output_masks <- epidemic_default_cpp(
 )
 ```
 
-```{.error}
-Error in epidemic_default_cpp(population = uk_population, infection = covid, : could not find function "epidemic_default_cpp"
-```
 
 
-
-
-```{.error}
-Error in eval(expr, envir, enclos): object 'output_masks' not found
-```
+<img src="fig/modelling-interventions-rendered-plot_masks-1.png" style="display: block; margin: auto;" />
 
 
 ## Pharmaceutical interventions
 
 Models can be used to investigate the effect of pharmaceutical interventions, such as vaccination. In this case, it is useful to add another disease state to track the number of vaccinated individuals through time. The diagram below shows an SEIRV model where susceptible individuals are vaccinated and then move to the $V$ class.
 
-<!--html_preserve--><div class="grViz html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-f0beb0255d025fcdcecd" style="width:504px;height:504px;"></div>
-<script type="application/json" data-for="htmlwidget-f0beb0255d025fcdcecd">{"x":{"diagram":"digraph {\n\n  # graph statement\n  #################\n  graph [layout = dot,\n         rankdir = LR,\n         overlap = true,\n         fontsize = 10]\n\n  # nodes\n  #######\n  node [shape = square,\n       fixedsize = true\n       width = 1.3]\n\n       S\n       E\n       I\n       R\n       V\n\n  # edges\n  #######\n  S -> E [label = \" infection (&beta;)\"]\n  S -> V [label = \" vaccination (&nu;)\"]\n  E -> I [label = \" onset of \ninfectiousness (&alpha;)\"]\n  I -> R [label = \" recovery (&gamma;)\"]\n\n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+<img src="fig/modelling-interventions-rendered-diagram_SEIRV-1.png" style="display: block; margin: auto;" />
 
 The equations describing this model are as follows: 
 
@@ -218,7 +200,7 @@ We pass our vaccination object using `vaccination = vaccinate`:
 
 
 ```r
-output_vaccinate <- epidemic_default_cpp(
+output_vaccinate <- model_default_cpp(
   population = uk_population,
   infection = covid,
   vaccination = vaccinate,
@@ -226,16 +208,9 @@ output_vaccinate <- epidemic_default_cpp(
 )
 ```
 
-```{.error}
-Error in epidemic_default_cpp(population = uk_population, infection = covid, : could not find function "epidemic_default_cpp"
-```
-
 Here we see that the total number of infectious individuals when vaccination is in place is much lower compared to school closures and mask wearing interventions. 
 
-
-```{.error}
-Error in eval(expr, envir, enclos): object 'output_vaccinate' not found
-```
+<img src="fig/modelling-interventions-rendered-plot_vaccinate-1.png" style="display: block; margin: auto;" />
 
 
 ## Summary

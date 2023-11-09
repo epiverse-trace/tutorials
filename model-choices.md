@@ -62,7 +62,7 @@ Finally, interventions such as vaccination may be of interest. A model may or ma
 ### Available  models
  
 The R package `epidemics` contains functions to run existing models.
-For details on the models that are available, see the package [vignettes](https://epiverse-trace.github.io/epidemics/articles). To learn how to run the models in R, read the documentation using `?epidemics::epidemic_ebola`. Remember to use the 'Check model equation' questions to help your understanding of an  existing model. 
+For details on the models that are available, see the package [vignettes](https://epiverse-trace.github.io/epidemics/articles). To learn how to run the models in R, read the documentation using `?epidemics::model_ebola_r`. Remember to use the questions in the '[Check model equation](#check-model-equations)' checklist to help your understanding of an  existing model. 
 
 ::::::::::::::::::::::::::::::::::::: checklist
 ### Check model equations
@@ -85,9 +85,9 @@ You have been asked to explore the variation in numbers of infected individuals 
 
 Which of the following models would be an appropriate choice for this task:
 
-+  `epidemic_default`
++  `model_default_cpp()`
 
-+ `epidemic_ebola`
++ `model_ebola_r()`
 
 ::::::::::::::::: hint
 
@@ -118,23 +118,21 @@ Consider the following questions:
 + What is the outcome of interest? **Number of infections**
 + Will any interventions be modelled? **No**
 
-#### `epidemic_default`
+#### `model_default_cpp()`
 
 A deterministic SEIR model with age specific direct transmission. 
 
-<!--html_preserve--><div class="grViz html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-133f080a5048e6f8c46b" style="width:504px;height:504px;"></div>
-<script type="application/json" data-for="htmlwidget-133f080a5048e6f8c46b">{"x":{"diagram":"digraph {\n  # graph statement\n  #################\n  graph [layout = dot,\n         rankdir = LR,\n         overlap = true,\n         fontsize = 10]\n  # nodes\n  #######\n  node [shape = square,\n       fixedsize = true,\n       width = 1.3]\n       S\n       E\n       I\n       R\n\n  # edges\n  #######\n  S -> E [label = \" infection\"]\n  E -> I [label = \" onset of \ninfectiousness\"]\n  I -> R [label = \" recovery\"]\n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+<img src="fig/model-choices-rendered-diagram-1.png" style="display: block; margin: auto;" />
 
 
 The model is capable of predicting an Ebola type outbreak, but as the model is deterministic, we are not able to explore stochastic variation in the early stages of the outbreak.
 
 
-#### `epidemic_ebola`
+#### `model_ebola_r()`
 
 A stochastic SEIHFR (Susceptible, Exposed, Infectious, Hospitalised, Funeral, Removed) model that was developed specifically for infection with Ebola.
 
-<!--html_preserve--><div class="grViz html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-2bce1f548a563a09141f" style="width:504px;height:504px;"></div>
-<script type="application/json" data-for="htmlwidget-2bce1f548a563a09141f">{"x":{"diagram":"digraph {\n\n  # graph statement\n  #################\n  graph [layout = dot,\n  rankdir = LR,\n  overlap = true,\n  fontsize = 10]\n\n  # nodes\n  #######\n  node [shape = square,\n       fixedsize = true\n       width = 1.3]\n\n       S\n       E\n       I\n       H\n       F\n       R\n\n  # edges\n  #######\n  S -> E [label = \" infection \"]\n  E -> I [label = \" onset of \ninfectiousness\"]\n  I -> F [label = \" death \n(funeral) \"]\n  F -> R [label = \" safe burial\"]\n  I -> H [label = \" hospitalisation\"]\n  H -> R [label = \" recovery or \nsafe burial\"]\n\n  subgraph {\n    rank = same; I; F;\n  }\n  subgraph {\n    rank = same; H; R;\n  }\n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+<img src="fig/model-choices-rendered-unnamed-chunk-1-1.png" style="display: block; margin: auto;" />
 
 
 
