@@ -253,7 +253,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Simulating transmission</h1>
-        <p> Last updated on 2023-10-31 | 
+        <p> Last updated on 2023-11-09 | 
         
         <a href="https://github.com/epiverse-trace/tutorials/edit/main/episodes/simulating-transmission.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
         
@@ -318,9 +318,20 @@ to generate trajectories of influenza spread. By the end of this
 tutorial, you will be able to generate the trajectory below showing the
 number of infectious individuals in different age categories through
 time.</p>
-<figure><img src="fig/simulating-transmission-rendered-traj-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>The first step is to install the R packages
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error in epidemic_default_cpp(population = uk_population, infection = influenza, : could not find function "epidemic_default_cpp"</code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'output' not found</code></pre>
+</div>
+
+<p>The first step is to install the R packages
 <code>epidemics</code>.</p>
-<div class="codewrapper sourceCode" id="cb1">
+<div class="codewrapper sourceCode" id="cb3">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -346,8 +357,7 @@ the next section.</p>
 <div class="callout-content">
 <p>When using existing model structures always check the model
 assumptions. Ask questions such as:</p>
-<ul><li>How is transmission modelled? e.g. direct or indirect, airborne or
-vector-borne</li>
+<ul><li>How is transmission modelled? e.g. <a href="reference.html#direct">direct</a> or <a href="reference.html#indirect">indirect</a>, <a href="reference.html#airborne">airborne</a> or <a href="reference.html#vectorborne">vector-borne</a>?</li>
 <li>What interventions are modelled?</li>
 <li>What state variables are there and how do they relate to assumptions
 about infection?</li>
@@ -440,7 +450,7 @@ values of, <span class="math inline">\(R_0\)</span>, the preinfectious
 period (<span class="math inline">\(1/\alpha\)</span>) and the
 infectious period (<span class="math inline">\(1/\gamma\)</span>) as
 follows.</p>
-<div class="codewrapper sourceCode" id="cb2">
+<div class="codewrapper sourceCode" id="cb4">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -489,7 +499,7 @@ year age bins:</p>
 <ul><li>age between 0 and 20 years,</li>
 <li>age between 20 and 40,</li>
 <li>40 years and over.</li>
-</ul><div class="codewrapper sourceCode" id="cb3">
+</ul><div class="codewrapper sourceCode" id="cb5">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -570,7 +580,7 @@ age category, one in a million individuals are infectious, and the
 remaining age categories are infection free.</p>
 <p>The initial conditions in the first age category are <span class="math inline">\(S(0)=1-\frac{1}{1,000,000}\)</span>, <span class="math inline">\(E(0) =0\)</span>, <span class="math inline">\(I(0)=\frac{1}{1,000,000}\)</span>, <span class="math inline">\(R(0)=0\)</span>. This is specified as a vector as
 follows:</p>
-<div class="codewrapper sourceCode" id="cb5">
+<div class="codewrapper sourceCode" id="cb7">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -581,7 +591,7 @@ follows:</p>
 </div>
 <p>For the age categories that are free from infection, the initial
 conditions are <span class="math inline">\(S(0)=1\)</span>, <span class="math inline">\(E(0) =0\)</span>, <span class="math inline">\(I(0)=0\)</span>, <span class="math inline">\(R(0)=0\)</span>. We specify this as follows,</p>
-<div class="codewrapper sourceCode" id="cb6">
+<div class="codewrapper sourceCode" id="cb8">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -590,7 +600,7 @@ conditions are <span class="math inline">\(S(0)=1\)</span>, <span class="math in
 <span><span class="op">)</span></span></code></pre>
 </div>
 <p>We combine the three initial conditions vectors into one matrix,</p>
-<div class="codewrapper sourceCode" id="cb7">
+<div class="codewrapper sourceCode" id="cb9">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -625,7 +635,7 @@ vector containing the number of individuals in each age group of our
 given population. In this example, we can extract the demographic
 information from the <code>contact_data</code> object that we obtained
 using the <code>socialmixr</code> package.</p>
-<div class="codewrapper sourceCode" id="cb9">
+<div class="codewrapper sourceCode" id="cb11">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -642,7 +652,7 @@ using the <code>socialmixr</code> package.</p>
 <p>To create our population object, we call the function
 <code>population()</code> specifying a name, the contact matrix, the
 demography vector and the initial conditions.</p>
-<div class="codewrapper sourceCode" id="cb11">
+<div class="codewrapper sourceCode" id="cb13">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -655,7 +665,7 @@ demography vector and the initial conditions.</p>
 </div>
 <p>No we are ready to run our model. We will specify
 <code>time_end=600</code> to run the model for 600 days.</p>
-<div class="codewrapper sourceCode" id="cb12">
+<div class="codewrapper sourceCode" id="cb14">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -663,24 +673,28 @@ demography vector and the initial conditions.</p>
 <span>  population <span class="op">=</span> <span class="va">uk_population</span>,</span>
 <span>  infection <span class="op">=</span> <span class="va">influenza</span>,</span>
 <span>  time_end <span class="op">=</span> <span class="fl">600</span></span>
-<span><span class="op">)</span></span>
-<span><span class="fu">head</span><span class="op">(</span><span class="va">output</span><span class="op">)</span></span></code></pre>
+<span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
-<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code>   time demography_group compartment    value
-1:    0           [0,20) susceptible 14799275
-2:    0          [20,40) susceptible 16526302
-3:    0              40+ susceptible 28961159
-4:    0           [0,20)     exposed        0
-5:    0          [20,40)     exposed        0
-6:    0              40+     exposed        0</code></pre>
+<pre class="error" tabindex="0"><code>Error in epidemic_default_cpp(population = uk_population, infection = influenza, : could not find function "epidemic_default_cpp"</code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb16">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">head</span><span class="op">(</span><span class="va">output</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'output' not found</code></pre>
 </div>
 <p>Our model output consists of the number of individuals in each
 compartment in each age group through time. We can visualise the
 infectious individuals only (those in the <span class="math inline">\(I\)</span> class) through time.</p>
-<div class="codewrapper sourceCode" id="cb14">
+<div class="codewrapper sourceCode" id="cb18">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -709,7 +723,12 @@ infectious individuals only (those in the <span class="math inline">\(I\)</span>
 <span>    base_size <span class="op">=</span> <span class="fl">15</span></span>
 <span>  <span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="fig/simulating-transmission-rendered-visualise-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div id="time-increments" class="callout callout">
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'output' not found</code></pre>
+</div>
+<div id="time-increments" class="callout callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
@@ -732,10 +751,10 @@ within a month, then the increment should be less than one month.</p>
 </div>
 <div class="section level3">
 <h3 id="accounting-for-uncertainty">Accounting for uncertainty<a class="anchor" aria-label="anchor" href="#accounting-for-uncertainty"></a></h3>
-<p>As the epidemic model is deterministic, we have one trajectory for
-our given parameter values. In practice, we have uncertainty in the
-value of our parameters. To account for this, we must run our model for
-different parameter combinations.</p>
+<p>As the epidemic model is <a href="reference.html#deterministic">deterministic</a>, we have one
+trajectory for our given parameter values. In practice, we have
+uncertainty in the value of our parameters. To account for this, we must
+run our model for different parameter combinations.</p>
 <p>We ran our model with <span class="math inline">\(R_0= 1.5\)</span>.
 However, we believe that <span class="math inline">\(R_0\)</span>
 follows a normal distribution with mean 1.5 and standard deviation 0.05.
@@ -743,7 +762,7 @@ To account for uncertainty we will run the model for different values of
 <span class="math inline">\(R_0\)</span>. The steps we will follow to do
 this are:</p>
 <ol style="list-style-type: decimal"><li>Obtain 100 samples from the from a normal distribution</li>
-</ol><div class="codewrapper sourceCode" id="cb15">
+</ol><div class="codewrapper sourceCode" id="cb20">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -751,7 +770,7 @@ this are:</p>
 </div>
 <ol start="2" style="list-style-type: decimal"><li>Run the model 100 times with <span class="math inline">\(R_0\)</span> equal to a different sample each
 time</li>
-</ol><div class="codewrapper sourceCode" id="cb16">
+</ol><div class="codewrapper sourceCode" id="cb21">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -782,14 +801,28 @@ time</li>
 <span></span>
 <span>    <span class="va">output</span></span>
 <span>  <span class="op">}</span></span>
-<span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># combine to prepare for plotting</span></span>
+<span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error in epidemic_default_cpp(population = uk_population, infection = influenza, : could not find function "epidemic_default_cpp"</code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb23">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># combine to prepare for plotting</span></span>
 <span><span class="va">output_samples</span> <span class="op">&lt;-</span> <span class="fu">bind_rows</span><span class="op">(</span><span class="va">output_samples</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'output_samples' not found</code></pre>
 </div>
 <ol start="3" style="list-style-type: decimal"><li>Calculate the mean and 95% quantiles of number of infectious
 individuals across each model simulation and visualise output</li>
-</ol><div class="codewrapper sourceCode" id="cb17">
+</ol><div class="codewrapper sourceCode" id="cb25">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -806,7 +839,12 @@ individuals across each model simulation and visualise output</li>
 <span>    base_size <span class="op">=</span> <span class="fl">15</span></span>
 <span>  <span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="fig/simulating-transmission-rendered-plot-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>Deciding which parameters to include uncertainty in depends on a few
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'output_samples' not found</code></pre>
+</div>
+<p>Deciding which parameters to include uncertainty in depends on a few
 factors: how well informed a parameter value is e.g. consistency of
 estimates from the literature; how sensitive model outputs are to
 parameter value changes; and the purpose of the modelling task.</p>
@@ -874,9 +912,9 @@ any links that you are not going to use.
         <p>Materials licensed under <a href="LICENSE.html">CC-BY 4.0</a> by the authors</p>
         
         <p><a href="https://creativecommons.org/licenses/by-sa/4.0/" class="external-link">Template licensed under CC-BY 4.0</a> by <a href="https://carpentries.org" class="external-link">The Carpentries</a></p>
-        <p>Built with <a href="https://github.com/carpentries/sandpaper/tree/patch-renv-github-bug" class="external-link">sandpaper (0.14.1)</a>,
+        <p>Built with <a href="https://github.com/carpentries/sandpaper/tree/patch-renv-github-bug" class="external-link">sandpaper (0.14.0)</a>,
         <a href="https://github.com/carpentries/pegboard/tree/e7e5c4555e13a09bf9f53ec903dc9c0a462ed789" class="external-link">pegboard (0.7.1.9000)</a>,
-      and <a href="https://github.com/carpentries/varnish/tree/0.3.1" class="external-link">varnish (0.3.1)</a>.</p>
+      and <a href="https://github.com/carpentries/varnish/tree/0.3.3" class="external-link">varnish (0.3.3)</a>.</p>
 			</div>
 		</footer></div> <!-- / div.container -->
 	<div id="to-top">
@@ -896,9 +934,9 @@ any links that you are not going to use.
   "creativeWorkStatus": "active",
   "url": "https://epiverse-trace.github.io/tutorials/simulating-transmission.html",
   "identifier": "https://epiverse-trace.github.io/tutorials/simulating-transmission.html",
-  "dateCreated": "2023-10-31",
-  "dateModified": "2023-10-31",
-  "datePublished": "2023-11-07"
+  "dateCreated": "2023-11-09",
+  "dateModified": "2023-11-09",
+  "datePublished": "2023-11-09"
 }
 
   </script><script>
