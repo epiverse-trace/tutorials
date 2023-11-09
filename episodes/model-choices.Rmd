@@ -92,7 +92,7 @@ Which of the following models would be an appropriate choice for this task:
 
 +  `model_default_cpp()`
 
-+ `model_ebola_cpp()`
++ `model_ebola_r()`
 
 ::::::::::::::::: hint
 
