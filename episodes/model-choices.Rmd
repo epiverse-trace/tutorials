@@ -157,7 +157,7 @@ DiagrammeR::grViz("digraph {
 The model is capable of predicting an Ebola type outbreak, but as the model is deterministic, we are not able to explore stochastic variation in the early stages of the outbreak.
 
 
-#### `model_ebola_cpp()`
+#### `model_ebola_r()`
 
 A stochastic SEIHFR (Susceptible, Exposed, Infectious, Hospitalised, Funeral, Removed) model that was developed specifically for infection with Ebola.
 
