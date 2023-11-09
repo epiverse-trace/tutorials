@@ -23,7 +23,7 @@ exercises: 30 # exercise time in minutes
 ::::::::::::::::::::::::::::::::::::: prereq
 
 ## Prerequisites
-+ Complete tutorial 'Simulating transmission'
++ Complete tutorial [Simulating transmission](../episodes/simulating-transmission.md)
 
 This tutorial has the following concept dependencies:
 
@@ -108,6 +108,9 @@ close_schools <- intervention(
 ```
 
 
+```{.error}
+Error in epidemic_default_cpp(population = uk_population, infection = covid, : could not find function "epidemic_default_cpp"
+```
 
 
 To run the model with an intervention we set ` intervention = list(contacts = close_schools)` as follows:
@@ -122,10 +125,17 @@ output_school <- epidemic_default_cpp(
 )
 ```
 
+```{.error}
+Error in epidemic_default_cpp(population = uk_population, infection = covid, : could not find function "epidemic_default_cpp"
+```
+
 
 We see that with the intervention (solid line) in place, the infection still spreads through the population, though the epidemic peak is smaller than the baseline with no intervention in place (dashed line).
 
-<img src="fig/modelling-interventions-rendered-plot_school-1.png" style="display: block; margin: auto;" />
+
+```{.error}
+Error in eval(expr, envir, enclos): object 'output_school' not found
+```
 
 #### Effect of mask wearing on COVID-19 spread
 
@@ -158,16 +168,24 @@ output_masks <- epidemic_default_cpp(
 )
 ```
 
+```{.error}
+Error in epidemic_default_cpp(population = uk_population, infection = covid, : could not find function "epidemic_default_cpp"
+```
 
 
-<img src="fig/modelling-interventions-rendered-plot_masks-1.png" style="display: block; margin: auto;" />
+
+
+```{.error}
+Error in eval(expr, envir, enclos): object 'output_masks' not found
+```
 
 
 ## Pharmaceutical interventions
 
 Models can be used to investigate the effect of pharmaceutical interventions, such as vaccination. In this case, it is useful to add another disease state to track the number of vaccinated individuals through time. The diagram below shows an SEIRV model where susceptible individuals are vaccinated and then move to the $V$ class.
 
-<img src="fig/modelling-interventions-rendered-diagram_SEIRV-1.png" style="display: block; margin: auto;" />
+<!--html_preserve--><div class="grViz html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-f0beb0255d025fcdcecd" style="width:504px;height:504px;"></div>
+<script type="application/json" data-for="htmlwidget-f0beb0255d025fcdcecd">{"x":{"diagram":"digraph {\n\n  # graph statement\n  #################\n  graph [layout = dot,\n         rankdir = LR,\n         overlap = true,\n         fontsize = 10]\n\n  # nodes\n  #######\n  node [shape = square,\n       fixedsize = true\n       width = 1.3]\n\n       S\n       E\n       I\n       R\n       V\n\n  # edges\n  #######\n  S -> E [label = \" infection (&beta;)\"]\n  S -> V [label = \" vaccination (&nu;)\"]\n  E -> I [label = \" onset of \ninfectiousness (&alpha;)\"]\n  I -> R [label = \" recovery (&gamma;)\"]\n\n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
 
 The equations describing this model are as follows: 
 
@@ -208,9 +226,16 @@ output_vaccinate <- epidemic_default_cpp(
 )
 ```
 
+```{.error}
+Error in epidemic_default_cpp(population = uk_population, infection = covid, : could not find function "epidemic_default_cpp"
+```
+
 Here we see that the total number of infectious individuals when vaccination is in place is much lower compared to school closures and mask wearing interventions. 
 
-<img src="fig/modelling-interventions-rendered-plot_vaccinate-1.png" style="display: block; margin: auto;" />
+
+```{.error}
+Error in eval(expr, envir, enclos): object 'output_vaccinate' not found
+```
 
 
 ## Summary
