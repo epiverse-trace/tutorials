@@ -8,6 +8,7 @@ exercises: 20 # exercise time in minutes
 ```{r setup, echo= FALSE, message = FALSE, warning = FALSE}
 require(ggplot2)
 require(pak)
+require(tidyverse)
 pak::pak("epiverse-trace/epidemics")
 library(epidemics)
 ```
@@ -80,7 +81,7 @@ For details on the models that are available, see the package [vignettes](https:
 
 
 
-## Challenge
+## Challenge : Ebola outbreak analysis 
 
 ::::::::::::::::::::::::::::::::::::: challenge
 
@@ -206,6 +207,152 @@ DiagrammeR::grViz("digraph {
 
 As this model is stochastic, it is the most appropriate choice to explore how variation in numbers of infected individuals in the early stages of an Ebola outbreak. 
 
+
+:::::::::::::::::::::::::::
+
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+
+::::::::::::::::::::::::::::::::::::: challenge
+
+## Running the model
+
+You have been tasked to generate initial trajectories of an Ebola outbreak in Guinea. Using `model_ebola_r()` and the the information detailed below, complete the following tasks:
+
+1. Run the model once and plot the number of infectious individuals  through time
+2. Run model 100 times and plot the mean, upper and lower 95% quantiles of the number of infectious individuals through time
+
++ Population size : 14 million
++ Initial number of exposed individuals : 10
++ Initial number of infectious individuals : 5
++ Time of simulation : 120 days
++ Parameter values : 
+  + (`r0`) = 1.1,
+  + (`infectious_period`) = 12,
+  + (`preinfectious_period`) = 5,
+  + (`prop_community`) = 0.9,
+  + (`etu_risk`) = 0.7,
+  + (`funeral_risk`) = 0.5
+
+
+::::::::::::::::: spoiler
+
+### Code for initial conidtions 
+
+```{r}
+# set population size
+population_size <- 14e6
+
+E0 <- 10
+I0 <- 5
+# prepare initial conditions as proportions
+initial_conditions <- c(
+  S = population_size - (E0+I0), E = E0, I = I0, H = 0, F = 0, R = 0
+) / population_size
+
+guinea_population <- population(
+  name = "Guinea",
+  contact_matrix = matrix(1), # note dummy value
+  demography_vector = population_size, # 14 million, no age groups
+  initial_conditions = matrix(
+    initial_conditions,
+    nrow = 1
+  )
+)
+```
+
+
+::::::::::::::::::::::
+
+
+::::::::::::::::: hint
+
+### HINT : Multiple model simulations
+
+Adapt the code from the [accounting for uncertainty](#accounting-for-uncertainty) section
+
+::::::::::::::::::::::
+
+::::::::::::::::: solution
+
+### SOLUTION
+
+1. Run the model once and plot the number of infectious individuals  through time
+
+
+```{r}
+# Prepare ebola parameters as an infection class object
+ebola <- infection(
+  name = "ebolavirus disease",
+  r0 = 1.1,
+  infectious_period = 12,
+  preinfectious_period = 5,
+  prop_community = 0.9,
+  etu_risk = 0.7,
+  funeral_risk = 0.5
+)
+
+output <- model_ebola_r(
+  population = guinea_population,
+  infection = ebola,
+  time_end = 100
+)
+
+ggplot(output[compartment == "infectious", ]) +
+  geom_line(
+    aes(time, value),
+    linewidth = 1
+  ) +
+  scale_y_continuous(
+    labels = scales::comma,
+    name = "Infectious indivduals"
+  ) +
+  labs(
+    x = "Model time (days)"
+  ) +
+  theme_classic() +
+  theme(
+    legend.position = "top"
+  ) +
+  theme_grey(
+    base_size = 15
+  )
+
+```
+
+2. Run model 100 times and plot the mean, upper and lower 95% quantiles of the number of infectious individuals through time
+
+We run the model 100 times with the *same* parameter values, so we do not need to re-write the infection object within the loop. 
+
+```{r}
+output_samples <- Map(
+  x = seq(100),
+  f = function(x) {
+    output <- model_ebola_r(
+      population = guinea_population,
+      infection = ebola,
+      time_end = 100
+    )
+    
+    # add replicate number and return data
+    output$replicate <- x
+    output
+  }
+)
+
+output_samples <- bind_rows(output_samples) # requires the tidyverse package
+
+ggplot(output_samples[compartment == "infectious"] ,aes(time, value)) +
+  stat_summary(geom = "line", fun = mean) +
+  stat_summary(geom = "ribbon", 
+               fun.min = function(z) { quantile(z, 0.025) },
+               fun.max = function(z) { quantile(z, 0.975) }, 
+               alpha = 0.3) +
+  theme_grey(
+    base_size = 15
+  )
+```
 
 :::::::::::::::::::::::::::
 
