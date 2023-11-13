@@ -87,7 +87,7 @@ For details on the models that are available, see the package [vignettes](https:
 
 ## What model?
 
-You have been asked to explore the variation in numbers of infected individuals in the early stages of an Ebola outbreak. 
+You have been asked to explore the variation in numbers of infectious individuals in the early stages of an Ebola outbreak. 
 
 Which of the following models would be an appropriate choice for this task:
 
@@ -130,17 +130,20 @@ A deterministic SEIR model with age specific direct transmission.
 
 ```{r diagram, echo = FALSE, message = FALSE}
 DiagrammeR::grViz("digraph {
+
   # graph statement
   #################
   graph [layout = dot,
          rankdir = LR,
          overlap = true,
          fontsize = 10]
+
   # nodes
   #######
   node [shape = square,
-       fixedsize = true,
+       fixedsize = true
        width = 1.3]
+
        S
        E
        I
@@ -148,9 +151,10 @@ DiagrammeR::grViz("digraph {
 
   # edges
   #######
-  S -> E [label = ' infection']
-  E -> I [label = ' onset of \ninfectiousness']
-  I -> R [label = ' recovery']
+  S -> E [label = ' infection (&beta;)']
+  E -> I [label = ' onset of \ninfectiousness (&alpha;)']
+  I -> R [label = ' recovery (&gamma;)']
+
 }")
 ```
 
@@ -160,7 +164,14 @@ The model is capable of predicting an Ebola type outbreak, but as the model is d
 
 #### `model_ebola_r()`
 
-A stochastic SEIHFR (Susceptible, Exposed, Infectious, Hospitalised, Funeral, Removed) model that was developed specifically for infection with Ebola.
+A stochastic SEIHFR (Susceptible, Exposed, Infectious, Hospitalised, Funeral, Removed) model that was developed specifically for infection with Ebola. The model has stochasticity in the passage times between states, which are modelled as Erlang distributions.
+
+The key parameters affecting the transition between states are:
+
++ $R_0$, the basic reproduction number,
++ $\rho^I$, the mean infectious period,
++ $\rho^E$, the mean preinfectious period,
++ $p_{hosp}$ the probability of being transferred to the hospitalised compartment. 
 
 ```{r, echo = FALSE, message = FALSE}
 DiagrammeR::grViz("digraph {
@@ -187,12 +198,12 @@ DiagrammeR::grViz("digraph {
 
   # edges
   #######
-  S -> E [label = ' infection ']
-  E -> I [label = ' onset of \ninfectiousness']
-  I -> F [label = ' death \n(funeral) ']
-  F -> R [label = ' safe burial']
-  I -> H [label = ' hospitalisation']
-  H -> R [label = ' recovery or \nsafe burial']
+  S -> E [label = ' infection (&beta;)']
+  E -> I [label = ' onset of \ninfectiousness (&gamma; E)']
+  I -> F [label = ' death (funeral) \n(&gamma; I)']
+  F -> R [label = ' safe burial (one timestep) ']
+  I -> H [label = ' hospitalisation (p hosp)']
+  H -> R [label = ' recovery or safe burial \n (&gamma; I)']
 
   subgraph {
     rank = same; I; F;
@@ -203,7 +214,10 @@ DiagrammeR::grViz("digraph {
 }")
 ```
 
+The model has additional parameters describing the transmission risk in hospital and funeral settings: 
 
++ $p_{ETU}$, the proportion of hospitalised cases contributing to the infection of susceptibles (ETU = Ebola virus treatment units),
++ $p_{funeral}$, the proportion of funerals at which the risk of transmission is the same as of infectious individuals in the community.
 
 As this model is stochastic, it is the most appropriate choice to explore how variation in numbers of infected individuals in the early stages of an Ebola outbreak. 
 
@@ -228,12 +242,15 @@ You have been tasked to generate initial trajectories of an Ebola outbreak in Gu
 + Initial number of infectious individuals : 5
 + Time of simulation : 120 days
 + Parameter values : 
-  + (`r0`) = 1.1,
-  + (`infectious_period`) = 12,
-  + (`preinfectious_period`) = 5,
-  + (`prop_community`) = 0.9,
-  + (`etu_risk`) = 0.7,
-  + (`funeral_risk`) = 0.5
+  + $R_0$ (`r0`) = 1.1,
+  + $p^I$ (`infectious_period`) = 12,
+  + $p^E$ (`preinfectious_period`) = 5,
+  + $1-p_{hosp}$ (`prop_community`) = 0.9,
+  + $p_{ETU}$ (`etu_risk`) = 0.7,
+  + $p_{funeral}$ (`funeral_risk`) = 0.5
+
+
+**Note: the functional relationship between the preinfectious  period ($\rho^E$) and the transition rate between exposed and infectious ($\gamma^E$) is $\rho^E = k^E/\gamma^E$ where $k^E$ is the shape of the Erlang distribution. Similarly for the infectious period $\rho^I = k^I/\gamma^I$. See [here](https://epiverse-trace.github.io/epidemics/articles/ebola_model.html#details-discrete-time-ebola-virus-disease-model) for more detail on the stochastic model formulation. ** 
 
 
 ::::::::::::::::: spoiler
