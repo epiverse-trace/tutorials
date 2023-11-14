@@ -93,7 +93,7 @@
     },
     "QuickJSR": {
       "Package": "QuickJSR",
-      "Version": "1.0.6",
+      "Version": "1.0.7",
       "Source": "Repository",
       "Repository": "CRAN",
       "Requirements": [
@@ -101,7 +101,7 @@
         "Rcpp",
         "jsonlite"
       ],
-      "Hash": "6ded66fbe724abcec064fb15f626a0e4"
+      "Hash": "1160fb7afae2eebb5f24939590956cdf"
     },
     "R.methodsS3": {
       "Package": "R.methodsS3",
@@ -175,17 +175,16 @@
     },
     "RcppEigen": {
       "Package": "RcppEigen",
-      "Version": "0.3.3.9.3",
+      "Version": "0.3.3.9.4",
       "Source": "Repository",
       "Repository": "CRAN",
       "Requirements": [
-        "Matrix",
         "R",
         "Rcpp",
         "stats",
         "utils"
       ],
-      "Hash": "1e035db628cefb315c571202d70202fe"
+      "Hash": "acb0a5bf38490f26ab8661b467f4f53a"
     },
     "RcppParallel": {
       "Package": "RcppParallel",
@@ -285,7 +284,7 @@
     },
     "checkmate": {
       "Package": "checkmate",
-      "Version": "2.2.0",
+      "Version": "2.3.0",
       "Source": "Repository",
       "Repository": "CRAN",
       "Requirements": [
@@ -293,7 +292,7 @@
         "backports",
         "utils"
       ],
-      "Hash": "ca9c113196136f4a9ca9ce6079c2c99e"
+      "Hash": "ed4275b13c6ab74b89a31def0b6bf835"
     },
     "cli": {
       "Package": "cli",
@@ -885,13 +884,13 @@
     },
     "matrixStats": {
       "Package": "matrixStats",
-      "Version": "1.0.0",
+      "Version": "1.1.0",
       "Source": "Repository",
       "Repository": "CRAN",
       "Requirements": [
         "R"
       ],
-      "Hash": "9143629fd64335aac6a6250d1c1ed82a"
+      "Hash": "68d317093459a3f0852b1dd52d9e1ea6"
     },
     "memoise": {
       "Package": "memoise",
@@ -1184,7 +1183,7 @@
     },
     "rstan": {
       "Package": "rstan",
-      "Version": "2.26.23",
+      "Version": "2.32.3",
       "Source": "Repository",
       "Repository": "CRAN",
       "Requirements": [
@@ -1203,7 +1202,7 @@
         "pkgbuild",
         "stats4"
       ],
-      "Hash": "137e535a84b86280c714315e587a435b"
+      "Hash": "4ac5b7639d28cd4fab19baaf46f33c6a"
     },
     "rstantools": {
       "Package": "rstantools",
@@ -1419,19 +1418,6 @@
         "R"
       ],
       "Hash": "c826c7c4241b6fc89ff55aaea3fa7491"
-    },
-    "webshot": {
-      "Package": "webshot",
-      "Version": "0.5.5",
-      "Source": "Repository",
-      "Repository": "CRAN",
-      "Requirements": [
-        "R",
-        "callr",
-        "jsonlite",
-        "magrittr"
-      ],
-      "Hash": "16858ee1aba97f902d24049d4a44ef16"
     },
     "withr": {
       "Package": "withr",
