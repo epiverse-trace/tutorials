@@ -40,7 +40,7 @@ Using the R package `epidemics`, learn how to:
 
 This tutorial has the following concept dependencies: 
 
-**Modelling** : [Components of infectious disease models](https://doi.org/10.1038/s41592-020-0856-2) e.g. state variables, parameters, initial conditions, Ordinary differential equations.
+**Modelling** : [Introduction to infectious disease models](https://doi.org/10.1038/s41592-020-0856-2), [state variables](../learners/reference.md#state), [model parameters](../learners/reference.md#parsode), [initial conditions](../learners/reference.md#initial), [ordinary differential equations](../learners/reference.md#ordinary).
 
 **Epidemic theory** : [Transmission](https://doi.org/10.1155/2011/267049), [Reproduction number](https://doi.org/10.3201/eid2501.171901).
 :::::::::::::::::::::::::::::::::
@@ -156,7 +156,7 @@ pak::pak("epiverse-trace/epidemics")
 ## Model structures
 To generate predictions of infectious disease trajectories, we must first select a mathematical model to use.
 
-There is a library of models to choose from in `epidemics`. Models are prefixed with `model` and suffixed by the name of infection (e.g. ebola) or a different identifier (e.g. default), and whether the model has a R or C++ code base. In this tutorial, we will use the default epidemic model, `model_default_cpp()` which is described in the next section.
+There is a library of models to choose from in `epidemics`. Models are prefixed with `model` and suffixed by the name of infection (e.g. ebola) or a different identifier (e.g. default), and whether the model has a R or [C++](../learners/reference.md#cplusplus) code base. In this tutorial, we will use the default epidemic model, `model_default_cpp()` which is described in the next section.
 
 
 ::::::::::::::::::::::::::::::::::::: callout
@@ -173,7 +173,7 @@ There can be subtle differences in model structures for the same infection or ou
 
 ### An epidemic model for pandemic influenza
 
-We want to generate disease trajectories of an influenza strain with pandemic potential. We will use the default epidemic model in `epidemics`, an age-structured SEIR model described by a system of ordinary differential equations. For each age group $i$, individuals are classed as either susceptible $S$, infected but not yet infectious $E$, infectious $I$ or recovered $R$. 
+We want to generate disease trajectories of an influenza strain with pandemic potential. We will use the default epidemic model in `epidemics`, an age-structured SEIR model described by a system of [ordinary differential equations](../learners/reference.md#ordinary). For each age group $i$, individuals are classed as either susceptible $S$, infected but not yet infectious $E$, infectious $I$ or recovered $R$. 
 
 ```{r diagram, echo = FALSE, message = FALSE}
 DiagrammeR::grViz("digraph {
@@ -210,7 +210,7 @@ DiagrammeR::grViz("digraph {
 The model parameters and equations are as follows :
 
 - transmission rate $\beta$,
-- contact matrix $C$ containing the frequency of contacts between age groups (a square $i \times j$ matrix),
+- [contact matrix](../learners/reference.md#contact) $C$ containing the frequency of contacts between age groups (a square $i \times j$ matrix),
 - rate of transition from exposed to infectious $\alpha$ (preinfectious period=$1/\alpha$),
 - recovery rate $\gamma$ (infectious period = $1/\gamma$).
 
@@ -223,8 +223,6 @@ $$
 \frac{dR_i}{dt} &=\gamma I_i \\
 \end{aligned}
 $$
-
-The *contact matrix* is a square matrix consisting of rows/columns equal to the number age groups. Each element represents the frequency of contacts between age groups. If we believe that transmission of an infection is driven by contact, and that contact rates are very different for different age groups, then specifying a contact matrix allows us to account for age specific rates of transmission. 
 
 From the model structure we see that :
 
