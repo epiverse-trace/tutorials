@@ -79,4 +79,3 @@ profiles:
 # sandpaper and varnish versions) should live
 
 sandpaper: 'carpentries/sandpaper#533'
-
