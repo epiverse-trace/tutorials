@@ -173,6 +173,8 @@ The key parameters affecting the transition between states are:
 + $\rho^E$, the mean preinfectious period,
 + $p_{hosp}$ the probability of being transferred to the hospitalised compartment. 
 
+**Note: the functional relationship between the preinfectious  period ($\rho^E$) and the transition rate between exposed and infectious ($\gamma^E$) is $\rho^E = k^E/\gamma^E$ where $k^E$ is the shape of the Erlang distribution. Similarly for the infectious period $\rho^I = k^I/\gamma^I$. See [here](https://epiverse-trace.github.io/epidemics/articles/ebola_model.html#details-discrete-time-ebola-virus-disease-model) for more detail on the stochastic model formulation. ** 
+
 ```{r, echo = FALSE, message = FALSE}
 DiagrammeR::grViz("digraph {
 
@@ -245,13 +247,10 @@ You have been tasked to generate initial trajectories of an Ebola outbreak in Gu
   + $R_0$ (`r0`) = 1.1,
   + $p^I$ (`infectious_period`) = 12,
   + $p^E$ (`preinfectious_period`) = 5,
+  + $k^E=k^I = 2$, 
   + $1-p_{hosp}$ (`prop_community`) = 0.9,
   + $p_{ETU}$ (`etu_risk`) = 0.7,
   + $p_{funeral}$ (`funeral_risk`) = 0.5
-
-
-**Note: the functional relationship between the preinfectious  period ($\rho^E$) and the transition rate between exposed and infectious ($\gamma^E$) is $\rho^E = k^E/\gamma^E$ where $k^E$ is the shape of the Erlang distribution. Similarly for the infectious period $\rho^I = k^I/\gamma^I$. See [here](https://epiverse-trace.github.io/epidemics/articles/ebola_model.html#details-discrete-time-ebola-virus-disease-model) for more detail on the stochastic model formulation. ** 
-
 
 ::::::::::::::::: spoiler
 
@@ -299,20 +298,14 @@ Adapt the code from the [accounting for uncertainty](#accounting-for-uncertainty
 
 
 ```{r}
-# Prepare ebola parameters as an infection class object
-ebola <- infection(
-  name = "ebolavirus disease",
-  r0 = 1.1,
-  infectious_period = 12,
-  preinfectious_period = 5,
-  prop_community = 0.9,
-  etu_risk = 0.7,
-  funeral_risk = 0.5
-)
-
 output <- model_ebola_r(
   population = guinea_population,
-  infection = ebola,
+  transmissibility = 1.1 / 12,
+  infectiousness_rate = 2.0 / 5,
+  removal_rate = 2.0 / 12,
+  prop_community = 0.9,
+  etu_risk = 0.7,
+  funeral_risk = 0.5,
   time_end = 100
 )
 
@@ -340,7 +333,7 @@ ggplot(output[compartment == "infectious", ]) +
 
 2. Run model 100 times and plot the mean, upper and lower 95% quantiles of the number of infectious individuals through time
 
-We run the model 100 times with the *same* parameter values, so we do not need to re-write the infection object within the loop. 
+We run the model 100 times with the *same* parameter values. 
 
 ```{r}
 output_samples <- Map(
@@ -348,10 +341,14 @@ output_samples <- Map(
   f = function(x) {
     output <- model_ebola_r(
       population = guinea_population,
-      infection = ebola,
+      transmissibility = 1.1 / 12,
+      infectiousness_rate = 2.0 / 5,
+      removal_rate = 2.0 / 12,
+      prop_community = 0.9,
+      etu_risk = 0.7,
+      funeral_risk = 0.5,
       time_end = 100
     )
-    
     # add replicate number and return data
     output$replicate <- x
     output

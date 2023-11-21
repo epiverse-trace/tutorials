@@ -91,13 +91,6 @@ uk_population <- population(
   initial_conditions = initial_conditions
 )
 
-# simulate a pandemic, with an R0,
-# an infectious period, and an pre-infectious period
-covid <- infection(
-  r0 = 2.7,
-  preinfectious_period = 4,
-  infectious_period = 5.5
-)
 ```
 
 
@@ -153,7 +146,9 @@ close_schools <- intervention(
 ```{r baseline, echo = FALSE}
 output <- model_default_cpp(
   population = uk_population,
-  infection = covid,
+  transmissibility = 2.7 / 5.5,
+  infectiousness_rate = 1.0 / 4.0,
+  recovery_rate = 1.0 / 5.5,
   time_end = 300, increment = 1.0
 )
 ```
@@ -164,7 +159,9 @@ To run the model with an intervention we set ` intervention = list(contacts = cl
 ```{r school}
 output_school <- model_default_cpp(
   population = uk_population,
-  infection = covid,
+  transmissibility = 2.7 / 5.5,
+  infectiousness_rate = 1.0 / 4.0,
+  recovery_rate = 1.0 / 5.5,
   intervention = list(contacts = close_schools),
   time_end = 300, increment = 1.0
 )
@@ -246,8 +243,10 @@ To implement this intervention on the parameter $\beta$, we specify `interventio
 ```{r output_masks}
 output_masks <- model_default_cpp(
   population = uk_population,
-  infection = covid,
-  intervention = list(beta = mask_mandate),
+  transmissibility = 2.7 / 5.5,
+  infectiousness_rate = 1.0 / 4.0,
+  recovery_rate = 1.0 / 5.5,
+  intervention = list(transmissibility = mask_mandate),
   time_end = 300, increment = 1.0
 )
 ```
@@ -372,7 +371,9 @@ We pass our vaccination object using `vaccination = vaccinate`:
 ```{r output_vaccinate}
 output_vaccinate <- model_default_cpp(
   population = uk_population,
-  infection = covid,
+  transmissibility = 2.7 / 5.5,
+  infectiousness_rate = 1.0 / 4.0,
+  recovery_rate = 1.0 / 5.5,
   vaccination = vaccinate,
   time_end = 300, increment = 1.0
 )
