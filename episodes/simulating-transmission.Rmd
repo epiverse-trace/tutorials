@@ -388,6 +388,14 @@ initial_conditions
 
 ### Running the model
 
+::::::::::::::::::::::::::::::::::::: callout
+### Running (solving) the model
+
+For models that are described by ODEs, running the model actually means to solve the system of ODEs. ODEs describe the rate of change in the disease states with respect to time, to find the number of individuals in each of these states, we use numerical integration methods to solve the equations.
+
+In `epidemics`, the [ODE solver](https://www.boost.org/doc/libs/1_82_0/libs/numeric/odeint/doc/html/index.htm) uses the [Runge-Kutta method](https://en.wikipedia.org/wiki/Runge%E2%80%93Kutta_methods). 
+::::::::::::::::::::::::::::::::::::::::::::::::
+
 To run the model we need the following inputs:
 
 - an infection object, 
