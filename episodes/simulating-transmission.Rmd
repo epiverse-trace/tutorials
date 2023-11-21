@@ -19,8 +19,9 @@ webshot::install_phantomjs(force = TRUE)
 
 :::::::::::::::::::::::::::::::::::::: questions 
 
-- How do I generate predictions of disease trajectories?
+- How do I simulate disease spread using a mathematical model?
 - What inputs are needed for a model simulation? 
+- How do I account for uncertainty?
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -30,7 +31,8 @@ Using the R package `epidemics`, learn how to:
 
 - load an existing model structure,
 - load an existing social contact matrix,
-- run a model simulation.
+- run a model simulation,
+- run multiple model simulations and visualise uncertainty. 
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -49,9 +51,7 @@ Learners should familiarise themselves with following concept dependencies befor
 
 ## Introduction
 
-Mathematical models are useful tools for generating future trajectories of disease spread. Models can be used to evaluate the implementation of non-pharmaceutical and pharmaceutical interventions while accounting for factors such as age.
-
-In this tutorial, we will use the R package `{epidemics}` to generate trajectories of influenza spread. By the end of this tutorial, you will be able to generate the trajectory below showing the number of infectious individuals in different age categories through time.
+Mathematical models are useful tools for generating future trajectories of disease spread. In this tutorial, we will use the R package `{epidemics}` to generate trajectories of influenza spread. By the end of this tutorial, you will be able to generate the trajectory below showing the number of infectious individuals in different age categories through time.
 
 ```{r traj, echo = FALSE, message= FALSE, fig.width = 10}
 # load contact and population data from socialmixr::polymod
@@ -145,19 +145,10 @@ By the end of this tutorial, learners should be able to replicate the above imag
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
-The first step is to install the R packages `epidemics`.
-
-```{r installation, eval = FALSE}
-if (!require("pak")) install.packages("pak")
-pak::pak("epiverse-trace/epidemics")
-```
 
 
 ## Model structures
-To generate predictions of infectious disease trajectories, we must first select a mathematical model to use.
-
-There is a library of models to choose from in `epidemics`. Models are prefixed with `model` and suffixed by the name of infection (e.g. ebola) or a different identifier (e.g. default), and whether the model has a R or [C++](../learners/reference.md#cplusplus) code base. In this tutorial, we will use the default epidemic model, `model_default_cpp()` which is described in the next section.
-
+To generate trajectories of disease spread, we must first select a mathematical model to use. In `epidemics` models are prefixed with `model` and suffixed by the name of infection (e.g. ebola) or a different identifier (e.g. default), and whether the model has a R or [C++](../learners/reference.md#cplusplus) code base.  In this tutorial, we will use the default model in `epidemics`, `model_default_cpp()` which is described in the next section.
 
 ::::::::::::::::::::::::::::::::::::: callout
 ### Check model equations
@@ -173,7 +164,7 @@ There can be subtle differences in model structures for the same infection or ou
 
 ### An epidemic model for pandemic influenza
 
-We want to generate disease trajectories of an influenza strain with pandemic potential. We will use the default epidemic model in `epidemics`, an age-structured SEIR model described by a system of [ordinary differential equations](../learners/reference.md#ordinary). For each age group $i$, individuals are classed as either susceptible $S$, infected but not yet infectious $E$, infectious $I$ or recovered $R$. 
+We will generate disease trajectories of an influenza strain with pandemic potential. We will use the default epidemic model in `epidemics`, an age-structured SEIR model described by a system of [ordinary differential equations](../learners/reference.md#ordinary). For each age group $i$, individuals are classed as either susceptible $S$, infected but not yet infectious $E$, infectious $I$ or recovered $R$. 
 
 ```{r diagram, echo = FALSE, message = FALSE}
 DiagrammeR::grViz("digraph {
@@ -229,7 +220,7 @@ From the model structure we see that :
 - the contact matrix $C$ allows for heterogeneity in contacts between age groups,
 - there is no loss of immunity (there are no flows out of the recovered state).
 
-This model also has the functionality to include vaccination and tracks the number of vaccinated individuals through time. We will cover the use of interventions in future tutorials.
+
 
 ::::::::::::::::::::::::::::::::::::: callout
 ### Exposed, infected, infectious
@@ -262,8 +253,16 @@ We will learn how to specify the contact matrix $C$ in the next section.
 
 We will simulate a strain of influenza with pandemic potential with $R_0=1.5$, a preinfectious period of 3 days and infectious period of 7 days.
 
-In `epidemics`, we use the function `infection()` to create an infection object containing the values of, $R_0$, the preinfectious period ($1/\alpha$) and the infectious period ($1/\gamma$) as follows.
+In `epidemics`, we use the function `infection()` to create an infection object containing the values of the reproduction number ($R_0$), the preinfectious period ($1/\alpha$) and the infectious period ($1/\gamma$).
 
+The first step is to install the R packages `epidemics`.
+
+```{r installation, eval = FALSE}
+if (!require("pak")) install.packages("pak")
+pak::pak("epiverse-trace/epidemics")
+```
+
+Then we create the infection object as follows:
 ```{r, eval = FALSE}
 influenza <- infection(
   name = "influenza",
@@ -339,7 +338,7 @@ contact_matrix
 :::::::::::::::::::::::::::::::::
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
-The result is a square matrix with rows and columns for each age group. Contact matrices can be loaded from other sources, but they must be in the correct format to be used in `epidemics`.
+The result is a square matrix with rows and columns for each age group. Contact matrices can be loaded from other sources, but they must be formatted as a matrix to be used in `epidemics`.
 
 ::::::::::::::::::::::::::::::::::::: callout
 ### Why would a contact matrix be non-symmetric?
@@ -348,7 +347,7 @@ One of the arguments of the function `contact_matrix()` is `symmetric=TRUE`. Thi
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
 
-## Generating trajectories
+## Simulating disease spread
 
 We have prepared our parameter values, contact matrix and demography vector. Now we must set the initial conditions, prepare the population and run the model. 
 
@@ -431,6 +430,9 @@ output <- model_default_cpp(
 )
 head(output)
 ```
+
+* Note : This model also has the functionality to include vaccination and tracks the number of vaccinated individuals through time. Even though we have not specified any vaccination, there is still a vaccinated compartment in the output (containing no individuals). We will cover the use of vaccination in future tutorials.*
+
 Our model output consists of the number of individuals in each compartment in each age group through time. We can visualise the infectious individuals only (those in the $I$ class) through time.
 
 ```{r visualise, fig.width = 10}
@@ -464,13 +466,13 @@ ggplot(output[compartment == "infectious", ]) +
 ::::::::::::::::::::::::::::::::::::: callout
 ### Time increments
 
-Note that there is a default argument of `increment = 1`. This relates to the time step of the ODE solver. When the parameters and maximum number of time steps is days, the default increment is one day.
+Note that there is a default argument of `increment = 1`. This relates to the time step of the ODE solver. When the parameters are specified on a daily time-scale and maximum number of time steps (`time_end`) is days, the default time step of the ODE solver one day. 
 
 The choice of increment will depend on the time scale of the parameters, and the rate at which events can occur. In general, the increment should smaller than the fastest event. For example, if parameters are on a monthly time scale, but some events will occur within a month, then the increment should be less than one month.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
-### Accounting for uncertainty 
+### Accounting for uncertainty
 
 As the epidemic model is [deterministic](../learners/reference.md#deterministic), we have one trajectory for our given parameter values. In practice, we have uncertainty in the value of our parameters. To account for this, we must run our model for different parameter combinations. 
 
@@ -538,7 +540,7 @@ Deciding which parameters to include uncertainty in depends on a few factors: ho
 
 ## Summary 
 
-In this tutorial, we have learnt how to generate disease trajectories using a mathematical model. Once a model has been chosen, the parameters and other inputs must be specified in the correct way to perform model simulations. In the next tutorial, we will consider how to choose the right model for different tasks. 
+In this tutorial, we have learnt how to simulate disease spread using a mathematical model. Once a model has been chosen, the parameters and other inputs must be specified in the correct way to perform model simulations. In the next tutorial, we will consider how to choose the right model for different tasks. 
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
 

@@ -37,7 +37,7 @@ library(epidemics)
 
 ## Introduction
 
-Using mathematical models in outbreak analysis does not necessarily require developing a new model. There are existing models for different infections, interventions and transmission patterns which can be used to answer new questions. In this tutorial, we will learn how to choose an existing model to generate predictions for a given scenario.
+Using mathematical models in outbreak analysis does not necessarily require developing a new model. There are existing models for different infections, interventions and transmission patterns which can be used to answer new questions. In this tutorial, we will learn how to choose an existing model to generate trajectories for a given scenario.
 
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: instructor
 
