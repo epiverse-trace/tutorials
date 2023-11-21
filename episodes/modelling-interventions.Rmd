@@ -30,7 +30,7 @@ library(epidemics)
 ## Prerequisites
 + Complete tutorial [Simulating transmission](../episodes/simulating-transmission.md)
 
-This tutorial has the following concept dependencies:
+Learners should familiarise themselves with following concept dependencies before working through this tutorial: 
 
 **Outbreak response** : [Intervention types](https://www.cdc.gov/nonpharmaceutical-interventions/).
 :::::::::::::::::::::::::::::::::
