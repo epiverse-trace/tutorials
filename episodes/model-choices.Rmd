@@ -16,15 +16,14 @@ library(epidemics)
 
 :::::::::::::::::::::::::::::::::::::: questions 
 
-- How do I choose a model for my task?
+- How do I choose a mathematical model that's appropriate to complete my analytical task?
 
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
 ::::::::::::::::::::::::::::::::::::: objectives
 
-- Learn how to access the model library in `epidemics`
-- Understand the model requirements for a question 
+- Understand the model requirements for a specific research question
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -37,7 +36,7 @@ library(epidemics)
 
 ## Introduction
 
-Using mathematical models in outbreak analysis does not necessarily require developing a new model. There are existing models for different infections, interventions and transmission patterns which can be used to answer new questions. In this tutorial, we will learn how to choose an existing model to generate trajectories for a given scenario.
+There are existing mathematical models for different infections, interventions and transmission patterns which can be used to answer new questions. In this tutorial, we will learn how to choose an existing model to complete a given task.
 
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: instructor
 
@@ -45,9 +44,9 @@ The focus of this tutorial is understanding existing models to decide if they ar
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
-### Choosing a model 
+## Choosing a model 
 
-When deciding whether an existing model can be used, we must consider :
+When deciding which mathematical model to use, there are a number of questions we must consider :
 
 + What is the infection/disease of interest? 
 
@@ -61,27 +60,24 @@ Model structures differ for whether the disease has pandemic potential or not. W
 
 The outcome of interest can be a feature of a mathematical model. It may be that you are interested in the predicted numbers of infection through time, or in a specific outcome such as hospitalisations or cases of severe disease.
 
++ How is transmission modelled?
+
+For example, [direct](../learners/reference.md#direct) or [indirect](../learners/reference.md#indirect), [airborne](../learners/reference.md#airborne) or [vector-borne](../learners/reference.md#vectorborne).
+
++ How are the different processes (e.g. transmission) formulated in the equations?
+
+There can be subtle differences in model structures for the same infection or outbreak type which can be missed without studying the equations. For example, transmissibility parameters can be specified as rates or probabilities. If you want to use parameter values from other published models, you must check that transmission is formulated in the same way. 
+
 + Will any interventions be modelled? 
 
-Finally, interventions such as vaccination may be of interest. A model may or may not have the capability to include the impact of different interventions on different time scales (continuous time or at discrete time points). We will discuss interventions in detail in the next tutorial.
+Finally, interventions such as vaccination may be of interest. A model may or may not have the capability to include the impact of different interventions on different time scales (continuous time or at discrete time points). We discuss interventions in detail in the tutorial [Modelling interventions](../episodes/modelling-interventions.md).
 
-### Available  models
+
+## Available  models in `epidemics`
  
 The R package `epidemics` contains functions to run existing models.
-For details on the models that are available, see the package [vignettes](https://epiverse-trace.github.io/epidemics/articles). To learn how to run the models in R, read the documentation using `?epidemics::model_ebola_r`. Remember to use the questions in the '[Check model equation](#check-model-equations)' checklist to help your understanding of an  existing model. 
+For details on the models that are available, see the package [vignettes](https://epiverse-trace.github.io/epidemics/articles). To learn how to run the models in R, read the documentation using `?epidemics::model_ebola_r`. 
 
-::::::::::::::::::::::::::::::::::::: checklist
-### Check model equations
-
-- How is transmission modelled? e.g. direct or indirect, airborne or vector-borne
-- What interventions are modelled? 
-- What state variables are there and how do they relate to assumptions about infection?
-
-::::::::::::::::::::::::::::::::::::::::::::::::
-
-
-
-## Challenge : Ebola outbreak analysis 
 
 ::::::::::::::::::::::::::::::::::::: challenge
 
@@ -228,6 +224,10 @@ As this model is stochastic, it is the most appropriate choice to explore how va
 
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
+
+
+## Challenge : Ebola outbreak analysis 
+
 
 
 ::::::::::::::::::::::::::::::::::::: challenge
@@ -377,6 +377,6 @@ ggplot(output_samples[compartment == "infectious"] ,aes(time, value)) +
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
-- Existing models can be used for new questions
-- Check that a model has appropriate assumptions about transmission, outbreak potential, outcomes and interventions 
+- Existing mathematical models should be selected according to the research question
+- It is important to check that a model has appropriate assumptions about transmission, outbreak potential, outcomes and interventions 
 ::::::::::::::::::::::::::::::::::::::::::::::::
