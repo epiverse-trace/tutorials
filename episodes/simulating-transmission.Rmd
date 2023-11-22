@@ -42,7 +42,7 @@ Using the R package `epidemics`, learn how to:
 
 Learners should familiarise themselves with following concept dependencies before working through this tutorial: 
 
-**Modelling** : [Introduction to infectious disease models](https://doi.org/10.1038/s41592-020-0856-2), [state variables](../learners/reference.md#state), [model parameters](../learners/reference.md#parsode), [initial conditions](../learners/reference.md#initial), [ordinary differential equations](../learners/reference.md#ordinary).
+**Mathematical Modelling** : [Introduction to infectious disease models](https://doi.org/10.1038/s41592-020-0856-2), [state variables](../learners/reference.md#state), [model parameters](../learners/reference.md#parsode), [initial conditions](../learners/reference.md#initial), [ordinary differential equations](../learners/reference.md#ordinary).
 
 **Epidemic theory** : [Transmission](https://doi.org/10.1155/2011/267049), [Reproduction number](https://doi.org/10.3201/eid2501.171901).
 :::::::::::::::::::::::::::::::::
@@ -51,9 +51,9 @@ Learners should familiarise themselves with following concept dependencies befor
 
 ## Introduction
 
-Mathematical models are useful tools for generating future trajectories of disease spread. In this tutorial, we will use the R package `{epidemics}` to generate trajectories of influenza spread. By the end of this tutorial, you will be able to generate the trajectory below showing the number of infectious individuals in different age categories through time.
+Mathematical models are useful tools for generating future trajectories of disease spread. In this tutorial, we will use the R package `{epidemics}` to generate disease trajectories of an influenza strain with pandemic potential. By the end of this tutorial, you will be able to generate the trajectory below showing the number of infectious individuals in different age categories through time.
 
-```{r traj, echo = FALSE, message= FALSE, fig.width = 10}
+```{r traj, echo = FALSE, message = FALSE, fig.width = 10, eval = TRUE}
 # load contact and population data from socialmixr::polymod
 polymod <- socialmixr::polymod
 contact_data <- socialmixr::contact_matrix(
@@ -141,23 +141,9 @@ By the end of this tutorial, learners should be able to replicate the above imag
 
 
 ## Simulating disease spread
-To generate trajectories of disease spread, we must first select a mathematical model to use. In `epidemics` models are prefixed with `model` and suffixed by the name of infection (e.g. ebola) or a different identifier (e.g. default), and whether the model has a R or [C++](../learners/reference.md#cplusplus) code base.  In this tutorial, we will use the default model in `epidemics`, `model_default_cpp()` which is described in the next section.
+To generate trajectories of disease spread, we must first select a mathematical model to use. In `epidemics` models are prefixed with `model` and suffixed by the name of infection (e.g. ebola) or a different identifier (e.g. default), and whether the model has a R or [C++](../learners/reference.md#cplusplus) code base.  
 
-::::::::::::::::::::::::::::::::::::: callout
-### Check model equations
-When using existing model structures always check the model assumptions. Ask questions such as:
-
-- How is transmission modelled? e.g. [direct](../learners/reference.md#direct) or [indirect](../learners/reference.md#indirect), [airborne](../learners/reference.md#airborne) or [vector-borne](../learners/reference.md#vectorborne)?
-- What interventions are modelled? 
-- What state variables are there and how do they relate to assumptions about infection?
-
-There can be subtle differences in model structures for the same infection or outbreak type which can be missed without studying the equations.
-::::::::::::::::::::::::::::::::::::::::::::::::
-
-
-### An epidemic model for pandemic influenza
-
-We will generate disease trajectories of an influenza strain with pandemic potential. We will use the default epidemic model in `epidemics`, an age-structured SEIR model described by a system of [ordinary differential equations](../learners/reference.md#ordinary). For each age group $i$, individuals are classed as either susceptible $S$, infected but not yet infectious $E$, infectious $I$ or recovered $R$. 
+In this tutorial, we will use the default model in `epidemics`, `model_default_cpp()` which is an age-structured SEIR model described by a system of [ordinary differential equations](../learners/reference.md#ordinary). For each age group $i$, individuals are classed as either susceptible $S$, infected but not yet infectious $E$, infectious $I$ or recovered $R$. 
 
 ```{r diagram, echo = FALSE, message = FALSE}
 DiagrammeR::grViz("digraph {
@@ -191,13 +177,14 @@ DiagrammeR::grViz("digraph {
 
 
 
-The model parameters and equations are as follows :
+The model parameters are as follows :
 
 - transmission rate $\beta$,
 - [contact matrix](../learners/reference.md#contact) $C$ containing the frequency of contacts between age groups (a square $i \times j$ matrix),
 - rate of transition from exposed to infectious $\alpha$ (preinfectious period=$1/\alpha$),
 - recovery rate $\gamma$ (infectious period = $1/\gamma$).
 
+For each disease state ($SEIR$) and age group ($i$), we have an ordinary differential equation describing the rate of change with respect to time. The contact matrix $C$ allows for heterogeneity in contacts between age groups. Individuals in age group ($i$) move from the susceptible state ($S_i$) to the exposed state ($E_i$) via age group specific contact with the infectious individuals in their own and other age groups $\beta S_i \sum_j C_{i,j} I_j$. They then move to the infectious state at a rate $\alpha$ and recover at a rate $\gamma$. There is no loss of immunity (there are no flows out of the recovered state).
 
 $$
 \begin{aligned}
@@ -207,12 +194,6 @@ $$
 \frac{dR_i}{dt} &=\gamma I_i \\
 \end{aligned}
 $$
-
-From the model structure we see that :
-
-- the contact matrix $C$ allows for heterogeneity in contacts between age groups,
-- there is no loss of immunity (there are no flows out of the recovered state).
-
 
 
 ::::::::::::::::::::::::::::::::::::: callout
@@ -230,11 +211,9 @@ We will use the following definitions for our state variables:
 To generate trajectories using our model, we must prepare the following inputs :  
 
 1.  Contact matrix 
-2.  Population structure
-3.  Initial conditions 
+2.  Initial conditions 
+3.  Population structure
 4.  Model parameters
-
-
 
 ### 1. Contact matrix
 
@@ -293,28 +272,8 @@ The result is a square matrix with rows and columns for each age group. Contact 
 One of the arguments of the function `contact_matrix()` is `symmetric=TRUE`. This means that the total number of contacts of age group 1 with age group 2, should be the same as the total number of contacts of age group 2 and age group 1 (see the `socialmixr` [vignette](https://cran.r-project.org/web/packages/socialmixr/vignettes/socialmixr.html) for more detail). However, when contact matrices are estimated from surveys or other sources, the *reported* number of contacts may differ by age group resulting in a non-symmetric contact matrix [(Prem et al 2021)](https://doi.org/10.1371/journal.pcbi.1009098).
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
-### 2. Population structure
-The population object requires a vector containing the demographic structure of the population. The demographic vector must be a named vector containing the number of individuals in each age group of our given population. In this example, we can extract the demographic information from the `contact_data` object that we obtained using the `socialmixr` package.
 
-```{r demography}
-demography_vector <- contact_data$demography$population
-names(demography_vector) <- rownames(contact_matrix)
-demography_vector
-```
-
-To create our population object, we call the function `population()` specifying a name, the contact matrix, the demography vector and the initial conditions.
-
-```{r population}
-uk_population <- population(
-  name = "UK",
-  contact_matrix = contact_matrix,
-  demography_vector = demography_vector,
-  initial_conditions = initial_conditions
-)
-```
-
-
-### 3. Initial conditions
+### 2. Initial conditions
 
 The initial conditions are the proportion of individuals in each disease state $S$, $E$, $I$ and $R$ for each age group at time 0. In this example, we have three age groups age between 0 and 20 years, age between 20 and 40 years and over. Let's assume that in the youngest age category, one in a million individuals are infectious, and the remaining age categories are infection free. 
 
@@ -338,14 +297,39 @@ initial_conditions_free <- c(
 We combine the three initial conditions vectors into one matrix, 
 
 ```{r initial condtions}
-# build for all age groups
+# combine the initial conditions
 initial_conditions <- rbind(
-  initial_conditions_inf,
-  initial_conditions_free,
-  initial_conditions_free
+  initial_conditions_inf, # age group 1
+  initial_conditions_free, # age group 2
+  initial_conditions_free # age group 3
 )
-rownames(initial_conditions) <- rownames(contact_matrix)
+
+# use contact matrix to assign age group names
+rownames(initial_conditions) <- rownames(contact_matrix) 
 initial_conditions
+```
+
+
+
+
+### 3. Population structure
+The population object requires a vector containing the demographic structure of the population. The demographic vector must be a named vector containing the number of individuals in each age group of our given population. In this example, we can extract the demographic information from the `contact_data` object that we obtained using the `socialmixr` package.
+
+```{r demography}
+demography_vector <- contact_data$demography$population
+names(demography_vector) <- rownames(contact_matrix)
+demography_vector
+```
+
+To create our population object, we call the function `population()` specifying a name, the contact matrix, the demography vector and the initial conditions.
+
+```{r population}
+uk_population <- population(
+  name = "UK",
+  contact_matrix = contact_matrix,
+  demography_vector = demography_vector,
+  initial_conditions = initial_conditions
+)
 ```
 
 
@@ -396,7 +380,7 @@ For models that are described by ODEs, running the model actually means to solve
 In `epidemics`, the [ODE solver](https://www.boost.org/doc/libs/1_82_0/libs/numeric/odeint/doc/html/index.htm) uses the [Runge-Kutta method](https://en.wikipedia.org/wiki/Runge%E2%80%93Kutta_methods). 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
-Now we are ready to run our model. To install the package : 
+Now we are ready to run our model. To install the `epidemics` package : 
 
 ```{r installation, eval = FALSE}
 if (!require("pak")) install.packages("pak")
@@ -514,7 +498,7 @@ ggplot(output_samples[compartment == "infectious", ] ,aes(time, value)) +
 ```
 
 
-Deciding which parameters to include uncertainty in depends on a few factors: how well informed a parameter value is e.g. consistency of estimates from the literature; how sensitive model outputs are to parameter value changes; and the purpose of the modelling task. 
+Deciding which parameters to include uncertainty in depends on a few factors: how well informed a parameter value is e.g. consistency of estimates from the literature; how sensitive model outputs are to parameter value changes; and the purpose of the modelling task. See [McCabe et al. 2021](https://doi.org/10.1016%2Fj.epidem.2021.100520) to learn about different types of uncertainty in infectious disease modelling.
 
 ## Summary 
 
@@ -523,7 +507,6 @@ In this tutorial, we have learnt how to simulate disease spread using a mathemat
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
 - Disease trajectories can be generated using the R package `epidemics`
-- Contact matrices can be estimated from different sources
-- Include uncertainty in model trajectories
+- Uncertainty should be included in model trajectories using a range of model parameter values
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
