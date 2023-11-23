@@ -58,25 +58,28 @@ contact: 'andree.valle-campos@lshtm.ac.uk' #FIXME
 # - another-learner.md
 
 # Order of episodes in your lesson
-episodes:
+episodes: 
 - introduction.Rmd
+- read-data.Rmd
+- describe-data.Rmd
 - simulating-transmission.Rmd
 - model-choices.Rmd
 - modelling-interventions.Rmd
 - compare-interventions.Rmd
 
 # Information for Learners
-learners:
+learners: 
 
 # Information for Instructors
-instructors:
+instructors: 
 
 # Learner Profiles
-profiles:
+profiles: 
 
 # Customisation ---------------------------------------------
 #
 # This space below is where custom yaml items (e.g. pinning
 # sandpaper and varnish versions) should live
+
+
 varnish: epiverse-trace/varnish@epiversetheme
-sandpaper: 'carpentries/sandpaper#533'
