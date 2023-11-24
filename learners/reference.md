@@ -23,7 +23,10 @@ title: 'Glossary of Terms: Epiverse-TRACE'
 
 <!-- ## F -->
 
-<!-- ## G -->
+## G
+
+[Generation time]{#generationtime}
+:  Distribution of time between infection of an index case and infection of its secondary cases. Most commonly, the generation time distribution is estimated from data on the [serial interval](#serialinterval) distribution of an infection ([Cori et al. 2017](https://royalsocietypublishing.org/doi/10.1098/rstb.2016.0371)).
 
 <!-- ## H -->
 
@@ -55,9 +58,15 @@ title: 'Glossary of Terms: Epiverse-TRACE'
 
 <!-- ## Q -->
 
-<!-- ## R -->
+## R
+
+[Reporting delay]{#reportingdelay}
+: Delay between the time an event occurs and the time it is reported ([Lawless, 1994](https://www.jstor.org/stable/3315820)). We can quantify it by comparing the linelist with successive versions of it or up-to-date reported aggregated case counts ([Cori et al. 2017](https://royalsocietypublishing.org/doi/10.1098/rstb.2016.0371)).
 
 ## S
+
+[Serial interval]{#serialinterval}
+: The time delay between the onset of symptoms between a primary case and a secondary case. The serial interval is related to the [incubation period](#incubation), as described in Figure 2 at [Nishiura et al. (2020)](https://www.ijidonline.com/article/S1201-9712(20)30119-3/fulltext).
 
 [Stochastic model]{#stochastic}
 : A model that includes some stochastic process resulting in variation in model simulations for the same initial conditions and parameters. Examples include stochastic differential equations, branching process models. For more detail see [Allen (2017)](https://doi.org/10.1016/j.idm.2017.03.001).
