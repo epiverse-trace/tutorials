@@ -60,7 +60,9 @@ title: 'Glossary of Terms: Epiverse-TRACE'
 : The model parameters are used in [ordinary differential equation](#ordinary) models to describe the flow between disease states. For example, a transmission rate $\beta$ is a model parameter that can be used to describe the flow between susceptible and infectious states. 
 
 
-<!-- ## N -->
+## N
+[Non-pharmaceutical interventions]{#NPIs}
+: Non-pharmaceutical interventions (NPIs) are measures put in place to reduce transmission that do not include the administration of drugs or vaccinations. [More information on NPIs](https://www.gov.uk/government/publications/technical-report-on-the-covid-19-pandemic-in-the-uk/chapter-8-non-pharmaceutical-interventions).
 
 ## O
 [Ordinary differential equations]{#ordinary}
