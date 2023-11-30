@@ -30,7 +30,7 @@ title: 'Glossary of Terms: Epiverse-TRACE'
 ## G
 
 [Generation time]{#generationtime}
-:  Distribution of time between infection of an index case and infection of its secondary cases. Most commonly, the generation time distribution is estimated from data on the [serial interval](#serialinterval) distribution of an infection ([Cori et al. 2017](https://royalsocietypublishing.org/doi/10.1098/rstb.2016.0371)).
+:  Distribution of time between infection of an index case and infection of its secondary cases. Most commonly, the generation time distribution is commonly estimated from data on the [serial interval](#serialinterval) distribution of an infection ([Cori et al. 2017](https://royalsocietypublishing.org/doi/10.1098/rstb.2016.0371)).
 
 <!-- ## H -->
 
