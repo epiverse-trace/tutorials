@@ -30,20 +30,22 @@ title: 'Glossary of Terms: Epiverse-TRACE'
 ## G
 
 [Generation time]{#generationtime}
-:  Distribution of time between infection of an index case and infection of its secondary cases. Most commonly, the generation time distribution is commonly estimated from data on the [serial interval](#serialinterval) distribution of an infection ([Cori et al. 2017](https://royalsocietypublishing.org/doi/10.1098/rstb.2016.0371)).
+:  Time between infection of an index case and infection of its secondary cases. Most commonly, the generation time distribution is commonly estimated from data on the [serial interval](#serialinterval) distribution of an infection ([Cori et al. 2017](https://royalsocietypublishing.org/doi/10.1098/rstb.2016.0371)).
 
 <!-- ## H -->
 
 ## I 
 
 [Incubation period]{#incubation}
-: The time between becoming infected and the onset of infectiousness, same as [latent period](#latent).
+: The time between becoming infected and the onset of symptoms. This can be different to the [latent period](#latent). ([Xiang et al, 2021](https://www.sciencedirect.com/science/article/pii/S2468042721000038))
 
 [Indirect transmission]{#indirect}
 : Indirectly transmitted infections are passed on to humans via contact with vectors, animals or contaminated environment. Vector-borne infections, zoonoses and water-borne infections are modelled as indirectly transmitted. 
 
-[Infectiousness]{#infectiousness}
-: Median duration of the time between the onset and end of infectious viral shedding.
+[Infectious period]{#infectiousness}
+: Also known as Duration of infectiousness. Time period between the onset and end of infectious [viral shedding](#viralshedding). Viral load and detection of infectious virus are the two key parameters for estimating infectiousness ([Puhach et al., 2022](https://www.nature.com/articles/s41579-022-00822-w)).
+<!-- ref: https://www.sciencedirect.com/topics/mathematics/infectiousness -->
+
 ![Window and kinetics of SARS-CoV-2 infectiousness in recently infected contacts. From [Hakki et al, 2022](https://www.thelancet.com/journals/lanres/article/PIIS2213-2600(22)00226-0/fulltext)](fig/infectiousness-covid19.jpg)
 
 <!-- ## J -->
@@ -53,12 +55,15 @@ title: 'Glossary of Terms: Epiverse-TRACE'
 ## L
 
 [Latent period]{#latent}
-: The time between becoming infected and the onset of infectiousness, same as [incubation period](#incubation).
+: The time between becoming infected and the onset of infectiousness. This can be different to the [incubation period](#incubation). ([Xiang et al, 2021](https://www.sciencedirect.com/science/article/pii/S2468042721000038))
 
 
 <!-- ## M -->
 
 <!-- ## N -->
+
+[Natural history of disease]{#naturalhistory} 
+: Refers to the development of disease from beginning to end without any treatment or intervention. In fact, given the harmfulness of an epidemic, treatment or intervention measures are inevitable. Therefore, it is difficult for the natural history of a disease to be unaffected by the various coupling factors. ([Xiang et al, 2021](https://www.sciencedirect.com/science/article/pii/S2468042721000038))
 
 <!-- ## O -->
 
@@ -89,6 +94,8 @@ title: 'Glossary of Terms: Epiverse-TRACE'
 [Vector-borne transmission]{#vectorborne}
 : Vector-borne transmission means an infection can be passed from a vector (e.g. mosquitoes) to humans. Examples of vector-borne diseases include malaria and dengue. [More information on vector-borne transmission](https://www.who.int/news-room/fact-sheets/detail/vector-borne-diseases).  
 
+[Viral shedding]{#viralshedding}
+: The process of releasing a virus from a cell or body into the environment where it can infect other people. ([Cambridge Dictionary, 2023](https://dictionary.cambridge.org/us/dictionary/english/shedding))
 
 <!-- ## W -->
 
