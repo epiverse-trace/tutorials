@@ -42,6 +42,10 @@ title: 'Glossary of Terms: Epiverse-TRACE'
 [Indirect transmission]{#indirect}
 : Indirectly transmitted infections are passed on to humans via contact with vectors, animals or contaminated environment. Vector-borne infections, zoonoses and water-borne infections are modelled as indirectly transmitted. 
 
+[Infectiousness]{#infectiousness}
+: Median duration of the time between the onset and end of infectious viral shedding.
+![Window and kinetics of SARS-CoV-2 infectiousness in recently infected contacts. From [Hakki et al, 2022](https://www.thelancet.com/journals/lanres/article/PIIS2213-2600(22)00226-0/fulltext)](fig/infectiousness-covid19.jpg)
+
 <!-- ## J -->
 
 <!-- ## K -->
