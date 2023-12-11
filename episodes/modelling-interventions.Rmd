@@ -422,11 +422,13 @@ ggplot() +
 
 ## Summary
 
-Modelling interventions requires assumptions of how interventions affect model parameters such as contact matrices or parameter values. Next we want quantify the effect of an interventions. In the next tutorial, we will learn how to compare intervention scenarios against each other. 
+Different types of intervention can be implemented using mathematical modelling. Modelling interventions requires assumptions of which model parameters are affected (e.g. contact matrices, transmission rate), by what magnitude and and what times in the simulation of an outbreak. 
 
+The next step is to quantify the effect of an interventions. If you are interested in learning how to compare interventions, please complete the tutorial [Comparing public health outcomes of interventions](../episodes/compare-interventions.md). 
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
-- Different types of intervention can be implemented using mathematical modelling
+- The effect of NPIs can be modelled as reducing contact rates between age groups or reducing the transmissibility of infection
+- Vaccination can be modelled by assuming individuals move to a different disease state $V$
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
