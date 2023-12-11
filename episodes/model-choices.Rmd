@@ -286,7 +286,7 @@ guinea_population <- population(
 
 ### HINT : Multiple model simulations
 
-Adapt the code from the [accounting for uncertainty](#accounting-for-uncertainty) section
+Adapt the code from the [accounting for uncertainty](../episodes/simulating-transmission.md#accounting-for-uncertainty) section
 
 ::::::::::::::::::::::
 
