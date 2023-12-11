@@ -321,10 +321,6 @@ ggplot(output[output$compartment == "infectious", ]) +
     x = "Simulation time (days)",
     y = "Individuals"
   ) +
-  theme_classic() +
-  theme(
-    legend.position = "top"
-  ) +
   theme_bw(
     base_size = 15
   )

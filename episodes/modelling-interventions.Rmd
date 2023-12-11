@@ -174,14 +174,14 @@ We see that with the intervention (solid line) in place, the infection still spr
 ggplot() +
   aes(x = time, y = value) +
   stat_summary(
-    data = output_school[compartment == "infectious", ],
+    data = output_school[output_school$compartment == "infectious", ],
     fun = sum,
     color = "black",
     geom = "line",
     linewidth = 1
   ) +
   stat_summary(
-    data = output[compartment == "infectious", ],
+    data = output[output$compartment == "infectious", ],
     fun = sum,
     color = "black",
     geom = "line",
@@ -189,17 +189,13 @@ ggplot() +
     linetype = "dashed"
   ) +
   scale_y_continuous(
-    labels = scales::comma,
-    name = "Infectious indivduals"
+    labels = scales::comma
   ) +
   labs(
-    x = "Model time (days)"
+    x = "Simulation time (days)",
+    y = "Individuals"
   ) +
-  theme_classic() +
-  theme(
-    legend.position = "top"
-  ) +
-  theme_grey(
+  theme_bw(
     base_size = 15
   ) +
   geom_vline(
@@ -218,6 +214,7 @@ ggplot() +
     angle = 0,
     vjust = "outward"
   )
+  
 ```
 
 #### Effect of mask wearing on COVID-19 spread
@@ -257,14 +254,14 @@ output_masks <- model_default_cpp(
 ggplot() +
   aes(x = time, y = value) +
   stat_summary(
-    data = output_masks[compartment == "infectious", ],
+    data = output_masks[output_masks$compartment == "infectious", ],
     fun = sum,
     color = "black",
     geom = "line",
     linewidth = 1
   ) +
   stat_summary(
-    data = output[compartment == "infectious", ],
+    data = output[output$compartment == "infectious", ],
     fun = sum,
     color = "black",
     geom = "line",
@@ -272,17 +269,13 @@ ggplot() +
     linetype = "dashed"
   ) +
   scale_y_continuous(
-    labels = scales::comma,
-    name = "Infectious indivduals"
+    labels = scales::comma
   ) +
   labs(
-    x = "Model time (days)"
+    x = "Simulation time (days)",
+    y = "Individuals"
   ) +
-  theme_classic() +
-  theme(
-    legend.position = "top"
-  ) +
-  theme_grey(
+  theme_bw(
     base_size = 15
   ) +
   geom_vline(
@@ -385,14 +378,14 @@ Here we see that the total number of infectious individuals when vaccination is 
 ggplot() +
   aes(x = time, y = value) +
   stat_summary(
-    data = output_vaccinate[compartment == "infectious", ],
+    data = output_vaccinate[output_vaccinate$compartment == "infectious", ],
     fun = sum,
     color = "black",
     geom = "line",
     linewidth = 1
   ) +
   stat_summary(
-    data = output[compartment == "infectious", ],
+    data = output[output$compartment == "infectious", ],
     fun = sum,
     color = "black",
     geom = "line",
@@ -400,17 +393,13 @@ ggplot() +
     linetype = "dashed"
   ) +
   scale_y_continuous(
-    labels = scales::comma,
-    name = "Infectious indivduals"
+    labels = scales::comma
   ) +
   labs(
-    x = "Model time (days)"
+    x = "Simulation time (days)",
+    y = "Individuals"
   ) +
-  theme_classic() +
-  theme(
-    legend.position = "top"
-  ) +
-  theme_grey(
+  theme_bw(
     base_size = 15
   ) +
   geom_vline(

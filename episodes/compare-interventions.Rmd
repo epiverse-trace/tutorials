@@ -229,7 +229,7 @@ output <- model_vacamole_cpp(
 2. Plot the number of deaths through time
 
 ```{r}
-ggplot(output[compartment == "dead", ]) +
+ggplot(output[output$compartment == "dead", ]) +
   geom_line(
     aes(time, value, colour = demography_group),
     linewidth = 1
@@ -240,17 +240,16 @@ ggplot(output[compartment == "dead", ]) +
     name = "Age group"
   ) +
   scale_y_continuous(
-    labels = scales::comma,
-    name = "Infectious indivduals"
-  ) +
+    labels = scales::comma
+    ) +
   labs(
-    x = "Model time (days)"
-  ) +
-  theme_classic() +
+    x = "Simulation time (days)",
+    y = "Individuals"
+  )  +
   theme(
     legend.position = "top"
   ) +
-  theme_grey(
+  theme_bw(
     base_size = 15
   )
 ```

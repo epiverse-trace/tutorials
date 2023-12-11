@@ -417,7 +417,7 @@ head(output)
 Our model output consists of the number of individuals in each compartment in each age group through time. We can visualise the infectious individuals only (those in the $I$ class) through time.
 
 ```{r visualise, fig.width = 10}
-filter(output, compartment %in% c("exposed", "infectious")) %>%
+filter(output_plot, compartment %in% c("exposed", "infectious")) %>%
   ggplot(
     aes(
       x = time,
@@ -452,7 +452,7 @@ filter(output, compartment %in% c("exposed", "infectious")) %>%
     x = "Simulation time (days)",
     linetype = "Compartment",
     y = "Individuals"
-  ) 
+  )
 ```
 
 
