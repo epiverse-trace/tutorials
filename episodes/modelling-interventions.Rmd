@@ -143,15 +143,6 @@ close_schools <- intervention(
 )
 ```
 
-```{r baseline, echo = FALSE}
-output <- model_default_cpp(
-  population = uk_population,
-  transmissibility = 2.7 / 5.5,
-  infectiousness_rate = 1.0 / 4.0,
-  recovery_rate = 1.0 / 5.5,
-  time_end = 300, increment = 1.0
-)
-```
 
 
 To run the model with an intervention we set ` intervention = list(contacts = close_schools)` as follows:
@@ -167,26 +158,30 @@ output_school <- model_default_cpp(
 )
 ```
 
+To be able to see the effect of our intervention, we also run the model where there is no intervention, combine the two outputs into one data frame and then plot the output. Here we plot the total number of infectious individuals in all age groups using `ggplot2::stat_summary()`:
 
-We see that with the intervention (solid line) in place, the infection still spreads through the population, though the epidemic peak is smaller than the baseline with no intervention in place (dashed line).
+```{r baseline, echo = TRUE, fig.width = 10}
+output_baseline <- model_default_cpp(
+  population = uk_population,
+  transmissibility = 2.7 / 5.5,
+  infectiousness_rate = 1.0 / 4.0,
+  recovery_rate = 1.0 / 5.5,
+  time_end = 300, increment = 1.0
+)
 
-```{r plot_school, echo = FALSE, message = FALSE, fig.width = 10}
-ggplot() +
-  aes(x = time, y = value) +
+output_school$intervention_type = "school closure"
+output_baseline$intervention_type = "baseline"
+output <- rbind(output_school, output_baseline)
+
+ggplot(data = output[output$compartment == "infectious", ]) +
+  aes(x = time,
+      y = value,
+      color = intervention_type,
+      linetype = intervention_type) +
   stat_summary(
-    data = output_school[output_school$compartment == "infectious", ],
-    fun = sum,
-    color = "black",
+    fun = "sum",
     geom = "line",
     linewidth = 1
-  ) +
-  stat_summary(
-    data = output[output$compartment == "infectious", ],
-    fun = sum,
-    color = "black",
-    geom = "line",
-    linewidth = 1,
-    linetype = "dashed"
   ) +
   scale_y_continuous(
     labels = scales::comma
@@ -214,8 +209,11 @@ ggplot() +
     angle = 0,
     vjust = "outward"
   )
-  
+
 ```
+We see that with the intervention in place, the infection still spreads through the population, though the peak number of infectious individuals is smaller than the baseline with no intervention in place (solid line).
+
+
 
 #### Effect of mask wearing on COVID-19 spread
 
@@ -250,23 +248,20 @@ output_masks <- model_default_cpp(
 
 
 
-```{r plot_masks, echo = FALSE, message = FALSE, fig.width = 10}
-ggplot() +
-  aes(x = time, y = value) +
+```{r plot_masks, echo = TRUE, message = FALSE, fig.width = 10}
+output_masks$intervention_type = "mask mandate"
+output_baseline$intervention_type = "baseline"
+output <- rbind(output_masks, output_baseline)
+
+ggplot(data = output[output$compartment == "infectious", ]) +
+  aes(x = time,
+      y = value,
+      color = intervention_type,
+      linetype = intervention_type) +
   stat_summary(
-    data = output_masks[output_masks$compartment == "infectious", ],
-    fun = sum,
-    color = "black",
+    fun = "sum",
     geom = "line",
     linewidth = 1
-  ) +
-  stat_summary(
-    data = output[output$compartment == "infectious", ],
-    fun = sum,
-    color = "black",
-    geom = "line",
-    linewidth = 1,
-    linetype = "dashed"
   ) +
   scale_y_continuous(
     labels = scales::comma
@@ -294,6 +289,8 @@ ggplot() +
     angle = 0,
     vjust = "outward"
   )
+
+
 ```
 
 
@@ -372,25 +369,31 @@ output_vaccinate <- model_default_cpp(
 )
 ```
 
-Here we see that the total number of infectious individuals when vaccination is in place is much lower compared to school closures and mask wearing interventions. 
 
-```{r plot_vaccinate, echo = FALSE, message = FALSE, fig.width = 10}
-ggplot() +
-  aes(x = time, y = value) +
+::::::::::::::::::::::::::::::::::::: challenge 
+
+## Compare interventions
+
+Plot the three interventions vaccination, school closure and mask mandate and the baseline simulation on one plot. Which intervention reduces the peak number of infectious individuals the most?
+
+
+:::::::::::::::::::::::: solution 
+
+## Output
+
+```{r plot_vaccinate, echo = TRUE, message = FALSE, fig.width = 10}
+output_vaccinate$intervention_type = "vaccination"
+output <- rbind(output_school, output_masks, output_vaccinate, output_baseline)
+
+ggplot(data = output[output$compartment == "infectious", ]) +
+  aes(x = time,
+      y = value,
+      color = intervention_type,
+      linetype = intervention_type) +
   stat_summary(
-    data = output_vaccinate[output_vaccinate$compartment == "infectious", ],
-    fun = sum,
-    color = "black",
+    fun = "sum",
     geom = "line",
     linewidth = 1
-  ) +
-  stat_summary(
-    data = output[output$compartment == "infectious", ],
-    fun = sum,
-    color = "black",
-    geom = "line",
-    linewidth = 1,
-    linetype = "dashed"
   ) +
   scale_y_continuous(
     labels = scales::comma
@@ -401,23 +404,15 @@ ggplot() +
   ) +
   theme_bw(
     base_size = 15
-  ) +
-  geom_vline(
-    xintercept = c(vaccinate$time_begin, vaccinate$time_end),
-    colour = "black",
-    linetype = "dashed",
-    linewidth = 0.2
-  ) +
-  annotate(
-    geom = "text",
-    label = "Vaccination",
-    colour = "black",
-    x = (vaccinate$time_end - vaccinate$time_begin) / 2 + vaccinate$time_begin,
-    y = 10,
-    angle = 0,
-    vjust = "outward"
-  )
+  ) 
 ```
+
+From the plot we see that the peak number of total number of infectious individuals when vaccination is in place is much lower compared to school closures and mask wearing interventions. 
+
+:::::::::::::::::::::::::::::::::
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+
 
 
 ## Summary
