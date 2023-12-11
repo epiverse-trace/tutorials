@@ -6,6 +6,7 @@ exercises: 30 # exercise time in minutes
 
 ```{r setup, echo= FALSE, message = FALSE, warning = FALSE}
 require(ggplot2)
+require(dplyr)
 require(testthat)
 require(tidyverse)
 require(DiagrammeR)
@@ -97,7 +98,7 @@ uk_population <- population(
 )
 
 # run an epidemic model using `epidemic()`
-output <- model_default_cpp(
+output_plot <- model_default_cpp(
   population = uk_population,
   transmissibility = 1.46 / 7.0,
   infectiousness_rate = 1.0 / 3.0,
@@ -105,30 +106,42 @@ output <- model_default_cpp(
   time_end = 600, increment = 1.0
 )
 
-ggplot(output[compartment == "infectious", ]) +
+filter(output_plot, compartment %in% c("exposed", "infectious")) %>%
+  ggplot(
+    aes(
+      x = time,
+      y = value,
+      col = demography_group,
+      linetype = compartment
+      )
+  ) +
   geom_line(
-    aes(time, value, colour = demography_group),
-    linewidth = 1
+    linewidth = 1.2
+  ) +
+  scale_y_continuous(
+    labels = scales::comma
   ) +
   scale_colour_brewer(
     palette = "Dark2",
-    labels = rownames(contact_matrix),
     name = "Age group"
   ) +
-  scale_y_continuous(
-    labels = scales::comma,
-    name = "Infectious indivduals"
+  expand_limits(
+    y = c(0, 500e3)
   ) +
-  labs(
-    x = "Model time (days)"
+  coord_cartesian(
+    expand = FALSE
   ) +
-  theme_classic() +
+  theme_bw(
+    base_size = 15
+    ) +
   theme(
     legend.position = "top"
   ) +
-  theme_grey(
-    base_size = 15
-  )
+  labs(
+    x = "Simulation time (days)",
+    linetype = "Compartment",
+    y = "Individuals"
+  ) 
 ```
 
 
@@ -404,30 +417,42 @@ head(output)
 Our model output consists of the number of individuals in each compartment in each age group through time. We can visualise the infectious individuals only (those in the $I$ class) through time.
 
 ```{r visualise, fig.width = 10}
-ggplot(output[compartment == "infectious", ]) +
+filter(output, compartment %in% c("exposed", "infectious")) %>%
+  ggplot(
+    aes(
+      x = time,
+      y = value,
+      col = demography_group,
+      linetype = compartment
+      )
+  ) +
   geom_line(
-    aes(time, value, colour = demography_group),
-    linewidth = 1
+    linewidth = 1.2
+  ) +
+  scale_y_continuous(
+    labels = scales::comma
   ) +
   scale_colour_brewer(
     palette = "Dark2",
-    labels = rownames(contact_matrix),
     name = "Age group"
   ) +
-  scale_y_continuous(
-    labels = scales::comma,
-    name = "Infectious indivduals"
+  expand_limits(
+    y = c(0, 500e3)
   ) +
-  labs(
-    x = "Model time (days)"
+  coord_cartesian(
+    expand = FALSE
   ) +
-  theme_classic() +
+  theme_bw(
+    base_size = 15
+    ) +
   theme(
     legend.position = "top"
   ) +
-  theme_grey(
-    base_size = 15
-  )
+  labs(
+    x = "Simulation time (days)",
+    linetype = "Compartment",
+    y = "Individuals"
+  ) 
 ```
 
 
@@ -469,9 +494,9 @@ output_samples <- Map(
     )
 
     # assign scenario number
-    output[, c("scenario", "R") := list(i, x)]
-
-    output
+     output <- output[output$compartment == "infectious", ]
+    
+     output
   }
 )
 
@@ -483,7 +508,7 @@ output_samples <- bind_rows(output_samples)
 3. Calculate the mean and 95% quantiles of number of infectious individuals across each model simulation and visualise output
 
 ```{r  plot, fig.width = 10}
-ggplot(output_samples[compartment == "infectious", ] ,aes(time, value)) +
+ggplot(output_samples, aes(time, value)) +
   stat_summary(geom = "line", fun = mean) +
   stat_summary(geom = "ribbon", 
                fun.min = function(z) { quantile(z, 0.025) },
@@ -492,7 +517,11 @@ ggplot(output_samples[compartment == "infectious", ] ,aes(time, value)) +
   facet_grid(
     cols = vars(demography_group)
   ) +
-  theme_grey(
+  labs(
+    x = "Simulation time (days)",
+    y = "Individuals"
+  ) +
+  theme_bw(
     base_size = 15
   )
 ```
