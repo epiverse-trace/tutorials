@@ -309,23 +309,23 @@ output <- model_ebola_r(
   time_end = 100
 )
 
-ggplot(output[compartment == "infectious", ]) +
+ggplot(output[output$compartment == "infectious", ]) +
   geom_line(
     aes(time, value),
-    linewidth = 1
+    linewidth = 1.2
   ) +
   scale_y_continuous(
-    labels = scales::comma,
-    name = "Infectious indivduals"
-  ) +
+    labels = scales::comma
+    ) +
   labs(
-    x = "Model time (days)"
+    x = "Simulation time (days)",
+    y = "Individuals"
   ) +
   theme_classic() +
   theme(
     legend.position = "top"
   ) +
-  theme_grey(
+  theme_bw(
     base_size = 15
   )
 
@@ -357,13 +357,17 @@ output_samples <- Map(
 
 output_samples <- bind_rows(output_samples) # requires the tidyverse package
 
-ggplot(output_samples[compartment == "infectious"] ,aes(time, value)) +
+ggplot(output_samples[output_samples$compartment == "infectious", ], aes(time, value)) +
   stat_summary(geom = "line", fun = mean) +
   stat_summary(geom = "ribbon", 
                fun.min = function(z) { quantile(z, 0.025) },
                fun.max = function(z) { quantile(z, 0.975) }, 
                alpha = 0.3) +
-  theme_grey(
+  labs(
+    x = "Simulation time (days)",
+    y = "Individuals"
+  ) +
+  theme_bw(
     base_size = 15
   )
 ```

@@ -493,10 +493,9 @@ output_samples <- Map(
       time_end = 600, increment = 1.0
     )
 
-    # assign scenario number
-     output <- output[output$compartment == "infectious", ]
-    
-     output
+    # add replicate number and return data
+    output$replicate <- x
+    output
   }
 )
 
@@ -508,7 +507,7 @@ output_samples <- bind_rows(output_samples)
 3. Calculate the mean and 95% quantiles of number of infectious individuals across each model simulation and visualise output
 
 ```{r  plot, fig.width = 10}
-ggplot(output_samples, aes(time, value)) +
+ggplot(output_samples[output_samples$compartment == "infectious", ], aes(time, value)) +
   stat_summary(geom = "line", fun = mean) +
   stat_summary(geom = "ribbon", 
                fun.min = function(z) { quantile(z, 0.025) },
