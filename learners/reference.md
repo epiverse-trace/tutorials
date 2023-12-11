@@ -22,7 +22,7 @@ title: 'Glossary of Terms: Epiverse-TRACE'
 ## E
 
 [Effective reproduction number]{#effectiverepro}
-: The effective reproduction number ($Rt$) is similar to the [Basic reproductive number](#basic) ($R0$), but $Rt$ measures the number of persons infected by infectious person when some portion of the population has already been infected. Read more about the [etymology of Reproduction number by Sharma et al, 2023](https://wwwnc.cdc.gov/eid/article/29/8/22-1445_article).
+: The time-varying or effective reproduction number ($Rt$) is similar to the [Basic reproductive number](#basic) ($R0$), but $Rt$ measures the number of persons infected by infectious person when some portion of the population has already been infected. Read more about the [etymology of Reproduction number by Sharma et al, 2023](https://wwwnc.cdc.gov/eid/article/29/8/22-1445_article).
 
 
 <!-- ## F -->
@@ -30,14 +30,17 @@ title: 'Glossary of Terms: Epiverse-TRACE'
 ## G
 
 [Generation time]{#generationtime}
-:  Time between infection of an index case and infection of its secondary cases. Most commonly, the generation time distribution is commonly estimated from data on the [serial interval](#serialinterval) distribution of an infection ([Cori et al. 2017](https://royalsocietypublishing.org/doi/10.1098/rstb.2016.0371)).
+:  Time between the onset of infectiousness of an index case and its secondary case. This always needs to be positive.
+The generation time distribution is commonly estimated from data on the [serial interval](#serialinterval) distribution of an infection ([Cori et al. 2017](https://royalsocietypublishing.org/doi/10.1098/rstb.2016.0371)).
 
 <!-- ## H -->
 
 ## I 
 
 [Incubation period]{#incubation}
-: The time between becoming infected and the onset of symptoms. This can be different to the [latent period](#latent). ([Xiang et al, 2021](https://www.sciencedirect.com/science/article/pii/S2468042721000038))
+: The time between becoming infected and the onset of symptoms. 
+This can be different to the [latent period](#latent) as shown in Figure 4 from ([Xiang et al. (2021)](https://www.sciencedirect.com/science/article/pii/S2468042721000038)).
+The relationship between the incubation period and  the [serial interval](#serialinterval) helps to define the type of infection transmission (symptomatic or pre-symptomatic). This is shown in Figure 2 at [Nishiura et al. (2020)](https://www.ijidonline.com/article/S1201-9712(20)30119-3/fulltext).
 
 [Indirect transmission]{#indirect}
 : Indirectly transmitted infections are passed on to humans via contact with vectors, animals or contaminated environment. Vector-borne infections, zoonoses and water-borne infections are modelled as indirectly transmitted. 
@@ -55,7 +58,8 @@ title: 'Glossary of Terms: Epiverse-TRACE'
 ## L
 
 [Latent period]{#latent}
-: The time between becoming infected and the onset of infectiousness. This can be different to the [incubation period](#incubation). ([Xiang et al, 2021](https://www.sciencedirect.com/science/article/pii/S2468042721000038))
+: The time between becoming infected and the onset of infectiousness. 
+This can be different to the [incubation period](#incubation) as shown in Figure 4 from ([Xiang et al, 2021](https://www.sciencedirect.com/science/article/pii/S2468042721000038))
 
 
 <!-- ## M -->
@@ -79,7 +83,10 @@ title: 'Glossary of Terms: Epiverse-TRACE'
 ## S
 
 [Serial interval]{#serialinterval}
-: The time delay between the onset of symptoms between a primary case and a secondary case. The serial interval is related to the [incubation period](#incubation), as described in Figure 2 at [Nishiura et al. (2020)](https://www.ijidonline.com/article/S1201-9712(20)30119-3/fulltext).
+: The time delay between the onset of symptoms between a primary case and a secondary case.
+This can be negative when pre-symptomatic infection occurs.
+Most commonly, the serial interval distribution of an infection is used to estimate the [generation time](#generationtime) distribution ([(Cori et al., 2017)](https://royalsocietypublishing.org/doi/10.1098/rstb.2016.0371)).
+The relationship between the serial interval and the [incubation period](#incubation) helps to define the type of infection transmission (symptomatic or pre-symptomatic). This is shown in Figure 2 at [Nishiura et al. (2020)](https://www.ijidonline.com/article/S1201-9712(20)30119-3/fulltext).
 
 [Stochastic model]{#stochastic}
 : A model that includes some stochastic process resulting in variation in model simulations for the same initial conditions and parameters. Examples include stochastic differential equations, branching process models. For more detail see [Allen (2017)](https://doi.org/10.1016/j.idm.2017.03.001).
