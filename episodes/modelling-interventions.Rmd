@@ -38,7 +38,9 @@ Learners should familiarise themselves with following concept dependencies befor
 
 ## Introduction
 
-Mathematical models can be used to generate trajectories of disease spread under the implementation of non-pharmaceutical and pharmaceutical interventions at different stages of an outbreak. These predictions can be used to make decisions on what interventions could be implemented to slow down the spread of diseases. In this tutorial, we will introduce how to include different interventions in models.
+Mathematical models can be used to generate trajectories of disease spread under the implementation of non-pharmaceutical and pharmaceutical interventions at different stages of an outbreak. These predictions can be used to make decisions on what interventions could be implemented to slow down the spread of diseases. 
+
+We can assume interventions in mathematical models reduce the values of relevant parameters or assume individuals are classified into a new disease state. In this tutorial, we will introduce how to include three different interventions in model of COVID-19 transmission.
 
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: instructor
 
