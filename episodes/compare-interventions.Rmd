@@ -144,9 +144,8 @@ DiagrammeR::grViz("digraph{
 
 To run the model with no vaccination in place we can *either* create two vaccination objects (one for each dose) using `vaccination()` with the time start, time end and vaccination rate all set to 0, or we can use the `no_vaccination()` function to create a vaccination object for two doses with all values set to 0.
 
-```{r, eval = TRUE}
+```{r, eval = FALSE}
 no_vaccination <- no_vaccination(population = uk_population, doses = 2)
-no_vaccination
 ```
 ::::::::::::::::::::::
 
