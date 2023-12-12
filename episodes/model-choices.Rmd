@@ -264,7 +264,7 @@ E0 <- 10
 I0 <- 5
 # prepare initial conditions as proportions
 initial_conditions <- c(
-  S = population_size - (E0+I0), E = E0, I = I0, H = 0, F = 0, R = 0
+  S = population_size - (E0 + I0), E = E0, I = I0, H = 0, F = 0, R = 0
 ) / population_size
 
 guinea_population <- population(
@@ -316,7 +316,7 @@ ggplot(output[output$compartment == "infectious", ]) +
   ) +
   scale_y_continuous(
     labels = scales::comma
-    ) +
+  ) +
   labs(
     x = "Simulation time (days)",
     y = "Individuals"
@@ -324,7 +324,6 @@ ggplot(output[output$compartment == "infectious", ]) +
   theme_bw(
     base_size = 15
   )
-
 ```
 
 2. Run model 100 times and plot the mean, upper and lower 95% quantiles of the number of infectious individuals through time
@@ -355,10 +354,16 @@ output_samples <- bind_rows(output_samples) # requires the tidyverse package
 
 ggplot(output_samples[output_samples$compartment == "infectious", ], aes(time, value)) +
   stat_summary(geom = "line", fun = mean) +
-  stat_summary(geom = "ribbon", 
-               fun.min = function(z) { quantile(z, 0.025) },
-               fun.max = function(z) { quantile(z, 0.975) }, 
-               alpha = 0.3) +
+  stat_summary(
+    geom = "ribbon",
+    fun.min = function(z) {
+      quantile(z, 0.025)
+    },
+    fun.max = function(z) {
+      quantile(z, 0.975)
+    },
+    alpha = 0.3
+  ) +
   labs(
     x = "Simulation time (days)",
     y = "Individuals"

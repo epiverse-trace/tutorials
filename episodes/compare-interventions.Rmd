@@ -146,7 +146,7 @@ To run the model with no vaccination in place we can *either* create two vaccina
 
 ```{r, eval = TRUE}
 no_vaccination <- no_vaccination(population = uk_population, doses = 2)
-no_vaccination 
+no_vaccination
 ```
 ::::::::::::::::::::::
 
@@ -241,11 +241,11 @@ ggplot(output[output$compartment == "dead", ]) +
   ) +
   scale_y_continuous(
     labels = scales::comma
-    ) +
+  ) +
   labs(
     x = "Simulation time (days)",
     y = "Individuals"
-  )  +
+  ) +
   theme(
     legend.position = "top"
   ) +

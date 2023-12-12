@@ -102,7 +102,7 @@ output_plot <- model_default_cpp(
   population = uk_population,
   transmissibility = 1.46 / 7.0,
   infectiousness_rate = 1.0 / 3.0,
-  recovery_rate = 1.0 / 7.0, 
+  recovery_rate = 1.0 / 7.0,
   time_end = 600, increment = 1.0
 )
 
@@ -113,7 +113,7 @@ filter(output_plot, compartment %in% c("exposed", "infectious")) %>%
       y = value,
       col = demography_group,
       linetype = compartment
-      )
+    )
   ) +
   geom_line(
     linewidth = 1.2
@@ -133,7 +133,7 @@ filter(output_plot, compartment %in% c("exposed", "infectious")) %>%
   ) +
   theme_bw(
     base_size = 15
-    ) +
+  ) +
   theme(
     legend.position = "top"
   ) +
@@ -141,7 +141,7 @@ filter(output_plot, compartment %in% c("exposed", "infectious")) %>%
     x = "Simulation time (days)",
     linetype = "Compartment",
     y = "Individuals"
-  ) 
+  )
 ```
 
 
@@ -318,7 +318,7 @@ initial_conditions <- rbind(
 )
 
 # use contact matrix to assign age group names
-rownames(initial_conditions) <- rownames(contact_matrix) 
+rownames(initial_conditions) <- rownames(contact_matrix)
 initial_conditions
 ```
 
@@ -406,7 +406,7 @@ output <- model_default_cpp(
   population = uk_population,
   transmissibility = 1.46 / 7.0,
   infectiousness_rate = 1.0 / 3.0,
-  recovery_rate = 1.0 / 7.0, 
+  recovery_rate = 1.0 / 7.0,
   time_end = 600, increment = 1.0
 )
 head(output)
@@ -424,7 +424,7 @@ filter(output_plot, compartment %in% c("exposed", "infectious")) %>%
       y = value,
       col = demography_group,
       linetype = compartment
-      )
+    )
   ) +
   geom_line(
     linewidth = 1.2
@@ -444,7 +444,7 @@ filter(output_plot, compartment %in% c("exposed", "infectious")) %>%
   ) +
   theme_bw(
     base_size = 15
-    ) +
+  ) +
   theme(
     legend.position = "top"
   ) +
@@ -481,15 +481,15 @@ R0_vec <- rnorm(100, 1.5, 0.05)
 
 ```{r samples}
 output_samples <- Map(
- R0_vec,
+  R0_vec,
   seq_along(R0_vec),
   f = function(x, i) {
-  # run an epidemic model using `epidemic()`
+    # run an epidemic model using `epidemic()`
     output <- model_default_cpp(
       population = uk_population,
       transmissibility = x / 7.0,
       infectiousness_rate = 1.0 / 3.0,
-      recovery_rate = 1.0 / 7.0, 
+      recovery_rate = 1.0 / 7.0,
       time_end = 600, increment = 1.0
     )
 
@@ -509,10 +509,16 @@ output_samples <- bind_rows(output_samples)
 ```{r  plot, fig.width = 10}
 ggplot(output_samples[output_samples$compartment == "infectious", ], aes(time, value)) +
   stat_summary(geom = "line", fun = mean) +
-  stat_summary(geom = "ribbon", 
-               fun.min = function(z) { quantile(z, 0.025) },
-               fun.max = function(z) { quantile(z, 0.975) }, 
-               alpha = 0.3) +
+  stat_summary(
+    geom = "ribbon",
+    fun.min = function(z) {
+      quantile(z, 0.025)
+    },
+    fun.max = function(z) {
+      quantile(z, 0.975)
+    },
+    alpha = 0.3
+  ) +
   facet_grid(
     cols = vars(demography_group)
   ) +
