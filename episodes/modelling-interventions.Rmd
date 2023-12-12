@@ -102,10 +102,29 @@ Using an SEIR model (`model_default_cpp()` in the R package `{epidemics}`) we se
 
 We will assume that school closures will reduce the contacts between school aged children (aged 0-15) by 0.5, and will cause a small reduction (0.01) in the contacts between adults (aged 15 and over). 
 
+
+To include an intervention in our model we must create an `intervention` object. The inputs are the name of the intervention (`name`), the type of intervention (`contacts` or `rate`), the start time (`time_begin`), the end time (`time_end`) and the reduction (`reduction`). The values of the reduction matrix are specified in the same order as the age groups in the contact matrix. 
+
+```{r}
+rownames(contact_matrix)
+```
+
+Therefore, we specify ` reduction = matrix(c(0.5, 0.01, 0.01))`. We assume that the school closures start on day 50 and are in place for a further 100 days. Therefore our intervention object is : 
+
+```{r intervention}
+close_schools <- intervention(
+  name = "School closure",
+  type = "contacts",
+  time_begin = 50,
+  time_end = 50 + 100,
+  reduction = matrix(c(0.5, 0.01, 0.01))
+)
+```
+
 ::::::::::::::::::::::::::::::::::::: callout
 ### Effect of interventions on contacts
 
-The contact matrix is scaled down by proportions for the period in which the intervention is in place. To explain the reduction, consider a contact matrix for two age groups with equal number of contacts:
+In `epidemics`, the contact matrix is scaled down by proportions for the period in which the intervention is in place. To understand how the reduction is calculated within the model functions, consider a contact matrix for two age groups with equal number of contacts:
 
 ```{r echo = FALSE}
 reduction <- matrix(c(0.5, 0.1))
@@ -126,26 +145,6 @@ contact_matrix_example
 The contacts within group 1 are reduced by 50% twice to accommodate for a 50% reduction in outgoing and incoming contacts ($1\times 0.5 \times 0.5 = 0.25$). Similarly, the contacts within group 2 are reduced by 10% twice. The contacts between group 1 and group 2 are reduced by 50% and then by 10% ($1 \times 0.5 \times 0.9= 0.45$). 
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
-
-To include an intervention in our model we must create an `intervention` object. The inputs are the name of the intervention (`name`), the type of intervention (`contacts` or `rate`), the start time (`time_begin`), the end time (`time_end`) and the reduction (`reduction`). The values of the reduction matrix are specified in the same order as the age groups in the contact matrix. 
-
-```{r}
-rownames(contact_matrix)
-```
-
-Therefore, we specify ` reduction = matrix(c(0.5, 0.01, 0.01))`. We assume that the school closures start on day 50 and are in place for a further 100 days. Therefore our intervention object is : 
-
-```{r intervention}
-close_schools <- intervention(
-  name = "School closure",
-  type = "contacts",
-  time_begin = 50,
-  time_end = 50 + 100,
-  reduction = matrix(c(0.5, 0.01, 0.01))
-)
-```
-
-
 
 To run the model with an intervention we set ` intervention = list(contacts = close_schools)` as follows:
 
