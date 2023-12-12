@@ -38,9 +38,9 @@ Learners should familiarise themselves with following concept dependencies befor
 
 ## Introduction
 
-Mathematical models can be used to generate trajectories of disease spread under the implementation of non-pharmaceutical and pharmaceutical interventions at different stages of an outbreak. These predictions can be used to make decisions on what interventions could be implemented to slow down the spread of diseases. 
+Mathematical models can be used to generate trajectories of disease spread under the implementation of interventions at different stages of an outbreak. These predictions can be used to make decisions on what interventions could be implemented to slow down the spread of diseases. 
 
-We can assume interventions in mathematical models reduce the values of relevant parameters or assume individuals are classified into a new disease state. In this tutorial, we will introduce how to include three different interventions in model of COVID-19 transmission.
+We can assume interventions in mathematical models reduce the values of relevant parameters e.g. reduce transmissibility while in place. Or it may be appropriate to assume individuals are classified into a new disease state, e.g. once vaccinated we assume individuals are no longer susceptible to infection and therefore move to a vaccinated state. In this tutorial, we will introduce how to include three different interventions in model of COVID-19 transmission. 
 
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: instructor
 
@@ -52,11 +52,9 @@ In this tutorial different types of intervention and how they can be modelled ar
 
 [Non-pharmaceutical interventions](../learners/reference.md#NPIs) (NPIs) are measures put in place to reduce transmission that do not include the administration of drugs or vaccinations. NPIs aim reduce contact between infectious and susceptible individuals. For example, washing hands, wearing masks and closures of school and workplaces.
 
-In mathematical modelling, we must make assumptions about how NPIs will affect transmission. This may include adding additional disease states or reducing the value of relevant parameters. 
+We will investigate the effect of interventions on a COVID-19 outbreak using an SEIR model (`model_default_cpp()` in the R package `{epidemics}`). We set $R_0 = 2.7$, preinfectious period $= 4$ and the infectious_period $= 5.5$ (parameters adapted from [Davies et al. (2020)](https://doi.org/10.1016/S2468-2667(20)30133-X)). We load a contact matrix with age bins 0-18, 18-65, 65 years and older using `{socialmixr}` and assume that one in every 1 million in each age group is infectious at the start of the epidemic.
 
-#### Effect of school closures on COVID-19 spread
-
-```{r model_setup, echo = FALSE, message = FALSE}
+```{r model_setup, echo = TRUE, message = FALSE}
 polymod <- socialmixr::polymod
 contact_data <- socialmixr::contact_matrix(
   polymod,
@@ -95,13 +93,9 @@ uk_population <- population(
 
 ```
 
+#### Effect of school closures on COVID-19 spread
 
-We want to investigate the effect of school closures on reducing the number of individuals infectious with COVID-19 through time. We assume that a school closure will reduce the frequency of contacts within and between different age groups. 
-
-Using an SEIR model (`model_default_cpp()` in the R package `{epidemics}`) we set $R_0 = 2.7$, preinfectious period $= 4$ and the infectious_period $= 5.5$ (parameters adapted from [Davies et al. (2020)](https://doi.org/10.1016/S2468-2667(20)30133-X)). We load a contact matrix with age bins 0-18, 18-65, 65 years and older using `{socialmixr}` and assume that one in every 1 million in each age group is infectious at the start of the epidemic.
-
-We will assume that school closures will reduce the contacts between school aged children (aged 0-15) by 0.5, and will cause a small reduction (0.01) in the contacts between adults (aged 15 and over). 
-
+The first NPI we will consider is the effect of school closures on reducing the number of individuals infectious with COVID-19 through time. We assume that a school closure will reduce the frequency of contacts within and between different age groups. We assume that school closures will reduce the contacts between school aged children (aged 0-15) by 0.5, and will cause a small reduction (0.01) in the contacts between adults (aged 15 and over). 
 
 To include an intervention in our model we must create an `intervention` object. The inputs are the name of the intervention (`name`), the type of intervention (`contacts` or `rate`), the start time (`time_begin`), the end time (`time_end`) and the reduction (`reduction`). The values of the reduction matrix are specified in the same order as the age groups in the contact matrix. 
 
@@ -162,6 +156,7 @@ output_school <- model_default_cpp(
 To be able to see the effect of our intervention, we also run the model where there is no intervention, combine the two outputs into one data frame and then plot the output. Here we plot the total number of infectious individuals in all age groups using `ggplot2::stat_summary()`:
 
 ```{r baseline, echo = TRUE, fig.width = 10}
+# run baseline simulation with no intervention
 output_baseline <- model_default_cpp(
   population = uk_population,
   transmissibility = 2.7 / 5.5,
@@ -170,6 +165,7 @@ output_baseline <- model_default_cpp(
   time_end = 300, increment = 1.0
 )
 
+# create intervention_type column for plotting 
 output_school$intervention_type = "school closure"
 output_baseline$intervention_type = "baseline"
 output <- rbind(output_school, output_baseline)
@@ -249,6 +245,7 @@ output_masks <- model_default_cpp(
 
 
 ```{r plot_masks, echo = TRUE, message = FALSE, fig.width = 10}
+# create intervention_type column for plotting 
 output_masks$intervention_type = "mask mandate"
 output_baseline$intervention_type = "baseline"
 output <- rbind(output_masks, output_baseline)
@@ -304,6 +301,9 @@ To implement both contact and rate interventions in the same simulation they mus
 
 
 ## Pharmaceutical interventions
+
+Pharmaceutical interventions (PIs) are measures such as vaccination and mass treatment programs.
+
 
 Models can be used to investigate the effect of pharmaceutical interventions, such as vaccination. In this case, it is useful to add another disease state to track the number of vaccinated individuals through time. The diagram below shows an SEIRV model where susceptible individuals are vaccinated and then move to the $V$ class.
 
@@ -391,6 +391,7 @@ Plot the three interventions vaccination, school closure and mask mandate and th
 ## Output
 
 ```{r plot_vaccinate, echo = TRUE, message = FALSE, fig.width = 10}
+# create intervention_type column for plotting 
 output_vaccinate$intervention_type = "vaccination"
 output <- rbind(output_school, output_masks, output_vaccinate, output_baseline)
 
