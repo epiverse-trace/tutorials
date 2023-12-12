@@ -248,7 +248,6 @@ output_masks <- model_default_cpp(
 ```
 
 
-
 ```{r plot_masks, echo = TRUE, message = FALSE, fig.width = 10}
 output_masks$intervention_type = "mask mandate"
 output_baseline$intervention_type = "baseline"
@@ -293,6 +292,15 @@ ggplot(data = output[output$compartment == "infectious", ]) +
 
 
 ```
+
+::::::::::::::::::::::::::::::::::::: callout
+### Intervention types
+
+There are two intervention types for `model_default_cpp`. Rate interventions on model parameters (`transmissibillity` $\beta$, `infectiousness_rate` $\sigma$ and `recovery_rate` $\gamma$) and contact matrix reductions `contacts`.
+
+To implement both contact and rate interventions in the same simulation they must be passed as a list e.g. `intervention = list(transmissibility = mask_mandate, contacts = close_schools)`. But if there are multiple interventions that target contact rates, these must be passed as one `contacts` input. See the [vignette on modelling overlapping interventions](https://epiverse-trace.github.io/epidemics/articles/multiple_interventions.html) for more detail. 
+
+::::::::::::::::::::::::::::::::::::::::::::::::
 
 
 ## Pharmaceutical interventions
