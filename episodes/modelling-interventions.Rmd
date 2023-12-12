@@ -293,7 +293,7 @@ ggplot(data = output[output$compartment == "infectious", ]) +
 ::::::::::::::::::::::::::::::::::::: callout
 ### Intervention types
 
-There are two intervention types for `model_default_cpp`. Rate interventions on model parameters (`transmissibillity` $\beta$, `infectiousness_rate` $\sigma$ and `recovery_rate` $\gamma$) and contact matrix reductions `contacts`.
+There are two intervention types for `model_default_cpp()`. Rate interventions on model parameters (`transmissibillity` $\beta$, `infectiousness_rate` $\sigma$ and `recovery_rate` $\gamma$) and contact matrix reductions `contacts`.
 
 To implement both contact and rate interventions in the same simulation they must be passed as a list e.g. `intervention = list(transmissibility = mask_mandate, contacts = close_schools)`. But if there are multiple interventions that target contact rates, these must be passed as one `contacts` input. See the [vignette on modelling overlapping interventions](https://epiverse-trace.github.io/epidemics/articles/multiple_interventions.html) for more detail. 
 
@@ -302,10 +302,9 @@ To implement both contact and rate interventions in the same simulation they mus
 
 ## Pharmaceutical interventions
 
-Pharmaceutical interventions (PIs) are measures such as vaccination and mass treatment programs.
+Pharmaceutical interventions (PIs) are measures such as vaccination and mass treatment programs. In the previous section, we assumed that interventions reduced the value of parameter values while the intervention was in place. In the case of vaccination, we assume that after the intervention individuals are no longer susceptible and should be classified into a different disease state. Therefore, we specify the rate at which individuals are vaccinated and track the number of vaccinated individuals through time. 
 
-
-Models can be used to investigate the effect of pharmaceutical interventions, such as vaccination. In this case, it is useful to add another disease state to track the number of vaccinated individuals through time. The diagram below shows an SEIRV model where susceptible individuals are vaccinated and then move to the $V$ class.
+The diagram below shows the SEIRV model implemented using `model_default_cpp()` where susceptible individuals are vaccinated and then move to the $V$ class.
 
 ```{r diagram_SEIRV, echo = FALSE, message = FALSE}
 DiagrammeR::grViz("digraph {
@@ -339,6 +338,8 @@ DiagrammeR::grViz("digraph {
 }")
 ```
 
+
+
 The equations describing this model are as follows: 
 
 $$
@@ -350,10 +351,11 @@ $$
 \frac{dV_i}{dt} & =\nu_{i,t} S_i\\
 \end{aligned}
 $$
-Individuals are vaccinated at an age group ($i$) specific time dependent ($t$) vaccination rate ($\nu$). The SEIR components of these equations are described in the tutorial Simulating transmission. 
+Individuals are vaccinated at an age group ($i$) specific time dependent ($t$) vaccination rate ($\nu_{i,t}$). The SEIR components of these equations are described in the tutorial [simulating transmission](../episodes/simulating-transmission.md#simulating-disease-spread). 
 
-To explore the effect of vaccination we need to create a vaccination object. As vaccination is age group specific, we must pass an age groups specific vaccination rate $\nu$ and age group specific start and end times of the vaccination program. Here we will assume all age groups are vaccinated at the same rate and that the vaccination program starts on day 40 and is in place for 150 days.
+To explore the effect of vaccination we need to create a vaccination object to pass as an input into `model_default_cpp()` that includes an age groups specific vaccination rate `nu` and age group specific start and end times of the vaccination program (`time_begin` and `time_end`). 
 
+Here we will assume all age groups are vaccinated at the same rate 0.01 and that the vaccination program starts on day 40 and is in place for 150 days.
 
 ```{r vaccinate}
 # prepare a vaccination object
