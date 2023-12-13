@@ -30,7 +30,7 @@ Using the R package `epidemics`, learn how to:
 
 This tutorial has the following concept dependencies: 
 
-**Modelling** : [Components of infectious disease models](https://doi.org/10.1038/s41592-020-0856-2) e.g. state variables, parameters, initial conditions, Ordinary differential equations.
+**Modelling** : [Components of infectious disease models](https://doi.org/10.1038/s41592-020-0856-2) e.g. state variables, parameters, initial conditions, and ordinary differential equations.
 
 **Epidemic theory** : [Transmission](https://doi.org/10.1155/2011/267049), [Reproduction number](https://doi.org/10.3201/eid2501.171901).
 :::::::::::::::::::::::::::::::::
@@ -41,9 +41,20 @@ This tutorial has the following concept dependencies:
 
 Mathematical models are useful tools for generating future trajectories of disease spread. Models can be used to evaluate the implementation of non-pharmaceutical and pharmaceutical interventions while accounting for factors such as age.
 
-In this tutorial, we will use the R package `{epidemics}` to generate trajectories of influenza spread. By the end of this tutorial, you will be able to generate the trajectory below showing the number of infectious individuals in different age categories through time.
+In this tutorial, we will use the R package `{epidemics}` to generate trajectories of influenza spread. By the end of this tutorial, you will be able to generate the trajectory below showing the number of infectious individuals in different age categories over time.
 
-<img src="fig/simulating-transmission-rendered-traj-1.png" style="display: block; margin: auto;" />
+
+```{.error}
+Error in infection(name = "influenza", r0 = 1.46, preinfectious_period = 3, : could not find function "infection"
+```
+
+```{.error}
+Error in model_default_cpp(population = uk_population, infection = influenza, : unused argument (infection = influenza)
+```
+
+```{.error}
+Error in eval(expr, envir, enclos): object 'output' not found
+```
 
 
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: instructor
@@ -63,8 +74,7 @@ pak::pak("epiverse-trace/epidemics")
 
 ## Model structures
 To generate predictions of infectious disease trajectories, we must first select a mathematical model to use.
-
-There is a library of models to choose from in `epidemics`. Models are prefixed with `model` and suffixed by the name of infection (e.g. ebola) or a different identifier (e.g. default), and whether the model has a R or C++ code base. In this tutorial, we will use the default epidemic model, `model_default_cpp()` which is described in the next section.
+There is a library of models to choose from in `epidemics`. Models in `epidemics` are prefixed with `model` and suffixed by the name of infection (e.g. ebola) or a different identifier (e.g. default), and whether the model has a R or C++ code base. In this tutorial, we will use the default epidemic model, `model_default_cpp()` which is described in the next section.
 
 
 ::::::::::::::::::::::::::::::::::::: callout
@@ -318,17 +328,18 @@ output <- model_default_cpp(
   infection = influenza,
   time_end = 600
 )
+```
+
+```{.error}
+Error in model_default_cpp(population = uk_population, infection = influenza, : unused argument (infection = influenza)
+```
+
+```r
 head(output)
 ```
 
-```{.output}
-   time demography_group compartment    value
-1:    0           [0,20) susceptible 14799275
-2:    0          [20,40) susceptible 16526302
-3:    0              40+ susceptible 28961159
-4:    0           [0,20)     exposed        0
-5:    0          [20,40)     exposed        0
-6:    0              40+     exposed        0
+```{.error}
+Error in eval(expr, envir, enclos): object 'output' not found
 ```
 Our model output consists of the number of individuals in each compartment in each age group through time. We can visualise the infectious individuals only (those in the $I$ class) through time.
 
@@ -360,7 +371,9 @@ ggplot(output[compartment == "infectious", ]) +
   )
 ```
 
-<img src="fig/simulating-transmission-rendered-visualise-1.png" style="display: block; margin: auto;" />
+```{.error}
+Error in eval(expr, envir, enclos): object 'output' not found
+```
 
 
 ::::::::::::::::::::::::::::::::::::: callout
@@ -417,9 +430,19 @@ output_samples <- Map(
     output
   }
 )
+```
 
+```{.error}
+Error in infection(name = "influenza", r0 = x, preinfectious_period = 3, : could not find function "infection"
+```
+
+```r
 # combine to prepare for plotting
 output_samples <- bind_rows(output_samples)
+```
+
+```{.error}
+Error in eval(expr, envir, enclos): object 'output_samples' not found
 ```
 
 
@@ -441,7 +464,9 @@ ggplot(output_samples ,aes(time, value)) +
   )
 ```
 
-<img src="fig/simulating-transmission-rendered-plot-1.png" style="display: block; margin: auto;" />
+```{.error}
+Error in eval(expr, envir, enclos): object 'output_samples' not found
+```
 
 
 Deciding which parameters to include uncertainty in depends on a few factors: how well informed a parameter value is e.g. consistency of estimates from the literature; how sensitive model outputs are to parameter value changes; and the purpose of the modelling task. 
