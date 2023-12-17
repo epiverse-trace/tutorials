@@ -5,7 +5,7 @@ title: 'Glossary of Terms: Epiverse-TRACE'
 ## A
 
 [Airborne transmission]{#airborne}
-: Individuals become infected via contact with infectious particles in the air. Examples include influenza, COVID-19. [More information on airborne transmission](https://www.ncbi.nlm.nih.gov/books/NBK531468/).
+: Individuals become infected via contact with infectious particles in the air. Examples include influenza and COVID-19. Atler et al. (2023) discuss about [factors and management procedures](https://www.ncbi.nlm.nih.gov/books/NBK531468/) of airborne transmission.
 
 <!--  ## B -->
 
@@ -14,7 +14,7 @@ title: 'Glossary of Terms: Epiverse-TRACE'
 ## D
 
 [Deterministic model]{#deterministic}
-: Models that will always have the same trajectory for given initial conditions and parameters. Examples include ordinary differential equations and difference equations. 
+: Models that will always have the same trajectory for given initial conditions and parameter values. Examples include ordinary differential equations and difference equations. 
 
 [Direct transmission]{#direct}
 : Individuals become infected via direct contact with other infected humans. Airborne transmitted infections are often modelled as directly transmitted infections as they require close contact with infected individuals for successful transmission. 
@@ -92,7 +92,7 @@ Most commonly, the serial interval distribution of an infection is used to estim
 The relationship between the serial interval and the [incubation period](#incubation) helps to define the type of infection transmission (symptomatic or pre-symptomatic). This is shown in Figure 2 at [Nishiura et al. (2020)](https://www.ijidonline.com/article/S1201-9712(20)30119-3/fulltext).
 
 [Stochastic model]{#stochastic}
-: A model that includes some stochastic process resulting in variation in model simulations for the same initial conditions and parameters. Examples include stochastic differential equations, branching process models. For more detail see [Allen (2017)](https://doi.org/10.1016/j.idm.2017.03.001).
+: A model that includes some stochastic process resulting in variation in model simulations for the same initial conditions and parameter values. Examples include stochastic differential equations and branching process models. For more detail see [Allen (2017)](https://doi.org/10.1016/j.idm.2017.03.001).
 
 
 <!-- ## T -->
@@ -102,7 +102,7 @@ The relationship between the serial interval and the [incubation period](#incuba
 ## V
 
 [Vector-borne transmission]{#vectorborne}
-: Vector-borne transmission means an infection can be passed from a vector (e.g. mosquitoes) to humans. Examples of vector-borne diseases include malaria and dengue. [More information on vector-borne transmission](https://www.who.int/news-room/fact-sheets/detail/vector-borne-diseases).  
+: Vector-borne transmission means an infection can be passed from a vector (e.g. mosquitoes) to humans. Examples of vector-borne diseases include malaria and dengue. The World Health Organization have a [Fact sheet about Vector-borne diseases](https://www.who.int/news-room/fact-sheets/detail/vector-borne-diseases) with key information and a list of them according to their vector.
 
 [Viral shedding]{#viralshedding}
 : The process of releasing a virus from a cell or body into the environment where it can infect other people. ([Cambridge Dictionary, 2023](https://dictionary.cambridge.org/us/dictionary/english/shedding))
