@@ -252,7 +252,7 @@ You have been tasked to generate initial trajectories of an Ebola outbreak in Gu
   + $p_{ETU}$ (`etu_risk`) = 0.7,
   + $p_{funeral}$ (`funeral_risk`) = 0.5
 
-::::::::::::::::: spoiler
+::::::::::::::::: hint
 
 ### Code for initial conidtions 
 

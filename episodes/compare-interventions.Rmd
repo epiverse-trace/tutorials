@@ -138,7 +138,7 @@ DiagrammeR::grViz("digraph{
 2. Using the output, plot the number of deaths through time
 
 
-::::::::::::::::: spoiler
+::::::::::::::::: hint
 
 ### Vaccination code 
 
