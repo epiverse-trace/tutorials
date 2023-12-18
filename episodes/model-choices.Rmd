@@ -44,33 +44,64 @@ The focus of this tutorial is understanding existing models to decide if they ar
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
-## Choosing a model 
+::::::::::::::::::::::::::::::::::::::: discussion
+
+### Choosing a model 
 
 When deciding which mathematical model to use, there are a number of questions we must consider :
 
-+ What is the infection/disease of interest? 
+:::::::::::::::::::::::::::::::::::::::::::::::::::
+
+:::::::::::::::: solution
+
+### What is the infection/disease of interest? 
 
 A model may already exist for your study disease, or there may be a model for an infection that has the same transmission pathways and epidemiological features that can be used. 
 
-+ Do we need a [deterministic](../learners/reference.md#deterministic) or [stochastic](../learners/reference.md#stochastic) model? 
+:::::::::::::::::::::::::
+
+:::::::::::::::: solution
+
+### Do we need a [deterministic](../learners/reference.md#deterministic) or [stochastic](../learners/reference.md#stochastic) model? 
 
 Model structures differ for whether the disease has pandemic potential or not. When predicted numbers of infection are small, stochastic variation in output can have an effect on whether an outbreak takes off or not. Outbreaks are usually smaller in magnitude than epidemics, so its often appropriate to use a stochastic model to characterise the uncertainty in the early stages of the outbreak. Epidemics are larger in magnitude than outbreaks and so a deterministic model is suitable as we have less interest in the stochastic variation in output. 
 
-+ What is the outcome of interest?
+:::::::::::::::::::::::::
+
+:::::::::::::::: solution
+
+## What is the outcome of interest?
 
 The outcome of interest can be a feature of a mathematical model. It may be that you are interested in the predicted numbers of infection through time, or in a specific outcome such as hospitalisations or cases of severe disease.
 
-+ How is transmission modelled?
+:::::::::::::::::::::::::
+
+:::::::::::::::: solution
+
+## How is transmission modelled?
 
 For example, [direct](../learners/reference.md#direct) or [indirect](../learners/reference.md#indirect), [airborne](../learners/reference.md#airborne) or [vector-borne](../learners/reference.md#vectorborne).
+:::::::::::::::::::::::::
 
-+ How are the different processes (e.g. transmission) formulated in the equations?
+
+:::::::::::::::: solution
+
+## How are the different processes (e.g. transmission) formulated in the equations?
 
 There can be subtle differences in model structures for the same infection or outbreak type which can be missed without studying the equations. For example, transmissibility parameters can be specified as rates or probabilities. If you want to use parameter values from other published models, you must check that transmission is formulated in the same way. 
+:::::::::::::::::::::::::
 
-+ Will any interventions be modelled? 
+:::::::::::::::: solution
+
+## Will any interventions be modelled? 
 
 Finally, interventions such as vaccination may be of interest. A model may or may not have the capability to include the impact of different interventions on different time scales (continuous time or at discrete time points). We discuss interventions in detail in the tutorial [Modelling interventions](../episodes/modelling-interventions.md).
+
+:::::::::::::::::::::::::
+
+
+
+
 
 
 ## Available  models in `epidemics`
