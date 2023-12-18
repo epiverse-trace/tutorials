@@ -52,7 +52,7 @@ In this tutorial different types of intervention and how they can be modelled ar
 
 [Non-pharmaceutical interventions](../learners/reference.md#NPIs) (NPIs) are measures put in place to reduce transmission that do not include the administration of drugs or vaccinations. NPIs aim reduce contact between infectious and susceptible individuals. For example, washing hands, wearing masks and closures of school and workplaces.
 
-We will investigate the effect of interventions on a COVID-19 outbreak using an SEIR model (`model_default_cpp()` in the R package `{epidemics}`). We set $R_0 = 2.7$, preinfectious period $= 4$ and the infectious_period $= 5.5$ (parameters adapted from [Davies et al. (2020)](https://doi.org/10.1016/S2468-2667(20)30133-X)). We load a contact matrix with age bins 0-18, 18-65, 65 years and older using `{socialmixr}` and assume that one in every 1 million in each age group is infectious at the start of the epidemic.
+We will investigate the effect of interventions on a COVID-19 outbreak using an SEIR model (`model_default_cpp()` in the R package `{epidemics}`). We set $R_0 = 2.7$, latent period or preinfectious period $= 4$ and the infectious_period $= 5.5$ (parameters adapted from [Davies et al. (2020)](https://doi.org/10.1016/S2468-2667(20)30133-X)). We load a contact matrix with age bins 0-18, 18-65, 65 years and older using `{socialmixr}` and assume that one in every 1 million in each age group is infectious at the start of the epidemic.
 
 ```{r model_setup, echo = TRUE, message = FALSE}
 polymod <- socialmixr::polymod
