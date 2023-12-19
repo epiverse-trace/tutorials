@@ -194,7 +194,7 @@ DiagrammeR::grViz("digraph {
 
 The model parameters definitions are :
 
-- transmissibility $\beta$,
+- transmission rate or transmissibility $\beta$,
 - [contact matrix](../learners/reference.md#contact) $C$ containing the frequency of contacts between age groups (a square $i \times j$ matrix),
 - infectiousness rate  $\alpha$ (preinfectious period ([latent period](../learners/reference.md#latent)) =$1/\alpha$),
 - recovery rate $\gamma$ (infectious period = $1/\gamma$).
