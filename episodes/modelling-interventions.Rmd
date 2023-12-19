@@ -52,7 +52,7 @@ In this tutorial different types of intervention and how they can be modelled ar
 
 [Non-pharmaceutical interventions](../learners/reference.md#NPIs) (NPIs) are measures put in place to reduce transmission that do not include the administration of drugs or vaccinations. NPIs aim reduce contact between infectious and susceptible individuals. For example, washing hands, wearing masks and closures of school and workplaces.
 
-We will investigate the effect of interventions on a COVID-19 outbreak using an SEIR model (`model_default_cpp()` in the R package `{epidemics}`). We set $R_0 = 2.7$, latent period or preinfectious period $= 4$ and the infectious_period $= 5.5$ (parameters adapted from [Davies et al. (2020)](https://doi.org/10.1016/S2468-2667(20)30133-X)). We load a contact matrix with age bins 0-18, 18-65, 65 years and older using `{socialmixr}` and assume that one in every 1 million in each age group is infectious at the start of the epidemic.
+We will investigate the effect of interventions on a COVID-19 outbreak using an SEIR model (`model_default_cpp()` in the R package `{epidemics}`). We will set $R_0 = 2.7$, latent period or preinfectious period $= 4$ and the infectious_period $= 5.5$ (parameters adapted from [Davies et al. (2020)](https://doi.org/10.1016/S2468-2667(20)30133-X)). We load a contact matrix with age bins 0-18, 18-65, 65 years and older using `{socialmixr}` and assume that one in every 1 million in each age group is infectious at the start of the epidemic.
 
 ```{r model_setup, echo = TRUE, message = FALSE}
 polymod <- socialmixr::polymod
@@ -139,7 +139,7 @@ The contacts within group 1 are reduced by 50% twice to accommodate for a 50% re
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
-To run the model with an intervention we set ` intervention = list(contacts = close_schools)` as follows:
+Using transmissibility $= 2.7/5.5$ (remember that [transmissibility = $R_0$/ infectious period](../episodes/simulating-transmission.md#the-basic-reproduction-number-r_0)), infectiousness rate $1/= 4$ and the recovery rate $= 1/5.5$ we run the model with` intervention = list(contacts = close_schools)` as follows :
 
 ```{r school}
 output_school <- model_default_cpp(
@@ -151,6 +151,7 @@ output_school <- model_default_cpp(
   time_end = 300, increment = 1.0
 )
 ```
+
 
 To be able to see the effect of our intervention, we also run the model where there is no intervention, combine the two outputs into one data frame and then plot the output. Here we plot the total number of infectious individuals in all age groups using `ggplot2::stat_summary()`:
 
