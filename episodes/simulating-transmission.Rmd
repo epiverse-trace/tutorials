@@ -158,6 +158,8 @@ To generate trajectories of disease spread, we must first select a mathematical 
 
 In this tutorial, we will use the default model in `epidemics`, `model_default_cpp()` which is an age-structured SEIR model described by a system of [ordinary differential equations](../learners/reference.md#ordinary). For each age group $i$, individuals are classed as either susceptible $S$, infected but not yet infectious $E$, infectious $I$ or recovered $R$. 
 
+The schematic below shows the flow of individuals between the disease states $S$, $E$, $I$ and $R$ and parameters that describe the processes.
+
 ```{r diagram, echo = FALSE, message = FALSE}
 DiagrammeR::grViz("digraph {
 
@@ -190,14 +192,14 @@ DiagrammeR::grViz("digraph {
 
 
 
-The model parameters are as follows :
+The model parameters definitions are :
 
 - transmissibility $\beta$,
 - [contact matrix](../learners/reference.md#contact) $C$ containing the frequency of contacts between age groups (a square $i \times j$ matrix),
 - infectiousness rate  $\alpha$ (preinfectious period ([latent period](../learners/reference.md#latent)) =$1/\alpha$),
 - recovery rate $\gamma$ (infectious period = $1/\gamma$).
 
-For each disease state ($SEIR$) and age group ($i$), we have an ordinary differential equation describing the rate of change with respect to time. The contact matrix $C$ allows for heterogeneity in contacts between age groups. Individuals in age group ($i$) move from the susceptible state ($S_i$) to the exposed state ($E_i$) via age group specific contact with the infectious individuals in their own and other age groups $\beta S_i \sum_j C_{i,j} I_j$. They then move to the infectious state at a rate $\alpha$ and recover at a rate $\gamma$. There is no loss of immunity (there are no flows out of the recovered state).
+For each disease state ($S$, $E$, $I$ and $R$) and age group ($i$), we have an ordinary differential equation describing the rate of change with respect to time. The contact matrix $C$ allows for heterogeneity in contacts between age groups. Individuals in age group ($i$) move from the susceptible state ($S_i$) to the exposed state ($E_i$) via age group specific contact with the infectious individuals in their own and other age groups $\beta S_i \sum_j C_{i,j} I_j$. They then move to the infectious state at a rate $\alpha$ and recover at a rate $\gamma$. There is no loss of immunity (there are no flows out of the recovered state).
 
 $$
 \begin{aligned}
