@@ -28,12 +28,10 @@ webshot::install_phantomjs(force = TRUE)
 
 ::::::::::::::::::::::::::::::::::::: objectives
 
-Using the R package `epidemics`, learn how to: 
-
-- Load an existing model structure from `{epidemics}` R package.
-- Load an existing social contact matrix with `{socialmixr}`.
-- Generate a disease spread model simulation with `{epidemics}`.
-- Generate multiple model simulations and visualise uncertainty. 
+- Load an existing model structure from `{epidemics}` R package
+- Load an existing social contact matrix with `{socialmixr}`
+- Generate a disease spread model simulation with `{epidemics}`
+- Generate multiple model simulations and visualise uncertainty 
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 

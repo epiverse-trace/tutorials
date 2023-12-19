@@ -21,7 +21,7 @@ library(epidemics)
 
 ::::::::::::::::::::::::::::::::::::: objectives
 
-- Learn how to implement pharmaceutical and non-pharmaceutical interventions
+- Add pharmaceutical and non-pharmaceutical interventions to an {epidemics} model
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
