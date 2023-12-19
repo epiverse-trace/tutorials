@@ -192,9 +192,9 @@ DiagrammeR::grViz("digraph {
 
 The model parameters are as follows :
 
-- transmission rate $\beta$,
+- transmissibility $\beta$,
 - [contact matrix](../learners/reference.md#contact) $C$ containing the frequency of contacts between age groups (a square $i \times j$ matrix),
-- rate of transition from exposed to infectious $\alpha$ (preinfectious period=$1/\alpha$),
+- infectiousness rate  $\alpha$ (preinfectious period ([latent period](../learners/reference.md#latent)) =$1/\alpha$),
 - recovery rate $\gamma$ (infectious period = $1/\gamma$).
 
 For each disease state ($SEIR$) and age group ($i$), we have an ordinary differential equation describing the rate of change with respect to time. The contact matrix $C$ allows for heterogeneity in contacts between age groups. Individuals in age group ($i$) move from the susceptible state ($S_i$) to the exposed state ($E_i$) via age group specific contact with the infectious individuals in their own and other age groups $\beta S_i \sum_j C_{i,j} I_j$. They then move to the infectious state at a rate $\alpha$ and recover at a rate $\gamma$. There is no loss of immunity (there are no flows out of the recovered state).
