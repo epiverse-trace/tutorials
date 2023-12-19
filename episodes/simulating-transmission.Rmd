@@ -199,6 +199,19 @@ The model parameters definitions are :
 - infectiousness rate  $\alpha$ (preinfectious period ([latent period](../learners/reference.md#latent)) =$1/\alpha$),
 - recovery rate $\gamma$ (infectious period = $1/\gamma$).
 
+::::::::::::::::::::::::::::::::::::: callout
+### Model parameters : rates
+
+In ODE models, model parameters are often (but not always) specified as rates. The rate at which an event occurs is the inverse of the average time until that event. For example, in the SEIR model, the recovery rate $\gamma$ is the inverse of the average infectious period. 
+
+We can use knowledge of the natural history of the disease to inform our values of rates. If the average infectious period of an infection is 8 days, then the daily recovery rate is $\gamma = 1/8 = 0.125$.
+
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+
+
+
 For each disease state ($S$, $E$, $I$ and $R$) and age group ($i$), we have an ordinary differential equation describing the rate of change with respect to time. The contact matrix $C$ allows for heterogeneity in contacts between age groups. Individuals in age group ($i$) move from the susceptible state ($S_i$) to the exposed state ($E_i$) via age group specific contact with the infectious individuals in their own and other age groups $\beta S_i \sum_j C_{i,j} I_j$. They then move to the infectious state at a rate $\alpha$ and recover at a rate $\gamma$. There is no loss of immunity (there are no flows out of the recovered state).
 
 $$
