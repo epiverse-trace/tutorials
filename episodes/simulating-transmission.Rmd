@@ -372,7 +372,7 @@ The basic reproduction number, $R_0$, for the SEIR model is:
 
 $$ R_0 = \frac{\beta}{\gamma}.$$ 
 
-Therefore, we can rewrite the transmission rate, $\beta$, as:
+Therefore, we can rewrite transmissibility $\beta$, as:
 
 $$ \beta = R_0 \gamma.$$
 

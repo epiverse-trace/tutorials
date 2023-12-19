@@ -217,7 +217,7 @@ We see that with the intervention in place, the infection still spreads through 
 
 We can model the effect of other NPIs as reducing the value of relevant parameters. For example, we want to investigate the effect of mask wearing on the number of individuals infectious with COVID-19 through time. 
 
-We expect that mask wearing will reduce an individual's infectiousness. As we are using a population based model, we cannot make changes to individual behaviour and so assume that the transmission rate $\beta$ is reduced by a proportion due to mask wearing in the population. We specify this proportion, $\theta$ as product of the proportion wearing masks multiplied by the proportion reduction in transmissibility (adapted from [Li et al. 2020](https://doi.org/10.1371/journal.pone.0237691))
+We expect that mask wearing will reduce an individual's infectiousness. As we are using a population based model, we cannot make changes to individual behaviour and so assume that the transmissibility $\beta$ is reduced by a proportion due to mask wearing in the population. We specify this proportion, $\theta$ as product of the proportion wearing masks multiplied by the proportion reduction in transmissibility (adapted from [Li et al. 2020](https://doi.org/10.1371/journal.pone.0237691))
 
 We create an intervention object with `type = rate` and `reduction = 0.161`. Using parameters adapted from [Li et al. 2020](https://doi.org/10.1371/journal.pone.0237691) we have proportion wearing masks = coverage $\times$ availability = $0.54 \times 0.525 = 0.2835$, proportion reduction in transmissibility = $0.575$. Therefore, $\theta = 0.2835 \times 0.575 = 0.163$. We assume that the mask wearing mandate starts at day 40 and is in place for 200 days.
 
@@ -432,7 +432,7 @@ From the plot we see that the peak number of total number of infectious individu
 
 ## Summary
 
-Different types of intervention can be implemented using mathematical modelling. Modelling interventions requires assumptions of which model parameters are affected (e.g. contact matrices, transmission rate), by what magnitude and and what times in the simulation of an outbreak. 
+Different types of intervention can be implemented using mathematical modelling. Modelling interventions requires assumptions of which model parameters are affected (e.g. contact matrices, transmissibility), by what magnitude and and what times in the simulation of an outbreak. 
 
 The next step is to quantify the effect of an interventions. If you are interested in learning how to compare interventions, please complete the tutorial [Comparing public health outcomes of interventions](../episodes/compare-interventions.md). 
 
