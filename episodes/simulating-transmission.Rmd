@@ -32,7 +32,7 @@ Using the R package `epidemics`, learn how to:
 
 - load an existing model structure,
 - load an existing social contact matrix,
-- run a model simulation,
+- Generate a disease spread model simulation with `{epidemics}`.
 - Generate multiple model simulations and visualise uncertainty. 
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
