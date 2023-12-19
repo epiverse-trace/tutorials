@@ -31,7 +31,7 @@ webshot::install_phantomjs(force = TRUE)
 Using the R package `epidemics`, learn how to: 
 
 - load an existing model structure,
-- load an existing social contact matrix,
+- Load an existing social contact matrix with `{socialmixr}`.
 - Generate a disease spread model simulation with `{epidemics}`.
 - Generate multiple model simulations and visualise uncertainty. 
 
