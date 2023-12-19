@@ -50,7 +50,7 @@ Learners should familiarise themselves with following concept dependencies befor
 
 ## Introduction
 
-Mathematical models are useful tools for generating future trajectories of disease spread. In this tutorial, we will use the R package `{epidemics}` to generate disease trajectories of an influenza strain with pandemic potential. By the end of this tutorial, you will be able to generate the trajectory below showing the number of infectious individuals in different age categories through time.
+Mathematical models are useful tools for generating future trajectories of disease spread. In this tutorial, we will use the R package `{epidemics}` to generate disease trajectories of an influenza strain with pandemic potential. By the end of this tutorial, you will be able to generate the trajectory below showing the number of infectious individuals in different age categories over time.
 
 ```{r traj, echo = FALSE, message = FALSE, fig.width = 10, eval = TRUE}
 # load contact and population data from socialmixr::polymod
@@ -150,9 +150,10 @@ By the end of this tutorial, learners should be able to replicate the above imag
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 
-
 ## Simulating disease spread
-To generate trajectories of disease spread, we must first select a mathematical model to use. In `epidemics` models are prefixed with `model` and suffixed by the name of infection (e.g. Ebola) or a different identifier (e.g. default), and whether the model has a R or [C++](../learners/reference.md#cplusplus) code base.  
+
+To generate predictions of infectious disease trajectories, we must first select a mathematical model to use.
+There is a library of models to choose from in `epidemics`. Models in `epidemics` are prefixed with `model` and suffixed by the name of infection (e.g. Ebola) or a different identifier (e.g. default), and whether the model has a R or [C++](../learners/reference.md#cplusplus) code base.  
 
 In this tutorial, we will use the default model in `epidemics`, `model_default_cpp()` which is an age-structured SEIR model described by a system of [ordinary differential equations](../learners/reference.md#ordinary). For each age group $i$, individuals are classed as either susceptible $S$, infected but not yet infectious $E$, infectious $I$ or recovered $R$. 
 
