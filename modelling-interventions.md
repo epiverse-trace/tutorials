@@ -108,6 +108,9 @@ close_schools <- intervention(
 ```
 
 
+```{.error}
+Error in model_default_cpp(population = uk_population, infection = covid, : could not find function "model_default_cpp"
+```
 
 
 To run the model with an intervention we set ` intervention = list(contacts = close_schools)` as follows:
@@ -122,10 +125,17 @@ output_school <- model_default_cpp(
 )
 ```
 
+```{.error}
+Error in model_default_cpp(population = uk_population, infection = covid, : could not find function "model_default_cpp"
+```
+
 
 We see that with the intervention (solid line) in place, the infection still spreads through the population, though the epidemic peak is smaller than the baseline with no intervention in place (dashed line).
 
-<img src="fig/modelling-interventions-rendered-plot_school-1.png" style="display: block; margin: auto;" />
+
+```{.error}
+Error in eval(expr, envir, enclos): object 'output_school' not found
+```
 
 #### Effect of mask wearing on COVID-19 spread
 
@@ -158,9 +168,16 @@ output_masks <- model_default_cpp(
 )
 ```
 
+```{.error}
+Error in model_default_cpp(population = uk_population, infection = covid, : could not find function "model_default_cpp"
+```
 
 
-<img src="fig/modelling-interventions-rendered-plot_masks-1.png" style="display: block; margin: auto;" />
+
+
+```{.error}
+Error in eval(expr, envir, enclos): object 'output_masks' not found
+```
 
 
 ## Pharmaceutical interventions
@@ -208,9 +225,16 @@ output_vaccinate <- model_default_cpp(
 )
 ```
 
+```{.error}
+Error in model_default_cpp(population = uk_population, infection = covid, : could not find function "model_default_cpp"
+```
+
 Here we see that the total number of infectious individuals when vaccination is in place is much lower compared to school closures and mask wearing interventions. 
 
-<img src="fig/modelling-interventions-rendered-plot_vaccinate-1.png" style="display: block; margin: auto;" />
+
+```{.error}
+Error in eval(expr, envir, enclos): object 'output_vaccinate' not found
+```
 
 
 ## Summary

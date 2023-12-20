@@ -45,11 +45,7 @@ In this tutorial, we will use the R package `{epidemics}` to generate trajectori
 
 
 ```{.error}
-Error in infection(name = "influenza", r0 = 1.46, preinfectious_period = 3, : could not find function "infection"
-```
-
-```{.error}
-Error in model_default_cpp(population = uk_population, infection = influenza, : unused argument (infection = influenza)
+Error in model_default_cpp(population = uk_population, infection = influenza, : could not find function "model_default_cpp"
 ```
 
 ```{.error}
@@ -65,10 +61,12 @@ By the end of this tutorial, learners should be able to replicate the above imag
 
 The first step is to install the R packages `epidemics`.
 
+*Note : this tutorial is based on a development version of {epidemics}. This version of the package can be installed using `{pak}`:*
+
 
 ```r
 if (!require("pak")) install.packages("pak")
-pak::pak("epiverse-trace/epidemics")
+pak::pak("epiverse-trace/epidemics@96a7b1457")
 ```
 
 
@@ -331,7 +329,7 @@ output <- model_default_cpp(
 ```
 
 ```{.error}
-Error in model_default_cpp(population = uk_population, infection = influenza, : unused argument (infection = influenza)
+Error in model_default_cpp(population = uk_population, infection = influenza, : could not find function "model_default_cpp"
 ```
 
 ```r
@@ -433,7 +431,7 @@ output_samples <- Map(
 ```
 
 ```{.error}
-Error in infection(name = "influenza", r0 = x, preinfectious_period = 3, : could not find function "infection"
+Error in model_default_cpp(population = uk_population, infection = influenza, : could not find function "model_default_cpp"
 ```
 
 ```r
