@@ -155,9 +155,7 @@ By the end of this tutorial, learners should be able to replicate the above imag
 To generate predictions of infectious disease trajectories, we must first select a mathematical model to use.
 There is a library of models to choose from in `epidemics`. Models in `epidemics` are prefixed with `model` and suffixed by the name of infection (e.g. Ebola) or a different identifier (e.g. default), and whether the model has a R or [C++](../learners/reference.md#cplusplus) code base.  
 
-In this tutorial, we will use the default model in `epidemics`, `model_default_cpp()` which is an age-structured SEIR model described by a system of [ordinary differential equations](../learners/reference.md#ordinary). For each age group $i$, individuals are classed as either susceptible $S$, infected but not yet infectious $E$, infectious $I$ or recovered $R$. 
-
-The schematic below shows the flow of individuals between the disease states $S$, $E$, $I$ and $R$ and parameters that describe the processes.
+In this tutorial, we will use the default model in `epidemics`, `model_default_cpp()` which is an age-structured SEIR model described by a system of [ordinary differential equations](../learners/reference.md#ordinary). For each age group $i$, individuals are classed as either susceptible $S$, infected but not yet infectious $E$, infectious $I$ or recovered $R$. The schematic below shows the processes which describe the flow of individuals between the disease states $S$, $E$, $I$ and $R$ and the key parameters for each process.
 
 ```{r diagram, echo = FALSE, message = FALSE}
 DiagrammeR::grViz("digraph {
@@ -182,21 +180,13 @@ DiagrammeR::grViz("digraph {
 
   # edges
   #######
-  S -> E [label = ' infection (&beta;)']
-  E -> I [label = ' onset of \ninfectiousness (&alpha;)']
-  I -> R [label = ' recovery (&gamma;)']
+  S -> E [label = ' infection \n(transmissibility &beta;)']
+  E -> I [label = ' onset of infectiousness \n(infectiousness rate &alpha;)']
+  I -> R [label = ' recovery \n(recovery rate &gamma;)']
 
 }")
 ```
 
-
-
-The model parameters definitions are :
-
-- transmission rate or transmissibility $\beta$,
-- [contact matrix](../learners/reference.md#contact) $C$ containing the frequency of contacts between age groups (a square $i \times j$ matrix),
-- infectiousness rate  $\alpha$ (preinfectious period ([latent period](../learners/reference.md#latent)) =$1/\alpha$),
-- recovery rate $\gamma$ (infectious period = $1/\gamma$).
 
 ::::::::::::::::::::::::::::::::::::: callout
 ### Model parameters : rates
@@ -209,9 +199,7 @@ We can use knowledge of the natural history of the disease to inform our values 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
 
-
-
-For each disease state ($S$, $E$, $I$ and $R$) and age group ($i$), we have an ordinary differential equation describing the rate of change with respect to time. The contact matrix $C$ allows for heterogeneity in contacts between age groups. Individuals in age group ($i$) move from the susceptible state ($S_i$) to the exposed state ($E_i$) via age group specific contact with the infectious individuals in their own and other age groups $\beta S_i \sum_j C_{i,j} I_j$. They then move to the infectious state at a rate $\alpha$ and recover at a rate $\gamma$. There is no loss of immunity (there are no flows out of the recovered state).
+For each disease state ($S$, $E$, $I$ and $R$) and age group ($i$), we have an ordinary differential equation describing the rate of change with respect to time.  
 
 $$
 \begin{aligned}
@@ -221,6 +209,14 @@ $$
 \frac{dR_i}{dt} &=\gamma I_i \\
 \end{aligned}
 $$
+Individuals in age group ($i$) move from the susceptible state ($S_i$) to the exposed state ($E_i$) via age group specific contact with the infectious individuals in their own and other age groups $\beta S_i \sum_j C_{i,j} I_j$. The contact matrix $C$ allows for heterogeneity in contacts between age groups. They then move to the infectious state at a rate $\alpha$ and recover at a rate $\gamma$. There is no loss of immunity (there are no flows out of the recovered state).
+
+The model parameters definitions are :
+
+- transmission rate or transmissibility $\beta$,
+- [contact matrix](../learners/reference.md#contact) $C$ containing the frequency of contacts between age groups (a square $i \times j$ matrix),
+- infectiousness rate  $\alpha$ (preinfectious period ([latent period](../learners/reference.md#latent)) =$1/\alpha$),
+- recovery rate $\gamma$ (infectious period = $1/\gamma$).
 
 
 ::::::::::::::::::::::::::::::::::::: callout
