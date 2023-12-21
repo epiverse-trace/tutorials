@@ -7,7 +7,6 @@ exercises: 30 # exercise time in minutes
 
 ```{r setup, echo= FALSE, message = FALSE, warning = FALSE}
 require(ggplot2)
-require(pak)
 library(epidemics)
 ```
 
