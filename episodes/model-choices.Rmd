@@ -178,9 +178,9 @@ DiagrammeR::grViz("digraph {
 
   # edges
   #######
-  S -> E [label = ' infection (&beta;)']
-  E -> I [label = ' onset of \ninfectiousness (&alpha;)']
-  I -> R [label = ' recovery (&gamma;)']
+  S -> E [label = ' infection \n(transmissibility &beta;)']
+  E -> I [label = ' onset of infectiousness \n(infectiousness rate &alpha;)']
+  I -> R [label = ' recovery \n(recovery rate &gamma;)']
 
 }")
 ```
