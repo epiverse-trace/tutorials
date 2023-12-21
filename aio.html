@@ -288,7 +288,7 @@
         
 <section id="aio-simulating-transmission"><p>Content from <a href="simulating-transmission.html">Simulating transmission</a></p>
 <hr>
-<p> Last updated on 2023-12-20 | 
+<p> Last updated on 2023-12-21 | 
         
         <a href="https://github.com/epiverse-trace/tutorials/edit/main/episodes/simulating-transmission.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <div class="text-end">
@@ -302,8 +302,9 @@
 <div class="inner">
 <h3 class="card-title">Questions</h3>
 <ul>
-<li>How do I generate predictions of disease trajectories?</li>
+<li>How do I simulate disease spread using a mathematical model?</li>
 <li>What inputs are needed for a model simulation?</li>
+<li>How do I account for uncertainty?</li>
 </ul>
 </div>
 </div>
@@ -312,11 +313,16 @@
 <div class="card-body">
 <div class="inner bordered">
 <h3 class="card-title">Objectives</h3>
-<p>Using the R package <code>epidemics</code>, learn how to:</p>
 <ul>
-<li>load an existing model structure,</li>
-<li>load an existing social contact matrix,</li>
-<li>run a model simulation.</li>
+<li>Load an existing model structure from <code>{epidemics}</code> R
+package</li>
+<li>Load an existing social contact matrix with
+<a href="https://github.com/epiforecasts/socialmixr" class="external-link">socialmixr</a>
+</li>
+<li>Generate a disease spread model simulation with
+<code>{epidemics}</code>
+</li>
+<li>Generate multiple model simulations and visualise uncertainty</li>
 </ul>
 </div>
 </div>
@@ -331,10 +337,11 @@
 <h3 class="callout-title">Prerequisites<a class="anchor" aria-label="anchor" href="#prerequisites"></a>
 </h3>
 <div class="callout-content">
-<p>This tutorial has the following concept dependencies:</p>
-<p><strong>Modelling</strong> : <a href="https://doi.org/10.1038/s41592-020-0856-2" class="external-link">Components of
-infectious disease models</a> e.g. state variables, parameters, initial
-conditions, and ordinary differential equations.</p>
+<p>Learners should familiarise themselves with following concept
+dependencies before working through this tutorial:</p>
+<p><strong>Mathematical Modelling</strong> : <a href="https://doi.org/10.1038/s41592-020-0856-2" class="external-link">Introduction to
+infectious disease models</a>, <a href="reference.html#state">state
+variables</a>, <a href="reference.html#parsode">model parameters</a>, <a href="reference.html#initial">initial conditions</a>, <a href="reference.html#ordinary">ordinary differential equations</a>.</p>
 <p><strong>Epidemic theory</strong> : <a href="https://doi.org/10.1155/2011/267049" class="external-link">Transmission</a>, <a href="https://doi.org/10.3201/eid2501.171901" class="external-link">Reproduction
 number</a>.</p>
 </div>
@@ -344,89 +351,53 @@ number</a>.</p>
 </h2>
 <hr class="half-width">
 <p>Mathematical models are useful tools for generating future
-trajectories of disease spread. Models can be used to evaluate the
-implementation of non-pharmaceutical and pharmaceutical interventions
-while accounting for factors such as age.</p>
-<p>In this tutorial, we will use the R package <code>{epidemics}</code>
-to generate trajectories of influenza spread. By the end of this
-tutorial, you will be able to generate the trajectory below showing the
-number of infectious individuals in different age categories over
-time.</p>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in model_default_cpp(population = uk_population, infection = influenza, : could not find function "model_default_cpp"</code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'output' not found</code></pre>
-</div>
-
-<p>The first step is to install the R packages
-<code>epidemics</code>.</p>
-<p><em>Note : this tutorial is based on a development version of
-{epidemics}. This version of the package can be installed using
-<a href="https://pak.r-lib.org/" class="external-link">pak</a>:</em></p>
-<div class="codewrapper sourceCode" id="cb3">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="kw">require</span><span class="op">(</span><span class="st">"pak"</span><span class="op">)</span><span class="op">)</span> <span class="fu">install.packages</span><span class="op">(</span><span class="st">"pak"</span><span class="op">)</span></span>
-<span><span class="fu">pak</span><span class="fu">::</span><span class="fu">pak</span><span class="op">(</span><span class="st">"epiverse-trace/epidemics@96a7b1457"</span><span class="op">)</span></span></code></pre>
-</div>
-</section><section id="model-structures"><h2 class="section-heading">Model structures<a class="anchor" aria-label="anchor" href="#model-structures"></a>
+trajectories of disease spread. In this tutorial, we will use the R
+package <code>{epidemics}</code> to generate disease trajectories of an
+influenza strain with pandemic potential. By the end of this tutorial,
+you will be able to generate the trajectory below showing the number of
+infectious individuals in different age categories over time.</p>
+<figure><img src="fig/simulating-transmission-rendered-traj-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure></section><section id="simulating-disease-spread"><h2 class="section-heading">Simulating disease spread<a class="anchor" aria-label="anchor" href="#simulating-disease-spread"></a>
 </h2>
 <hr class="half-width">
 <p>To generate predictions of infectious disease trajectories, we must
 first select a mathematical model to use. There is a library of models
 to choose from in <code>epidemics</code>. Models in
 <code>epidemics</code> are prefixed with <code>model</code> and suffixed
-by the name of infection (e.g. ebola) or a different identifier
-(e.g. default), and whether the model has a R or C++ code base. In this
-tutorial, we will use the default epidemic model,
-<code>model_default_cpp()</code> which is described in the next
-section.</p>
-<div id="check-model-equations" class="callout callout">
+by the name of infection (e.g. Ebola) or a different identifier
+(e.g. default), and whether the model has a R or <a href="reference.html#cplusplus">C++</a> code base.</p>
+<p>In this tutorial, we will use the default model in
+<code>epidemics</code>, <code>model_default_cpp()</code> which is an
+age-structured SEIR model described by a system of <a href="reference.html#ordinary">ordinary differential equations</a>. For
+each age group <span class="math inline">\(i\)</span>, individuals are
+classed as either susceptible <span class="math inline">\(S\)</span>,
+infected but not yet infectious <span class="math inline">\(E\)</span>,
+infectious <span class="math inline">\(I\)</span> or recovered <span class="math inline">\(R\)</span>. The schematic below shows the
+processes which describe the flow of individuals between the disease
+states <span class="math inline">\(S\)</span>, <span class="math inline">\(E\)</span>, <span class="math inline">\(I\)</span>
+and <span class="math inline">\(R\)</span> and the key parameters for
+each process.</p>
+<figure><img src="fig/simulating-transmission-rendered-diagram-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div id="model-parameters-rates" class="callout callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
-<div id="check-model-equations" class="callout-inner">
-<h3 class="callout-title">Check model equations<a class="anchor" aria-label="anchor" href="#check-model-equations"></a>
+<div id="model-parameters-rates" class="callout-inner">
+<h3 class="callout-title">Model parameters : rates<a class="anchor" aria-label="anchor" href="#model-parameters-rates"></a>
 </h3>
 <div class="callout-content">
-<p>When using existing model structures always check the model
-assumptions. Ask questions such as:</p>
-<ul>
-<li>How is transmission modelled? e.g. <a href="reference.html#direct">direct</a> or <a href="reference.html#indirect">indirect</a>, <a href="reference.html#airborne">airborne</a> or <a href="reference.html#vectorborne">vector-borne</a>?</li>
-<li>What interventions are modelled?</li>
-<li>What state variables are there and how do they relate to assumptions
-about infection?</li>
-</ul>
-<p>There can be subtle differences in model structures for the same
-infection or outbreak type which can be missed without studying the
-equations.</p>
+<p>In ODE models, model parameters are often (but not always) specified
+as rates. The rate at which an event occurs is the inverse of the
+average time until that event. For example, in the SEIR model, the
+recovery rate <span class="math inline">\(\gamma\)</span> is the inverse
+of the average infectious period.</p>
+<p>We can use knowledge of the natural history of the disease to inform
+our values of rates. If the average infectious period of an infection is
+8 days, then the daily recovery rate is <span class="math inline">\(\gamma = 1/8 = 0.125\)</span>.</p>
 </div>
 </div>
 </div>
-<div class="section level3">
-<h3 id="an-epidemic-model-for-pandemic-influenza">An epidemic model for pandemic influenza<a class="anchor" aria-label="anchor" href="#an-epidemic-model-for-pandemic-influenza"></a>
-</h3>
-<p>We want to generate disease trajectories of an influenza strain with
-pandemic potential. We will use the default epidemic model in
-<code>epidemics</code>, an age-structured SEIR model described by a
-system of ordinary differential equations. For each age group <span class="math inline">\(i\)</span>, individuals are classed as either
-susceptible <span class="math inline">\(S\)</span>, infected but not yet
-infectious <span class="math inline">\(E\)</span>, infectious <span class="math inline">\(I\)</span> or recovered <span class="math inline">\(R\)</span>.</p>
-<figure><img src="fig/simulating-transmission-rendered-diagram-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>The model parameters and equations are as follows :</p>
-<ul>
-<li>transmission rate <span class="math inline">\(\beta\)</span>,</li>
-<li>contact matrix <span class="math inline">\(C\)</span> containing the
-frequency of contacts between age groups (a square <span class="math inline">\(i \times j\)</span> matrix),</li>
-<li>rate of transition from exposed to infectious <span class="math inline">\(\alpha\)</span> (preinfectious period=<span class="math inline">\(1/\alpha\)</span>),</li>
-<li>recovery rate <span class="math inline">\(\gamma\)</span>
-(infectious period = <span class="math inline">\(1/\gamma\)</span>).</li>
-</ul>
+<p>For each disease state (<span class="math inline">\(S\)</span>, <span class="math inline">\(E\)</span>, <span class="math inline">\(I\)</span>
+and <span class="math inline">\(R\)</span>) and age group (<span class="math inline">\(i\)</span>), we have an ordinary differential
+equation describing the rate of change with respect to time.</p>
 <p><span class="math display">\[
 \begin{aligned}
 \frac{dS_i}{dt} &amp; = - \beta S_i \sum_j C_{i,j} I_j \\
@@ -434,24 +405,26 @@ frequency of contacts between age groups (a square <span class="math inline">\(i
 \frac{dI_i}{dt} &amp;= \alpha E_i - \gamma I_i \\
 \frac{dR_i}{dt} &amp;=\gamma I_i \\
 \end{aligned}
-\]</span></p>
-<p>The <em>contact matrix</em> is a square matrix consisting of
-rows/columns equal to the number age groups. Each element represents the
-frequency of contacts between age groups. If we believe that
-transmission of an infection is driven by contact, and that contact
-rates are very different for different age groups, then specifying a
-contact matrix allows us to account for age specific rates of
-transmission.</p>
-<p>From the model structure we see that :</p>
+\]</span> Individuals in age group (<span class="math inline">\(i\)</span>) move from the susceptible state (<span class="math inline">\(S_i\)</span>) to the exposed state (<span class="math inline">\(E_i\)</span>) via age group specific contact with
+the infectious individuals in their own and other age groups <span class="math inline">\(\beta S_i \sum_j C_{i,j} I_j\)</span>. The contact
+matrix <span class="math inline">\(C\)</span> allows for heterogeneity
+in contacts between age groups. They then move to the infectious state
+at a rate <span class="math inline">\(\alpha\)</span> and recover at a
+rate <span class="math inline">\(\gamma\)</span>. There is no loss of
+immunity (there are no flows out of the recovered state).</p>
+<p>The model parameters definitions are :</p>
 <ul>
-<li>the contact matrix <span class="math inline">\(C\)</span> allows for
-heterogeneity in contacts between age groups,</li>
-<li>there is no loss of immunity (there are no flows out of the
-recovered state).</li>
+<li>transmission rate or transmissibility <span class="math inline">\(\beta\)</span>,</li>
+<li>
+<a href="reference.html#contact">contact matrix</a> <span class="math inline">\(C\)</span> containing the frequency of contacts
+between age groups (a square <span class="math inline">\(i \times
+j\)</span> matrix),</li>
+<li>infectiousness rate <span class="math inline">\(\alpha\)</span>
+(preinfectious period (<a href="reference.html#latent">latent
+period</a>) =<span class="math inline">\(1/\alpha\)</span>),</li>
+<li>recovery rate <span class="math inline">\(\gamma\)</span>
+(infectious period = <span class="math inline">\(1/\gamma\)</span>).</li>
 </ul>
-<p>This model also has the functionality to include vaccination and
-tracks the number of vaccinated individuals through time. We will cover
-the use of interventions in future tutorials.</p>
 <div id="exposed-infected-infectious" class="callout callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
@@ -476,64 +449,16 @@ are ‘exposed’ are treated as already infected.</p>
 </div>
 </div>
 </div>
-<p>To generate trajectories using our model, we need the following :</p>
+<p>To generate trajectories using our model, we must prepare the
+following inputs :</p>
 <ol style="list-style-type: decimal">
-<li>parameter values,</li>
-<li>contact matrix,</li>
-<li>demographic structure,</li>
-<li>initial conditions.</li>
+<li>Contact matrix</li>
+<li>Initial conditions</li>
+<li>Population structure</li>
+<li>Model parameters</li>
 </ol>
-</div>
-</section><section id="model-parameters"><h2 class="section-heading">Model parameters<a class="anchor" aria-label="anchor" href="#model-parameters"></a>
-</h2>
-<hr class="half-width">
-<p>To run our model we need to specify the model parameters:</p>
-<ul>
-<li>transmission rate <span class="math inline">\(\beta\)</span>,</li>
-<li>rate of transition from exposed to infectious <span class="math inline">\(\alpha\)</span> (preinfectious period=<span class="math inline">\(1/\alpha\)</span>),</li>
-<li>recovery rate <span class="math inline">\(\gamma\)</span>
-(infectious period=<span class="math inline">\(1/\gamma\)</span>).</li>
-</ul>
-<p>We will learn how to specify the contact matrix <span class="math inline">\(C\)</span> in the next section.</p>
-<p>We will simulate a strain of influenza with pandemic potential with
-<span class="math inline">\(R_0=1.5\)</span>, a preinfectious period of
-3 days and infectious period of 7 days.</p>
-<p>In <code>epidemics</code>, we use the function
-<code>infection()</code> to create an infection object containing the
-values of, <span class="math inline">\(R_0\)</span>, the preinfectious
-period (<span class="math inline">\(1/\alpha\)</span>) and the
-infectious period (<span class="math inline">\(1/\gamma\)</span>) as
-follows.</p>
-<div class="codewrapper sourceCode" id="cb4">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">influenza</span> <span class="op">&lt;-</span> <span class="fu">infection</span><span class="op">(</span></span>
-<span>  name <span class="op">=</span> <span class="st">"influenza"</span>,</span>
-<span>  r0 <span class="op">=</span> <span class="fl">1.5</span>,</span>
-<span>  preinfectious_period <span class="op">=</span> <span class="fl">3</span>,</span>
-<span>  infectious_period <span class="op">=</span> <span class="fl">7</span></span>
-<span><span class="op">)</span></span></code></pre>
-</div>
-<div id="the-basic-reproduction-number-r_0" class="callout callout">
-<div class="callout-square">
-<i class="callout-icon" data-feather="bell"></i>
-</div>
-<div id="the-basic-reproduction-number-r_0" class="callout-inner">
-<h3 class="callout-title">The basic reproduction number <span class="math inline">\(R_0\)</span><a class="anchor" aria-label="anchor" href="#the-basic-reproduction-number-r_0"></a>
-</h3>
-<div class="callout-content">
-<p>The basic reproduction number, <span class="math inline">\(R_0\)</span>, for the SEIR model is:</p>
-<p><span class="math display">\[ R_0 =
-\frac{\beta}{\gamma}.\]</span></p>
-<p>Therefore, we can rewrite the transmission rate, <span class="math inline">\(\beta\)</span>, as:</p>
-<p><span class="math display">\[ \beta = R_0 \gamma.\]</span></p>
-</div>
-</div>
-</div>
-<!-- ### Load parameters from previous tutorials  -->
 <div class="section level3">
-<h3 id="contact-matrix">Contact matrix<a class="anchor" aria-label="anchor" href="#contact-matrix"></a>
+<h3 id="contact-matrix">1. Contact matrix<a class="anchor" aria-label="anchor" href="#contact-matrix"></a>
 </h3>
 <p>Contact matrices can be estimated from surveys or contact data, or
 synthetic ones can be used. We will use the R package
@@ -556,7 +481,7 @@ year age bins:</p>
 <li>age between 20 and 40,</li>
 <li>40 years and over.</li>
 </ul>
-<div class="codewrapper sourceCode" id="cb5">
+<div class="codewrapper sourceCode" id="cb1">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -581,7 +506,7 @@ year age bins:</p>
   Output
   </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -598,7 +523,7 @@ contact.age.group     [,1]     [,2]     [,3]
 </div>
 <p>The result is a square matrix with rows and columns for each age
 group. Contact matrices can be loaded from other sources, but they must
-be in the correct format to be used in <code>epidemics</code>.</p>
+be formatted as a matrix to be used in <code>epidemics</code>.</p>
 <div id="why-would-a-contact-matrix-be-non-symmetric" class="callout callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
@@ -621,14 +546,8 @@ differ by age group resulting in a non-symmetric contact matrix <a href="https:/
 </div>
 </div>
 </div>
-</section><section id="generating-trajectories"><h2 class="section-heading">Generating trajectories<a class="anchor" aria-label="anchor" href="#generating-trajectories"></a>
-</h2>
-<hr class="half-width">
-<p>We have prepared our parameter values, contact matrix and demography
-vector. Now we must set the initial conditions, prepare the population
-and run the model.</p>
 <div class="section level3">
-<h3 id="initial-conditions">Initial conditions<a class="anchor" aria-label="anchor" href="#initial-conditions"></a>
+<h3 id="initial-conditions">2. Initial conditions<a class="anchor" aria-label="anchor" href="#initial-conditions"></a>
 </h3>
 <p>The initial conditions are the proportion of individuals in each
 disease state <span class="math inline">\(S\)</span>, <span class="math inline">\(E\)</span>, <span class="math inline">\(I\)</span>
@@ -639,7 +558,7 @@ age category, one in a million individuals are infectious, and the
 remaining age categories are infection free.</p>
 <p>The initial conditions in the first age category are <span class="math inline">\(S(0)=1-\frac{1}{1,000,000}\)</span>, <span class="math inline">\(E(0) =0\)</span>, <span class="math inline">\(I(0)=\frac{1}{1,000,000}\)</span>, <span class="math inline">\(R(0)=0\)</span>. This is specified as a vector as
 follows:</p>
-<div class="codewrapper sourceCode" id="cb7">
+<div class="codewrapper sourceCode" id="cb3">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -650,7 +569,7 @@ follows:</p>
 </div>
 <p>For the age categories that are free from infection, the initial
 conditions are <span class="math inline">\(S(0)=1\)</span>, <span class="math inline">\(E(0) =0\)</span>, <span class="math inline">\(I(0)=0\)</span>, <span class="math inline">\(R(0)=0\)</span>. We specify this as follows,</p>
-<div class="codewrapper sourceCode" id="cb8">
+<div class="codewrapper sourceCode" id="cb4">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -659,16 +578,18 @@ conditions are <span class="math inline">\(S(0)=1\)</span>, <span class="math in
 <span><span class="op">)</span></span></code></pre>
 </div>
 <p>We combine the three initial conditions vectors into one matrix,</p>
-<div class="codewrapper sourceCode" id="cb9">
+<div class="codewrapper sourceCode" id="cb5">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># build for all age groups</span></span>
+<code class="sourceCode R"><span><span class="co"># combine the initial conditions</span></span>
 <span><span class="va">initial_conditions</span> <span class="op">&lt;-</span> <span class="fu">rbind</span><span class="op">(</span></span>
-<span>  <span class="va">initial_conditions_inf</span>,</span>
-<span>  <span class="va">initial_conditions_free</span>,</span>
-<span>  <span class="va">initial_conditions_free</span></span>
+<span>  <span class="va">initial_conditions_inf</span>, <span class="co"># age group 1</span></span>
+<span>  <span class="va">initial_conditions_free</span>, <span class="co"># age group 2</span></span>
+<span>  <span class="va">initial_conditions_free</span> <span class="co"># age group 3</span></span>
 <span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># use contact matrix to assign age group names</span></span>
 <span><span class="fu">rownames</span><span class="op">(</span><span class="va">initial_conditions</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu">rownames</span><span class="op">(</span><span class="va">contact_matrix</span><span class="op">)</span></span>
 <span><span class="va">initial_conditions</span></span></code></pre>
 </div>
@@ -682,22 +603,15 @@ conditions are <span class="math inline">\(S(0)=1\)</span>, <span class="math in
 </div>
 </div>
 <div class="section level3">
-<h3 id="running-the-model">Running the model<a class="anchor" aria-label="anchor" href="#running-the-model"></a>
+<h3 id="population-structure">3. Population structure<a class="anchor" aria-label="anchor" href="#population-structure"></a>
 </h3>
-<p>To run the model we need the following inputs:</p>
-<ul>
-<li>an infection object,</li>
-<li>a population object,</li>
-<li>an optional number of time steps.</li>
-</ul>
-<p>We have already created our infection object <code>influenza</code>.
-The population object requires a vector containing the demographic
+<p>The population object requires a vector containing the demographic
 structure of the population. The demographic vector must be a named
 vector containing the number of individuals in each age group of our
 given population. In this example, we can extract the demographic
 information from the <code>contact_data</code> object that we obtained
 using the <code>socialmixr</code> package.</p>
-<div class="codewrapper sourceCode" id="cb11">
+<div class="codewrapper sourceCode" id="cb7">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -714,7 +628,7 @@ using the <code>socialmixr</code> package.</p>
 <p>To create our population object, we call the function
 <code>population()</code> specifying a name, the contact matrix, the
 demography vector and the initial conditions.</p>
-<div class="codewrapper sourceCode" id="cb13">
+<div class="codewrapper sourceCode" id="cb9">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -725,72 +639,164 @@ demography vector and the initial conditions.</p>
 <span>  initial_conditions <span class="op">=</span> <span class="va">initial_conditions</span></span>
 <span><span class="op">)</span></span></code></pre>
 </div>
-<p>No we are ready to run our model. We will specify
-<code>time_end=600</code> to run the model for 600 days.</p>
-<div class="codewrapper sourceCode" id="cb14">
+</div>
+<div class="section level3">
+<h3 id="model-parameters">4. Model parameters<a class="anchor" aria-label="anchor" href="#model-parameters"></a>
+</h3>
+<p>To run our model we need to specify the model parameters:</p>
+<ul>
+<li>transmissibility <span class="math inline">\(\beta\)</span>,</li>
+<li>infectiousness rate <span class="math inline">\(\alpha\)</span>
+(preinfectious period=<span class="math inline">\(1/\alpha\)</span>),</li>
+<li>recovery rate <span class="math inline">\(\gamma\)</span>
+(infectious period=<span class="math inline">\(1/\gamma\)</span>).</li>
+</ul>
+<p>In <code>epidemics</code>, we specify the model inputs as :</p>
+<ul>
+<li>
+<code>transmissibility</code> = <span class="math inline">\(R_0
+\gamma\)</span>,</li>
+<li>
+<code>infectiousness_rate</code> = <span class="math inline">\(\alpha\)</span>,</li>
+<li>
+<code>recovery_rate</code> = <span class="math inline">\(\gamma\)</span>,</li>
+</ul>
+<p>We will simulate a strain of influenza with pandemic potential with
+<span class="math inline">\(R_0=1.46\)</span>, a preinfectious period of
+3 days and infectious period of 7 days. Therefore our inputs will
+be:</p>
+<ul>
+<li>
+<code>transmissibility = 1.46 / 7.0</code>,</li>
+<li>
+<code>infectiousness_rate = 1.0 / 3.0</code>,</li>
+<li>
+<code>recovery_rate = 1.0 / 7.0</code>.</li>
+</ul>
+<div id="the-basic-reproduction-number-r_0" class="callout callout">
+<div class="callout-square">
+<i class="callout-icon" data-feather="bell"></i>
+</div>
+<div id="the-basic-reproduction-number-r_0" class="callout-inner">
+<h3 class="callout-title">The basic reproduction number <span class="math inline">\(R_0\)</span><a class="anchor" aria-label="anchor" href="#the-basic-reproduction-number-r_0"></a>
+</h3>
+<div class="callout-content">
+<p>The basic reproduction number, <span class="math inline">\(R_0\)</span>, for the SEIR model is:</p>
+<p><span class="math display">\[ R_0 =
+\frac{\beta}{\gamma}.\]</span></p>
+<p>Therefore, we can rewrite transmissibility <span class="math inline">\(\beta\)</span>, as:</p>
+<p><span class="math display">\[ \beta = R_0 \gamma.\]</span></p>
+</div>
+</div>
+</div>
+</div>
+</section><section id="running-the-model"><h2 class="section-heading">Running the model<a class="anchor" aria-label="anchor" href="#running-the-model"></a>
+</h2>
+<hr class="half-width">
+<div id="running-solving-the-model" class="callout callout">
+<div class="callout-square">
+<i class="callout-icon" data-feather="bell"></i>
+</div>
+<div id="running-solving-the-model" class="callout-inner">
+<h3 class="callout-title">Running (solving) the model<a class="anchor" aria-label="anchor" href="#running-solving-the-model"></a>
+</h3>
+<div class="callout-content">
+<p>For models that are described by ODEs, running the model actually
+means to solve the system of ODEs. ODEs describe the rate of change in
+the disease states with respect to time, to find the number of
+individuals in each of these states, we use numerical integration
+methods to solve the equations.</p>
+<p>In <code>epidemics</code>, the <a href="https://www.boost.org/doc/libs/1_82_0/libs/numeric/odeint/doc/html/index.htm" class="external-link">ODE
+solver</a> uses the <a href="https://en.wikipedia.org/wiki/Runge%E2%80%93Kutta_methods" class="external-link">Runge-Kutta
+method</a>.</p>
+</div>
+</div>
+</div>
+<p>Now we are ready to run our model. To install the
+<code>epidemics</code> package :</p>
+<div class="codewrapper sourceCode" id="cb10">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="kw">require</span><span class="op">(</span><span class="st">"pak"</span><span class="op">)</span><span class="op">)</span> <span class="fu">install.packages</span><span class="op">(</span><span class="st">"pak"</span><span class="op">)</span></span>
+<span><span class="fu">pak</span><span class="fu">::</span><span class="fu">pak</span><span class="op">(</span><span class="st">"epiverse-trace/epidemics"</span><span class="op">)</span></span></code></pre>
+</div>
+<p>Then we specify <code>time_end=600</code> to run the model for 600
+days.</p>
+<div class="codewrapper sourceCode" id="cb11">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">output</span> <span class="op">&lt;-</span> <span class="fu">model_default_cpp</span><span class="op">(</span></span>
 <span>  population <span class="op">=</span> <span class="va">uk_population</span>,</span>
-<span>  infection <span class="op">=</span> <span class="va">influenza</span>,</span>
-<span>  time_end <span class="op">=</span> <span class="fl">600</span></span>
-<span><span class="op">)</span></span></code></pre>
+<span>  transmissibility <span class="op">=</span> <span class="fl">1.46</span> <span class="op">/</span> <span class="fl">7.0</span>,</span>
+<span>  infectiousness_rate <span class="op">=</span> <span class="fl">1.0</span> <span class="op">/</span> <span class="fl">3.0</span>,</span>
+<span>  recovery_rate <span class="op">=</span> <span class="fl">1.0</span> <span class="op">/</span> <span class="fl">7.0</span>,</span>
+<span>  time_end <span class="op">=</span> <span class="fl">600</span>, increment <span class="op">=</span> <span class="fl">1.0</span></span>
+<span><span class="op">)</span></span>
+<span><span class="fu">head</span><span class="op">(</span><span class="va">output</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="error" tabindex="0"><code>Error in model_default_cpp(population = uk_population, infection = influenza, : could not find function "model_default_cpp"</code></pre>
+<pre class="output" tabindex="0"><code>  time demography_group compartment    value
+1    0           [0,20) susceptible 14799275
+2    0          [20,40) susceptible 16526302
+3    0              40+ susceptible 28961159
+4    0           [0,20)     exposed        0
+5    0          [20,40)     exposed        0
+6    0              40+     exposed        0</code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb16">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">head</span><span class="op">(</span><span class="va">output</span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'output' not found</code></pre>
-</div>
+<p><em>Note : This model also has the functionality to include
+vaccination and tracks the number of vaccinated individuals through
+time. Even though we have not specified any vaccination, there is still
+a vaccinated compartment in the output (containing no individuals). We
+will cover the use of vaccination in future tutorials.</em></p>
 <p>Our model output consists of the number of individuals in each
 compartment in each age group through time. We can visualise the
 infectious individuals only (those in the <span class="math inline">\(I\)</span> class) through time.</p>
-<div class="codewrapper sourceCode" id="cb18">
+<div class="codewrapper sourceCode" id="cb13">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span><span class="va">output</span><span class="op">[</span><span class="va">compartment</span> <span class="op">==</span> <span class="st">"infectious"</span>, <span class="op">]</span><span class="op">)</span> <span class="op">+</span></span>
+<code class="sourceCode R"><span><span class="fu">filter</span><span class="op">(</span><span class="va">output_plot</span>, <span class="va">compartment</span> <span class="op">%in%</span> <span class="fu">c</span><span class="op">(</span><span class="st">"exposed"</span>, <span class="st">"infectious"</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
+<span>  <span class="fu">ggplot</span><span class="op">(</span></span>
+<span>    <span class="fu">aes</span><span class="op">(</span></span>
+<span>      x <span class="op">=</span> <span class="va">time</span>,</span>
+<span>      y <span class="op">=</span> <span class="va">value</span>,</span>
+<span>      col <span class="op">=</span> <span class="va">demography_group</span>,</span>
+<span>      linetype <span class="op">=</span> <span class="va">compartment</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">geom_line</span><span class="op">(</span></span>
-<span>    <span class="fu">aes</span><span class="op">(</span><span class="va">time</span>, <span class="va">value</span>, colour <span class="op">=</span> <span class="va">demography_group</span><span class="op">)</span>,</span>
-<span>    linewidth <span class="op">=</span> <span class="fl">1</span></span>
+<span>    linewidth <span class="op">=</span> <span class="fl">1.2</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">scale_y_continuous</span><span class="op">(</span></span>
+<span>    labels <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="va">comma</span></span>
 <span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">scale_colour_brewer</span><span class="op">(</span></span>
 <span>    palette <span class="op">=</span> <span class="st">"Dark2"</span>,</span>
-<span>    labels <span class="op">=</span> <span class="fu">rownames</span><span class="op">(</span><span class="va">contact_matrix</span><span class="op">)</span>,</span>
 <span>    name <span class="op">=</span> <span class="st">"Age group"</span></span>
 <span>  <span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">scale_y_continuous</span><span class="op">(</span></span>
-<span>    labels <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="va">comma</span>,</span>
-<span>    name <span class="op">=</span> <span class="st">"Infectious indivduals"</span></span>
+<span>  <span class="fu">expand_limits</span><span class="op">(</span></span>
+<span>    y <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="fl">0</span>, <span class="fl">500e3</span><span class="op">)</span></span>
 <span>  <span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">labs</span><span class="op">(</span></span>
-<span>    x <span class="op">=</span> <span class="st">"Model time (days)"</span></span>
+<span>  <span class="fu">coord_cartesian</span><span class="op">(</span></span>
+<span>    expand <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span>  <span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">theme_classic</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">theme_bw</span><span class="op">(</span></span>
+<span>    base_size <span class="op">=</span> <span class="fl">15</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">theme</span><span class="op">(</span></span>
 <span>    legend.position <span class="op">=</span> <span class="st">"top"</span></span>
 <span>  <span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">theme_grey</span><span class="op">(</span></span>
-<span>    base_size <span class="op">=</span> <span class="fl">15</span></span>
+<span>  <span class="fu">labs</span><span class="op">(</span></span>
+<span>    x <span class="op">=</span> <span class="st">"Simulation time (days)"</span>,</span>
+<span>    linetype <span class="op">=</span> <span class="st">"Compartment"</span>,</span>
+<span>    y <span class="op">=</span> <span class="st">"Individuals"</span></span>
 <span>  <span class="op">)</span></span></code></pre>
 </div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'output' not found</code></pre>
-</div>
-<div id="time-increments" class="callout callout">
+<figure><img src="fig/simulating-transmission-rendered-visualise-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div id="time-increments" class="callout callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
@@ -799,9 +805,10 @@ infectious individuals only (those in the <span class="math inline">\(I\)</span>
 </h3>
 <div class="callout-content">
 <p>Note that there is a default argument of <code>increment = 1</code>.
-This relates to the time step of the ODE solver. When the parameters and
-maximum number of time steps is days, the default increment is one
-day.</p>
+This relates to the time step of the ODE solver. When the parameters are
+specified on a daily time-scale and maximum number of time steps
+(<code>time_end</code>) is days, the default time step of the ODE solver
+one day.</p>
 <p>The choice of increment will depend on the time scale of the
 parameters, and the rate at which events can occur. In general, the
 increment should smaller than the fastest event. For example, if
@@ -810,10 +817,9 @@ within a month, then the increment should be less than one month.</p>
 </div>
 </div>
 </div>
-</div>
-<div class="section level3">
-<h3 id="accounting-for-uncertainty">Accounting for uncertainty<a class="anchor" aria-label="anchor" href="#accounting-for-uncertainty"></a>
-</h3>
+</section><section id="accounting-for-uncertainty"><h2 class="section-heading">Accounting for uncertainty<a class="anchor" aria-label="anchor" href="#accounting-for-uncertainty"></a>
+</h2>
+<hr class="half-width">
 <p>As the epidemic model is <a href="reference.html#deterministic">deterministic</a>, we have one
 trajectory for our given parameter values. In practice, we have
 uncertainty in the value of our parameters. To account for this, we must
@@ -827,7 +833,7 @@ this are:</p>
 <ol style="list-style-type: decimal">
 <li>Obtain 100 samples from the from a normal distribution</li>
 </ol>
-<div class="codewrapper sourceCode" id="cb20">
+<div class="codewrapper sourceCode" id="cb14">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -837,93 +843,75 @@ this are:</p>
 <li>Run the model 100 times with <span class="math inline">\(R_0\)</span> equal to a different sample each
 time</li>
 </ol>
-<div class="codewrapper sourceCode" id="cb21">
+<div class="codewrapper sourceCode" id="cb15">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">output_samples</span> <span class="op">&lt;-</span> <span class="fu">Map</span><span class="op">(</span></span>
-<span> <span class="va">R0_vec</span>,</span>
+<span>  <span class="va">R0_vec</span>,</span>
 <span>  <span class="fu">seq_along</span><span class="op">(</span><span class="va">R0_vec</span><span class="op">)</span>,</span>
 <span>  f <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">i</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="co"># create infection object for R0 value</span></span>
-<span>    <span class="va">influenza</span> <span class="op">&lt;-</span> <span class="fu">infection</span><span class="op">(</span></span>
-<span>      name <span class="op">=</span> <span class="st">"influenza"</span>,</span>
-<span>      r0 <span class="op">=</span> <span class="va">x</span>,</span>
-<span>      preinfectious_period <span class="op">=</span> <span class="fl">3</span>,</span>
-<span>      infectious_period <span class="op">=</span> <span class="fl">7</span></span>
-<span>    <span class="op">)</span></span>
-<span></span>
 <span>    <span class="co"># run an epidemic model using `epidemic()`</span></span>
 <span>    <span class="va">output</span> <span class="op">&lt;-</span> <span class="fu">model_default_cpp</span><span class="op">(</span></span>
 <span>      population <span class="op">=</span> <span class="va">uk_population</span>,</span>
-<span>      infection <span class="op">=</span> <span class="va">influenza</span>,</span>
+<span>      transmissibility <span class="op">=</span> <span class="va">x</span> <span class="op">/</span> <span class="fl">7.0</span>,</span>
+<span>      infectiousness_rate <span class="op">=</span> <span class="fl">1.0</span> <span class="op">/</span> <span class="fl">3.0</span>,</span>
+<span>      recovery_rate <span class="op">=</span> <span class="fl">1.0</span> <span class="op">/</span> <span class="fl">7.0</span>,</span>
 <span>      time_end <span class="op">=</span> <span class="fl">600</span>, increment <span class="op">=</span> <span class="fl">1.0</span></span>
 <span>    <span class="op">)</span></span>
 <span></span>
-<span>    <span class="co"># extract infectious individuals </span></span>
-<span>    <span class="va">output</span> <span class="op">&lt;-</span> <span class="va">output</span><span class="op">[</span><span class="va">compartment</span> <span class="op">==</span> <span class="st">"infectious"</span><span class="op">]</span></span>
-<span></span>
-<span>    <span class="co"># assign scenario number</span></span>
-<span>    <span class="va">output</span><span class="op">[</span>, <span class="fu">c</span><span class="op">(</span><span class="st">"scenario"</span>, <span class="st">"R"</span><span class="op">)</span> <span class="op">:=</span> <span class="fu">list</span><span class="op">(</span><span class="va">i</span>, <span class="va">x</span><span class="op">)</span><span class="op">]</span></span>
-<span></span>
+<span>    <span class="co"># add replicate number and return data</span></span>
+<span>    <span class="va">output</span><span class="op">$</span><span class="va">replicate</span> <span class="op">&lt;-</span> <span class="va">x</span></span>
 <span>    <span class="va">output</span></span>
 <span>  <span class="op">}</span></span>
-<span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in model_default_cpp(population = uk_population, infection = influenza, : could not find function "model_default_cpp"</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb23">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># combine to prepare for plotting</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># combine to prepare for plotting</span></span>
 <span><span class="va">output_samples</span> <span class="op">&lt;-</span> <span class="fu">bind_rows</span><span class="op">(</span><span class="va">output_samples</span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'output_samples' not found</code></pre>
 </div>
 <ol start="3" style="list-style-type: decimal">
 <li>Calculate the mean and 95% quantiles of number of infectious
 individuals across each model simulation and visualise output</li>
 </ol>
-<div class="codewrapper sourceCode" id="cb25">
+<div class="codewrapper sourceCode" id="cb16">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span><span class="va">output_samples</span> ,<span class="fu">aes</span><span class="op">(</span><span class="va">time</span>, <span class="va">value</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span><span class="va">output_samples</span><span class="op">[</span><span class="va">output_samples</span><span class="op">$</span><span class="va">compartment</span> <span class="op">==</span> <span class="st">"infectious"</span>, <span class="op">]</span>, <span class="fu">aes</span><span class="op">(</span><span class="va">time</span>, <span class="va">value</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">stat_summary</span><span class="op">(</span>geom <span class="op">=</span> <span class="st">"line"</span>, fun <span class="op">=</span> <span class="va">mean</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">stat_summary</span><span class="op">(</span>geom <span class="op">=</span> <span class="st">"ribbon"</span>, </span>
-<span>               fun.min <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">z</span><span class="op">)</span> <span class="op">{</span> <span class="fu">quantile</span><span class="op">(</span><span class="va">z</span>, <span class="fl">0.025</span><span class="op">)</span> <span class="op">}</span>,</span>
-<span>               fun.max <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">z</span><span class="op">)</span> <span class="op">{</span> <span class="fu">quantile</span><span class="op">(</span><span class="va">z</span>, <span class="fl">0.975</span><span class="op">)</span> <span class="op">}</span>, </span>
-<span>               alpha <span class="op">=</span> <span class="fl">0.3</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">stat_summary</span><span class="op">(</span></span>
+<span>    geom <span class="op">=</span> <span class="st">"ribbon"</span>,</span>
+<span>    fun.min <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">z</span><span class="op">)</span> <span class="op">{</span></span>
+<span>      <span class="fu">quantile</span><span class="op">(</span><span class="va">z</span>, <span class="fl">0.025</span><span class="op">)</span></span>
+<span>    <span class="op">}</span>,</span>
+<span>    fun.max <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">z</span><span class="op">)</span> <span class="op">{</span></span>
+<span>      <span class="fu">quantile</span><span class="op">(</span><span class="va">z</span>, <span class="fl">0.975</span><span class="op">)</span></span>
+<span>    <span class="op">}</span>,</span>
+<span>    alpha <span class="op">=</span> <span class="fl">0.3</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">facet_grid</span><span class="op">(</span></span>
 <span>    cols <span class="op">=</span> <span class="fu">vars</span><span class="op">(</span><span class="va">demography_group</span><span class="op">)</span></span>
 <span>  <span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">theme_grey</span><span class="op">(</span></span>
+<span>  <span class="fu">labs</span><span class="op">(</span></span>
+<span>    x <span class="op">=</span> <span class="st">"Simulation time (days)"</span>,</span>
+<span>    y <span class="op">=</span> <span class="st">"Individuals"</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">theme_bw</span><span class="op">(</span></span>
 <span>    base_size <span class="op">=</span> <span class="fl">15</span></span>
 <span>  <span class="op">)</span></span></code></pre>
 </div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'output_samples' not found</code></pre>
-</div>
-<p>Deciding which parameters to include uncertainty in depends on a few
+<figure><img src="fig/simulating-transmission-rendered-plot-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>Deciding which parameters to include uncertainty in depends on a few
 factors: how well informed a parameter value is e.g. consistency of
 estimates from the literature; how sensitive model outputs are to
-parameter value changes; and the purpose of the modelling task.</p>
-</div>
+parameter value changes; and the purpose of the modelling task. See <a href="https://doi.org/10.1016%2Fj.epidem.2021.100520" class="external-link">McCabe et
+al. 2021</a> to learn about different types of uncertainty in infectious
+disease modelling.</p>
 </section><section id="summary"><h2 class="section-heading">Summary<a class="anchor" aria-label="anchor" href="#summary"></a>
 </h2>
 <hr class="half-width">
-<p>In this tutorial, we have learnt how to generate disease trajectories
-using a mathematical model. Once a model has been chosen, the parameters
-and other inputs must be specified in the correct way to perform model
+<p>In this tutorial, we have learnt how to simulate disease spread using
+a mathematical model. Once a model has been chosen, the parameters and
+other inputs must be specified in the correct way to perform model
 simulations. In the next tutorial, we will consider how to choose the
 right model for different tasks.</p>
 <div id="keypoints1" class="callout keypoints">
@@ -938,8 +926,8 @@ right model for different tasks.</p>
 <li>Disease trajectories can be generated using the R package
 <code>epidemics</code>
 </li>
-<li>Contact matrices can be estimated from different sources</li>
-<li>Include uncertainty in model trajectories</li>
+<li>Uncertainty should be included in model trajectories using a range
+of model parameter values</li>
 </ul>
 </div>
 </div>
@@ -950,7 +938,7 @@ any links that you are not going to use.
  -->
 </section></section><section id="aio-model-choices"><p>Content from <a href="model-choices.html">Choosing an appropriate model</a></p>
 <hr>
-<p> Last updated on 2023-12-20 | 
+<p> Last updated on 2023-12-21 | 
         
         <a href="https://github.com/epiverse-trace/tutorials/edit/main/episodes/model-choices.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <div class="text-end">
@@ -964,7 +952,8 @@ any links that you are not going to use.
 <div class="inner">
 <h3 class="card-title">Questions</h3>
 <ul>
-<li>How do I choose a model for my task?</li>
+<li>How do I choose a mathematical model that’s appropriate to complete
+my analytical task?</li>
 </ul>
 </div>
 </div>
@@ -974,9 +963,8 @@ any links that you are not going to use.
 <div class="inner bordered">
 <h3 class="card-title">Objectives</h3>
 <ul>
-<li>Learn how to access the model library in <code>epidemics</code>
-</li>
-<li>Understand the model requirements for a question</li>
+<li>Understand the model requirements for a specific research
+question</li>
 </ul>
 </div>
 </div>
@@ -1002,26 +990,49 @@ transmission</a>
 <section id="introduction"><h2 class="section-heading">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
 </h2>
 <hr class="half-width">
-<p>Using mathematical models in outbreak analysis does not necessarily
-require developing a new model. There are existing models for different
-infections, interventions and transmission patterns which can be used to
-answer new questions. In this tutorial, we will learn how to choose an
-existing model to generate predictions for a given scenario.</p>
+<p>There are existing mathematical models for different infections,
+interventions and transmission patterns which can be used to answer new
+questions. In this tutorial, we will learn how to choose an existing
+model to complete a given task.</p>
 
-<div class="section level3">
-<h3 id="choosing-a-model">Choosing a model<a class="anchor" aria-label="anchor" href="#choosing-a-model"></a>
+<div id="choosing-a-model" class="callout discussion">
+<div class="callout-square">
+<i class="callout-icon" data-feather="message-circle"></i>
+</div>
+<div id="choosing-a-model" class="callout-inner">
+<h3 class="callout-title">Choosing a model<a class="anchor" aria-label="anchor" href="#choosing-a-model"></a>
 </h3>
-<p>When deciding whether an existing model can be used, we must consider
-:</p>
-<ul>
-<li>What is the infection/disease of interest?</li>
-</ul>
+<div class="callout-content">
+<p>When deciding which mathematical model to use, there are a number of
+questions we must consider :</p>
+</div>
+</div>
+</div>
+<div id="accordionSolution1" class="accordion challenge-accordion accordion-flush">
+<div class="accordion-item">
+<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
+  <h4 class="accordion-header" id="headingSolution1">
+  What is the infection/disease of interest?
+  </h4>
+</button>
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div class="accordion-body">
 <p>A model may already exist for your study disease, or there may be a
 model for an infection that has the same transmission pathways and
 epidemiological features that can be used.</p>
-<ul>
-<li>Do we need a <a href="reference.html#deterministic">deterministic</a> or <a href="reference.html#stochastic">stochastic</a> model?</li>
-</ul>
+</div>
+</div>
+</div>
+</div>
+<div id="accordionSolution2" class="accordion challenge-accordion accordion-flush">
+<div class="accordion-item">
+<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
+  <h4 class="accordion-header" id="headingSolution2">
+  Do we need a deterministic or stochastic model?
+  </h4>
+</button>
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div class="accordion-body">
 <p>Model structures differ for whether the disease has pandemic
 potential or not. When predicted numbers of infection are small,
 stochastic variation in output can have an effect on whether an outbreak
@@ -1031,54 +1042,87 @@ characterise the uncertainty in the early stages of the outbreak.
 Epidemics are larger in magnitude than outbreaks and so a deterministic
 model is suitable as we have less interest in the stochastic variation
 in output.</p>
-<ul>
-<li>What is the outcome of interest?</li>
-</ul>
+</div>
+</div>
+</div>
+</div>
+<div id="accordionSolution3" class="accordion challenge-accordion accordion-flush">
+<div class="accordion-item">
+<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution3" aria-expanded="false" aria-controls="collapseSolution3">
+  <h4 class="accordion-header" id="headingSolution3">
+  What is the outcome of interest?
+  </h4>
+</button>
+<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
+<div class="accordion-body">
 <p>The outcome of interest can be a feature of a mathematical model. It
 may be that you are interested in the predicted numbers of infection
 through time, or in a specific outcome such as hospitalisations or cases
 of severe disease.</p>
-<ul>
-<li>Will any interventions be modelled?</li>
-</ul>
+</div>
+</div>
+</div>
+</div>
+<div id="accordionSolution4" class="accordion challenge-accordion accordion-flush">
+<div class="accordion-item">
+<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution4" aria-expanded="false" aria-controls="collapseSolution4">
+  <h4 class="accordion-header" id="headingSolution4">
+  How is transmission modelled?
+  </h4>
+</button>
+<div id="collapseSolution4" class="accordion-collapse collapse" data-bs-parent="#accordionSolution4" aria-labelledby="headingSolution4">
+<div class="accordion-body">
+<p>For example, <a href="reference.html#direct">direct</a> or <a href="reference.html#indirect">indirect</a>, <a href="reference.html#airborne">airborne</a> or <a href="reference.html#vectorborne">vector-borne</a>.</p>
+</div>
+</div>
+</div>
+</div>
+<div id="accordionSolution5" class="accordion challenge-accordion accordion-flush">
+<div class="accordion-item">
+<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution5" aria-expanded="false" aria-controls="collapseSolution5">
+  <h4 class="accordion-header" id="headingSolution5">
+  How are the different processes (e.g. transmission) formulated in the equations?
+  </h4>
+</button>
+<div id="collapseSolution5" class="accordion-collapse collapse" data-bs-parent="#accordionSolution5" aria-labelledby="headingSolution5">
+<div class="accordion-body">
+<p>There can be subtle differences in model structures for the same
+infection or outbreak type which can be missed without studying the
+equations. For example, transmissibility parameters can be specified as
+rates or probabilities. If you want to use parameter values from other
+published models, you must check that transmission is formulated in the
+same way.</p>
+</div>
+</div>
+</div>
+</div>
+<div id="accordionSolution6" class="accordion challenge-accordion accordion-flush">
+<div class="accordion-item">
+<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution6" aria-expanded="false" aria-controls="collapseSolution6">
+  <h4 class="accordion-header" id="headingSolution6">
+  Will any interventions be modelled?
+  </h4>
+</button>
+<div id="collapseSolution6" class="accordion-collapse collapse" data-bs-parent="#accordionSolution6" aria-labelledby="headingSolution6">
+<div class="accordion-body">
 <p>Finally, interventions such as vaccination may be of interest. A
 model may or may not have the capability to include the impact of
 different interventions on different time scales (continuous time or at
-discrete time points). We will discuss interventions in detail in the
-next tutorial.</p>
+discrete time points). We discuss interventions in detail in the
+tutorial <a href="modelling-interventions.html">Modelling
+interventions</a>.</p>
 </div>
-<div class="section level3">
-<h3 id="available-models">Available models<a class="anchor" aria-label="anchor" href="#available-models"></a>
-</h3>
+</div>
+</div>
+</div>
+</section><section id="available-models-in-epidemics"><h2 class="section-heading">Available models in <code>epidemics</code><a class="anchor" aria-label="anchor" href="#available-models-in-epidemics"></a>
+</h2>
+<hr class="half-width">
 <p>The R package <code>epidemics</code> contains functions to run
 existing models. For details on the models that are available, see the
 package <a href="https://epiverse-trace.github.io/epidemics/articles" class="external-link">vignettes</a>.
 To learn how to run the models in R, read the documentation using
-<code>?epidemics::model_ebola_r</code>. Remember to use the questions in
-the ‘<a href="#check-model-equations">Check model equation</a>’
-checklist to help your understanding of an existing model.</p>
-<div id="check-model-equations" class="callout checklist">
-<div class="callout-square">
-<i class="callout-icon" data-feather="check-square"></i>
-</div>
-<div id="check-model-equations" class="callout-inner">
-<h3 class="callout-title">Check model equations<a class="anchor" aria-label="anchor" href="#check-model-equations"></a>
-</h3>
-<div class="callout-content">
-<ul>
-<li>How is transmission modelled? e.g. direct or indirect, airborne or
-vector-borne</li>
-<li>What interventions are modelled?</li>
-<li>What state variables are there and how do they relate to assumptions
-about infection?</li>
-</ul>
-</div>
-</div>
-</div>
-</div>
-</section><section id="challenge"><h2 class="section-heading">Challenge<a class="anchor" aria-label="anchor" href="#challenge"></a>
-</h2>
-<hr class="half-width">
+<code>?epidemics::model_ebola_r</code>.</p>
 <div id="what-model" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
@@ -1087,7 +1131,7 @@ about infection?</li>
 <h3 class="callout-title">What model?<a class="anchor" aria-label="anchor" href="#what-model"></a>
 </h3>
 <div class="callout-content">
-<p>You have been asked to explore the variation in numbers of infected
+<p>You have been asked to explore the variation in numbers of infectious
 individuals in the early stages of an Ebola outbreak.</p>
 <p>Which of the following models would be an appropriate choice for this
 task:</p>
@@ -1108,12 +1152,12 @@ task:</p>
 <div id="collapseHint1" class="accordion-collapse collapse" data-bs-parent="#accordionHint1" aria-labelledby="headingHint1">
 <div class="accordion-body">
 <p>Consider the following questions:</p>
-<div id="checklist2" class="callout checklist">
+<div id="checklist1" class="callout checklist">
 <div class="callout-square">
 <i class="callout-icon" data-feather="check-square"></i>
 </div>
 <div class="callout-inner">
-<h3 class="callout-title">Checklist<a class="anchor" aria-label="anchor" href="#checklist2"></a>
+<h3 class="callout-title">Checklist<a class="anchor" aria-label="anchor" href="#checklist1"></a>
 </h3>
 <div class="callout-content">
 <ul>
@@ -1129,14 +1173,14 @@ task:</p>
 </div>
 </div>
 </div>
-<div id="accordionSolution1" class="accordion challenge-accordion accordion-flush">
+<div id="accordionSolution7" class="accordion challenge-accordion accordion-flush">
 <div class="accordion-item">
-<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
-  <h4 class="accordion-header" id="headingSolution1">
+<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution7" aria-expanded="false" aria-controls="collapseSolution7">
+  <h4 class="accordion-header" id="headingSolution7">
   SOLUTION
   </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution7" class="accordion-collapse collapse" data-bs-parent="#accordionSolution7" aria-labelledby="headingSolution7">
 <div class="accordion-body">
 <ul>
 <li>What is the infection/disease of interest?
@@ -1167,10 +1211,261 @@ in the early stages of the outbreak.</p>
 </h4>
 <p>A stochastic SEIHFR (Susceptible, Exposed, Infectious, Hospitalised,
 Funeral, Removed) model that was developed specifically for infection
-with Ebola.</p>
-<figure><img src="fig/model-choices-rendered-unnamed-chunk-1-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>As this model is stochastic, it is the most appropriate choice to
+with Ebola. The model has stochasticity in the passage times between
+states, which are modelled as Erlang distributions.</p>
+<p>The key parameters affecting the transition between states are:</p>
+<ul>
+<li>
+<span class="math inline">\(R_0\)</span>, the basic reproduction
+number,</li>
+<li>
+<span class="math inline">\(\rho^I\)</span>, the mean infectious
+period,</li>
+<li>
+<span class="math inline">\(\rho^E\)</span>, the mean preinfectious
+period,</li>
+<li>
+<span class="math inline">\(p_{hosp}\)</span> the probability of
+being transferred to the hospitalised compartment.</li>
+</ul>
+<p><strong>Note: the functional relationship between the preinfectious
+period (<span class="math inline">\(\rho^E\)</span>) and the transition
+rate between exposed and infectious (<span class="math inline">\(\gamma^E\)</span>) is <span class="math inline">\(\rho^E = k^E/\gamma^E\)</span> where <span class="math inline">\(k^E\)</span> is the shape of the Erlang
+distribution. Similarly for the infectious period <span class="math inline">\(\rho^I = k^I/\gamma^I\)</span>. See <a href="https://epiverse-trace.github.io/epidemics/articles/ebola_model.html#details-discrete-time-ebola-virus-disease-model" class="external-link">here</a>
+for more detail on the stochastic model formulation. </strong></p>
+<figure><img src="fig/model-choices-rendered-unnamed-chunk-1-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>The model has additional parameters describing the transmission risk
+in hospital and funeral settings:</p>
+<ul>
+<li>
+<span class="math inline">\(p_{ETU}\)</span>, the proportion of
+hospitalised cases contributing to the infection of susceptibles (ETU =
+Ebola virus treatment units),</li>
+<li>
+<span class="math inline">\(p_{funeral}\)</span>, the proportion of
+funerals at which the risk of transmission is the same as of infectious
+individuals in the community.</li>
+</ul>
+<p>As this model is stochastic, it is the most appropriate choice to
 explore how variation in numbers of infected individuals in the early
 stages of an Ebola outbreak.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section><section id="challenge-ebola-outbreak-analysis"><h2 class="section-heading">Challenge : Ebola outbreak analysis<a class="anchor" aria-label="anchor" href="#challenge-ebola-outbreak-analysis"></a>
+</h2>
+<hr class="half-width">
+<div id="running-the-model" class="callout challenge">
+<div class="callout-square">
+<i class="callout-icon" data-feather="zap"></i>
+</div>
+<div id="running-the-model" class="callout-inner">
+<h3 class="callout-title">Running the model<a class="anchor" aria-label="anchor" href="#running-the-model"></a>
+</h3>
+<div class="callout-content">
+<p>You have been tasked to generate initial trajectories of an Ebola
+outbreak in Guinea. Using <code>model_ebola_r()</code> and the the
+information detailed below, complete the following tasks:</p>
+<ol style="list-style-type: decimal">
+<li>Run the model once and plot the number of infectious individuals
+through time</li>
+<li>Run model 100 times and plot the mean, upper and lower 95% quantiles
+of the number of infectious individuals through time</li>
+</ol>
+<ul>
+<li>Population size : 14 million</li>
+<li>Initial number of exposed individuals : 10</li>
+<li>Initial number of infectious individuals : 5</li>
+<li>Time of simulation : 120 days</li>
+<li>Parameter values :
+<ul>
+<li>
+<span class="math inline">\(R_0\)</span> (<code>r0</code>) =
+1.1,</li>
+<li>
+<span class="math inline">\(p^I\)</span>
+(<code>infectious_period</code>) = 12,</li>
+<li>
+<span class="math inline">\(p^E\)</span>
+(<code>preinfectious_period</code>) = 5,</li>
+<li>
+<span class="math inline">\(k^E=k^I = 2\)</span>,</li>
+<li>
+<span class="math inline">\(1-p_{hosp}\)</span>
+(<code>prop_community</code>) = 0.9,</li>
+<li>
+<span class="math inline">\(p_{ETU}\)</span> (<code>etu_risk</code>)
+= 0.7,</li>
+<li>
+<span class="math inline">\(p_{funeral}\)</span>
+(<code>funeral_risk</code>) = 0.5</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div id="accordionHint2" class="accordion challenge-accordion accordion-flush">
+<div class="accordion-item">
+<button class="accordion-button hint-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseHint2" aria-expanded="false" aria-controls="collapseHint2">
+  <h4 class="accordion-header" id="headingHint2">
+  Code for initial conidtions
+  </h4>
+</button>
+<div id="collapseHint2" class="accordion-collapse collapse" data-bs-parent="#accordionHint2" aria-labelledby="headingHint2">
+<div class="accordion-body">
+<div class="codewrapper sourceCode" id="cb1">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># set population size</span></span>
+<span><span class="va">population_size</span> <span class="op">&lt;-</span> <span class="fl">14e6</span></span>
+<span></span>
+<span><span class="va">E0</span> <span class="op">&lt;-</span> <span class="fl">10</span></span>
+<span><span class="va">I0</span> <span class="op">&lt;-</span> <span class="fl">5</span></span>
+<span><span class="co"># prepare initial conditions as proportions</span></span>
+<span><span class="va">initial_conditions</span> <span class="op">&lt;-</span> <span class="fu">c</span><span class="op">(</span></span>
+<span>  S <span class="op">=</span> <span class="va">population_size</span> <span class="op">-</span> <span class="op">(</span><span class="va">E0</span> <span class="op">+</span> <span class="va">I0</span><span class="op">)</span>, E <span class="op">=</span> <span class="va">E0</span>, I <span class="op">=</span> <span class="va">I0</span>, H <span class="op">=</span> <span class="fl">0</span>, F <span class="op">=</span> <span class="fl">0</span>, R <span class="op">=</span> <span class="fl">0</span></span>
+<span><span class="op">)</span> <span class="op">/</span> <span class="va">population_size</span></span>
+<span></span>
+<span><span class="va">guinea_population</span> <span class="op">&lt;-</span> <span class="fu">population</span><span class="op">(</span></span>
+<span>  name <span class="op">=</span> <span class="st">"Guinea"</span>,</span>
+<span>  contact_matrix <span class="op">=</span> <span class="fu">matrix</span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>, <span class="co"># note dummy value</span></span>
+<span>  demography_vector <span class="op">=</span> <span class="va">population_size</span>, <span class="co"># 14 million, no age groups</span></span>
+<span>  initial_conditions <span class="op">=</span> <span class="fu">matrix</span><span class="op">(</span></span>
+<span>    <span class="va">initial_conditions</span>,</span>
+<span>    nrow <span class="op">=</span> <span class="fl">1</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="accordionHint3" class="accordion challenge-accordion accordion-flush">
+<div class="accordion-item">
+<button class="accordion-button hint-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseHint3" aria-expanded="false" aria-controls="collapseHint3">
+  <h4 class="accordion-header" id="headingHint3">
+  HINT : Multiple model simulations
+  </h4>
+</button>
+<div id="collapseHint3" class="accordion-collapse collapse" data-bs-parent="#accordionHint3" aria-labelledby="headingHint3">
+<div class="accordion-body">
+<p>Adapt the code from the <a href="simulating-transmission.html#accounting-for-uncertainty">accounting
+for uncertainty</a> section</p>
+</div>
+</div>
+</div>
+</div>
+<div id="accordionSolution8" class="accordion challenge-accordion accordion-flush">
+<div class="accordion-item">
+<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution8" aria-expanded="false" aria-controls="collapseSolution8">
+  <h4 class="accordion-header" id="headingSolution8">
+  SOLUTION
+  </h4>
+</button>
+<div id="collapseSolution8" class="accordion-collapse collapse" data-bs-parent="#accordionSolution8" aria-labelledby="headingSolution8">
+<div class="accordion-body">
+<ol style="list-style-type: decimal">
+<li>Run the model once and plot the number of infectious individuals
+through time</li>
+</ol>
+<div class="codewrapper sourceCode" id="cb2">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">output</span> <span class="op">&lt;-</span> <span class="fu">model_ebola_r</span><span class="op">(</span></span>
+<span>  population <span class="op">=</span> <span class="va">guinea_population</span>,</span>
+<span>  transmissibility <span class="op">=</span> <span class="fl">1.1</span> <span class="op">/</span> <span class="fl">12</span>,</span>
+<span>  infectiousness_rate <span class="op">=</span> <span class="fl">2.0</span> <span class="op">/</span> <span class="fl">5</span>,</span>
+<span>  removal_rate <span class="op">=</span> <span class="fl">2.0</span> <span class="op">/</span> <span class="fl">12</span>,</span>
+<span>  prop_community <span class="op">=</span> <span class="fl">0.9</span>,</span>
+<span>  etu_risk <span class="op">=</span> <span class="fl">0.7</span>,</span>
+<span>  funeral_risk <span class="op">=</span> <span class="fl">0.5</span>,</span>
+<span>  time_end <span class="op">=</span> <span class="fl">100</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">ggplot</span><span class="op">(</span><span class="va">output</span><span class="op">[</span><span class="va">output</span><span class="op">$</span><span class="va">compartment</span> <span class="op">==</span> <span class="st">"infectious"</span>, <span class="op">]</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_line</span><span class="op">(</span></span>
+<span>    <span class="fu">aes</span><span class="op">(</span><span class="va">time</span>, <span class="va">value</span><span class="op">)</span>,</span>
+<span>    linewidth <span class="op">=</span> <span class="fl">1.2</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">scale_y_continuous</span><span class="op">(</span></span>
+<span>    labels <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="va">comma</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">labs</span><span class="op">(</span></span>
+<span>    x <span class="op">=</span> <span class="st">"Simulation time (days)"</span>,</span>
+<span>    y <span class="op">=</span> <span class="st">"Individuals"</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">theme_bw</span><span class="op">(</span></span>
+<span>    base_size <span class="op">=</span> <span class="fl">15</span></span>
+<span>  <span class="op">)</span></span></code></pre>
+</div>
+<figure><img src="fig/model-choices-rendered-unnamed-chunk-3-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><ol start="2" style="list-style-type: decimal">
+<li>Run model 100 times and plot the mean, upper and lower 95% quantiles
+of the number of infectious individuals through time</li>
+</ol>
+<p>We run the model 100 times with the <em>same</em> parameter
+values.</p>
+<div class="codewrapper sourceCode" id="cb3">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">output_samples</span> <span class="op">&lt;-</span> <span class="fu">Map</span><span class="op">(</span></span>
+<span>  x <span class="op">=</span> <span class="fu">seq</span><span class="op">(</span><span class="fl">100</span><span class="op">)</span>,</span>
+<span>  f <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="va">output</span> <span class="op">&lt;-</span> <span class="fu">model_ebola_r</span><span class="op">(</span></span>
+<span>      population <span class="op">=</span> <span class="va">guinea_population</span>,</span>
+<span>      transmissibility <span class="op">=</span> <span class="fl">1.1</span> <span class="op">/</span> <span class="fl">12</span>,</span>
+<span>      infectiousness_rate <span class="op">=</span> <span class="fl">2.0</span> <span class="op">/</span> <span class="fl">5</span>,</span>
+<span>      removal_rate <span class="op">=</span> <span class="fl">2.0</span> <span class="op">/</span> <span class="fl">12</span>,</span>
+<span>      prop_community <span class="op">=</span> <span class="fl">0.9</span>,</span>
+<span>      etu_risk <span class="op">=</span> <span class="fl">0.7</span>,</span>
+<span>      funeral_risk <span class="op">=</span> <span class="fl">0.5</span>,</span>
+<span>      time_end <span class="op">=</span> <span class="fl">100</span></span>
+<span>    <span class="op">)</span></span>
+<span>    <span class="co"># add replicate number and return data</span></span>
+<span>    <span class="va">output</span><span class="op">$</span><span class="va">replicate</span> <span class="op">&lt;-</span> <span class="va">x</span></span>
+<span>    <span class="va">output</span></span>
+<span>  <span class="op">}</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">output_samples</span> <span class="op">&lt;-</span> <span class="fu">bind_rows</span><span class="op">(</span><span class="va">output_samples</span><span class="op">)</span> <span class="co"># requires the tidyverse package</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error in bind_rows(output_samples): could not find function "bind_rows"</code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb5">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span><span class="va">output_samples</span><span class="op">[</span><span class="va">output_samples</span><span class="op">$</span><span class="va">compartment</span> <span class="op">==</span> <span class="st">"infectious"</span>, <span class="op">]</span>, <span class="fu">aes</span><span class="op">(</span><span class="va">time</span>, <span class="va">value</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">stat_summary</span><span class="op">(</span>geom <span class="op">=</span> <span class="st">"line"</span>, fun <span class="op">=</span> <span class="va">mean</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">stat_summary</span><span class="op">(</span></span>
+<span>    geom <span class="op">=</span> <span class="st">"ribbon"</span>,</span>
+<span>    fun.min <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">z</span><span class="op">)</span> <span class="op">{</span></span>
+<span>      <span class="fu">quantile</span><span class="op">(</span><span class="va">z</span>, <span class="fl">0.025</span><span class="op">)</span></span>
+<span>    <span class="op">}</span>,</span>
+<span>    fun.max <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">z</span><span class="op">)</span> <span class="op">{</span></span>
+<span>      <span class="fu">quantile</span><span class="op">(</span><span class="va">z</span>, <span class="fl">0.975</span><span class="op">)</span></span>
+<span>    <span class="op">}</span>,</span>
+<span>    alpha <span class="op">=</span> <span class="fl">0.3</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">labs</span><span class="op">(</span></span>
+<span>    x <span class="op">=</span> <span class="st">"Simulation time (days)"</span>,</span>
+<span>    y <span class="op">=</span> <span class="st">"Individuals"</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">theme_bw</span><span class="op">(</span></span>
+<span>    base_size <span class="op">=</span> <span class="fl">15</span></span>
+<span>  <span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error in output_samples[output_samples$compartment == "infectious", ]: incorrect number of dimensions</code></pre>
 </div>
 </div>
 </div>
@@ -1185,9 +1480,10 @@ stages of an Ebola outbreak.</p>
 </h3>
 <div class="callout-content">
 <ul>
-<li>Existing models can be used for new questions</li>
-<li>Check that a model has appropriate assumptions about transmission,
-outbreak potential, outcomes and interventions</li>
+<li>Existing mathematical models should be selected according to the
+research question</li>
+<li>It is important to check that a model has appropriate assumptions
+about transmission, outbreak potential, outcomes and interventions</li>
 </ul>
 </div>
 </div>
@@ -1198,7 +1494,7 @@ any links that you are not going to use.
  -->
 </section></section><section id="aio-modelling-interventions"><p>Content from <a href="modelling-interventions.html">Modelling interventions</a></p>
 <hr>
-<p> Last updated on 2023-12-20 | 
+<p> Last updated on 2023-12-21 | 
         
         <a href="https://github.com/epiverse-trace/tutorials/edit/main/episodes/modelling-interventions.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <div class="text-end">
@@ -1223,8 +1519,8 @@ trajectories?</li>
 <div class="inner bordered">
 <h3 class="card-title">Objectives</h3>
 <ul>
-<li>Learn how to implement pharmaceutical and non-pharmaceutical
-interventions</li>
+<li>Add pharmaceutical and non-pharmaceutical interventions to an
+{epidemics} model</li>
 </ul>
 </div>
 </div>
@@ -1244,7 +1540,8 @@ interventions</li>
 transmission</a>
 </li>
 </ul>
-<p>This tutorial has the following concept dependencies:</p>
+<p>Learners should familiarise themselves with following concept
+dependencies before working through this tutorial:</p>
 <p><strong>Outbreak response</strong> : <a href="https://www.cdc.gov/nonpharmaceutical-interventions/" class="external-link">Intervention
 types</a>.</p>
 </div>
@@ -1253,41 +1550,122 @@ types</a>.</p>
 <section id="introduction"><h2 class="section-heading">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
 </h2>
 <hr class="half-width">
-<p>Mathematical models can be used to generate predictions for the
-implementation of non-pharmaceutical and pharmaceutical interventions at
-different stages of an outbreak. In this tutorial, we will introduce how
-to include different interventions in models.</p>
+<p>Mathematical models can be used to generate trajectories of disease
+spread under the implementation of interventions at different stages of
+an outbreak. These predictions can be used to make decisions on what
+interventions could be implemented to slow down the spread of
+diseases.</p>
+<p>We can assume interventions in mathematical models reduce the values
+of relevant parameters e.g. reduce transmissibility while in place. Or
+it may be appropriate to assume individuals are classified into a new
+disease state, e.g. once vaccinated we assume individuals are no longer
+susceptible to infection and therefore move to a vaccinated state. In
+this tutorial, we will introduce how to include three different
+interventions in model of COVID-19 transmission.</p>
 
 </section><section id="non-pharmaceutical-interventions"><h2 class="section-heading">Non-pharmaceutical interventions<a class="anchor" aria-label="anchor" href="#non-pharmaceutical-interventions"></a>
 </h2>
 <hr class="half-width">
-<p>Non-pharmaceutical interventions (NPIs) are measures put in place to
-reduce transmission that do not include taking medicine or vaccines.
-NPIs aim reduce contact between infectious and susceptible individuals.
-For example, washing hands, wearing masks and closures of school and
-workplaces.</p>
-<p>In mathematical modelling, we must make assumptions about how NPIs
-will affect transmission. This may include adding additional disease
-states or reducing the value of relevant parameters.</p>
-<div class="section level4">
-<h4 id="effect-of-school-closures-on-covid-19-spread">Effect of school closures on COVID-19 spread<a class="anchor" aria-label="anchor" href="#effect-of-school-closures-on-covid-19-spread"></a>
-</h4>
-<p>We want to investigate the effect of school closures on reducing the
-number of individuals infectious with COVID-19 through time. We assume
-that a school closure will reduce the frequency of contacts within and
-between different age groups.</p>
-<p>Using an SEIR model (<code>model_default_cpp()</code> in the R
-package <code>{epidemics}</code>) we set <span class="math inline">\(R_0
-= 2.7\)</span>, preinfectious period <span class="math inline">\(=
-4\)</span> and the infectious_period <span class="math inline">\(=
-5.5\)</span> (parameters adapted from <a href="https://doi.org/10.1016/S2468-2667(20)30133-X" class="external-link">Davies et
+<p><a href="reference.html#NPIs">Non-pharmaceutical interventions</a>
+(NPIs) are measures put in place to reduce transmission that do not
+include the administration of drugs or vaccinations. NPIs aim reduce
+contact between infectious and susceptible individuals. For example,
+washing hands, wearing masks and closures of school and workplaces.</p>
+<p>We will investigate the effect of interventions on a COVID-19
+outbreak using an SEIR model (<code>model_default_cpp()</code> in the R
+package <code>{epidemics}</code>). We will set <span class="math inline">\(R_0 = 2.7\)</span>, latent period or preinfectious
+period <span class="math inline">\(= 4\)</span> and the
+infectious_period <span class="math inline">\(= 5.5\)</span> (parameters
+adapted from <a href="https://doi.org/10.1016/S2468-2667(20)30133-X" class="external-link">Davies et
 al. (2020)</a>). We load a contact matrix with age bins 0-18, 18-65, 65
 years and older using <a href="https://github.com/epiforecasts/socialmixr" class="external-link">socialmixr</a> and assume that one in
 every 1 million in each age group is infectious at the start of the
 epidemic.</p>
-<p>We will assume that school closures will reduce the contacts between
-school aged children (aged 0-15) by 0.5, and will cause a small
-reduction (0.01) in the contacts between adults (aged 15 and over).</p>
+<div class="codewrapper sourceCode" id="cb1">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">polymod</span> <span class="op">&lt;-</span> <span class="fu">socialmixr</span><span class="fu">::</span><span class="va">polymod</span></span>
+<span><span class="va">contact_data</span> <span class="op">&lt;-</span> <span class="fu">socialmixr</span><span class="fu">::</span><span class="fu">contact_matrix</span><span class="op">(</span></span>
+<span>  <span class="va">polymod</span>,</span>
+<span>  countries <span class="op">=</span> <span class="st">"United Kingdom"</span>,</span>
+<span>  age.limits <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="fl">0</span>, <span class="fl">15</span>, <span class="fl">65</span><span class="op">)</span>,</span>
+<span>  symmetric <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># prepare contact matrix</span></span>
+<span><span class="va">contact_matrix</span> <span class="op">&lt;-</span> <span class="fu">t</span><span class="op">(</span><span class="va">contact_data</span><span class="op">$</span><span class="va">matrix</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># prepare the demography vector</span></span>
+<span><span class="va">demography_vector</span> <span class="op">&lt;-</span> <span class="va">contact_data</span><span class="op">$</span><span class="va">demography</span><span class="op">$</span><span class="va">population</span></span>
+<span><span class="fu">names</span><span class="op">(</span><span class="va">demography_vector</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu">rownames</span><span class="op">(</span><span class="va">contact_matrix</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># initial conditions: one in every 1 million is infected</span></span>
+<span><span class="va">initial_i</span> <span class="op">&lt;-</span> <span class="fl">1e-6</span></span>
+<span><span class="va">initial_conditions</span> <span class="op">&lt;-</span> <span class="fu">c</span><span class="op">(</span></span>
+<span>  S <span class="op">=</span> <span class="fl">1</span> <span class="op">-</span> <span class="va">initial_i</span>, E <span class="op">=</span> <span class="fl">0</span>, I <span class="op">=</span> <span class="va">initial_i</span>, R <span class="op">=</span> <span class="fl">0</span>, V <span class="op">=</span> <span class="fl">0</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># build for all age groups</span></span>
+<span><span class="va">initial_conditions</span> <span class="op">&lt;-</span> <span class="fu">matrix</span><span class="op">(</span></span>
+<span>  <span class="fu">rep</span><span class="op">(</span><span class="va">initial_conditions</span>, <span class="fu">dim</span><span class="op">(</span><span class="va">contact_matrix</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span>,</span>
+<span>  ncol <span class="op">=</span> <span class="fl">5</span>, byrow <span class="op">=</span> <span class="cn">T</span>,</span>
+<span><span class="op">)</span></span>
+<span><span class="fu">rownames</span><span class="op">(</span><span class="va">initial_conditions</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu">rownames</span><span class="op">(</span><span class="va">contact_matrix</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># prepare the population to model as affected by the epidemic</span></span>
+<span><span class="va">uk_population</span> <span class="op">&lt;-</span> <span class="fu">population</span><span class="op">(</span></span>
+<span>  name <span class="op">=</span> <span class="st">"UK"</span>,</span>
+<span>  contact_matrix <span class="op">=</span> <span class="va">contact_matrix</span>,</span>
+<span>  demography_vector <span class="op">=</span> <span class="va">demography_vector</span>,</span>
+<span>  initial_conditions <span class="op">=</span> <span class="va">initial_conditions</span></span>
+<span><span class="op">)</span></span></code></pre>
+</div>
+<div class="section level4">
+<h4 id="effect-of-school-closures-on-covid-19-spread">Effect of school closures on COVID-19 spread<a class="anchor" aria-label="anchor" href="#effect-of-school-closures-on-covid-19-spread"></a>
+</h4>
+<p>The first NPI we will consider is the effect of school closures on
+reducing the number of individuals infectious with COVID-19 through
+time. We assume that a school closure will reduce the frequency of
+contacts within and between different age groups. We assume that school
+closures will reduce the contacts between school aged children (aged
+0-15) by 0.5, and will cause a small reduction (0.01) in the contacts
+between adults (aged 15 and over).</p>
+<p>To include an intervention in our model we must create an
+<code>intervention</code> object. The inputs are the name of the
+intervention (<code>name</code>), the type of intervention
+(<code>contacts</code> or <code>rate</code>), the start time
+(<code>time_begin</code>), the end time (<code>time_end</code>) and the
+reduction (<code>reduction</code>). The values of the reduction matrix
+are specified in the same order as the age groups in the contact
+matrix.</p>
+<div class="codewrapper sourceCode" id="cb2">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">rownames</span><span class="op">(</span><span class="va">contact_matrix</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>[1] "[0,15)"  "[15,65)" "65+"    </code></pre>
+</div>
+<p>Therefore, we specify
+<code>reduction = matrix(c(0.5, 0.01, 0.01))</code>. We assume that the
+school closures start on day 50 and are in place for a further 100 days.
+Therefore our intervention object is :</p>
+<div class="codewrapper sourceCode" id="cb4">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">close_schools</span> <span class="op">&lt;-</span> <span class="fu">intervention</span><span class="op">(</span></span>
+<span>  name <span class="op">=</span> <span class="st">"School closure"</span>,</span>
+<span>  type <span class="op">=</span> <span class="st">"contacts"</span>,</span>
+<span>  time_begin <span class="op">=</span> <span class="fl">50</span>,</span>
+<span>  time_end <span class="op">=</span> <span class="fl">50</span> <span class="op">+</span> <span class="fl">100</span>,</span>
+<span>  reduction <span class="op">=</span> <span class="fu">matrix</span><span class="op">(</span><span class="fu">c</span><span class="op">(</span><span class="fl">0.5</span>, <span class="fl">0.01</span>, <span class="fl">0.01</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre>
+</div>
 <div id="effect-of-interventions-on-contacts" class="callout callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
@@ -1296,9 +1674,11 @@ reduction (0.01) in the contacts between adults (aged 15 and over).</p>
 <h3 class="callout-title">Effect of interventions on contacts<a class="anchor" aria-label="anchor" href="#effect-of-interventions-on-contacts"></a>
 </h3>
 <div class="callout-content">
-<p>The contact matrix is scaled down by proportions for the period in
-which the intervention is in place. To explain the reduction, consider a
-contact matrix for two age groups with equal number of contacts:</p>
+<p>In <code>epidemics</code>, the contact matrix is scaled down by
+proportions for the period in which the intervention is in place. To
+understand how the reduction is calculated within the model functions,
+consider a contact matrix for two age groups with equal number of
+contacts:</p>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -1324,74 +1704,93 @@ contacts between group 1 and group 2 are reduced by 50% and then by 10%
 </div>
 </div>
 </div>
-<p>To include an intervention in our model we must create an
-<code>intervention</code> object. The inputs are the name of the
-intervention (<code>name</code>), the type of intervention
-(<code>contacts</code> or <code>rate</code>), the start time
-(<code>time_begin</code>), the end time (<code>time_end</code>) and the
-reduction (<code>reduction</code>). The values of the reduction matrix
-are specified in the same order as the age groups in the contact
-matrix.</p>
-<div class="codewrapper sourceCode" id="cb3">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">rownames</span><span class="op">(</span><span class="va">contact_matrix</span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="output" tabindex="0"><code>[1] "[0,15)"  "[15,65)" "65+"    </code></pre>
-</div>
-<p>Therefore, we specify
-<code>reduction = matrix(c(0.5, 0.01, 0.01))</code>. We assume that the
-school closures start on day 50 and are in place for a further 100 days.
-Therefore our intervention object is :</p>
-<div class="codewrapper sourceCode" id="cb5">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">close_schools</span> <span class="op">&lt;-</span> <span class="fu">intervention</span><span class="op">(</span></span>
-<span>  name <span class="op">=</span> <span class="st">"School closure"</span>,</span>
-<span>  type <span class="op">=</span> <span class="st">"contacts"</span>,</span>
-<span>  time_begin <span class="op">=</span> <span class="fl">50</span>,</span>
-<span>  time_end <span class="op">=</span> <span class="fl">50</span> <span class="op">+</span> <span class="fl">100</span>,</span>
-<span>  reduction <span class="op">=</span> <span class="fu">matrix</span><span class="op">(</span><span class="fu">c</span><span class="op">(</span><span class="fl">0.5</span>, <span class="fl">0.01</span>, <span class="fl">0.01</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in model_default_cpp(population = uk_population, infection = covid, : could not find function "model_default_cpp"</code></pre>
-</div>
-<p>To run the model with an intervention we set
-<code>intervention = list(contacts = close_schools)</code> as
-follows:</p>
+<p>Using transmissibility <span class="math inline">\(= 2.7/5.5\)</span>
+(remember that <a href="simulating-transmission.html#the-basic-reproduction-number-r_0">transmissibility
+= <span class="math inline">\(R_0\)</span>/ infectious period</a>),
+infectiousness rate <span class="math inline">\(1/= 4\)</span> and the
+recovery rate <span class="math inline">\(= 1/5.5\)</span> we run the
+model with<code>intervention = list(contacts = close_schools)</code> as
+follows :</p>
 <div class="codewrapper sourceCode" id="cb7">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">output_school</span> <span class="op">&lt;-</span> <span class="fu">model_default_cpp</span><span class="op">(</span></span>
 <span>  population <span class="op">=</span> <span class="va">uk_population</span>,</span>
-<span>  infection <span class="op">=</span> <span class="va">covid</span>,</span>
+<span>  transmissibility <span class="op">=</span> <span class="fl">2.7</span> <span class="op">/</span> <span class="fl">5.5</span>,</span>
+<span>  infectiousness_rate <span class="op">=</span> <span class="fl">1.0</span> <span class="op">/</span> <span class="fl">4.0</span>,</span>
+<span>  recovery_rate <span class="op">=</span> <span class="fl">1.0</span> <span class="op">/</span> <span class="fl">5.5</span>,</span>
 <span>  intervention <span class="op">=</span> <span class="fu">list</span><span class="op">(</span>contacts <span class="op">=</span> <span class="va">close_schools</span><span class="op">)</span>,</span>
 <span>  time_end <span class="op">=</span> <span class="fl">300</span>, increment <span class="op">=</span> <span class="fl">1.0</span></span>
 <span><span class="op">)</span></span></code></pre>
 </div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+<p>To be able to see the effect of our intervention, we also run the
+model where there is no intervention, combine the two outputs into one
+data frame and then plot the output. Here we plot the total number of
+infectious individuals in all age groups using
+<code>ggplot2::stat_summary()</code>:</p>
+<div class="codewrapper sourceCode" id="cb8">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="error" tabindex="0"><code>Error in model_default_cpp(population = uk_population, infection = covid, : could not find function "model_default_cpp"</code></pre>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># run baseline simulation with no intervention</span></span>
+<span><span class="va">output_baseline</span> <span class="op">&lt;-</span> <span class="fu">model_default_cpp</span><span class="op">(</span></span>
+<span>  population <span class="op">=</span> <span class="va">uk_population</span>,</span>
+<span>  transmissibility <span class="op">=</span> <span class="fl">2.7</span> <span class="op">/</span> <span class="fl">5.5</span>,</span>
+<span>  infectiousness_rate <span class="op">=</span> <span class="fl">1.0</span> <span class="op">/</span> <span class="fl">4.0</span>,</span>
+<span>  recovery_rate <span class="op">=</span> <span class="fl">1.0</span> <span class="op">/</span> <span class="fl">5.5</span>,</span>
+<span>  time_end <span class="op">=</span> <span class="fl">300</span>, increment <span class="op">=</span> <span class="fl">1.0</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># create intervention_type column for plotting</span></span>
+<span><span class="va">output_school</span><span class="op">$</span><span class="va">intervention_type</span> <span class="op">&lt;-</span> <span class="st">"school closure"</span></span>
+<span><span class="va">output_baseline</span><span class="op">$</span><span class="va">intervention_type</span> <span class="op">&lt;-</span> <span class="st">"baseline"</span></span>
+<span><span class="va">output</span> <span class="op">&lt;-</span> <span class="fu">rbind</span><span class="op">(</span><span class="va">output_school</span>, <span class="va">output_baseline</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">output</span><span class="op">[</span><span class="va">output</span><span class="op">$</span><span class="va">compartment</span> <span class="op">==</span> <span class="st">"infectious"</span>, <span class="op">]</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">aes</span><span class="op">(</span></span>
+<span>    x <span class="op">=</span> <span class="va">time</span>,</span>
+<span>    y <span class="op">=</span> <span class="va">value</span>,</span>
+<span>    color <span class="op">=</span> <span class="va">intervention_type</span>,</span>
+<span>    linetype <span class="op">=</span> <span class="va">intervention_type</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">stat_summary</span><span class="op">(</span></span>
+<span>    fun <span class="op">=</span> <span class="st">"sum"</span>,</span>
+<span>    geom <span class="op">=</span> <span class="st">"line"</span>,</span>
+<span>    linewidth <span class="op">=</span> <span class="fl">1</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">scale_y_continuous</span><span class="op">(</span></span>
+<span>    labels <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="va">comma</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">labs</span><span class="op">(</span></span>
+<span>    x <span class="op">=</span> <span class="st">"Simulation time (days)"</span>,</span>
+<span>    y <span class="op">=</span> <span class="st">"Individuals"</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">theme_bw</span><span class="op">(</span></span>
+<span>    base_size <span class="op">=</span> <span class="fl">15</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_vline</span><span class="op">(</span></span>
+<span>    xintercept <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="va">close_schools</span><span class="op">$</span><span class="va">time_begin</span>, <span class="va">close_schools</span><span class="op">$</span><span class="va">time_end</span><span class="op">)</span>,</span>
+<span>    colour <span class="op">=</span> <span class="st">"black"</span>,</span>
+<span>    linetype <span class="op">=</span> <span class="st">"dashed"</span>,</span>
+<span>    linewidth <span class="op">=</span> <span class="fl">0.2</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">annotate</span><span class="op">(</span></span>
+<span>    geom <span class="op">=</span> <span class="st">"text"</span>,</span>
+<span>    label <span class="op">=</span> <span class="st">"Schools closed"</span>,</span>
+<span>    colour <span class="op">=</span> <span class="st">"black"</span>,</span>
+<span>    x <span class="op">=</span> <span class="op">(</span><span class="va">close_schools</span><span class="op">$</span><span class="va">time_end</span> <span class="op">-</span> <span class="va">close_schools</span><span class="op">$</span><span class="va">time_begin</span><span class="op">)</span> <span class="op">/</span> <span class="fl">2</span> <span class="op">+</span></span>
+<span>      <span class="va">close_schools</span><span class="op">$</span><span class="va">time_begin</span>,</span>
+<span>    y <span class="op">=</span> <span class="fl">10</span>,</span>
+<span>    angle <span class="op">=</span> <span class="fl">0</span>,</span>
+<span>    vjust <span class="op">=</span> <span class="st">"outward"</span></span>
+<span>  <span class="op">)</span></span></code></pre>
 </div>
-<p>We see that with the intervention (solid line) in place, the
-infection still spreads through the population, though the epidemic peak
-is smaller than the baseline with no intervention in place (dashed
+<p><img src="fig/modelling-interventions-rendered-baseline-1.png" style="display: block; margin: auto;" class="figure">
+We see that with the intervention in place, the infection still spreads
+through the population, though the peak number of infectious individuals
+is smaller than the baseline with no intervention in place (solid
 line).</p>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'output_school' not found</code></pre>
-</div>
 </div>
 <div class="section level4">
 <h4 id="effect-of-mask-wearing-on-covid-19-spread">Effect of mask wearing on COVID-19 spread<a class="anchor" aria-label="anchor" href="#effect-of-mask-wearing-on-covid-19-spread"></a>
@@ -1402,7 +1801,7 @@ mask wearing on the number of individuals infectious with COVID-19
 through time.</p>
 <p>We expect that mask wearing will reduce an individual’s
 infectiousness. As we are using a population based model, we cannot make
-changes to individual behaviour and so assume that the transmission rate
+changes to individual behaviour and so assume that the transmissibility
 <span class="math inline">\(\beta\)</span> is reduced by a proportion
 due to mask wearing in the population. We specify this proportion, <span class="math inline">\(\theta\)</span> as product of the proportion
 wearing masks multiplied by the proportion reduction in transmissibility
@@ -1414,7 +1813,7 @@ we have proportion wearing masks = coverage <span class="math inline">\(\times\)
 reduction in transmissibility = <span class="math inline">\(0.575\)</span>. Therefore, <span class="math inline">\(\theta = 0.2835 \times 0.575 = 0.163\)</span>. We
 assume that the mask wearing mandate starts at day 40 and is in place
 for 200 days.</p>
-<div class="codewrapper sourceCode" id="cb10">
+<div class="codewrapper sourceCode" id="cb9">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1428,36 +1827,106 @@ for 200 days.</p>
 </div>
 <p>To implement this intervention on the parameter <span class="math inline">\(\beta\)</span>, we specify
 <code>intervention = list(beta = mask_mandate)</code>.</p>
-<div class="codewrapper sourceCode" id="cb11">
+<div class="codewrapper sourceCode" id="cb10">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">output_masks</span> <span class="op">&lt;-</span> <span class="fu">model_default_cpp</span><span class="op">(</span></span>
 <span>  population <span class="op">=</span> <span class="va">uk_population</span>,</span>
-<span>  infection <span class="op">=</span> <span class="va">covid</span>,</span>
-<span>  intervention <span class="op">=</span> <span class="fu">list</span><span class="op">(</span>beta <span class="op">=</span> <span class="va">mask_mandate</span><span class="op">)</span>,</span>
+<span>  transmissibility <span class="op">=</span> <span class="fl">2.7</span> <span class="op">/</span> <span class="fl">5.5</span>,</span>
+<span>  infectiousness_rate <span class="op">=</span> <span class="fl">1.0</span> <span class="op">/</span> <span class="fl">4.0</span>,</span>
+<span>  recovery_rate <span class="op">=</span> <span class="fl">1.0</span> <span class="op">/</span> <span class="fl">5.5</span>,</span>
+<span>  intervention <span class="op">=</span> <span class="fu">list</span><span class="op">(</span>transmissibility <span class="op">=</span> <span class="va">mask_mandate</span><span class="op">)</span>,</span>
 <span>  time_end <span class="op">=</span> <span class="fl">300</span>, increment <span class="op">=</span> <span class="fl">1.0</span></span>
 <span><span class="op">)</span></span></code></pre>
 </div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+<div class="codewrapper sourceCode" id="cb11">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="error" tabindex="0"><code>Error in model_default_cpp(population = uk_population, infection = covid, : could not find function "model_default_cpp"</code></pre>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># create intervention_type column for plotting</span></span>
+<span><span class="va">output_masks</span><span class="op">$</span><span class="va">intervention_type</span> <span class="op">&lt;-</span> <span class="st">"mask mandate"</span></span>
+<span><span class="va">output_baseline</span><span class="op">$</span><span class="va">intervention_type</span> <span class="op">&lt;-</span> <span class="st">"baseline"</span></span>
+<span><span class="va">output</span> <span class="op">&lt;-</span> <span class="fu">rbind</span><span class="op">(</span><span class="va">output_masks</span>, <span class="va">output_baseline</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">output</span><span class="op">[</span><span class="va">output</span><span class="op">$</span><span class="va">compartment</span> <span class="op">==</span> <span class="st">"infectious"</span>, <span class="op">]</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">aes</span><span class="op">(</span></span>
+<span>    x <span class="op">=</span> <span class="va">time</span>,</span>
+<span>    y <span class="op">=</span> <span class="va">value</span>,</span>
+<span>    color <span class="op">=</span> <span class="va">intervention_type</span>,</span>
+<span>    linetype <span class="op">=</span> <span class="va">intervention_type</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">stat_summary</span><span class="op">(</span></span>
+<span>    fun <span class="op">=</span> <span class="st">"sum"</span>,</span>
+<span>    geom <span class="op">=</span> <span class="st">"line"</span>,</span>
+<span>    linewidth <span class="op">=</span> <span class="fl">1</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">scale_y_continuous</span><span class="op">(</span></span>
+<span>    labels <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="va">comma</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">labs</span><span class="op">(</span></span>
+<span>    x <span class="op">=</span> <span class="st">"Simulation time (days)"</span>,</span>
+<span>    y <span class="op">=</span> <span class="st">"Individuals"</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">theme_bw</span><span class="op">(</span></span>
+<span>    base_size <span class="op">=</span> <span class="fl">15</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_vline</span><span class="op">(</span></span>
+<span>    xintercept <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="va">mask_mandate</span><span class="op">$</span><span class="va">time_begin</span>, <span class="va">mask_mandate</span><span class="op">$</span><span class="va">time_end</span><span class="op">)</span>,</span>
+<span>    colour <span class="op">=</span> <span class="st">"black"</span>,</span>
+<span>    linetype <span class="op">=</span> <span class="st">"dashed"</span>,</span>
+<span>    linewidth <span class="op">=</span> <span class="fl">0.2</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">annotate</span><span class="op">(</span></span>
+<span>    geom <span class="op">=</span> <span class="st">"text"</span>,</span>
+<span>    label <span class="op">=</span> <span class="st">"Mask mandate"</span>,</span>
+<span>    colour <span class="op">=</span> <span class="st">"black"</span>,</span>
+<span>    x <span class="op">=</span> <span class="op">(</span><span class="va">mask_mandate</span><span class="op">$</span><span class="va">time_end</span> <span class="op">-</span> <span class="va">mask_mandate</span><span class="op">$</span><span class="va">time_begin</span><span class="op">)</span> <span class="op">/</span> <span class="fl">2</span> <span class="op">+</span></span>
+<span>      <span class="va">mask_mandate</span><span class="op">$</span><span class="va">time_begin</span>,</span>
+<span>    y <span class="op">=</span> <span class="fl">10</span>,</span>
+<span>    angle <span class="op">=</span> <span class="fl">0</span>,</span>
+<span>    vjust <span class="op">=</span> <span class="st">"outward"</span></span>
+<span>  <span class="op">)</span></span></code></pre>
 </div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+<figure><img src="fig/modelling-interventions-rendered-plot_masks-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div id="intervention-types" class="callout callout">
+<div class="callout-square">
+<i class="callout-icon" data-feather="bell"></i>
+</div>
+<div id="intervention-types" class="callout-inner">
+<h3 class="callout-title">Intervention types<a class="anchor" aria-label="anchor" href="#intervention-types"></a>
 </h3>
-<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'output_masks' not found</code></pre>
+<div class="callout-content">
+<p>There are two intervention types for
+<code>model_default_cpp()</code>. Rate interventions on model parameters
+(<code>transmissibillity</code> <span class="math inline">\(\beta\)</span>, <code>infectiousness_rate</code>
+<span class="math inline">\(\sigma\)</span> and
+<code>recovery_rate</code> <span class="math inline">\(\gamma\)</span>)
+and contact matrix reductions <code>contacts</code>.</p>
+<p>To implement both contact and rate interventions in the same
+simulation they must be passed as a list
+e.g. <code>intervention = list(transmissibility = mask_mandate, contacts = close_schools)</code>.
+But if there are multiple interventions that target contact rates, these
+must be passed as one <code>contacts</code> input. See the <a href="https://epiverse-trace.github.io/epidemics/articles/multiple_interventions.html" class="external-link">vignette
+on modelling overlapping interventions</a> for more detail.</p>
+</div>
+</div>
 </div>
 </div>
 </section><section id="pharmaceutical-interventions"><h2 class="section-heading">Pharmaceutical interventions<a class="anchor" aria-label="anchor" href="#pharmaceutical-interventions"></a>
 </h2>
 <hr class="half-width">
-<p>Models can be used to investigate the effect of pharmaceutical
-interventions, such as vaccination. In this case, it is useful to add
-another disease state to track the number of vaccinated individuals
-through time. The diagram below shows an SEIRV model where susceptible
-individuals are vaccinated and then move to the <span class="math inline">\(V\)</span> class.</p>
+<p>Pharmaceutical interventions (PIs) are measures such as vaccination
+and mass treatment programs. In the previous section, we assumed that
+interventions reduced the value of parameter values while the
+intervention was in place. In the case of vaccination, we assume that
+after the intervention individuals are no longer susceptible and should
+be classified into a different disease state. Therefore, we specify the
+rate at which individuals are vaccinated and track the number of
+vaccinated individuals through time.</p>
+<p>The diagram below shows the SEIRV model implemented using
+<code>model_default_cpp()</code> where susceptible individuals are
+vaccinated and then move to the <span class="math inline">\(V\)</span>
+class.</p>
 <figure><img src="fig/modelling-interventions-rendered-diagram_SEIRV-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>The equations describing this model are as follows:</p>
 <p><span class="math display">\[
 \begin{aligned}
@@ -1467,16 +1936,18 @@ individuals are vaccinated and then move to the <span class="math inline">\(V\)<
 \frac{dR_i}{dt} &amp;=\gamma I_i \\
 \frac{dV_i}{dt} &amp; =\nu_{i,t} S_i\\
 \end{aligned}
-\]</span> Individuals are vaccinated at an age group (<span class="math inline">\(i\)</span>) specific time dependent (<span class="math inline">\(t\)</span>) vaccination rate (<span class="math inline">\(\nu\)</span>). The SEIR components of these
-equations are described in the tutorial Simulating transmission.</p>
+\]</span> Individuals are vaccinated at an age group (<span class="math inline">\(i\)</span>) specific time dependent (<span class="math inline">\(t\)</span>) vaccination rate (<span class="math inline">\(\nu_{i,t}\)</span>). The SEIR components of these
+equations are described in the tutorial <a href="simulating-transmission.html#simulating-disease-spread">simulating
+transmission</a>.</p>
 <p>To explore the effect of vaccination we need to create a vaccination
-object. As vaccination is age group specific, we must pass an age groups
-specific vaccination rate <span class="math inline">\(\nu\)</span> and
-age group specific start and end times of the vaccination program. Here
-we will assume all age groups are vaccinated at the same rate and that
-the vaccination program starts on day 40 and is in place for 150
-days.</p>
-<div class="codewrapper sourceCode" id="cb14">
+object to pass as an input into <code>model_default_cpp()</code> that
+includes an age groups specific vaccination rate <code>nu</code> and age
+group specific start and end times of the vaccination program
+(<code>time_begin</code> and <code>time_end</code>).</p>
+<p>Here we will assume all age groups are vaccinated at the same rate
+0.01 and that the vaccination program starts on day 40 and is in place
+for 150 days.</p>
+<div class="codewrapper sourceCode" id="cb12">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1490,38 +1961,91 @@ days.</p>
 </div>
 <p>We pass our vaccination object using
 <code>vaccination = vaccinate</code>:</p>
-<div class="codewrapper sourceCode" id="cb15">
+<div class="codewrapper sourceCode" id="cb13">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">output_vaccinate</span> <span class="op">&lt;-</span> <span class="fu">model_default_cpp</span><span class="op">(</span></span>
 <span>  population <span class="op">=</span> <span class="va">uk_population</span>,</span>
-<span>  infection <span class="op">=</span> <span class="va">covid</span>,</span>
+<span>  transmissibility <span class="op">=</span> <span class="fl">2.7</span> <span class="op">/</span> <span class="fl">5.5</span>,</span>
+<span>  infectiousness_rate <span class="op">=</span> <span class="fl">1.0</span> <span class="op">/</span> <span class="fl">4.0</span>,</span>
+<span>  recovery_rate <span class="op">=</span> <span class="fl">1.0</span> <span class="op">/</span> <span class="fl">5.5</span>,</span>
 <span>  vaccination <span class="op">=</span> <span class="va">vaccinate</span>,</span>
 <span>  time_end <span class="op">=</span> <span class="fl">300</span>, increment <span class="op">=</span> <span class="fl">1.0</span></span>
 <span><span class="op">)</span></span></code></pre>
 </div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in model_default_cpp(population = uk_population, infection = covid, : could not find function "model_default_cpp"</code></pre>
+<div id="compare-interventions" class="callout challenge">
+<div class="callout-square">
+<i class="callout-icon" data-feather="zap"></i>
 </div>
-<p>Here we see that the total number of infectious individuals when
-vaccination is in place is much lower compared to school closures and
-mask wearing interventions.</p>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+<div id="compare-interventions" class="callout-inner">
+<h3 class="callout-title">Compare interventions<a class="anchor" aria-label="anchor" href="#compare-interventions"></a>
 </h3>
-<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'output_vaccinate' not found</code></pre>
+<div class="callout-content">
+<p>Plot the three interventions vaccination, school closure and mask
+mandate and the baseline simulation on one plot. Which intervention
+reduces the peak number of infectious individuals the most?</p>
+</div>
+</div>
+</div>
+<div id="accordionSolution1" class="accordion challenge-accordion accordion-flush">
+<div class="accordion-item">
+<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
+  <h4 class="accordion-header" id="headingSolution1">
+  Output
+  </h4>
+</button>
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div class="accordion-body">
+<div class="codewrapper sourceCode" id="cb14">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># create intervention_type column for plotting</span></span>
+<span><span class="va">output_vaccinate</span><span class="op">$</span><span class="va">intervention_type</span> <span class="op">&lt;-</span> <span class="st">"vaccination"</span></span>
+<span><span class="va">output</span> <span class="op">&lt;-</span> <span class="fu">rbind</span><span class="op">(</span><span class="va">output_school</span>, <span class="va">output_masks</span>, <span class="va">output_vaccinate</span>, <span class="va">output_baseline</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">output</span><span class="op">[</span><span class="va">output</span><span class="op">$</span><span class="va">compartment</span> <span class="op">==</span> <span class="st">"infectious"</span>, <span class="op">]</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">aes</span><span class="op">(</span></span>
+<span>    x <span class="op">=</span> <span class="va">time</span>,</span>
+<span>    y <span class="op">=</span> <span class="va">value</span>,</span>
+<span>    color <span class="op">=</span> <span class="va">intervention_type</span>,</span>
+<span>    linetype <span class="op">=</span> <span class="va">intervention_type</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">stat_summary</span><span class="op">(</span></span>
+<span>    fun <span class="op">=</span> <span class="st">"sum"</span>,</span>
+<span>    geom <span class="op">=</span> <span class="st">"line"</span>,</span>
+<span>    linewidth <span class="op">=</span> <span class="fl">1</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">scale_y_continuous</span><span class="op">(</span></span>
+<span>    labels <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="va">comma</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">labs</span><span class="op">(</span></span>
+<span>    x <span class="op">=</span> <span class="st">"Simulation time (days)"</span>,</span>
+<span>    y <span class="op">=</span> <span class="st">"Individuals"</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">theme_bw</span><span class="op">(</span></span>
+<span>    base_size <span class="op">=</span> <span class="fl">15</span></span>
+<span>  <span class="op">)</span></span></code></pre>
+</div>
+<figure><img src="fig/modelling-interventions-rendered-plot_vaccinate-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>From the plot we see that the peak number of total number of
+infectious individuals when vaccination is in place is much lower
+compared to school closures and mask wearing interventions.</p>
+</div>
+</div>
+</div>
 </div>
 </section><section id="summary"><h2 class="section-heading">Summary<a class="anchor" aria-label="anchor" href="#summary"></a>
 </h2>
 <hr class="half-width">
-<p>Modelling interventions requires assumptions of how interventions
-affect model parameters such as contact matrices or parameter values.
-Next we want quantify the effect of an interventions. In the next
-tutorial, we will learn how to compare intervention scenarios against
-each other.</p>
+<p>Different types of intervention can be implemented using mathematical
+modelling. Modelling interventions requires assumptions of which model
+parameters are affected (e.g. contact matrices, transmissibility), by
+what magnitude and and what times in the simulation of an outbreak.</p>
+<p>The next step is to quantify the effect of an interventions. If you
+are interested in learning how to compare interventions, please complete
+the tutorial <a href="compare-interventions.html">Comparing public
+health outcomes of interventions</a>.</p>
 <div id="keypoints1" class="callout keypoints">
 <div class="callout-square">
 <i class="callout-icon" data-feather="key"></i>
@@ -1531,8 +2055,11 @@ each other.</p>
 </h3>
 <div class="callout-content">
 <ul>
-<li>Different types of intervention can be implemented using
-mathematical modelling</li>
+<li>The effect of NPIs can be modelled as reducing contact rates between
+age groups or reducing the transmissibility of infection</li>
+<li>Vaccination can be modelled by assuming individuals move to a
+different disease state <span class="math inline">\(V\)</span>
+</li>
 </ul>
 </div>
 </div>
@@ -1543,7 +2070,7 @@ any links that you are not going to use.
  -->
 </section></section><section id="aio-compare-interventions"><p>Content from <a href="compare-interventions.html">Comparing public health outcomes of interventions</a></p>
 <hr>
-<p> Last updated on 2023-12-20 | 
+<p> Last updated on 2023-12-21 | 
         
         <a href="https://github.com/epiverse-trace/tutorials/edit/main/episodes/compare-interventions.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <div class="text-end">
@@ -1567,7 +2094,7 @@ any links that you are not going to use.
 <div class="inner bordered">
 <h3 class="card-title">Objectives</h3>
 <ul>
-<li>Understand how to compare intervention scenarios</li>
+<li>Compare intervention scenarios</li>
 </ul>
 </div>
 </div>
@@ -1588,7 +2115,8 @@ transmission</a> and <a href="modelling-interventions.html">Modelling
 interventions</a>
 </li>
 </ul>
-<p>This tutorial has the following concept dependencies:</p>
+<p>Learners should familiarise themselves with following concept
+dependencies before working through this tutorial:</p>
 <p><strong>Outbreak response</strong> : <a href="https://www.cdc.gov/nonpharmaceutical-interventions/" class="external-link">Intervention
 types</a>.</p>
 </div>
@@ -1617,8 +2145,9 @@ outcome of interest can be:</p>
 <hr class="half-width">
 <p>The Vacamole model is a deterministic model based on a system of ODEs
 in <a href="https://doi.org/10.2807/1560-7917.ES.2022.27.44.2101090" class="external-link">Ainslie
-et al. 2022</a>. The model consists of 11 compartments, individuals are
-classed as one of the following:</p>
+et al. 2022</a> to describe the effect of vaccination on COVID-19
+dynamics. The model consists of 11 compartments, individuals are classed
+as one of the following:</p>
 <ul>
 <li>susceptible, <span class="math inline">\(S\)</span>,</li>
 <li>partial vaccination (<span class="math inline">\(V_1\)</span>),
@@ -1634,25 +2163,212 @@ hospitalised while vaccinated, <span class="math inline">\(H_V\)</span>,</li>
 </ul>
 <p>The diagram below describes the flow of individuals through the
 different compartments.</p>
-<figure><img src="fig/compare-interventions-rendered-unnamed-chunk-1-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>See <code>?epidemics::model_vacamole_cpp</code> for detail on how to
-run the model.</p>
+<figure><img src="fig/compare-interventions-rendered-unnamed-chunk-1-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div id="running-a-counterfactual-scenario-using-the-vacamole-model" class="callout challenge">
+<div class="callout-square">
+<i class="callout-icon" data-feather="zap"></i>
+</div>
+<div id="running-a-counterfactual-scenario-using-the-vacamole-model" class="callout-inner">
+<h3 class="callout-title">Running a counterfactual scenario using the
+Vacamole model<a class="anchor" aria-label="anchor" href="#running-a-counterfactual-scenario-using-the-vacamole-model"></a>
+</h3>
+<div class="callout-content">
+<ol style="list-style-type: decimal">
+<li>Run the model with the default parameter values for the UK
+population assuming that :</li>
+</ol>
+<ul>
+<li>1 in a million individual are infectious (and not vaccinated) at the
+start of the simulation</li>
+<li>The contact matrix for the United Kingdom has age bins:
+<ul>
+<li>age between 0 and 20 years,</li>
+<li>age between 20 and 40,</li>
+<li>40 years and over.</li>
+</ul>
+</li>
+<li>There is no vaccination scheme in place</li>
+</ul>
+<ol start="2" style="list-style-type: decimal">
+<li>Using the output, plot the number of deaths through time</li>
+</ol>
+</div>
+</div>
+</div>
+<div id="accordionHint1" class="accordion challenge-accordion accordion-flush">
+<div class="accordion-item">
+<button class="accordion-button hint-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseHint1" aria-expanded="false" aria-controls="collapseHint1">
+  <h4 class="accordion-header" id="headingHint1">
+  Vaccination code
+  </h4>
+</button>
+<div id="collapseHint1" class="accordion-collapse collapse" aria-labelledby="headingHint1" data-bs-parent="#accordionHint1">
+<div class="accordion-body">
+<p>To run the model with no vaccination in place we can <em>either</em>
+create two vaccination objects (one for each dose) using
+<code>vaccination()</code> with the time start, time end and vaccination
+rate all set to 0, or we can use the <code>no_vaccination()</code>
+function to create a vaccination object for two doses with all values
+set to 0.</p>
+<div class="codewrapper sourceCode" id="cb1">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">no_vaccination</span> <span class="op">&lt;-</span> <span class="fu">no_vaccination</span><span class="op">(</span>population <span class="op">=</span> <span class="va">uk_population</span>, doses <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="accordionHint2" class="accordion challenge-accordion accordion-flush">
+<div class="accordion-item">
+<button class="accordion-button hint-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseHint2" aria-expanded="false" aria-controls="collapseHint2">
+  <h4 class="accordion-header" id="headingHint2">
+  HINT : Running the model with default parameter values
+  </h4>
+</button>
+<div id="collapseHint2" class="accordion-collapse collapse" aria-labelledby="headingHint2" data-bs-parent="#accordionHint2">
+<div class="accordion-body">
+<p>We can run the Vacamole model with <a href="https://epiverse-trace.github.io/epidemics/articles/vacamole.html#model-epidemic-using-vacamole" class="external-link">default
+parameter values</a> by just specifying the population object and number
+of time steps to run the model for:</p>
+<div class="codewrapper sourceCode" id="cb2">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">output</span> <span class="op">&lt;-</span> <span class="fu">model_vacamole_cpp</span><span class="op">(</span></span>
+<span>  population <span class="op">=</span> <span class="va">uk_population</span>,</span>
+<span>  vaccination <span class="op">=</span> <span class="va">no_vaccination</span>,</span>
+<span>  time_end <span class="op">=</span> <span class="fl">300</span></span>
+<span><span class="op">)</span></span></code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="accordionSolution1" class="accordion challenge-accordion accordion-flush">
+<div class="accordion-item">
+<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
+  <h4 class="accordion-header" id="headingSolution1">
+  SOLUTION
+  </h4>
+</button>
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div class="accordion-body">
+<ol style="list-style-type: decimal">
+<li>Run the model</li>
+</ol>
+<div class="codewrapper sourceCode" id="cb3">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">polymod</span> <span class="op">&lt;-</span> <span class="fu">socialmixr</span><span class="fu">::</span><span class="va">polymod</span></span>
+<span><span class="va">contact_data</span> <span class="op">&lt;-</span> <span class="fu">socialmixr</span><span class="fu">::</span><span class="fu">contact_matrix</span><span class="op">(</span></span>
+<span>  survey <span class="op">=</span> <span class="va">polymod</span>,</span>
+<span>  countries <span class="op">=</span> <span class="st">"United Kingdom"</span>,</span>
+<span>  age.limits <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="fl">0</span>, <span class="fl">20</span>, <span class="fl">40</span><span class="op">)</span>,</span>
+<span>  symmetric <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>Using POLYMOD social contact data. To cite this in a publication, use the 'get_citation()' function</code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>Removing participants that have contacts without age information. To change this behaviour, set the 'missing.contact.age' option</code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb6">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># prepare contact matrix</span></span>
+<span><span class="va">contact_matrix</span> <span class="op">&lt;-</span> <span class="fu">t</span><span class="op">(</span><span class="va">contact_data</span><span class="op">$</span><span class="va">matrix</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># extract demography vector</span></span>
+<span><span class="va">demography_vector</span> <span class="op">&lt;-</span> <span class="va">contact_data</span><span class="op">$</span><span class="va">demography</span><span class="op">$</span><span class="va">population</span></span>
+<span><span class="fu">names</span><span class="op">(</span><span class="va">demography_vector</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu">rownames</span><span class="op">(</span><span class="va">contact_matrix</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># prepare initial conditions</span></span>
+<span><span class="va">initial_i</span> <span class="op">&lt;-</span> <span class="fl">1e-6</span></span>
+<span></span>
+<span><span class="va">initial_conditions</span> <span class="op">&lt;-</span> <span class="fu">c</span><span class="op">(</span></span>
+<span>  S <span class="op">=</span> <span class="fl">1</span> <span class="op">-</span> <span class="va">initial_i</span>,</span>
+<span>  V1 <span class="op">=</span> <span class="fl">0</span>, V2 <span class="op">=</span> <span class="fl">0</span>,</span>
+<span>  E <span class="op">=</span> <span class="fl">0</span>, EV <span class="op">=</span> <span class="fl">0</span>,</span>
+<span>  I <span class="op">=</span> <span class="va">initial_i</span>, IV <span class="op">=</span> <span class="fl">0</span>,</span>
+<span>  H <span class="op">=</span> <span class="fl">0</span>, HV <span class="op">=</span> <span class="fl">0</span>, D <span class="op">=</span> <span class="fl">0</span>, R <span class="op">=</span> <span class="fl">0</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">initial_conditions</span> <span class="op">&lt;-</span> <span class="fu">rbind</span><span class="op">(</span></span>
+<span>  <span class="va">initial_conditions</span>,</span>
+<span>  <span class="va">initial_conditions</span>,</span>
+<span>  <span class="va">initial_conditions</span></span>
+<span><span class="op">)</span></span>
+<span><span class="fu">rownames</span><span class="op">(</span><span class="va">initial_conditions</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu">rownames</span><span class="op">(</span><span class="va">contact_matrix</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># prepare population object</span></span>
+<span><span class="va">uk_population</span> <span class="op">&lt;-</span> <span class="fu">population</span><span class="op">(</span></span>
+<span>  name <span class="op">=</span> <span class="st">"UK"</span>,</span>
+<span>  contact_matrix <span class="op">=</span> <span class="va">contact_matrix</span>,</span>
+<span>  demography_vector <span class="op">=</span> <span class="va">demography_vector</span>,</span>
+<span>  initial_conditions <span class="op">=</span> <span class="va">initial_conditions</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">no_vaccination</span> <span class="op">&lt;-</span> <span class="fu">no_vaccination</span><span class="op">(</span>population <span class="op">=</span> <span class="va">uk_population</span>, doses <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># run model</span></span>
+<span><span class="va">output</span> <span class="op">&lt;-</span> <span class="fu">model_vacamole_cpp</span><span class="op">(</span></span>
+<span>  population <span class="op">=</span> <span class="va">uk_population</span>,</span>
+<span>  vaccination <span class="op">=</span> <span class="va">no_vaccination</span>,</span>
+<span>  time_end <span class="op">=</span> <span class="fl">300</span></span>
+<span><span class="op">)</span></span></code></pre>
+</div>
+<ol start="2" style="list-style-type: decimal">
+<li>Plot the number of deaths through time</li>
+</ol>
+<div class="codewrapper sourceCode" id="cb7">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span><span class="va">output</span><span class="op">[</span><span class="va">output</span><span class="op">$</span><span class="va">compartment</span> <span class="op">==</span> <span class="st">"dead"</span>, <span class="op">]</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_line</span><span class="op">(</span></span>
+<span>    <span class="fu">aes</span><span class="op">(</span><span class="va">time</span>, <span class="va">value</span>, colour <span class="op">=</span> <span class="va">demography_group</span><span class="op">)</span>,</span>
+<span>    linewidth <span class="op">=</span> <span class="fl">1</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">scale_colour_brewer</span><span class="op">(</span></span>
+<span>    palette <span class="op">=</span> <span class="st">"Dark2"</span>,</span>
+<span>    labels <span class="op">=</span> <span class="fu">rownames</span><span class="op">(</span><span class="va">contact_matrix</span><span class="op">)</span>,</span>
+<span>    name <span class="op">=</span> <span class="st">"Age group"</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">scale_y_continuous</span><span class="op">(</span></span>
+<span>    labels <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="va">comma</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">labs</span><span class="op">(</span></span>
+<span>    x <span class="op">=</span> <span class="st">"Simulation time (days)"</span>,</span>
+<span>    y <span class="op">=</span> <span class="st">"Individuals"</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">theme</span><span class="op">(</span></span>
+<span>    legend.position <span class="op">=</span> <span class="st">"top"</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">theme_bw</span><span class="op">(</span></span>
+<span>    base_size <span class="op">=</span> <span class="fl">15</span></span>
+<span>  <span class="op">)</span></span></code></pre>
+</div>
+<figure><img src="fig/compare-interventions-rendered-unnamed-chunk-5-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure>
+</div>
+</div>
+</div>
+</div>
 </section><section id="comparing-scenarios"><h2 class="section-heading">Comparing scenarios<a class="anchor" aria-label="anchor" href="#comparing-scenarios"></a>
 </h2>
 <hr class="half-width">
 <p><em>Coming soon</em></p>
-</section><section id="challenge"><h2 class="section-heading">Challenge<a class="anchor" aria-label="anchor" href="#challenge"></a>
+</section><section id="challenge-ebola-outbreak-analysis"><h2 class="section-heading">Challenge : Ebola outbreak analysis<a class="anchor" aria-label="anchor" href="#challenge-ebola-outbreak-analysis"></a>
 </h2>
 <hr class="half-width">
 <p><em>Coming soon</em></p>
-<!-- ::::::::::::::::::::::::::::::::::::: challenge -->
-<!-- ## The effect of vaccination on COVID-19 hospitalisations   -->
-<!-- ::::::::::::::::: hint -->
-<!-- ### HINT -->
-<!-- :::::::::::::::::::::: -->
-<!-- ::::::::::::::::: solution -->
-<!-- ### SOLUTION -->
-<!-- ::::::::::::::::::::::::::: -->
-<!-- :::::::::::::::::::::::::::::::::::::::::::::::: -->
 <div id="keypoints1" class="callout keypoints">
 <div class="callout-square">
 <i class="callout-icon" data-feather="key"></i>
@@ -1720,9 +2436,9 @@ any links that you are not going to use.
   "creativeWorkStatus": "active",
   "url": "https://epiverse-trace.github.io/tutorials/aio.html",
   "identifier": "https://epiverse-trace.github.io/tutorials/aio.html",
-  "dateCreated": "2023-12-20",
-  "dateModified": "2023-12-20",
-  "datePublished": "2023-12-20"
+  "dateCreated": "2023-12-21",
+  "dateModified": "2023-12-21",
+  "datePublished": "2023-12-21"
 }
 
   </script><script>

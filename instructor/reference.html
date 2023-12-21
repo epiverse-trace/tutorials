@@ -243,7 +243,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Glossary of Terms: Epiverse-TRACE</h1>
-        <p> Last updated on 2023-12-20 | 
+        <p> Last updated on 2023-12-21 | 
         
         <a href="https://github.com/epiverse-trace/tutorials/edit/main/learners/reference.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
         
@@ -266,7 +266,24 @@ air. Examples include influenza and COVID-19. Atler et al. (2023)
 discuss about <a href="https://www.ncbi.nlm.nih.gov/books/NBK531468/" class="external-link">factors and
 management procedures</a> of airborne transmission.
 </dd>
-</dl><!--  ## B --><!-- ## C --></section><section id="d"><h2 class="section-heading">D<a class="anchor" aria-label="anchor" href="#d"></a>
+</dl><!--  ## B --></section><section id="c"><h2 class="section-heading">C<a class="anchor" aria-label="anchor" href="#c"></a>
+</h2>
+<hr class="half-width"><dl><dt><span id="contact">Contact matrix</span></dt>
+<dd>
+The contact matrix is a square matrix consisting of rows/columns equal
+to the number age groups. Each element represents the frequency of
+contacts between age groups. If we believe that transmission of an
+infection is driven by contact, and that contact rates are very
+different for different age groups, then specifying a contact matrix
+allows us to account for age specific rates of transmission.
+</dd>
+<dt><span id="cplusplus">C++</span></dt>
+<dd>
+C++ is a high-level programming language that can be used within R to
+speed up sections of code. To learn more about C++ check out these <a href="https://cplusplus.com/doc/tutorial/" class="external-link">tutorials</a> and learn more
+about the integration of C++ and R <a href="https://www.rcpp.org/" class="external-link">here</a>.
+</dd>
+</dl></section><section id="d"><h2 class="section-heading">D<a class="anchor" aria-label="anchor" href="#d"></a>
 </h2>
 <hr class="half-width"><dl><dt><span id="deterministic">Deterministic model</span></dt>
 <dd>
@@ -285,8 +302,8 @@ individuals for successful transmission.
 </h2>
 <hr class="half-width"><dl><dt><span id="incubation">Incubation period</span></dt>
 <dd>
-The time between becoming infected and the onset of infectiousness, same
-as <a href="#latent">latent period</a>.
+The time between becoming infected and the onset of symptoms. <a href="https://en.wikipedia.org/wiki/Latent_period_(epidemiology)#Incubation_period" class="external-link">More
+information on the incubation period</a>.
 </dd>
 <dt><span id="indirect">Indirect transmission</span></dt>
 <dd>
@@ -295,16 +312,61 @@ with vectors, animals or contaminated environment. Vector-borne
 infections, zoonoses and water-borne infections are modelled as
 indirectly transmitted.
 </dd>
+<dt><span id="initial">Initial conditions</span></dt>
+<dd>
+In <a href="#ordinary">ODEs</a>, the initial conditions are the values
+of the state variables at the start of the model simulation (at time 0).
+For example, if there is one infectious individual in a population of
+1000 in an Susceptible-Infectious-Recovered model, the initial
+conditions would be <span class="math inline">\(S(0) = 999\)</span>,
+<span class="math inline">\(I(0) = 1\)</span>, <span class="math inline">\(R(0) = 0\)</span>.
+</dd>
 </dl><!-- ## J --><!-- ## K --></section><section id="l"><h2 class="section-heading">L<a class="anchor" aria-label="anchor" href="#l"></a>
 </h2>
 <hr class="half-width"><dl><dt><span id="latent">Latent period</span></dt>
 <dd>
-The time between becoming infected and the onset of infectiousness, same
-as <a href="#incubation">incubation period</a>.
+The time between becoming infected and the onset of infectiousness. <a href="https://en.wikipedia.org/wiki/Latent_period_(epidemiology)" class="external-link">More
+information on the latent period</a>.
 </dd>
-</dl><!-- ## M --><!-- ## N --><!-- ## O --><!-- ## P --><!-- ## Q --><!-- ## R --></section><section id="s"><h2 class="section-heading">S<a class="anchor" aria-label="anchor" href="#s"></a>
+</dl></section><section id="m"><h2 class="section-heading">M<a class="anchor" aria-label="anchor" href="#m"></a>
 </h2>
-<hr class="half-width"><dl><dt><span id="stochastic">Stochastic model</span></dt>
+<hr class="half-width"><dl><dt><span id="parsode">Model parameters (ODEs)</span></dt>
+<dd>
+The model parameters are used in <a href="#ordinary">ordinary
+differential equation</a> models to describe the flow between disease
+states. For example, a transmission rate <span class="math inline">\(\beta\)</span> is a model parameter that can be
+used to describe the flow between susceptible and infectious states.
+</dd>
+</dl></section><section id="n"><h2 class="section-heading">N<a class="anchor" aria-label="anchor" href="#n"></a>
+</h2>
+<hr class="half-width"><dl><dt><span id="NPIs">Non-pharmaceutical interventions</span></dt>
+<dd>
+Non-pharmaceutical interventions (NPIs) are measures put in place to
+reduce transmission that do not include the administration of drugs or
+vaccinations. <a href="https://www.gov.uk/government/publications/technical-report-on-the-covid-19-pandemic-in-the-uk/chapter-8-non-pharmaceutical-interventions" class="external-link">More
+information on NPIs</a>.
+</dd>
+</dl></section><section id="o"><h2 class="section-heading">O<a class="anchor" aria-label="anchor" href="#o"></a>
+</h2>
+<hr class="half-width"><dl><dt><span id="ordinary">Ordinary differential equations</span></dt>
+<dd>
+Ordinary differential equations (ODEs) can be used to represent the rate
+of change of one variable (e.g. number of infected individuals) with
+respect to another (e.g. time). Check out this introduction to <a href="https://mathinsight.org/ordinary_differential_equation_introduction" class="external-link">ODEs</a>.
+ODEs are widely used in infectious disease modelling to model the flow
+of individuals between different disease states.
+</dd>
+</dl><!-- ## P --><!-- ## Q --><!-- ## R --></section><section id="s"><h2 class="section-heading">S<a class="anchor" aria-label="anchor" href="#s"></a>
+</h2>
+<hr class="half-width"><dl><dt><span id="state">State variables</span></dt>
+<dd>
+The state variables in a model represented by <a href="#ordinary">ordinary differential equations</a> are the disease
+states that individuals can be in e.g. if individuals can be
+susceptible, infectious or recovered the state variables are <span class="math inline">\(S\)</span>, <span class="math inline">\(I\)</span>
+and <span class="math inline">\(R\)</span>. There is an ordinary
+differential equation for each state variable.
+</dd>
+<dt><span id="stochastic">Stochastic model</span></dt>
 <dd>
 A model that includes some stochastic process resulting in variation in
 model simulations for the same initial conditions and parameter values.
@@ -382,9 +444,9 @@ any links that you are not going to use.
   "creativeWorkStatus": "active",
   "url": "https://epiverse-trace.github.io/tutorials/instructor/reference.html",
   "identifier": "https://epiverse-trace.github.io/tutorials/instructor/reference.html",
-  "dateCreated": "2023-12-20",
-  "dateModified": "2023-12-20",
-  "datePublished": "2023-12-20"
+  "dateCreated": "2023-12-21",
+  "dateModified": "2023-12-21",
+  "datePublished": "2023-12-21"
 }
 
   </script><script>
