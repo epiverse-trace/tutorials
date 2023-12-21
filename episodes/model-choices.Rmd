@@ -5,12 +5,6 @@ exercises: 20 # exercise time in minutes
 
 ---
 
-```{r setup, echo= FALSE, message = FALSE, warning = FALSE}
-require(ggplot2)
-library(epidemics)
-```
-
-
 :::::::::::::::::::::::::::::::::::::: questions 
 
 - How do I choose a mathematical model that's appropriate to complete my analytical task?
@@ -380,7 +374,10 @@ output_samples <- Map(
 
 output_samples <- bind_rows(output_samples) # requires the tidyverse package
 
-ggplot(output_samples[output_samples$compartment == "infectious", ], aes(time, value)) +
+ggplot(
+  output_samples[output_samples$compartment == "infectious", ],
+  aes(time, value)
+) +
   stat_summary(geom = "line", fun = mean) +
   stat_summary(
     geom = "ribbon",
