@@ -149,7 +149,8 @@ Consider the following questions:
 
 A deterministic SEIR model with age specific direct transmission. 
 
-<img src="fig/model-choices-rendered-diagram-1.png" style="display: block; margin: auto;" />
+<!--html_preserve--><div class="grViz html-widget html-fill-item" id="htmlwidget-1f76c8c4de9e6eab6bae" style="width:504px;height:504px;"></div>
+<script type="application/json" data-for="htmlwidget-1f76c8c4de9e6eab6bae">{"x":{"diagram":"digraph {\n\n  # graph statement\n  #################\n  graph [layout = dot,\n         rankdir = LR,\n         overlap = true,\n         fontsize = 10]\n\n  # nodes\n  #######\n  node [shape = square,\n       fixedsize = true\n       width = 1.3]\n\n       S\n       E\n       I\n       R\n\n  # edges\n  #######\n  S -> E [label = \" infection \n(transmissibility &beta;)\"]\n  E -> I [label = \" onset of infectiousness \n(infectiousness rate &alpha;)\"]\n  I -> R [label = \" recovery \n(recovery rate &gamma;)\"]\n\n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
 
 
 The model is capable of predicting an Ebola type outbreak, but as the model is deterministic, we are not able to explore stochastic variation in the early stages of the outbreak.
@@ -168,7 +169,8 @@ The key parameters affecting the transition between states are:
 
 **Note: the functional relationship between the preinfectious  period ($\rho^E$) and the transition rate between exposed and infectious ($\gamma^E$) is $\rho^E = k^E/\gamma^E$ where $k^E$ is the shape of the Erlang distribution. Similarly for the infectious period $\rho^I = k^I/\gamma^I$. See [here](https://epiverse-trace.github.io/epidemics/articles/ebola_model.html#details-discrete-time-ebola-virus-disease-model) for more detail on the stochastic model formulation. ** 
 
-<img src="fig/model-choices-rendered-unnamed-chunk-1-1.png" style="display: block; margin: auto;" />
+<!--html_preserve--><div class="grViz html-widget html-fill-item" id="htmlwidget-0307111a07767ecfc910" style="width:504px;height:504px;"></div>
+<script type="application/json" data-for="htmlwidget-0307111a07767ecfc910">{"x":{"diagram":"digraph {\n\n  # graph statement\n  #################\n  graph [layout = dot,\n  rankdir = LR,\n  overlap = true,\n  fontsize = 10]\n\n  # nodes\n  #######\n  node [shape = square,\n       fixedsize = true\n       width = 1.3]\n\n       S\n       E\n       I\n       H\n       F\n       R\n\n  # edges\n  #######\n  S -> E [label = \" infection (&beta;)\"]\n  E -> I [label = \" onset of \ninfectiousness (&gamma; E)\"]\n  I -> F [label = \" death (funeral) \n(&gamma; I)\"]\n  F -> R [label = \" safe burial (one timestep) \"]\n  I -> H [label = \" hospitalisation (p hosp)\"]\n  H -> R [label = \" recovery or safe burial \n (&gamma; I)\"]\n\n  subgraph {\n    rank = same; I; F;\n  }\n  subgraph {\n    rank = same; H; R;\n  }\n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
 
 The model has additional parameters describing the transmission risk in hospital and funeral settings: 
 
@@ -212,7 +214,7 @@ You have been tasked to generate initial trajectories of an Ebola outbreak in Gu
 
 ::::::::::::::::: hint
 
-### Code for initial conidtions 
+### Code for initial conditions 
 
 
 ```r
