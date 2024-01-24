@@ -79,7 +79,8 @@
           <button class="nav-link dropdown-toggle" id="navbarDropdown" data-bs-toggle="dropdown" aria-expanded="false">
             More <i data-feather="chevron-down"></i>
           </button>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdown"></ul></li>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown"><hr><li><a class="dropdown-item" href="reference.html">Glossary of Terms: Epiverse-TRACE</a></li>
+          </ul></li>
       </ul></div>
     <form class="d-flex col-md-2 search-form">
       <fieldset disabled><input class="form-control me-2 searchbox" type="search" placeholder="Search" aria-label="Search"><button class="btn btn-outline-success tablet-search-button" type="submit">
@@ -222,7 +223,7 @@
                       <li>
                         <a href="../instructor/images.html">Extract All Images</a>
                       </li>
-                      
+                      <hr><li><a class="dropdown-item" href="reference.html">Glossary of Terms: Epiverse-TRACE</a></li>
                     </ul></div>
                 </div>
               </div>
@@ -333,11 +334,9 @@ infectious individuals in different age categories over time.</p>
 <div class="accordion-item">
 <button class="accordion-button instructor-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseInstructor1" aria-expanded="false" aria-controls="collapseInstructor1">
   <h3 class="accordion-header" id="headingInstructor1">
-  <div class="note-square"><i aria-hidden="true" class="callout-icon" data-feather="edit-2"></i></div>
-  Instructor Note
-  </h3>
+<div class="note-square"><i aria-hidden="true" class="callout-icon" data-feather="edit-2"></i></div>Instructor Note</h3>
 </button>
-<div id="collapseInstructor1" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor1" aria-labelledby="headingInstructor1">
+<div id="collapseInstructor1" class="accordion-collapse collapse" aria-labelledby="headingInstructor1" data-bs-parent="#accordionInstructor1">
 <div class="accordion-body">
 <p>By the end of this tutorial, learners should be able to replicate the
 above image on their own computers.</p>
@@ -481,11 +480,9 @@ year age bins:</p>
 <div id="accordionSolution1" class="accordion challenge-accordion accordion-flush">
 <div class="accordion-item">
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
-  <h4 class="accordion-header" id="headingSolution1">
-  Output
-  </h4>
+  <h4 class="accordion-header" id="headingSolution1">Output</h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -648,7 +645,7 @@ be:</p>
 <i class="callout-icon" data-feather="bell"></i>
 </div>
 <div id="the-basic-reproduction-number-r_0" class="callout-inner">
-<h3 class="callout-title">The basic reproduction number <span class="math inline">\(R_0\)</span><a class="anchor" aria-label="anchor" href="#the-basic-reproduction-number-r_0"></a>
+<h3 class="callout-title">The basic reproduction number<span class="math inline">\(R_0\)</span><a class="anchor" aria-label="anchor" href="#the-basic-reproduction-number-r_0"></a>
 </h3>
 <div class="callout-content">
 <p>The basic reproduction number, <span class="math inline">\(R_0\)</span>, for the SEIR model is:</p>
@@ -880,7 +877,7 @@ right model for different tasks.</p>
 <i class="callout-icon" data-feather="key"></i>
 </div>
 <div class="callout-inner">
-<h3 class="callout-title">Keypoints<a class="anchor" aria-label="anchor" href="#keypoints1"></a>
+<h3 class="callout-title">Key Points<a class="anchor" aria-label="anchor" href="#keypoints1"></a>
 </h3>
 <div class="callout-content">
 <ul><li>Disease trajectories can be generated using the R package
@@ -931,7 +928,7 @@ any links that you are not going to use.
         <p>Materials licensed under <a href="../LICENSE.html">CC-BY 4.0</a> by the authors</p>
         
         <p><a href="https://creativecommons.org/licenses/by-sa/4.0/" class="external-link">Template licensed under CC-BY 4.0</a> by <a href="https://carpentries.org" class="external-link">The Carpentries</a></p>
-        <p>Built with <a href="https://github.com/carpentries/sandpaper/tree/patch-renv-github-bug" class="external-link">sandpaper (0.14.1)</a>,
+        <p>Built with <a href="https://github.com/epiverse-trace/sandpaper/tree/patch-renv-github-bug" class="external-link">sandpaper (0.16.2)</a>,
         <a href="https://github.com/carpentries/pegboard/tree/1bc5753e917d515c3d888ce6cc013c0a680eacfc" class="external-link">pegboard (0.7.3)</a>,
       and <a href="https://github.com/epiverse-trace/varnish/tree/epiversetheme" class="external-link">varnish (0.3.3.9000)</a>.</p>
 			</div>
@@ -946,6 +943,7 @@ any links that you are not going to use.
   "@context": "https://schema.org",
   "@type": "TrainingMaterial",
   "@id": "https://epiverse-trace.github.io/tutorials/instructor/simulating-transmission.html",
+  "inLanguage": "en",
   "dct:conformsTo": "https://bioschemas.org/profiles/TrainingMaterial/1.0-RELEASE",
   "description": "A Carpentries Lesson teaching foundational data and coding skills to researchers worldwide",
   "keywords": "forecasts, epidemic models, interventions",
@@ -953,9 +951,9 @@ any links that you are not going to use.
   "creativeWorkStatus": "active",
   "url": "https://epiverse-trace.github.io/tutorials/instructor/simulating-transmission.html",
   "identifier": "https://epiverse-trace.github.io/tutorials/instructor/simulating-transmission.html",
-  "dateCreated": "2023-12-21",
+  "dateCreated": "2024-01-24",
   "dateModified": "2023-12-21",
-  "datePublished": "2024-01-23"
+  "datePublished": "2024-01-24"
 }
 
   </script><script>
