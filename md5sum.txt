@@ -10,6 +10,6 @@
 "episodes/compare-interventions.Rmd" "f5ffe39d7728f03fb8cbe5efade69501" "site/built/compare-interventions.md" "2024-01-24"
 "instructors/instructor-notes.md" "ca3834a1b0f9e70c4702aa7a367a6bb5" "site/built/instructor-notes.md" "2024-01-24"
 "learners/reference.md" "de73c95256f9030b72ac9d56ff91cfe6" "site/built/reference.md" "2024-01-24"
-"learners/setup.md" "b3c6bfa13fd687f926bb1a3e772a2516" "site/built/setup.md" "2024-01-24"
+"learners/setup.md" "9030a5d0d8e636cb89ee8d48e864469e" "site/built/setup.md" "2024-01-25"
 "profiles/learner-profiles.md" "31b503c4b5bd1f0960ada730eca4a25e" "site/built/learner-profiles.md" "2024-01-24"
 "renv/profiles/lesson-requirements/renv.lock" "35ea7aa2979c577445bad81ae7866d90" "site/built/renv.lock" "2024-01-24"

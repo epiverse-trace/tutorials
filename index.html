@@ -155,6 +155,8 @@
     <div id="flush-collapsecurrent" class="accordion-collapse collapse show" aria-labelledby="flush-headingcurrent" data-bs-parent="#accordionFlushcurrent">
       <div class="accordion-body">
         <ul><li><a href="#software-setup">Software Setup</a></li>
+<li><a href="#data-sets">Data sets</a></li>
+<li><a href="#your-questions">Your Questions</a></li>
         </ul></div><!--/div.accordion-body-->
     </div><!--/div.accordion-collapse-->
         
@@ -300,20 +302,116 @@ Workbench</a>.</p>
 Place links that you need to refer to multiple times across pages here. Delete
 any links that you are not going to use. 
  -->
-</section><section id="setup"><!--
-
-## Data Sets
-
-FIXME: place any data you want learners to use in `episodes/data` and then use
-       a relative link ( [data zip file](data/lesson-data.zip) ) to provide a
-       link to it, replacing the example.com link.
-
-
-Download the [data zip file](https://example.com/FIXME) and unzip it to your Desktop.
-
---><section id="software-setup"><h2 class="section-heading">Software Setup<a class="anchor" aria-label="anchor" href="#software-setup"></a>
+</section><section id="setup"><section id="software-setup"><h2 class="section-heading">Software Setup<a class="anchor" aria-label="anchor" href="#software-setup"></a>
 </h2>
-<hr class="half-width"><p>Install R and Rstudio <a href="https://posit.co/download/rstudio-desktop/" class="external-link uri">https://posit.co/download/rstudio-desktop/</a></p>
+<hr class="half-width"><div class="section level3">
+<h3 id="install-r-and-rstudio">Install R and RStudio<a class="anchor" aria-label="anchor" href="#install-r-and-rstudio"></a></h3>
+<p>R and RStudio are two separate pieces of software:</p>
+<ul><li>
+<strong>R</strong> is a programming language and software used to
+run code written in R.</li>
+<li>
+<strong>RStudio</strong> is an integrated development environment
+(IDE) that makes using R easier. In this tutorial, we use RStudio to
+interact with R.</li>
+</ul><p>If you don’t already have <code>R</code> and <code>RStudio</code>
+installed, follow the instructions for your operating system at <a href="https://posit.co/download/rstudio-desktop/" class="external-link uri">https://posit.co/download/rstudio-desktop/</a>.</p>
+</div>
+<div class="section level3">
+<h3 id="update-r-and-rstudio">Update R and RStudio<a class="anchor" aria-label="anchor" href="#update-r-and-rstudio"></a></h3>
+<p>This tutorial requires R version 4.0.0 or later.</p>
+<p>If you already have R and RStudio installed, first check if your R
+version is up to date:</p>
+<ul><li><p>When you open RStudio your R version will be printed in the
+console on the <a href="https://docs.posit.co/ide/user/ide/guide/code/console.html" class="external-link">console
+window</a>. Alternatively, you can type <code>sessionInfo()</code> into
+the console.</p></li>
+<li><p>If your version of R is older than the one required, download and
+install the latest version of R from the <a href="https://cran.rstudio.com/" class="external-link">R project website</a> for your
+operating system.</p></li>
+<li><p>After installing a new version of R, you will have to reinstall
+all your packages with the new version. For Windows, there is a package
+called <code>installr</code> that can help you with upgrading your R
+version and migrating your package library.</p></li>
+<li><p>To update RStudio to the latest version, open RStudio and click
+on <code>Help &gt; Check for Updates</code>. If a new version is
+available follow the instructions on the screen. By default, RStudio
+will also automatically notify you of new versions every once in a
+while.</p></li>
+</ul><div id="callout1" class="callout callout">
+<div class="callout-square">
+<i class="callout-icon" data-feather="bell"></i>
+</div>
+<div class="callout-inner">
+<h3 class="callout-title">Callout<a class="anchor" aria-label="anchor" href="#callout1"></a>
+</h3>
+<div class="callout-content">
+<p>While this may sound scary, it is <strong>far more common</strong> to
+run into issues due to using out-of-date versions of R or R packages.
+Keeping up with the latest versions of R, RStudio, and any packages you
+regularly use is a good practice.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="section level3">
+<h3 id="install-required-r-packages">Install required R packages<a class="anchor" aria-label="anchor" href="#install-required-r-packages"></a></h3>
+<p>During the tutorial, we will need a number of R packages. Packages
+contain useful R code written by other people. We will use packages from
+the <a href="https://epiverse-trace.github.io/" class="external-link">Epiverse-TRACE</a>.</p>
+<p>To try to install these packages, open RStudio and copy and paste the
+following code chunk into the <a href="https://docs.posit.co/ide/user/ide/guide/code/console.html" class="external-link">console
+window</a>, then press the <kbd>Enter</kbd> (Windows and Linux) or
+<kbd>Return</kbd> (MacOS) to execute the command.</p>
+<div class="codewrapper sourceCode" id="cb1">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw">if</span><span class="op">(</span><span class="op">!</span><span class="kw">require</span><span class="op">(</span><span class="st">"pak"</span><span class="op">)</span><span class="op">)</span> <span class="fu">install.packages</span><span class="op">(</span><span class="st">"pak"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">new_packages</span> <span class="op">&lt;-</span> <span class="fu">c</span><span class="op">(</span></span>
+<span>  <span class="st">"EpiNow2"</span>,</span>
+<span>  <span class="st">"epiverse-trace/epiparameter"</span>,</span>
+<span>  <span class="st">"socialmixr"</span>,</span>
+<span>  <span class="st">"epiverse-trace/epidemics"</span>,</span>
+<span>  <span class="st">"tidyverse"</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">pak</span><span class="fu">::</span><span class="fu">pak</span><span class="op">(</span><span class="va">new_packages</span><span class="op">)</span></span></code></pre>
+</div>
+<p>You should update <strong>all of the packages</strong> required for
+the tutorial, even if you installed them relatively recently. New
+versions bring improvements and important bug fixes.</p>
+<p>When the installation has finished, you can try to load the packages
+by pasting the following code into the console:</p>
+<div class="codewrapper sourceCode" id="cb2">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw">library</span><span class="op">(</span><span class="va">EpiNow2</span><span class="op">)</span></span>
+<span><span class="kw">library</span><span class="op">(</span><span class="va">epiparameter</span><span class="op">)</span></span>
+<span><span class="kw">library</span><span class="op">(</span><span class="va">socialmixr</span><span class="op">)</span></span>
+<span><span class="kw">library</span><span class="op">(</span><span class="va">epidemics</span><span class="op">)</span></span>
+<span><span class="kw">library</span><span class="op">(</span><span class="va">tidyverse</span><span class="op">)</span></span></code></pre>
+</div>
+<p>If you do NOT see an error like
+<code>there is no package called ‘...’</code> you are good to go! If you
+do, <a href="#your-questions">contact us</a>!</p>
+</div>
+</section><section id="data-sets"><h2 class="section-heading">Data sets<a class="anchor" aria-label="anchor" href="#data-sets"></a>
+</h2>
+<hr class="half-width"><div class="section level3">
+<h3 id="download-the-data">Download the data<a class="anchor" aria-label="anchor" href="#download-the-data"></a></h3>
+<p>We will download the data directly from R during the tutorial.
+However, if you are expecting problems with the network, it may be
+better to download the data beforehand and store it on your machine.</p>
+<p>The data files for the tutorial can be downloaded manually here:</p>
+<ul><li><a href="https://epiverse-trace.github.io/tutorials/data/ebola_cases.csv" class="external-link uri">https://epiverse-trace.github.io/tutorials/data/ebola_cases.csv</a></li>
+</ul></div>
+</section><section id="your-questions"><h2 class="section-heading">Your Questions<a class="anchor" aria-label="anchor" href="#your-questions"></a>
+</h2>
+<hr class="half-width"><p>If you need any assistance installing the software or have any other
+questions about this tutorial, please send an email to <a href="mailto:andree.valle-campos@lshtm.ac.uk" class="email">andree.valle-campos@lshtm.ac.uk</a></p>
 <!-- 
 Place links that you need to refer to multiple times across pages here. Delete
 any links that you are not going to use. 
