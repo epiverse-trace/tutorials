@@ -5,8 +5,6 @@ exercises: 30 # exercise time in minutes
 
 ---
 
-
-
 :::::::::::::::::::::::::::::::::::::: questions 
 
 - How can I quantify the effect of an intervention?
@@ -171,15 +169,31 @@ uk_population <- population(
   demography_vector = demography_vector,
   initial_conditions = initial_conditions
 )
+```
 
+```{.error}
+Error in population(name = "UK", contact_matrix = contact_matrix, demography_vector = demography_vector, : could not find function "population"
+```
+
+```r
 no_vaccination <- no_vaccination(population = uk_population, doses = 2)
+```
 
+```{.error}
+Error in no_vaccination(population = uk_population, doses = 2): could not find function "no_vaccination"
+```
+
+```r
 # run model
 output <- model_vacamole_cpp(
   population = uk_population,
   vaccination = no_vaccination,
   time_end = 300
 )
+```
+
+```{.error}
+Error in model_vacamole_cpp(population = uk_population, vaccination = no_vaccination, : could not find function "model_vacamole_cpp"
 ```
 
 2. Plot the number of deaths through time
@@ -211,7 +225,9 @@ ggplot(output[output$compartment == "dead", ]) +
   )
 ```
 
-<img src="fig/compare-interventions-rendered-unnamed-chunk-5-1.png" style="display: block; margin: auto;" />
+```{.error}
+Error in ggplot(output[output$compartment == "dead", ]): could not find function "ggplot"
+```
 
 
 

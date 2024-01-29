@@ -289,12 +289,11 @@ For models that are described by ODEs, running the model actually means to solve
 In `epidemics`, the [ODE solver](https://www.boost.org/doc/libs/1_82_0/libs/numeric/odeint/doc/html/index.htm) uses the [Runge-Kutta method](https://en.wikipedia.org/wiki/Runge%E2%80%93Kutta_methods). 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
-Now we are ready to run our model. To install the `epidemics` package : 
+Now we are ready to run our model. Let's load the `epidemics` package : 
 
 
 ```r
-if (!require("pak")) install.packages("pak")
-pak::pak("epiverse-trace/epidemics")
+library(epidemics)
 ```
 
 Then we specify `time_end=600` to run the model for 600 days.
@@ -421,7 +420,10 @@ output_samples <- bind_rows(output_samples)
 
 
 ```r
-ggplot(output_samples[output_samples$compartment == "infectious", ], aes(time, value)) +
+ggplot(
+  output_samples[output_samples$compartment == "infectious", ],
+  aes(time, value)
+) +
   stat_summary(geom = "line", fun = mean) +
   stat_summary(
     geom = "ribbon",
