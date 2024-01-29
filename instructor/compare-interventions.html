@@ -258,7 +258,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Comparing public health outcomes of interventions</h1>
-        <p>Last updated on 2024-01-24 |
+        <p>Last updated on 2024-01-29 |
         
         <a href="https://github.com/epiverse-trace/tutorials/edit/main/episodes/compare-interventions.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
         
@@ -498,19 +498,42 @@ of time steps to run the model for:</p>
 <span>  contact_matrix <span class="op">=</span> <span class="va">contact_matrix</span>,</span>
 <span>  demography_vector <span class="op">=</span> <span class="va">demography_vector</span>,</span>
 <span>  initial_conditions <span class="op">=</span> <span class="va">initial_conditions</span></span>
-<span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">no_vaccination</span> <span class="op">&lt;-</span> <span class="fu">no_vaccination</span><span class="op">(</span>population <span class="op">=</span> <span class="va">uk_population</span>, doses <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># run model</span></span>
+<span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error in population(name = "UK", contact_matrix = contact_matrix, demography_vector = demography_vector, : could not find function "population"</code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb8">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">no_vaccination</span> <span class="op">&lt;-</span> <span class="fu">no_vaccination</span><span class="op">(</span>population <span class="op">=</span> <span class="va">uk_population</span>, doses <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error in no_vaccination(population = uk_population, doses = 2): could not find function "no_vaccination"</code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb10">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># run model</span></span>
 <span><span class="va">output</span> <span class="op">&lt;-</span> <span class="fu">model_vacamole_cpp</span><span class="op">(</span></span>
 <span>  population <span class="op">=</span> <span class="va">uk_population</span>,</span>
 <span>  vaccination <span class="op">=</span> <span class="va">no_vaccination</span>,</span>
 <span>  time_end <span class="op">=</span> <span class="fl">300</span></span>
 <span><span class="op">)</span></span></code></pre>
 </div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error in model_vacamole_cpp(population = uk_population, vaccination = no_vaccination, : could not find function "model_vacamole_cpp"</code></pre>
+</div>
 <ol start="2" style="list-style-type: decimal"><li>Plot the number of deaths through time</li>
-</ol><div class="codewrapper sourceCode" id="cb7">
+</ol><div class="codewrapper sourceCode" id="cb12">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -538,7 +561,12 @@ of time steps to run the model for:</p>
 <span>    base_size <span class="op">=</span> <span class="fl">15</span></span>
 <span>  <span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="../fig/compare-interventions-rendered-unnamed-chunk-5-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure></div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error in ggplot(output[output$compartment == "dead", ]): could not find function "ggplot"</code></pre>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -622,9 +650,9 @@ any links that you are not going to use.
   "creativeWorkStatus": "active",
   "url": "https://epiverse-trace.github.io/tutorials/instructor/compare-interventions.html",
   "identifier": "https://epiverse-trace.github.io/tutorials/instructor/compare-interventions.html",
-  "dateCreated": "2024-01-25",
-  "dateModified": "2024-01-24",
-  "datePublished": "2024-01-25"
+  "dateCreated": "2024-01-29",
+  "dateModified": "2024-01-29",
+  "datePublished": "2024-01-29"
 }
 
   </script><script>

@@ -288,7 +288,7 @@
         
 <section id="aio-simulating-transmission"><p>Content from <a href="simulating-transmission.html">Simulating transmission</a></p>
 <hr>
-<p>Last updated on 2024-01-24 |
+<p>Last updated on 2024-01-29 |
         
         <a href="https://github.com/epiverse-trace/tutorials/edit/main/episodes/simulating-transmission.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <div class="text-end">
@@ -504,7 +504,7 @@ year age bins:</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1">Output</h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -710,14 +710,13 @@ method</a>.</p>
 </div>
 </div>
 </div>
-<p>Now we are ready to run our model. To install the
+<p>Now we are ready to run our model. Let’s load the
 <code>epidemics</code> package :</p>
 <div class="codewrapper sourceCode" id="cb10">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="kw">require</span><span class="op">(</span><span class="st">"pak"</span><span class="op">)</span><span class="op">)</span> <span class="fu">install.packages</span><span class="op">(</span><span class="st">"pak"</span><span class="op">)</span></span>
-<span><span class="fu">pak</span><span class="fu">::</span><span class="fu">pak</span><span class="op">(</span><span class="st">"epiverse-trace/epidemics"</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="kw">library</span><span class="op">(</span><span class="va">epidemics</span><span class="op">)</span></span></code></pre>
 </div>
 <p>Then we specify <code>time_end=600</code> to run the model for 600
 days.</p>
@@ -875,7 +874,10 @@ individuals across each model simulation and visualise output</li>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span><span class="va">output_samples</span><span class="op">[</span><span class="va">output_samples</span><span class="op">$</span><span class="va">compartment</span> <span class="op">==</span> <span class="st">"infectious"</span>, <span class="op">]</span>, <span class="fu">aes</span><span class="op">(</span><span class="va">time</span>, <span class="va">value</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span></span>
+<span>  <span class="va">output_samples</span><span class="op">[</span><span class="va">output_samples</span><span class="op">$</span><span class="va">compartment</span> <span class="op">==</span> <span class="st">"infectious"</span>, <span class="op">]</span>,</span>
+<span>  <span class="fu">aes</span><span class="op">(</span><span class="va">time</span>, <span class="va">value</span><span class="op">)</span></span>
+<span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">stat_summary</span><span class="op">(</span>geom <span class="op">=</span> <span class="st">"line"</span>, fun <span class="op">=</span> <span class="va">mean</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">stat_summary</span><span class="op">(</span></span>
 <span>    geom <span class="op">=</span> <span class="st">"ribbon"</span>,</span>
@@ -936,7 +938,7 @@ any links that you are not going to use.
  -->
 </section></section><section id="aio-model-choices"><p>Content from <a href="model-choices.html">Choosing an appropriate model</a></p>
 <hr>
-<p>Last updated on 2024-01-24 |
+<p>Last updated on 2024-01-29 |
         
         <a href="https://github.com/epiverse-trace/tutorials/edit/main/episodes/model-choices.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <div class="text-end">
@@ -1183,11 +1185,7 @@ infections</strong>
 <code>model_default_cpp()</code><a class="anchor" aria-label="anchor" href="#model_default_cpp"></a>
 </h4>
 <p>A deterministic SEIR model with age specific direct transmission.</p>
-<!--html_preserve-->
-<div id="htmlwidget-1f76c8c4de9e6eab6bae" class="grViz html-widget html-fill-item" style="width:504px;height:504px;">
-
-</div>
-<script type="application/json" data-for="htmlwidget-1f76c8c4de9e6eab6bae">{"x":{"diagram":"digraph {\n\n  # graph statement\n  #################\n  graph [layout = dot,\n         rankdir = LR,\n         overlap = true,\n         fontsize = 10]\n\n  # nodes\n  #######\n  node [shape = square,\n       fixedsize = true\n       width = 1.3]\n\n       S\n       E\n       I\n       R\n\n  # edges\n  #######\n  S -> E [label = \" infection \n(transmissibility &beta;)\"]\n  E -> I [label = \" onset of infectiousness \n(infectiousness rate &alpha;)\"]\n  I -> R [label = \" recovery \n(recovery rate &gamma;)\"]\n\n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script><!--/html_preserve--><p>The model is capable of predicting an Ebola type outbreak, but as the
+<figure><img src="fig/model-choices-rendered-diagram-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>The model is capable of predicting an Ebola type outbreak, but as the
 model is deterministic, we are not able to explore stochastic variation
 in the early stages of the outbreak.</p>
 </div>
@@ -1219,11 +1217,7 @@ period (<span class="math inline">\(\rho^E\)</span>) and the transition
 rate between exposed and infectious (<span class="math inline">\(\gamma^E\)</span>) is <span class="math inline">\(\rho^E = k^E/\gamma^E\)</span> where <span class="math inline">\(k^E\)</span> is the shape of the Erlang
 distribution. Similarly for the infectious period <span class="math inline">\(\rho^I = k^I/\gamma^I\)</span>. See <a href="https://epiverse-trace.github.io/epidemics/articles/ebola_model.html#details-discrete-time-ebola-virus-disease-model" class="external-link">here</a>
 for more detail on the stochastic model formulation. </strong></p>
-<!--html_preserve-->
-<div id="htmlwidget-0307111a07767ecfc910" class="grViz html-widget html-fill-item" style="width:504px;height:504px;">
-
-</div>
-<script type="application/json" data-for="htmlwidget-0307111a07767ecfc910">{"x":{"diagram":"digraph {\n\n  # graph statement\n  #################\n  graph [layout = dot,\n  rankdir = LR,\n  overlap = true,\n  fontsize = 10]\n\n  # nodes\n  #######\n  node [shape = square,\n       fixedsize = true\n       width = 1.3]\n\n       S\n       E\n       I\n       H\n       F\n       R\n\n  # edges\n  #######\n  S -> E [label = \" infection (&beta;)\"]\n  E -> I [label = \" onset of \ninfectiousness (&gamma; E)\"]\n  I -> F [label = \" death (funeral) \n(&gamma; I)\"]\n  F -> R [label = \" safe burial (one timestep) \"]\n  I -> H [label = \" hospitalisation (p hosp)\"]\n  H -> R [label = \" recovery or safe burial \n (&gamma; I)\"]\n\n  subgraph {\n    rank = same; I; F;\n  }\n  subgraph {\n    rank = same; H; R;\n  }\n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script><!--/html_preserve--><p>The model has additional parameters describing the transmission risk
+<figure><img src="fig/model-choices-rendered-unnamed-chunk-1-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>The model has additional parameters describing the transmission risk
 in hospital and funeral settings:</p>
 <ul>
 <li>
@@ -1415,18 +1409,12 @@ values.</p>
 <span>  <span class="op">}</span></span>
 <span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">output_samples</span> <span class="op">&lt;-</span> <span class="fu">bind_rows</span><span class="op">(</span><span class="va">output_samples</span><span class="op">)</span> <span class="co"># requires the tidyverse package</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in bind_rows(output_samples): could not find function "bind_rows"</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb5">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span><span class="va">output_samples</span><span class="op">[</span><span class="va">output_samples</span><span class="op">$</span><span class="va">compartment</span> <span class="op">==</span> <span class="st">"infectious"</span>, <span class="op">]</span>, <span class="fu">aes</span><span class="op">(</span><span class="va">time</span>, <span class="va">value</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span><span class="va">output_samples</span> <span class="op">&lt;-</span> <span class="fu">bind_rows</span><span class="op">(</span><span class="va">output_samples</span><span class="op">)</span> <span class="co"># requires the dplyr package</span></span>
+<span></span>
+<span><span class="fu">ggplot</span><span class="op">(</span></span>
+<span>  <span class="va">output_samples</span><span class="op">[</span><span class="va">output_samples</span><span class="op">$</span><span class="va">compartment</span> <span class="op">==</span> <span class="st">"infectious"</span>, <span class="op">]</span>,</span>
+<span>  <span class="fu">aes</span><span class="op">(</span><span class="va">time</span>, <span class="va">value</span><span class="op">)</span></span>
+<span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">stat_summary</span><span class="op">(</span>geom <span class="op">=</span> <span class="st">"line"</span>, fun <span class="op">=</span> <span class="va">mean</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">stat_summary</span><span class="op">(</span></span>
 <span>    geom <span class="op">=</span> <span class="st">"ribbon"</span>,</span>
@@ -1446,11 +1434,7 @@ values.</p>
 <span>    base_size <span class="op">=</span> <span class="fl">15</span></span>
 <span>  <span class="op">)</span></span></code></pre>
 </div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in output_samples[output_samples$compartment == "infectious", ]: incorrect number of dimensions</code></pre>
-</div>
+<figure><img src="fig/model-choices-rendered-unnamed-chunk-4-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure>
 </div>
 </div>
 </div>
@@ -1478,7 +1462,7 @@ any links that you are not going to use.
  -->
 </section></section><section id="aio-modelling-interventions"><p>Content from <a href="modelling-interventions.html">Modelling interventions</a></p>
 <hr>
-<p>Last updated on 2024-01-24 |
+<p>Last updated on 2024-01-29 |
         
         <a href="https://github.com/epiverse-trace/tutorials/edit/main/episodes/modelling-interventions.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <div class="text-end">
@@ -1593,7 +1577,7 @@ epidemic.</p>
 <span><span class="co"># build for all age groups</span></span>
 <span><span class="va">initial_conditions</span> <span class="op">&lt;-</span> <span class="fu">matrix</span><span class="op">(</span></span>
 <span>  <span class="fu">rep</span><span class="op">(</span><span class="va">initial_conditions</span>, <span class="fu">dim</span><span class="op">(</span><span class="va">contact_matrix</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span>,</span>
-<span>  ncol <span class="op">=</span> <span class="fl">5</span>, byrow <span class="op">=</span> <span class="cn">T</span>,</span>
+<span>  ncol <span class="op">=</span> <span class="fl">5</span>, byrow <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span>
 <span><span class="fu">rownames</span><span class="op">(</span><span class="va">initial_conditions</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu">rownames</span><span class="op">(</span><span class="va">contact_matrix</span><span class="op">)</span></span>
 <span></span>
@@ -2052,7 +2036,7 @@ any links that you are not going to use.
  -->
 </section></section><section id="aio-compare-interventions"><p>Content from <a href="compare-interventions.html">Comparing public health outcomes of interventions</a></p>
 <hr>
-<p>Last updated on 2024-01-24 |
+<p>Last updated on 2024-01-29 |
         
         <a href="https://github.com/epiverse-trace/tutorials/edit/main/episodes/compare-interventions.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <div class="text-end">
@@ -2290,21 +2274,44 @@ of time steps to run the model for:</p>
 <span>  contact_matrix <span class="op">=</span> <span class="va">contact_matrix</span>,</span>
 <span>  demography_vector <span class="op">=</span> <span class="va">demography_vector</span>,</span>
 <span>  initial_conditions <span class="op">=</span> <span class="va">initial_conditions</span></span>
-<span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">no_vaccination</span> <span class="op">&lt;-</span> <span class="fu">no_vaccination</span><span class="op">(</span>population <span class="op">=</span> <span class="va">uk_population</span>, doses <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># run model</span></span>
+<span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error in population(name = "UK", contact_matrix = contact_matrix, demography_vector = demography_vector, : could not find function "population"</code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb8">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">no_vaccination</span> <span class="op">&lt;-</span> <span class="fu">no_vaccination</span><span class="op">(</span>population <span class="op">=</span> <span class="va">uk_population</span>, doses <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error in no_vaccination(population = uk_population, doses = 2): could not find function "no_vaccination"</code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb10">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># run model</span></span>
 <span><span class="va">output</span> <span class="op">&lt;-</span> <span class="fu">model_vacamole_cpp</span><span class="op">(</span></span>
 <span>  population <span class="op">=</span> <span class="va">uk_population</span>,</span>
 <span>  vaccination <span class="op">=</span> <span class="va">no_vaccination</span>,</span>
 <span>  time_end <span class="op">=</span> <span class="fl">300</span></span>
 <span><span class="op">)</span></span></code></pre>
 </div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error in model_vacamole_cpp(population = uk_population, vaccination = no_vaccination, : could not find function "model_vacamole_cpp"</code></pre>
+</div>
 <ol start="2" style="list-style-type: decimal">
 <li>Plot the number of deaths through time</li>
 </ol>
-<div class="codewrapper sourceCode" id="cb7">
+<div class="codewrapper sourceCode" id="cb12">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -2332,7 +2339,11 @@ of time steps to run the model for:</p>
 <span>    base_size <span class="op">=</span> <span class="fl">15</span></span>
 <span>  <span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="fig/compare-interventions-rendered-unnamed-chunk-5-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error in ggplot(output[output$compartment == "dead", ]): could not find function "ggplot"</code></pre>
+</div>
 </div>
 </div>
 </div>
@@ -2411,9 +2422,9 @@ any links that you are not going to use.
   "creativeWorkStatus": "active",
   "url": "https://epiverse-trace.github.io/tutorials/aio.html",
   "identifier": "https://epiverse-trace.github.io/tutorials/aio.html",
-  "dateCreated": "2024-01-25",
-  "dateModified": "2024-01-25",
-  "datePublished": "2024-01-25"
+  "dateCreated": "2024-01-29",
+  "dateModified": "2024-01-29",
+  "datePublished": "2024-01-29"
 }
 
   </script><script>
