@@ -67,6 +67,9 @@ episodes:
 - model-choices.Rmd
 - modelling-interventions.Rmd
 - compare-interventions.Rmd
+- severity-static.Rmd
+- severity-timevarying.Rmd
+- severity-underreporting.Rmd
 
 # Information for Learners
 learners:
