@@ -83,6 +83,7 @@ example_confirmed
 
 ```{.output}
            date confirm
+         <Date>   <num>
   1: 2020-02-22      14
   2: 2020-02-23      62
   3: 2020-02-24      53
@@ -134,7 +135,7 @@ epinow_estimates <- epinow(
 ```
 
 ```{.output}
-WARN [2024-02-06 16:31:31] epinow: Bulk Effective Samples Size (ESS) is too low, indicating posterior means and medians may be unreliable.
+WARN [2024-02-06 21:09:10] epinow: Bulk Effective Samples Size (ESS) is too low, indicating posterior means and medians may be unreliable.
 Running the chains for more iterations may help. See
 https://mc-stan.org/misc/warnings.html#bulk-ess - 
 ```
