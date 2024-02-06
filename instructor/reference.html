@@ -153,7 +153,7 @@
 <div class="accordion accordion-flush" id="accordionFlush2">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading2">
-        <a href="quantify-transmissibility.html">1. Quantifying transmission</a>
+        <a href="introduction.html">1. Outbreak analytics pipelines</a>
     </div><!--/div.accordion-header-->
         
   </div><!--/div.accordion-item-->
@@ -162,7 +162,7 @@
 <div class="accordion accordion-flush" id="accordionFlush3">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading3">
-        <a href="create-forecast.html">2. Create a short-term forecast</a>
+        <a href="read-delays.html">2. Read delays</a>
     </div><!--/div.accordion-header-->
         
   </div><!--/div.accordion-item-->
@@ -171,7 +171,7 @@
 <div class="accordion accordion-flush" id="accordionFlush4">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading4">
-        <a href="simulating-transmission.html">3. Simulating transmission</a>
+        <a href="quantify-transmissibility.html">3. Quantifying transmission</a>
     </div><!--/div.accordion-header-->
         
   </div><!--/div.accordion-item-->
@@ -180,7 +180,7 @@
 <div class="accordion accordion-flush" id="accordionFlush5">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading5">
-        <a href="model-choices.html">4. Choosing an appropriate model</a>
+        <a href="create-forecast.html">4. Create a short-term forecast</a>
     </div><!--/div.accordion-header-->
         
   </div><!--/div.accordion-item-->
@@ -189,7 +189,7 @@
 <div class="accordion accordion-flush" id="accordionFlush6">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading6">
-        <a href="modelling-interventions.html">5. Modelling interventions</a>
+        <a href="simulating-transmission.html">5. Simulating transmission</a>
     </div><!--/div.accordion-header-->
         
   </div><!--/div.accordion-item-->
@@ -198,7 +198,25 @@
 <div class="accordion accordion-flush" id="accordionFlush7">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading7">
-        <a href="compare-interventions.html">6. Comparing public health outcomes of interventions</a>
+        <a href="model-choices.html">6. Choosing an appropriate model</a>
+    </div><!--/div.accordion-header-->
+        
+  </div><!--/div.accordion-item-->
+</div><!--/div.accordion-flush-->
+
+<div class="accordion accordion-flush" id="accordionFlush8">
+  <div class="accordion-item">
+    <div class="accordion-header" id="flush-heading8">
+        <a href="modelling-interventions.html">7. Modelling interventions</a>
+    </div><!--/div.accordion-header-->
+        
+  </div><!--/div.accordion-item-->
+</div><!--/div.accordion-flush-->
+
+<div class="accordion accordion-flush" id="accordionFlush9">
+  <div class="accordion-item">
+    <div class="accordion-header" id="flush-heading9">
+        <a href="compare-interventions.html">8. Comparing public health outcomes of interventions</a>
     </div><!--/div.accordion-header-->
         
   </div><!--/div.accordion-item-->
@@ -262,7 +280,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Glossary of Terms: Epiverse-TRACE</h1>
-        <p>Last updated on 2024-02-02 |
+        <p>Last updated on 2024-02-06 |
         
         <a href="https://github.com/epiverse-trace/tutorials/edit/main/learners/reference.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
         
@@ -315,7 +333,18 @@ allows us to account for age specific rates of transmission.
 <dd>
 C++ is a high-level programming language that can be used within R to
 speed up sections of code. To learn more about C++ check out these <a href="https://cplusplus.com/doc/tutorial/" class="external-link">tutorials</a> and learn more
-about the integration of C++ and R <a href="https://www.rcpp.org/" class="external-link">here</a>.
+about the integration of C++ and R <a href="https://www.rcpp.org/" class="external-link">here</a>. <span id="censoring">Censoring</span>
+</dd>
+<dd>
+Means that we know an event happened, but we do not know exactly when it
+happened. Most epidemiological data are “doubly censored” because there
+is uncertainty surrounding both primary and secondary event times. Not
+accounting for censoring can lead to biased estimates of the delay’s
+standard deviation (<a href="https://github.com/parksw3/epidist-paper" class="external-link">Park et al., in
+progress</a>). Different sampling approaches can generate biases given
+left and right censoring in the estimation of the serial interval that
+can propagate bias to the estimation of the <a href="#incubation">incubation period</a> and generation time (<a href="https://www.nature.com/articles/s41467-022-35496-8/figures/2" class="external-link">Chen
+et al., 2022</a>)
 </dd>
 </dl></section><section id="d"><h2 class="section-heading">D<a class="anchor" aria-label="anchor" href="#d"></a>
 </h2>
@@ -332,9 +361,26 @@ humans. Airborne transmitted infections are often modelled as directly
 transmitted infections as they require close contact with infected
 individuals for successful transmission.
 </dd>
-</dl><!-- ## E --><!-- ## F --></section><section id="g"><h2 class="section-heading">G<a class="anchor" aria-label="anchor" href="#g"></a>
+</dl></section><section id="e"><h2 class="section-heading">E<a class="anchor" aria-label="anchor" href="#e"></a>
 </h2>
-<hr class="half-width"><dl><dt><span id="growth">Growth rate</span></dt>
+<hr class="half-width"><dl><dt><span id="effectiverepro">Effective reproduction number</span></dt>
+<dd>
+The time-varying or effective reproduction number (<span class="math inline">\(Rt\)</span>) is similar to the <a href="#basic">Basic reproductive number</a> (<span class="math inline">\(R0\)</span>), but <span class="math inline">\(Rt\)</span> measures the number of persons
+infected by infectious person when some portion of the population has
+already been infected. Read more about the <a href="https://wwwnc.cdc.gov/eid/article/29/8/22-1445_article" class="external-link">etymology
+of Reproduction number by Sharma et al, 2023</a>.
+</dd>
+</dl><!-- ## F --></section><section id="g"><h2 class="section-heading">G<a class="anchor" aria-label="anchor" href="#g"></a>
+</h2>
+<hr class="half-width"><dl><dt><span id="generationtime">Generation time</span></dt>
+<dd>
+Time between the onset of infectiousness of an index case and its
+secondary case. This always needs to be positive. The generation time
+distribution is commonly estimated from data on the <a href="#serialinterval">serial interval</a> distribution of an infection
+(<a href="https://royalsocietypublishing.org/doi/10.1098/rstb.2016.0371" class="external-link">Cori
+et al. 2017</a>).
+</dd>
+</dl><!-- This can produced biased estimates. ([Knight et al., 2020](https://www.sciencedirect.com/science/article/pii/S2468042720300634)) --><dl><dt><span id="growth">Growth rate</span></dt>
 <dd>
 The exponential growth rate tells us how much cases are increasing or
 decreasing at the start of an epidemic. It gives us a measure of speed
@@ -346,7 +392,12 @@ of transmission, see <a href="https://royalsocietypublishing.org/doi/full/10.109
 <hr class="half-width"><dl><dt><span id="incubation">Incubation period</span></dt>
 <dd>
 The time between becoming infected and the onset of symptoms. <a href="https://en.wikipedia.org/wiki/Latent_period_(epidemiology)#Incubation_period" class="external-link">More
-information on the incubation period</a>.
+information on the incubation period</a>. This can be different to the
+<a href="#latent">latent period</a> as shown in Figure 4 from (<a href="https://www.sciencedirect.com/science/article/pii/S2468042721000038#fig4" class="external-link">Xiang
+et al. (2021)</a>). The relationship between the incubation period and
+the <a href="#serialinterval">serial interval</a> helps to define the
+type of infection transmission (symptomatic or pre-symptomatic) (<a href="https://www.ijidonline.com/article/S1201-9712(20)30119-3/fulltext#gr2" class="external-link">Nishiura
+et al. (2020)</a>).
 </dd>
 <dt><span id="indirect">Indirect transmission</span></dt>
 <dd>
@@ -364,12 +415,23 @@ For example, if there is one infectious individual in a population of
 conditions would be <span class="math inline">\(S(0) = 999\)</span>,
 <span class="math inline">\(I(0) = 1\)</span>, <span class="math inline">\(R(0) = 0\)</span>.
 </dd>
+<dt><span id="infectiousness">Infectious period</span></dt>
+<dd>
+Also known as Duration of infectiousness. Time period between the onset
+and end of infectious <a href="#viralshedding">viral shedding</a>. Viral
+load and detection of infectious virus are the two key parameters for
+estimating infectiousness (<a href="https://www.nature.com/articles/s41579-022-00822-w" class="external-link">Puhach et al.,
+2022</a> and <a href="https://www.thelancet.com/journals/lanres/article/PIIS2213-2600(22)00226-0/fulltext" class="external-link">Hakki
+et al, 2022</a>](fig/infectiousness-covid19.jpg)).
+</dd>
 </dl><!-- ## J --><!-- ## K --></section><section id="l"><h2 class="section-heading">L<a class="anchor" aria-label="anchor" href="#l"></a>
 </h2>
 <hr class="half-width"><dl><dt><span id="latent">Latent period</span></dt>
 <dd>
-The time between becoming infected and the onset of infectiousness. <a href="https://en.wikipedia.org/wiki/Latent_period_(epidemiology)" class="external-link">More
-information on the latent period</a>.
+The time between becoming infected and the onset of infectiousness. This
+can be different to the <a href="#incubation">incubation period</a> as
+shown in Figure 4 from (<a href="https://www.sciencedirect.com/science/article/pii/S2468042721000038#fig4" class="external-link">Xiang
+et al, 2021</a>)
 </dd>
 </dl></section><section id="m"><h2 class="section-heading">M<a class="anchor" aria-label="anchor" href="#m"></a>
 </h2>
@@ -397,9 +459,49 @@ Ordinary differential equations (ODEs) can be used to represent the rate
 of change of one variable (e.g. number of infected individuals) with
 respect to another (e.g. time). Check out this introduction to <a href="https://mathinsight.org/ordinary_differential_equation_introduction" class="external-link">ODEs</a>.
 ODEs are widely used in infectious disease modelling to model the flow
-of individuals between different disease states.
+of individuals between different disease states. <span id="naturalhistory">Natural history of disease</span>
 </dd>
-</dl><!-- ## P --><!-- ## Q --><!-- ## R --></section><section id="s"><h2 class="section-heading">S<a class="anchor" aria-label="anchor" href="#s"></a>
+<dd>
+Refers to the development of disease from beginning to end without any
+treatment or intervention. In fact, given the harmfulness of an
+epidemic, treatment or intervention measures are inevitable. Therefore,
+it is difficult for the natural history of a disease to be unaffected by
+the various coupling factors. (<a href="https://www.sciencedirect.com/science/article/pii/S2468042721000038" class="external-link">Xiang
+et al, 2021</a>)
+</dd>
+</dl></section><section id="o-1"><h2 class="section-heading">O<a class="anchor" aria-label="anchor" href="#o-1"></a>
+</h2>
+<hr class="half-width"><dl><dt><span id="offspringdist">Offspring distribution</span></dt>
+<dd>
+Distribution of the number of secondary cases caused by a particular
+infected individual. (<a href="https://www.nature.com/articles/nature04153" class="external-link">Lloyd-Smith et al.,
+2005</a>, <a href="https://wellcomeopenresearch.org/articles/5-67/v3" class="external-link">Endo et al.,
+2020</a>)
+</dd>
+</dl></section><section id="p"><h2 class="section-heading">P<a class="anchor" aria-label="anchor" href="#p"></a>
+</h2>
+<hr class="half-width"><dl><dt><span id="phasebias">(Dynamical or Epidemic) Phase bias</span></dt>
+<dd>
+Accounts for population susceptibility at the times transmission pairs
+are observed. It is a type of sampling bias. It affects backward-looking
+data and is related to the phase of the epidemic: during the exponential
+growth phase, cases that developed symptoms recently are
+over-represented in the observed data, while during the declining phase,
+these cases are underrepresented, leading to the estimation of shorter
+and longer delay intervals, respectively. (<a href="https://github.com/parksw3/epidist-paper" class="external-link">Park et al., in
+progress</a>)
+</dd>
+</dl><!-- ## Q --></section><section id="r"><h2 class="section-heading">R<a class="anchor" aria-label="anchor" href="#r"></a>
+</h2>
+<hr class="half-width"><dl><dt><span id="reportingdelay">Reporting delay</span></dt>
+<dd>
+Delay or lag between the time an event occurs (e.g. symptom onset) and
+the time it is reported (<a href="https://www.jstor.org/stable/3315820" class="external-link">Lawless, 1994</a>). We can
+quantify it by comparing the linelist with successive versions of it or
+up-to-date reported aggregated case counts (<a href="https://royalsocietypublishing.org/doi/10.1098/rstb.2016.0371" class="external-link">Cori
+et al. 2017</a>).
+</dd>
+</dl></section><section id="s"><h2 class="section-heading">S<a class="anchor" aria-label="anchor" href="#s"></a>
 </h2>
 <hr class="half-width"><dl><dt><span id="state">State variables</span></dt>
 <dd>
@@ -409,6 +511,18 @@ susceptible, infectious or recovered the state variables are <span class="math i
 and <span class="math inline">\(R\)</span>. There is an ordinary
 differential equation for each state variable.
 </dd>
+<dt><span id="serialinterval">Serial interval</span></dt>
+<dd>
+The time delay between the onset of symptoms between a primary case and
+a secondary case. This can be negative when pre-symptomatic infection
+occurs. Most commonly, the serial interval distribution of an infection
+is used to estimate the <a href="#generationtime">generation time</a>
+distribution (<a href="https://royalsocietypublishing.org/doi/10.1098/rstb.2016.0371" class="external-link">(Cori
+et al., 2017)</a>). The relationship between the serial interval and the
+<a href="#incubation">incubation period</a> helps to define the type of
+infection transmission (symptomatic or pre-symptomatic) (<a href="https://www.ijidonline.com/article/S1201-9712(20)30119-3/fulltext#gr2" class="external-link">Nishiura
+et al. (2020)</a>).
+</dd>
 <dt><span id="stochastic">Stochastic model</span></dt>
 <dd>
 A model that includes some stochastic process resulting in variation in
@@ -416,7 +530,17 @@ model simulations for the same initial conditions and parameter values.
 Examples include stochastic differential equations and branching process
 models. For more detail see <a href="https://doi.org/10.1016/j.idm.2017.03.001" class="external-link">Allen (2017)</a>.
 </dd>
-</dl><!-- ## T --><!-- ## U --></section><section id="v"><h2 class="section-heading">V<a class="anchor" aria-label="anchor" href="#v"></a>
+</dl></section><section id="t"><h2 class="section-heading">T<a class="anchor" aria-label="anchor" href="#t"></a>
+</h2>
+<hr class="half-width"><dl><dt><span id="truncation">(Right) Truncation</span></dt>
+<dd>
+Type of sampling bias related to the data collection process. It arises
+because only cases that have been reported can be observed. Not
+accounting for right truncation during the growth phase of an epidemic
+can lead to underestimation of the mean delay (<a href="https://github.com/parksw3/epidist-paper" class="external-link">Park et al., in
+progress</a>).
+</dd>
+</dl><!-- ## U --></section><section id="v"><h2 class="section-heading">V<a class="anchor" aria-label="anchor" href="#v"></a>
 </h2>
 <hr class="half-width"><dl><dt><span id="vectorborne">Vector-borne transmission</span></dt>
 <dd>
@@ -425,6 +549,12 @@ Vector-borne transmission means an infection can be passed from a vector
 malaria and dengue. The World Health Organization have a <a href="https://www.who.int/news-room/fact-sheets/detail/vector-borne-diseases" class="external-link">Fact
 sheet about Vector-borne diseases</a> with key information and a list of
 them according to their vector.
+</dd>
+<dt><span id="viralshedding">Viral shedding</span></dt>
+<dd>
+The process of releasing a virus from a cell or body into the
+environment where it can infect other people. (<a href="https://dictionary.cambridge.org/us/dictionary/english/shedding" class="external-link">Cambridge
+Dictionary, 2023</a>)
 </dd>
 </dl><!-- ## W --><!-- ## X --><!-- ## Y --><!-- ## Z --><!-- 
 Place links that you need to refer to multiple times across pages here. Delete
@@ -486,8 +616,8 @@ any links that you are not going to use.
   "creativeWorkStatus": "active",
   "url": "https://epiverse-trace.github.io/tutorials/instructor/reference.html",
   "identifier": "https://epiverse-trace.github.io/tutorials/instructor/reference.html",
-  "dateCreated": "2024-02-05",
-  "dateModified": "2024-02-02",
+  "dateCreated": "2024-02-06",
+  "dateModified": "2024-02-06",
   "datePublished": "2024-02-06"
 }
 
