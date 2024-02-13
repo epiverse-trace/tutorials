@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<title>Reading and cleaning data for outbreak analytics with R: Key Points</title>
+<title>Outbreak analytics with R: Key Points</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" type="text/css" href="../assets/styles.css">
 <script src="../assets/scripts.js" type="text/javascript"></script><!-- Google tag (gtag.js) --><script async src="https://www.googletagmanager.com/gtag/js?id=G-XZ471458FQ"></script><script>
@@ -71,7 +71,7 @@
       <img class="small-logo" alt="Epiverse-TRACE" src="../assets/images/epiverse-logo.svg">
 </div>
     <div class="lesson-title-md">
-      Reading and cleaning data for outbreak analytics with R
+      Outbreak analytics with R
     </div>
     <div class="search-icon-sm">
       <!-- TODO: do not show until we have search
@@ -82,7 +82,7 @@
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 <li class="nav-item">
           <span class="lesson-title">
-            Reading and cleaning data for outbreak analytics with R
+            Outbreak analytics with R
           </span>
         </li>
         <li class="nav-item">
@@ -115,7 +115,7 @@
   </div>
 <!--/div.container-fluid -->
 </nav><div class="col-md-12 mobile-title">
-  Reading and cleaning data for outbreak analytics with R
+  Outbreak analytics with R
 </div>
 
 <aside class="col-md-12 lesson-progress"><div style="width: %" class="percentage">
@@ -188,7 +188,91 @@
 <div class="accordion accordion-flush" id="accordionFlush2">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading2">
-        <a href="read-delays.html">1. Read delays</a>
+        <a href="introduction.html">1. Outbreak analytics pipelines</a>
+    </div>
+<!--/div.accordion-header-->
+        
+  </div>
+<!--/div.accordion-item-->
+</div>
+<!--/div.accordion-flush-->
+
+<div class="accordion accordion-flush" id="accordionFlush3">
+  <div class="accordion-item">
+    <div class="accordion-header" id="flush-heading3">
+        <a href="read-delays.html">2. Read delays</a>
+    </div>
+<!--/div.accordion-header-->
+        
+  </div>
+<!--/div.accordion-item-->
+</div>
+<!--/div.accordion-flush-->
+
+<div class="accordion accordion-flush" id="accordionFlush4">
+  <div class="accordion-item">
+    <div class="accordion-header" id="flush-heading4">
+        <a href="quantify-transmissibility.html">3. Quantifying transmission</a>
+    </div>
+<!--/div.accordion-header-->
+        
+  </div>
+<!--/div.accordion-item-->
+</div>
+<!--/div.accordion-flush-->
+
+<div class="accordion accordion-flush" id="accordionFlush5">
+  <div class="accordion-item">
+    <div class="accordion-header" id="flush-heading5">
+        <a href="create-forecast.html">4. Create a short-term forecast</a>
+    </div>
+<!--/div.accordion-header-->
+        
+  </div>
+<!--/div.accordion-item-->
+</div>
+<!--/div.accordion-flush-->
+
+<div class="accordion accordion-flush" id="accordionFlush6">
+  <div class="accordion-item">
+    <div class="accordion-header" id="flush-heading6">
+        <a href="simulating-transmission.html">5. Simulating transmission</a>
+    </div>
+<!--/div.accordion-header-->
+        
+  </div>
+<!--/div.accordion-item-->
+</div>
+<!--/div.accordion-flush-->
+
+<div class="accordion accordion-flush" id="accordionFlush7">
+  <div class="accordion-item">
+    <div class="accordion-header" id="flush-heading7">
+        <a href="model-choices.html">6. Choosing an appropriate model</a>
+    </div>
+<!--/div.accordion-header-->
+        
+  </div>
+<!--/div.accordion-item-->
+</div>
+<!--/div.accordion-flush-->
+
+<div class="accordion accordion-flush" id="accordionFlush8">
+  <div class="accordion-item">
+    <div class="accordion-header" id="flush-heading8">
+        <a href="modelling-interventions.html">7. Modelling interventions</a>
+    </div>
+<!--/div.accordion-header-->
+        
+  </div>
+<!--/div.accordion-item-->
+</div>
+<!--/div.accordion-flush-->
+
+<div class="accordion accordion-flush" id="accordionFlush9">
+  <div class="accordion-item">
+    <div class="accordion-header" id="flush-heading9">
+        <a href="compare-interventions.html">8. Comparing public health outcomes of interventions</a>
     </div>
 <!--/div.accordion-header-->
         
@@ -252,7 +336,16 @@
     <main id="main-content" class="main-content"><div class="container lesson-content">
         
         
-<section id="read-delays"><h2 class="section-heading"><a href="read-delays.html">Read delays</a></h2>
+<section id="introduction"><h2 class="section-heading"><a href="introduction.html">Outbreak analytics pipelines</a></h2>
+<hr class="half-width">
+<ul>
+<li>Our vision is to have pipelines of R packages for outbreak
+analytics.</li>
+<li>Our strategy is to create interconnected tasks to get relevant
+outputs for public health questions.</li>
+<li>We plan to introduce package solutions and theory bits for each of
+the tasks in the outbreak analytics pipeline.</li>
+</ul></section><section id="read-delays"><h2 class="section-heading"><a href="read-delays.html">Read delays</a></h2>
 <hr class="half-width">
 <ul>
 <li>Use <code>{epiparameter}</code> to access the systematic review
@@ -265,6 +358,46 @@ delay distributions.</li>
 delay distributions.</li>
 <li>Use <code>{epiparameter}</code> probability functions for any delay
 distributions.</li>
+</ul></section><section id="quantify-transmissibility"><h2 class="section-heading"><a href="quantify-transmissibility.html">Quantifying transmission</a></h2>
+<hr class="half-width">
+<ul>
+<li>Transmission metrics can be estimated from case data after
+accounting for delays</li>
+<li>Uncertainty can be accounted for in delay distributions</li>
+</ul></section><section id="create-forecast"><h2 class="section-heading"><a href="create-forecast.html">Create a short-term forecast</a></h2>
+<hr class="half-width">
+<ul>
+<li>We can create short-term forecasts by making assumptions about the
+future behaviour of the reproduction number</li>
+<li>Incomplete case reporting can be accounted for in estimates</li>
+</ul></section><section id="simulating-transmission"><h2 class="section-heading"><a href="simulating-transmission.html">Simulating transmission</a></h2>
+<hr class="half-width">
+<ul>
+<li>Disease trajectories can be generated using the R package
+<code>epidemics</code>
+</li>
+<li>Uncertainty should be included in model trajectories using a range
+of model parameter values</li>
+</ul></section><section id="model-choices"><h2 class="section-heading"><a href="model-choices.html">Choosing an appropriate model</a></h2>
+<hr class="half-width">
+<ul>
+<li>Existing mathematical models should be selected according to the
+research question</li>
+<li>It is important to check that a model has appropriate assumptions
+about transmission, outbreak potential, outcomes and interventions</li>
+</ul></section><section id="modelling-interventions"><h2 class="section-heading"><a href="modelling-interventions.html">Modelling interventions</a></h2>
+<hr class="half-width">
+<ul>
+<li>The effect of NPIs can be modelled as reducing contact rates between
+age groups or reducing the transmissibility of infection</li>
+<li>Vaccination can be modelled by assuming individuals move to a
+different disease state <span class="math inline">\(V\)</span>
+</li>
+</ul></section><section id="compare-interventions"><h2 class="section-heading"><a href="compare-interventions.html">Comparing public health outcomes of interventions</a></h2>
+<hr class="half-width">
+<ul>
+<li>The counter factual scenario must be defined to make
+comparisons</li>
 </ul></section>
 </div>
     </main>
@@ -278,12 +411,12 @@ distributions.</li>
         <p>This lesson is subject to the <a href="CODE_OF_CONDUCT.html">Code of Conduct</a></p>
         <p>
         
-        <a href="https://github.com/epiverse-trace/tutorials-early/edit/main/README.md" class="external-link">Edit on GitHub</a>
+        <a href="https://github.com/epiverse-trace/tutorials/edit/main/README.md" class="external-link">Edit on GitHub</a>
         
 	
-        | <a href="https://github.com/epiverse-trace/tutorials-early/blob/main/CONTRIBUTING.md" class="external-link">Contributing</a>
-        | <a href="https://github.com/epiverse-trace/tutorials-early/" class="external-link">Source</a></p>
-				<p><a href="https://github.com/epiverse-trace/tutorials-early/blob/main/CITATION" class="external-link">Cite</a> | <a href="mailto:andree.valle-campos@lshtm.ac.uk">Contact</a> | <a href="https://carpentries.org/about/" class="external-link">About</a></p>
+        | <a href="https://github.com/epiverse-trace/tutorials/blob/main/CONTRIBUTING.md" class="external-link">Contributing</a>
+        | <a href="https://github.com/epiverse-trace/tutorials/" class="external-link">Source</a></p>
+				<p><a href="https://github.com/epiverse-trace/tutorials/blob/main/CITATION" class="external-link">Cite</a> | <a href="mailto:andree.valle-campos@lshtm.ac.uk">Contact</a> | <a href="https://carpentries.org/about/" class="external-link">About</a></p>
 			</div>
 			<div class="col-md-6">
         
@@ -303,16 +436,16 @@ distributions.</li>
     {
   "@context": "https://schema.org",
   "@type": "TrainingMaterial",
-  "@id": "https://epiverse-trace.github.io/tutorials-early/instructor/key-points.html",
+  "@id": "https://epiverse-trace.github.io/tutorials/instructor/key-points.html",
   "inLanguage": "en",
   "dct:conformsTo": "https://bioschemas.org/profiles/TrainingMaterial/1.0-RELEASE",
   "description": "A Carpentries Lesson teaching foundational data and coding skills to researchers worldwide",
-  "keywords": "software,data,lesson,The Carpentries",
+  "keywords": "forecasts, epidemic models, interventions",
   "name": "Key Points",
   "creativeWorkStatus": "active",
-  "url": "https://epiverse-trace.github.io/tutorials-early/instructor/key-points.html",
-  "identifier": "https://epiverse-trace.github.io/tutorials-early/instructor/key-points.html",
-  "dateCreated": "2024-02-12",
+  "url": "https://epiverse-trace.github.io/tutorials/instructor/key-points.html",
+  "identifier": "https://epiverse-trace.github.io/tutorials/instructor/key-points.html",
+  "dateCreated": "2024-02-06",
   "dateModified": "2024-02-13",
   "datePublished": "2024-02-13"
 }
