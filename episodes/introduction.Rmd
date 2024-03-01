@@ -83,16 +83,24 @@ example_confirmed
 
 Not all primary cases have the same probability of generating a secondary case. The onset and cessation of [infectiousness](../learners/reference.md#infectiousness) may occur gradually. 
 
-For `{EpiNow2}`, we can specify it as a probability `distribution` adding its `mean`, standard deviation (`sd`), and maximum value (`max`). To specify a generation time that follows a _Gamma_ distribution with mean $\mu = 3.6$, standard deviation $\sigma^2 = 3.1$, and a maximum value of 20, we write:
+For `{EpiNow2}`, we can specify it as a probability `distribution` adding its `mean`, standard deviation (`sd`), and maximum value (`max`). To specify a generation time that follows a _Gamma_ distribution with mean $\mu = 4$, standard deviation $\sigma^2 = 2$, and a maximum value of 20, we write:
 
 ```{r}
 generation_time <- dist_spec(
-  mean = 3.6,
-  sd = 3.1,
+  mean = 4,
+  sd = 2,
   max = 20,
   distribution = "gamma"
 )
 ```
+
+:::::::::::::::::::::::::::: instructor
+
+We can show the a figure from the [Distribution Zoo](https://ben18785.shinyapps.io/distribution-zoo/).
+
+A _Gamma_ distribution with summary statistics of mean $\mu = 4$ and  standard deviation $\sigma^2 = 2$, is equivalent to the distribution parameters of $shape = 4$ and $scale = 1$ ($rate = 1/shape$).
+
+::::::::::::::::::::::::::::
 
 ### Now, let's calculate the reproduction number!
 
