@@ -44,3 +44,17 @@ Read the [License](LICENSE.md) of this tutorial.
 
 - [@amanda-minter](https://github.com/amanda-minter/)
 - [@avallecam](https://github.com/avallecam/)
+
+## Related projects
+
+- R package vignettes: Look at all Epiverse-TRACE packages in [our
+  developer space](https://epiverse-trace.github.io/).
+- [How-to guides](https://epiverse-trace.github.io/howto/): reproducible
+  recipes with concrete steps to solve specific Outbreak Analysis
+  questions.
+- [The Epidemiologist R
+  Handbook](https://www.epirhandbook.com/en/index.html): Quick R code
+  reference manual with task-centered examples that address common
+  epidemiological problems.
+- *COMING SOON* case studies: reproducible case-studies of outbreak data
+  analysis tasks using R packages.
