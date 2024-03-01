@@ -96,6 +96,10 @@ generation_time <- dist_spec(
 
 :::::::::::::::::::::::::::: instructor
 
+As an example, we can show a generation time distribution from [Manica et al., 2022](https://www.thelancet.com/journals/lanepe/article/PIIS2666-7762%2822%2900140-5/fulltext#gr2)
+
+![Manica et al. (2022) estimated a mean intrinsic generation time of 6.84 days (95% credible intervals, CrI, 5.72–8.60), and a mean realized household generation time of 3.59 days (95%CrI: 3.55–3.60)](fig/generation-time-gr2_lrg.jpg)
+
 We can show the a figure from the [Distribution Zoo](https://ben18785.shinyapps.io/distribution-zoo/).
 
 A _Gamma_ distribution with summary statistics of mean $\mu = 4$ and  standard deviation $\sigma^2 = 2$, is equivalent to the distribution parameters of $shape = 4$ and $scale = 1$ ($rate = 1/shape$).
