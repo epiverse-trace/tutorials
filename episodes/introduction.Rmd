@@ -100,14 +100,16 @@ We can show the a figure from the [Distribution Zoo](https://ben18785.shinyapps.
 
 A _Gamma_ distribution with summary statistics of mean $\mu = 4$ and  standard deviation $\sigma^2 = 2$, is equivalent to the distribution parameters of $shape = 4$ and $scale = 1$ ($rate = 1/shape$).
 
+![](fig/distribution-zoo.png)
+
 ::::::::::::::::::::::::::::
 
 ### Now, let's calculate the reproduction number!
 
-In the `epinow()` function we can input three main elements:
+In the `epinow()` function we can input these two elements:
 
-- the `reported_cases` data frame, 
-- the `generation_time` delay distribution, and 
+- the `reported_cases` data frame, and
+- the `generation_time` delay distribution, plus 
 - the computation `stan` parameters for this calculation:
 
 ```{r,message=FALSE,warning=FALSE}
@@ -117,10 +119,7 @@ epinow_estimates <- epinow(
   # delays
   generation_time = generation_time_opts(generation_time),
   # computation
-  stan = stan_opts(
-    cores = 4, samples = 1000, chains = 3,
-    control = list(adapt_delta = 0.99)
-  )
+  stan = stan_opts(cores = 4, samples = 1000)
 )
 ```
 
