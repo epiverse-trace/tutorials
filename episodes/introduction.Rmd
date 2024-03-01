@@ -81,20 +81,22 @@ example_confirmed
 
 ### Then, set the generation time
 
-Not all primary cases have the same probability of generating a secondary case. The onset and cessation of [infectiousness](../learners/reference.md#infectiousness) may occur gradually. For `{EpiNow2}`, we can specify it as a probability `distribution` with `mean`, standard deviation `sd`, and maximum value `max`:
+Not all primary cases have the same probability of generating a secondary case. The onset and cessation of [infectiousness](../learners/reference.md#infectiousness) may occur gradually. 
+
+For `{EpiNow2}`, we can specify it as a probability `distribution` adding its `mean`, standard deviation (`sd`), and maximum value (`max`). To specify a generation time that follows a _Gamma_ distribution with mean $\mu = 3.6$, standard deviation $\sigma^2 = 3.1$, and a maximum value of 20, we write:
 
 ```{r}
 generation_time <- dist_spec(
   mean = 3.6,
   sd = 3.1,
   max = 20,
-  distribution = "lognormal"
+  distribution = "gamma"
 )
 ```
 
-### Let's calculate the reproduction number!
+### Now, let's calculate the reproduction number!
 
-In the `epinow()` function we can add:
+In the `epinow()` function we can input three main elements:
 
 - the `reported_cases` data frame, 
 - the `generation_time` delay distribution, and 
