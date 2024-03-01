@@ -99,24 +99,40 @@ example_confirmed
 
 ### Then, set the generation time
 
-Not all primary cases have the same probability of generating a secondary case. The onset and cessation of [infectiousness](../learners/reference.md#infectiousness) may occur gradually. For `{EpiNow2}`, we can specify it as a probability `distribution` with `mean`, standard deviation `sd`, and maximum value `max`:
+Not all primary cases have the same probability of generating a secondary case. The onset and cessation of [infectiousness](../learners/reference.md#infectiousness) may occur gradually. 
+
+For `{EpiNow2}`, we can specify it as a probability `distribution` adding its `mean`, standard deviation (`sd`), and maximum value (`max`). To specify a generation time that follows a _Gamma_ distribution with mean $\mu = 4$, standard deviation $\sigma^2 = 2$, and a maximum value of 20, we write:
 
 
 ```r
 generation_time <- dist_spec(
-  mean = 3.6,
-  sd = 3.1,
+  mean = 4,
+  sd = 2,
   max = 20,
-  distribution = "lognormal"
+  distribution = "gamma"
 )
 ```
 
-### Let's calculate the reproduction number!
+:::::::::::::::::::::::::::: instructor
 
-In the `epinow()` function we can add:
+As an example, we can show a generation time distribution from [Manica et al., 2022](https://www.thelancet.com/journals/lanepe/article/PIIS2666-7762%2822%2900140-5/fulltext#gr2)
 
-- the `reported_cases` data frame, 
-- the `generation_time` delay distribution, and 
+![Manica et al. (2022) estimated a mean intrinsic generation time of 6.84 days (95% credible intervals, CrI, 5.72–8.60), and a mean realized household generation time of 3.59 days (95%CrI: 3.55–3.60)](fig/generation-time-gr2_lrg.jpg)
+
+We can show the a figure from the [Distribution Zoo](https://ben18785.shinyapps.io/distribution-zoo/).
+
+A _Gamma_ distribution with summary statistics of mean $\mu = 4$ and  standard deviation $\sigma^2 = 2$, is equivalent to the distribution parameters of $shape = 4$ and $scale = 1$ ($rate = 1/shape$).
+
+![](fig/distribution-zoo.png)
+
+::::::::::::::::::::::::::::
+
+### Now, let's calculate the reproduction number!
+
+In the `epinow()` function we can input these two elements:
+
+- the `reported_cases` data frame, and
+- the `generation_time` delay distribution, plus 
 - the computation `stan` parameters for this calculation:
 
 
@@ -127,18 +143,20 @@ epinow_estimates <- epinow(
   # delays
   generation_time = generation_time_opts(generation_time),
   # computation
-  stan = stan_opts(
-    cores = 4, samples = 1000, chains = 3,
-    control = list(adapt_delta = 0.99)
-  )
+  stan = stan_opts(cores = 4, samples = 1000)
 )
 ```
 
 ```{.output}
-WARN [2024-02-27 01:05:38] epinow: Bulk Effective Samples Size (ESS) is too low, indicating posterior means and medians may be unreliable.
+WARN [2024-03-01 20:46:41] epinow: There were 7 divergent transitions after warmup. See
+https://mc-stan.org/misc/warnings.html#divergent-transitions-after-warmup
+to find out why this is a problem and how to eliminate them. - 
+WARN [2024-03-01 20:46:41] epinow: Examine the pairs() plot to diagnose sampling problems
+ - 
+WARN [2024-03-01 20:46:42] epinow: Bulk Effective Samples Size (ESS) is too low, indicating posterior means and medians may be unreliable.
 Running the chains for more iterations may help. See
 https://mc-stan.org/misc/warnings.html#bulk-ess - 
-WARN [2024-02-27 01:05:39] epinow: Tail Effective Samples Size (ESS) is too low, indicating posterior variances and tail quantiles may be unreliable.
+WARN [2024-03-01 20:46:42] epinow: Tail Effective Samples Size (ESS) is too low, indicating posterior variances and tail quantiles may be unreliable.
 Running the chains for more iterations may help. See
 https://mc-stan.org/misc/warnings.html#tail-ess - 
 ```
@@ -156,7 +174,9 @@ base::plot(epinow_estimates)
 
 ### Is this $Rt$ estimation biased?
 
-Review [Gostic et al., 2020](https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1008409) about what additional adjustments this estimation requires to avoid false precision in $Rt$. 
+In the following episodes we are going to explore how to improve this initial estimate like adjusting by delays or incomplete observations.
+
+In the meanwhile, we recommend you to review [Gostic et al., 2020](https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1008409) on "Practical considerations for measuring the effective reproductive number, $Rt$" to avoid false precision in our reported $Rt$ estimates. 
 
 :::::::::::::::::::::::::
 
@@ -200,6 +220,13 @@ Our plan for these tutorials is to introduce key solutions from packages in all 
 
 - Lastly, we will use _Quantify transmission_ data outputs to compare it to other indicators and simulate epidemic scenarios as part of the __Late tasks__. This includes `{finalsize}`, `{epidemics}`, and `{scenarios}`.
 
+::::::::::::::::::::::::::::::: checklist
+
+### let's start!
+
+Lets start our learning path with the [Early Task Tutorials](https://epiverse-trace.github.io/tutorials-early/)!
+
+:::::::::::::::::::::::::::::::
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
