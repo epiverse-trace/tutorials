@@ -124,7 +124,9 @@ base::plot(epinow_estimates)
 
 ### Is this $Rt$ estimation biased?
 
-Review [Gostic et al., 2020](https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1008409) about what additional adjustments this estimation requires to avoid false precision in $Rt$. 
+In the following episodes we are going to explore how to improve this initial estimate like adjusting by delays or incomplete observations.
+
+In the meanwhile, we recommend you to review [Gostic et al., 2020](https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1008409) on "Practical considerations for measuring the effective reproductive number, $Rt$" to avoid false precision in our reported $Rt$ estimates. 
 
 :::::::::::::::::::::::::
 
