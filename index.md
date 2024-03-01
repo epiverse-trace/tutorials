@@ -34,3 +34,17 @@ Each tutorial contain a set of episodes. Each episode contains:
 + **Challenges** : complete challenges to test your understanding.
 + **Explainers** : add to your understanding of mathematical and modelling concepts with the explainer boxes.
 + **Glossary** : contain terms you may be unfamiliar with. 
+
+
+:::::::::::::::::::::::::::: prereq
+
+This course assumes intermediate R knowledge. This workshop is for you if:
+
+- You can use the magrittr pipe `%>%` and/or native pipe `|>`
+- You are familiar with functions from `{dplyr}`, `{tidyr}`, and `{ggplot2}`
+- You can read data into R, transform and reshape data, and make a wide variety of graphs
+
+We expect participants to have some exposure to basic Statistical, Mathematical and Epidemic theory concepts, but NOT intermediate or expert familiarity with modeling.
+
+::::::::::::::::::::::::::::
+
