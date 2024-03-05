@@ -61,10 +61,10 @@ estimates <- epinow(
 ```
 
 ```{.output}
-WARN [2024-02-27 02:04:29] epinow: There were 3 divergent transitions after warmup. See
+WARN [2024-03-05 01:48:51] epinow: There were 3 divergent transitions after warmup. See
 https://mc-stan.org/misc/warnings.html#divergent-transitions-after-warmup
 to find out why this is a problem and how to eliminate them. - 
-WARN [2024-02-27 02:04:29] epinow: Examine the pairs() plot to diagnose sampling problems
+WARN [2024-03-05 01:48:51] epinow: Examine the pairs() plot to diagnose sampling problems
  - 
 ```
 
@@ -131,17 +131,28 @@ estimates <- epinow(
   rt = rt_opts(prior = list(mean = rt_log_mean, sd = rt_log_sd)),
   obs = obs_opts(scale = obs_scale)
 )
+```
+
+```{.output}
+WARN [2024-03-05 01:55:24] epinow: There were 5 divergent transitions after warmup. See
+https://mc-stan.org/misc/warnings.html#divergent-transitions-after-warmup
+to find out why this is a problem and how to eliminate them. - 
+WARN [2024-03-05 01:55:24] epinow: Examine the pairs() plot to diagnose sampling problems
+ - 
+```
+
+```r
 summary(estimates)
 ```
 
 ```{.output}
-                                 measure                 estimate
-                                  <char>                   <char>
-1: New confirmed cases by infection date    18077 (9954 -- 32284)
-2:        Expected change in daily cases        Likely decreasing
-3:            Effective reproduction no.       0.89 (0.56 -- 1.3)
-4:                        Rate of growth -0.015 (-0.065 -- 0.041)
-5:          Doubling/halving time (days)          -46 (17 -- -11)
+                                 measure                estimate
+                                  <char>                  <char>
+1: New confirmed cases by infection date   17939 (9853 -- 32383)
+2:        Expected change in daily cases       Likely decreasing
+3:            Effective reproduction no.      0.89 (0.56 -- 1.3)
+4:                        Rate of growth -0.015 (-0.066 -- 0.04)
+5:          Doubling/halving time (days)         -46 (17 -- -11)
 ```
 
 
@@ -235,10 +246,6 @@ deaths_forecast <- forecast_secondary(
 plot(deaths_forecast)
 ```
 
-```{.warning}
-Warning: Removed 30 rows containing missing values (`position_stack()`).
-```
-
 <img src="fig/create-forecast-rendered-unnamed-chunk-11-1.png" style="display: block; margin: auto;" />
 
 The plot shows the forecast secondary observations (deaths) over the dates which we have recorded cases for. 
@@ -328,10 +335,10 @@ ebola_estimates <- epinow(
 ```
 
 ```{.output}
-WARN [2024-02-27 02:13:59] epinow: There were 18 divergent transitions after warmup. See
+WARN [2024-03-05 01:57:16] epinow: There were 29 divergent transitions after warmup. See
 https://mc-stan.org/misc/warnings.html#divergent-transitions-after-warmup
 to find out why this is a problem and how to eliminate them. - 
-WARN [2024-02-27 02:13:59] epinow: Examine the pairs() plot to diagnose sampling problems
+WARN [2024-03-05 01:57:16] epinow: Examine the pairs() plot to diagnose sampling problems
  - 
 ```
 
@@ -340,16 +347,16 @@ summary(ebola_estimates)
 ```
 
 ```{.output}
-                                 measure                estimate
-                                  <char>                  <char>
-1: New confirmed cases by infection date         101 (49 -- 270)
-2:        Expected change in daily cases              Increasing
-3:            Effective reproduction no.          1.7 (1.1 -- 3)
-4:                        Rate of growth 0.043 (0.0058 -- 0.094)
-5:          Doubling/halving time (days)         16 (7.3 -- 120)
+                                 measure               estimate
+                                  <char>                 <char>
+1: New confirmed cases by infection date        101 (48 -- 261)
+2:        Expected change in daily cases             Increasing
+3:            Effective reproduction no.       1.7 (1.1 -- 2.9)
+4:                        Rate of growth 0.042 (0.0048 -- 0.09)
+5:          Doubling/halving time (days)        17 (7.7 -- 140)
 ```
 
-The effective reproduction number $R_t$ estimate (on the last date of the data) is 1.7 (1.1 -- 3). The exponential growth rate of case numbers is 0.043 (0.0058 -- 0.094).
+The effective reproduction number $R_t$ estimate (on the last date of the data) is 1.7 (1.1 -- 2.9). The exponential growth rate of case numbers is 0.042 (0.0048 -- 0.09).
 
 Visualize the estimates:
 
