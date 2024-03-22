@@ -10,10 +10,16 @@
     <loc>https://epiverse-trace.github.io/tutorials/LICENSE.html</loc>
   </url>
   <url>
+    <loc>https://epiverse-trace.github.io/tutorials/aio.html</loc>
+  </url>
+  <url>
     <loc>https://epiverse-trace.github.io/tutorials/compare-interventions.html</loc>
   </url>
   <url>
     <loc>https://epiverse-trace.github.io/tutorials/create-forecast.html</loc>
+  </url>
+  <url>
+    <loc>https://epiverse-trace.github.io/tutorials/images.html</loc>
   </url>
   <url>
     <loc>https://epiverse-trace.github.io/tutorials/index.html</loc>
@@ -28,16 +34,28 @@
     <loc>https://epiverse-trace.github.io/tutorials/instructor/LICENSE.html</loc>
   </url>
   <url>
+    <loc>https://epiverse-trace.github.io/tutorials/instructor/aio.html</loc>
+  </url>
+  <url>
     <loc>https://epiverse-trace.github.io/tutorials/instructor/compare-interventions.html</loc>
   </url>
   <url>
     <loc>https://epiverse-trace.github.io/tutorials/instructor/create-forecast.html</loc>
   </url>
   <url>
+    <loc>https://epiverse-trace.github.io/tutorials/instructor/images.html</loc>
+  </url>
+  <url>
     <loc>https://epiverse-trace.github.io/tutorials/instructor/index.html</loc>
   </url>
   <url>
+    <loc>https://epiverse-trace.github.io/tutorials/instructor/instructor-notes.html</loc>
+  </url>
+  <url>
     <loc>https://epiverse-trace.github.io/tutorials/instructor/introduction.html</loc>
+  </url>
+  <url>
+    <loc>https://epiverse-trace.github.io/tutorials/instructor/key-points.html</loc>
   </url>
   <url>
     <loc>https://epiverse-trace.github.io/tutorials/instructor/model-choices.html</loc>
@@ -61,7 +79,13 @@
     <loc>https://epiverse-trace.github.io/tutorials/instructor/simulating-transmission.html</loc>
   </url>
   <url>
+    <loc>https://epiverse-trace.github.io/tutorials/instructor-notes.html</loc>
+  </url>
+  <url>
     <loc>https://epiverse-trace.github.io/tutorials/introduction.html</loc>
+  </url>
+  <url>
+    <loc>https://epiverse-trace.github.io/tutorials/key-points.html</loc>
   </url>
   <url>
     <loc>https://epiverse-trace.github.io/tutorials/model-choices.html</loc>
