@@ -336,10 +336,10 @@ estimates <- epinow(
 ```
 
 ```{.output}
-WARN [2024-05-21 01:17:23] epinow: There were 1 divergent transitions after warmup. See
+WARN [2024-07-02 01:18:38] epinow: There were 1 divergent transitions after warmup. See
 https://mc-stan.org/misc/warnings.html#divergent-transitions-after-warmup
 to find out why this is a problem and how to eliminate them. - 
-WARN [2024-05-21 01:17:23] epinow: Examine the pairs() plot to diagnose sampling problems
+WARN [2024-07-02 01:18:38] epinow: Examine the pairs() plot to diagnose sampling problems
  - 
 ```
 
@@ -374,22 +374,22 @@ summary(estimates)
 ```{.output}
                                  measure                 estimate
                                   <char>                   <char>
-1: New confirmed cases by infection date     7235 (3852 -- 12944)
+1: New confirmed cases by infection date     7228 (4056 -- 12526)
 2:        Expected change in daily cases        Likely decreasing
-3:            Effective reproduction no.       0.89 (0.55 -- 1.4)
-4:                        Rate of growth -0.015 (-0.068 -- 0.042)
-5:          Doubling/halving time (days)          -47 (16 -- -10)
+3:            Effective reproduction no.       0.89 (0.57 -- 1.3)
+4:                        Rate of growth -0.015 (-0.065 -- 0.038)
+5:          Doubling/halving time (days)          -46 (18 -- -11)
 ```
 
 As these estimates are based on partial data, they have a wide uncertainty interval.
 
-+ From the summary of our analysis we see that the expected change in daily cases is Likely decreasing with the estimated new confirmed cases 7235 (3852 -- 12944).
++ From the summary of our analysis we see that the expected change in daily cases is Likely decreasing with the estimated new confirmed cases 7228 (4056 -- 12526).
 
-+ The effective reproduction number $R_t$ estimate (on the last date of the data) is 0.89 (0.55 -- 1.4). 
++ The effective reproduction number $R_t$ estimate (on the last date of the data) is 0.89 (0.57 -- 1.3). 
 
-+ The exponential growth rate of case numbers is -0.015 (-0.068 -- 0.042).
++ The exponential growth rate of case numbers is -0.015 (-0.065 -- 0.038).
 
-+ The doubling time (the time taken for case numbers to double) is -47 (16 -- -10).
++ The doubling time (the time taken for case numbers to double) is -46 (18 -- -11).
 
 ::::::::::::::::::::::::::::::::::::: callout
 ### `Expected change in daily cases` 
@@ -455,17 +455,17 @@ estimates_regional <- regional_epinow(
 ```
 
 ```{.output}
-INFO [2024-05-21 01:17:28] Producing following optional outputs: regions, summary, samples, plots, latest
-INFO [2024-05-21 01:17:28] Reporting estimates using data up to: 2020-04-28
-INFO [2024-05-21 01:17:28] No target directory specified so returning output
-INFO [2024-05-21 01:17:28] Producing estimates for: East Midlands, East of England, England, London, North East, North West, Northern Ireland, Scotland, South East, South West, Wales, West Midlands, Yorkshire and The Humber
-INFO [2024-05-21 01:17:28] Regions excluded: none
-INFO [2024-05-21 02:00:37] Completed regional estimates
-INFO [2024-05-21 02:00:37] Regions with estimates: 13
-INFO [2024-05-21 02:00:37] Regions with runtime errors: 0
-INFO [2024-05-21 02:00:37] Producing summary
-INFO [2024-05-21 02:00:37] No summary directory specified so returning summary output
-INFO [2024-05-21 02:00:38] No target directory specified so returning timings
+INFO [2024-07-02 01:18:43] Producing following optional outputs: regions, summary, samples, plots, latest
+INFO [2024-07-02 01:18:43] Reporting estimates using data up to: 2020-04-28
+INFO [2024-07-02 01:18:43] No target directory specified so returning output
+INFO [2024-07-02 01:18:43] Producing estimates for: East Midlands, East of England, England, London, North East, North West, Northern Ireland, Scotland, South East, South West, Wales, West Midlands, Yorkshire and The Humber
+INFO [2024-07-02 01:18:43] Regions excluded: none
+INFO [2024-07-02 02:02:28] Completed regional estimates
+INFO [2024-07-02 02:02:28] Regions with estimates: 13
+INFO [2024-07-02 02:02:28] Regions with runtime errors: 0
+INFO [2024-07-02 02:02:28] Producing summary
+INFO [2024-07-02 02:02:28] No summary directory specified so returning summary output
+INFO [2024-07-02 02:02:29] No target directory specified so returning timings
 ```
 
 ```r
@@ -475,49 +475,49 @@ estimates_regional$summary$summarised_results$table
 ```{.output}
                       Region New confirmed cases by infection date
                       <char>                                <char>
- 1:            East Midlands                      344 (207 -- 551)
- 2:          East of England                      532 (332 -- 831)
- 3:                  England                   3525 (2177 -- 5403)
- 4:                   London                      295 (187 -- 456)
- 5:               North East                      251 (141 -- 428)
- 6:               North West                      559 (325 -- 866)
- 7:         Northern Ireland                         43 (23 -- 83)
- 8:                 Scotland                      286 (157 -- 519)
- 9:               South East                      592 (352 -- 988)
-10:               South West                      416 (292 -- 609)
-11:                    Wales                        95 (65 -- 139)
-12:            West Midlands                      271 (142 -- 491)
-13: Yorkshire and The Humber                      480 (283 -- 781)
+ 1:            East Midlands                      347 (212 -- 549)
+ 2:          East of England                      534 (328 -- 853)
+ 3:                  England                   3597 (2177 -- 5608)
+ 4:                   London                      297 (195 -- 452)
+ 5:               North East                      253 (145 -- 436)
+ 6:               North West                      551 (318 -- 883)
+ 7:         Northern Ireland                         42 (23 -- 82)
+ 8:                 Scotland                      284 (153 -- 531)
+ 9:               South East                     595 (354 -- 1004)
+10:               South West                      414 (292 -- 592)
+11:                    Wales                        94 (66 -- 137)
+12:            West Midlands                      272 (142 -- 495)
+13: Yorkshire and The Humber                      483 (272 -- 792)
     Expected change in daily cases Effective reproduction no.
                             <fctr>                     <char>
- 1:              Likely increasing          1.2 (0.84 -- 1.6)
- 2:              Likely increasing          1.2 (0.84 -- 1.6)
- 3:              Likely decreasing         0.91 (0.63 -- 1.2)
- 4:              Likely decreasing         0.79 (0.55 -- 1.1)
- 5:              Likely decreasing         0.91 (0.59 -- 1.3)
+ 1:              Likely increasing          1.2 (0.85 -- 1.6)
+ 2:              Likely increasing          1.2 (0.82 -- 1.6)
+ 3:              Likely decreasing         0.92 (0.64 -- 1.3)
+ 4:              Likely decreasing         0.79 (0.57 -- 1.1)
+ 5:              Likely decreasing          0.91 (0.6 -- 1.3)
  6:              Likely decreasing         0.86 (0.57 -- 1.2)
- 7:              Likely decreasing           0.65 (0.39 -- 1)
- 8:              Likely decreasing          0.9 (0.58 -- 1.4)
- 9:                         Stable         0.99 (0.67 -- 1.4)
-10:                     Increasing           1.4 (1.1 -- 1.8)
-11:                     Decreasing        0.57 (0.42 -- 0.77)
+ 7:              Likely decreasing           0.63 (0.38 -- 1)
+ 8:              Likely decreasing         0.91 (0.58 -- 1.4)
+ 9:                         Stable            1 (0.67 -- 1.4)
+10:                     Increasing           1.4 (1.1 -- 1.7)
+11:                     Decreasing        0.57 (0.42 -- 0.75)
 12:              Likely decreasing         0.71 (0.42 -- 1.1)
-13:                         Stable            1 (0.69 -- 1.4)
-               Rate of growth Doubling/halving time (days)
-                       <char>                       <char>
- 1:   0.023 (-0.022 -- 0.069)               30 (10 -- -32)
- 2:   0.021 (-0.022 -- 0.063)               32 (11 -- -31)
- 3:  -0.012 (-0.053 -- 0.029)              -58 (24 -- -13)
- 4:  -0.029 (-0.068 -- 0.011)              -24 (63 -- -10)
- 5:  -0.012 (-0.062 -- 0.036)              -56 (19 -- -11)
- 6:  -0.018 (-0.064 -- 0.023)              -38 (30 -- -11)
- 7:  -0.051 (-0.099 -- 0.006)              -14 (120 -- -7)
- 8:  -0.013 (-0.062 -- 0.045)              -54 (15 -- -11)
- 9: -0.00091 (-0.048 -- 0.05)             -760 (14 -- -15)
-10:    0.046 (0.013 -- 0.086)               15 (8.1 -- 55)
-11: -0.064 (-0.093 -- -0.032)            -11 (-22 -- -7.4)
-12:  -0.041 (-0.093 -- 0.012)             -17 (59 -- -7.4)
-13:   0.0032 (-0.044 -- 0.05)              220 (14 -- -16)
+13:                         Stable            1 (0.68 -- 1.4)
+                Rate of growth Doubling/halving time (days)
+                        <char>                       <char>
+ 1:     0.024 (-0.02 -- 0.068)               29 (10 -- -34)
+ 2:    0.022 (-0.024 -- 0.065)               32 (11 -- -28)
+ 3:   -0.011 (-0.052 -- 0.032)              -63 (22 -- -13)
+ 4:  -0.029 (-0.064 -- 0.0091)              -24 (76 -- -11)
+ 5:   -0.012 (-0.059 -- 0.037)              -60 (19 -- -12)
+ 6:   -0.018 (-0.065 -- 0.024)              -38 (29 -- -11)
+ 7:    -0.053 (-0.1 -- 0.0048)            -13 (150 -- -6.9)
+ 8:   -0.012 (-0.063 -- 0.042)              -56 (16 -- -11)
+ 9: -0.00047 (-0.047 -- 0.051)            -1500 (14 -- -15)
+10:     0.046 (0.012 -- 0.083)               15 (8.4 -- 60)
+11:  -0.065 (-0.092 -- -0.034)            -11 (-20 -- -7.5)
+12:   -0.041 (-0.092 -- 0.014)             -17 (51 -- -7.5)
+13:   0.0037 (-0.046 -- 0.052)              190 (13 -- -15)
 ```
 
 ```r
