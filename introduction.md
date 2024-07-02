@@ -68,8 +68,19 @@ Reflect on your experiences.
 The `{EpiNow2}` package provides a three-step solution to _quantify the transmissibility_. Let's see how to do this with a minimal example. First, load the package:
 
 
-```r
+``` r
 library(EpiNow2)
+```
+
+``` output
+
+Attaching package: 'EpiNow2'
+```
+
+``` output
+The following object is masked from 'package:stats':
+
+    Gamma
 ```
 
 ### First, get your case data
@@ -77,11 +88,11 @@ library(EpiNow2)
 Case incidence data must be stored in a data frame with the observed number of cases per day. We can read an example from the package:
 
 
-```r
+``` r
 example_confirmed
 ```
 
-```{.output}
+``` output
            date confirm
          <Date>   <num>
   1: 2020-02-22      14
@@ -102,13 +113,22 @@ example_confirmed
 Not all primary cases have the same probability of generating a secondary case. The onset and cessation of [infectiousness](../learners/reference.md#infectiousness) may occur gradually. For `{EpiNow2}`, we can specify it as a probability `distribution` with `mean`, standard deviation `sd`, and maximum value `max`:
 
 
-```r
+``` r
 generation_time <- dist_spec(
   mean = 3.6,
   sd = 3.1,
   max = 20,
   distribution = "lognormal"
 )
+```
+
+``` warning
+Warning: `dist_spec()` was deprecated in EpiNow2 1.5.0.
+ℹ Please use distribution functions such as `Gamma()` or `Lognormal()` instead.
+ℹ The function will become internal only in the next version.
+This warning is displayed once every 8 hours.
+Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
+generated.
 ```
 
 ### Let's calculate the reproduction number!
@@ -120,7 +140,7 @@ In the `epinow()` function we can add:
 - the computation `stan` parameters for this calculation:
 
 
-```r
+``` r
 epinow_estimates <- epinow(
   # cases
   reported_cases = example_confirmed[1:60],
@@ -134,11 +154,19 @@ epinow_estimates <- epinow(
 )
 ```
 
-```{.output}
-WARN [2024-07-02 01:12:06] epinow: Bulk Effective Samples Size (ESS) is too low, indicating posterior means and medians may be unreliable.
+``` output
+WARN [2024-07-02 01:51:26] epinow: There were 940 divergent transitions after warmup. See
+https://mc-stan.org/misc/warnings.html#divergent-transitions-after-warmup
+to find out why this is a problem and how to eliminate them. - 
+WARN [2024-07-02 01:51:26] epinow: Examine the pairs() plot to diagnose sampling problems
+ - 
+WARN [2024-07-02 01:51:27] epinow: The largest R-hat is NA, indicating chains have not mixed.
+Running the chains for more iterations may help. See
+https://mc-stan.org/misc/warnings.html#r-hat - 
+WARN [2024-07-02 01:51:27] epinow: Bulk Effective Samples Size (ESS) is too low, indicating posterior means and medians may be unreliable.
 Running the chains for more iterations may help. See
 https://mc-stan.org/misc/warnings.html#bulk-ess - 
-WARN [2024-07-02 01:12:06] epinow: Tail Effective Samples Size (ESS) is too low, indicating posterior variances and tail quantiles may be unreliable.
+WARN [2024-07-02 01:51:28] epinow: Tail Effective Samples Size (ESS) is too low, indicating posterior variances and tail quantiles may be unreliable.
 Running the chains for more iterations may help. See
 https://mc-stan.org/misc/warnings.html#tail-ess - 
 ```
@@ -146,7 +174,7 @@ https://mc-stan.org/misc/warnings.html#tail-ess -
 As an output, we get the time-varying (or [effective](../learners/reference.md#effectiverepro)) reproduction number, as well as the cases by date of report and date of infection:
 
 
-```r
+``` r
 base::plot(epinow_estimates)
 ```
 

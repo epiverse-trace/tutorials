@@ -47,10 +47,18 @@ Given case data, we can create estimates of the current and future number of cas
 The function `epinow()` described in the previous tutorial is a wrapper for the function `estimate_infections()` used to estimate cases by date of infection. Using the same code in the previous tutorial we can extract the short-term forecast using:
 
 
+``` warning
+Warning: `dist_spec()` was deprecated in EpiNow2 1.5.0.
+ℹ Please use distribution functions such as `Gamma()` or `Lognormal()` instead.
+ℹ The function will become internal only in the next version.
+This warning is displayed once every 8 hours.
+Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
+generated.
+```
 
 
 
-```r
+``` r
 reported_cases <- cases[1:90, ]
 estimates <- epinow(
   reported_cases = reported_cases,
@@ -60,12 +68,30 @@ estimates <- epinow(
 )
 ```
 
-```{.output}
-WARN [2024-07-02 02:08:31] epinow: There were 7 divergent transitions after warmup. See
+``` warning
+Warning: The `reported_cases` argument of `epinow()` is deprecated as of EpiNow2 1.5.0.
+ℹ Please use the `data` argument instead.
+ℹ The argument will be removed completely in the next version.
+This warning is displayed once every 8 hours.
+Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
+generated.
+```
+
+``` output
+WARN [2024-07-02 02:25:21] epinow: There were 2000 divergent transitions after warmup. See
 https://mc-stan.org/misc/warnings.html#divergent-transitions-after-warmup
 to find out why this is a problem and how to eliminate them. - 
-WARN [2024-07-02 02:08:31] epinow: Examine the pairs() plot to diagnose sampling problems
+WARN [2024-07-02 02:25:21] epinow: Examine the pairs() plot to diagnose sampling problems
  - 
+WARN [2024-07-02 02:25:22] epinow: The largest R-hat is NA, indicating chains have not mixed.
+Running the chains for more iterations may help. See
+https://mc-stan.org/misc/warnings.html#r-hat - 
+WARN [2024-07-02 02:25:23] epinow: Bulk Effective Samples Size (ESS) is too low, indicating posterior means and medians may be unreliable.
+Running the chains for more iterations may help. See
+https://mc-stan.org/misc/warnings.html#bulk-ess - 
+WARN [2024-07-02 02:25:26] epinow: Tail Effective Samples Size (ESS) is too low, indicating posterior variances and tail quantiles may be unreliable.
+Running the chains for more iterations may help. See
+https://mc-stan.org/misc/warnings.html#tail-ess - 
 ```
 
 
@@ -79,7 +105,7 @@ We can visualise the estimates of the effective reproduction number and the esti
 
 
 
-```r
+``` r
 plot(estimates)
 ```
 
@@ -94,7 +120,7 @@ By default, the short-term forecasts are created using the latest estimate of th
 The reproduction number that is projected into the future can be changed to a less recent estimate based on more data using `rt_opts()`:
 
 
-```r
+``` r
 rt_opts(future = "estimate")
 ```
 
@@ -114,14 +140,14 @@ We will pass another input into `epinow()` called `obs` to define an observation
 Let's say we believe the COVID-19 outbreak data from the previous tutorial do not include all reported cases. We believe that we only observe 40% of cases. To specify this in the observation model, we must pass a scaling factor with a mean and standard deviation. If we assume that 40% of cases are in the case data (with standard deviation 1%), then we specify the `scale` input to `obs_opts()` as follows:
 
 
-```r
+``` r
 obs_scale <- list(mean = 0.4, sd = 0.01)
 ```
 
 To run the inference framework with this observation process, we add `obs = obs_opts(scale = obs_scale)` to the input arguments of `epinow()`:
 
 
-```r
+``` r
 obs_scale <- list(mean = 0.4, sd = 0.01)
 reported_cases <- cases[1:90, ]
 estimates <- epinow(
@@ -133,26 +159,35 @@ estimates <- epinow(
 )
 ```
 
-```{.output}
-WARN [2024-07-02 02:15:47] epinow: There were 2 divergent transitions after warmup. See
+``` output
+WARN [2024-07-02 02:30:27] epinow: There were 2000 divergent transitions after warmup. See
 https://mc-stan.org/misc/warnings.html#divergent-transitions-after-warmup
 to find out why this is a problem and how to eliminate them. - 
-WARN [2024-07-02 02:15:47] epinow: Examine the pairs() plot to diagnose sampling problems
+WARN [2024-07-02 02:30:27] epinow: Examine the pairs() plot to diagnose sampling problems
  - 
+WARN [2024-07-02 02:30:28] epinow: The largest R-hat is NA, indicating chains have not mixed.
+Running the chains for more iterations may help. See
+https://mc-stan.org/misc/warnings.html#r-hat - 
+WARN [2024-07-02 02:30:29] epinow: Bulk Effective Samples Size (ESS) is too low, indicating posterior means and medians may be unreliable.
+Running the chains for more iterations may help. See
+https://mc-stan.org/misc/warnings.html#bulk-ess - 
+WARN [2024-07-02 02:30:31] epinow: Tail Effective Samples Size (ESS) is too low, indicating posterior variances and tail quantiles may be unreliable.
+Running the chains for more iterations may help. See
+https://mc-stan.org/misc/warnings.html#tail-ess - 
 ```
 
-```r
+``` r
 summary(estimates)
 ```
 
-```{.output}
-                                 measure                 estimate
-                                  <char>                   <char>
-1: New confirmed cases by infection date    17817 (9909 -- 31327)
-2:        Expected change in daily cases        Likely decreasing
-3:            Effective reproduction no.       0.88 (0.56 -- 1.3)
-4:                        Rate of growth -0.016 (-0.067 -- 0.038)
-5:          Doubling/halving time (days)          -42 (18 -- -10)
+``` output
+                            measure               estimate
+                             <char>                 <char>
+1:           New infections per day    2487 (257 -- 26341)
+2: Expected change in daily reports      Likely decreasing
+3:       Effective reproduction no.     0.81 (0.56 -- 1.1)
+4:                   Rate of growth -0.21 (-0.58 -- 0.064)
+5:     Doubling/halving time (days)      -3.3 (11 -- -1.2)
 ```
 
 
@@ -172,7 +207,7 @@ First, we must format our data to have the following columns:
 + `secondary` : number of secondary observations date, in this example **deaths**.
 
 
-```r
+``` r
 reported_cases_deaths <- aggregate(
   cbind(cases_new, deaths_new) ~ date,
   data =
@@ -198,7 +233,7 @@ There are further function inputs to `estimate_secondary()` which can be specifi
 
 To find the model fit between cases and deaths : 
 
-```r
+``` r
 estimate_cases_to_deaths <- estimate_secondary(
   reports = reported_cases_deaths[1:30, ],
   secondary = secondary_opts(type = "incidence"),
@@ -207,6 +242,24 @@ estimate_cases_to_deaths <- estimate_secondary(
     max = 30, distribution = "gamma"
   ))
 )
+```
+
+``` warning
+Warning: The `reports` argument of `estimate_secondary()` is deprecated as of EpiNow2
+1.5.0.
+ℹ Please use the `data` argument instead.
+ℹ The argument will be removed completely in the next version.
+This warning is displayed once every 8 hours.
+Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
+generated.
+```
+
+``` output
+WARN [2024-07-02 02:30:42] estimate_secondary (chain: 1): There were 2 divergent transitions after warmup. See
+https://mc-stan.org/misc/warnings.html#divergent-transitions-after-warmup
+to find out why this is a problem and how to eliminate them. - 
+WARN [2024-07-02 02:30:42] estimate_secondary (chain: 1): Examine the pairs() plot to diagnose sampling problems
+ - 
 ```
 
 
@@ -220,7 +273,7 @@ In the early stages of an outbreak there can be substantial changes in testing a
 We plot the model fit (shaded ribbons) with the secondary observations (bar plot) and primary observations (dotted line) as follows: 
 
 
-```r
+``` r
 plot(estimate_cases_to_deaths, primary = TRUE)
 ```
 
@@ -230,7 +283,7 @@ To use this model fit to forecast deaths, we pass a data frame consisting of the
 
 *Note : in this tutorial we are using data where we know the deaths and cases, so we create a data frame by extracting the cases. But in practice, this would be a different data set consisting of cases only.*
 
-```r
+``` r
 cases_to_forecast <- reported_cases_deaths[31:60, c("date", "primary")]
 colnames(cases_to_forecast) <- c("date", "value")
 ```
@@ -238,7 +291,7 @@ colnames(cases_to_forecast) <- c("date", "value")
 To forecast, we use the model fit `estimate_cases_to_deaths`:  
 
 
-```r
+``` r
 deaths_forecast <- forecast_secondary(
   estimate = estimate_cases_to_deaths,
   primary = cases_to_forecast
@@ -246,8 +299,13 @@ deaths_forecast <- forecast_secondary(
 plot(deaths_forecast)
 ```
 
-```{.warning}
-Warning: Removed 30 rows containing missing values (`position_stack()`).
+``` warning
+Warning in max(ids, na.rm = TRUE): no non-missing arguments to max; returning
+-Inf
+Warning in max(ids, na.rm = TRUE): no non-missing arguments to max; returning
+-Inf
+Warning in max(ids, na.rm = TRUE): no non-missing arguments to max; returning
+-Inf
 ```
 
 <img src="fig/create-forecast-rendered-unnamed-chunk-11-1.png" style="display: block; margin: auto;" />
@@ -298,7 +356,7 @@ As the data consists of date of symptom onset, we only need to specify a delay d
 We specify the distributions with some uncertainty around the mean and standard deviation of the log normal distribution for the incubation period and the Gamma distribution for the generation time.
 
 
-```r
+``` r
 ebola_incubation_period <- dist_spec(
   mean = 2.487, sd = 0.330,
   mean_sd = 0.5, sd_sd = 0.5,
@@ -312,12 +370,20 @@ ebola_generation_time <- dist_spec(
 )
 ```
 
+``` warning
+Warning in new_dist_spec(params, "gamma"): Uncertain gamma distribution
+specified in terms of parameters that are not the "natural" parameters of the
+distribution (shape, rate). Converting using a crude and very approximate
+method that is likely to produce biased results. If possible, it is preferable
+to specify the distribution directly in terms of the natural parameters.
+```
+
 As we want to also create a two week forecast, we specify `horizon = 14` to forecast 14 days instead of the default 7 days. 
 
 
 
 
-```r
+``` r
 # read data
 # e.g.: if path to file is data/raw-data/ebola_cases.csv then:
 ebola_cases <-
@@ -325,7 +391,7 @@ ebola_cases <-
 ```
 
 
-```r
+``` r
 # format date column
 ebola_cases$date <- as.Date(ebola_cases$date)
 
@@ -338,34 +404,37 @@ ebola_estimates <- epinow(
 )
 ```
 
-```{.output}
-WARN [2024-07-02 02:17:51] epinow: There were 24 divergent transitions after warmup. See
+``` output
+WARN [2024-07-02 02:32:43] epinow: There were 6 divergent transitions after warmup. See
 https://mc-stan.org/misc/warnings.html#divergent-transitions-after-warmup
 to find out why this is a problem and how to eliminate them. - 
-WARN [2024-07-02 02:17:51] epinow: Examine the pairs() plot to diagnose sampling problems
+WARN [2024-07-02 02:32:43] epinow: Examine the pairs() plot to diagnose sampling problems
  - 
+WARN [2024-07-02 02:32:46] epinow: Tail Effective Samples Size (ESS) is too low, indicating posterior variances and tail quantiles may be unreliable.
+Running the chains for more iterations may help. See
+https://mc-stan.org/misc/warnings.html#tail-ess - 
 ```
 
-```r
+``` r
 summary(ebola_estimates)
 ```
 
-```{.output}
-                                 measure                estimate
-                                  <char>                  <char>
-1: New confirmed cases by infection date         100 (46 -- 263)
-2:        Expected change in daily cases              Increasing
-3:            Effective reproduction no.        1.7 (1.1 -- 2.9)
-4:                        Rate of growth 0.042 (0.0039 -- 0.092)
-5:          Doubling/halving time (days)         17 (7.6 -- 180)
+``` output
+                            measure               estimate
+                             <char>                 <char>
+1:           New infections per day        107 (46 -- 271)
+2: Expected change in daily reports             Increasing
+3:       Effective reproduction no.         1.8 (1 -- 3.2)
+4:                   Rate of growth 0.049 (-0.016 -- 0.12)
+5:     Doubling/halving time (days)        14 (5.7 -- -42)
 ```
 
-The effective reproduction number $R_t$ estimate (on the last date of the data) is 1.7 (1.1 -- 2.9). The exponential growth rate of case numbers is 0.042 (0.0039 -- 0.092).
+The effective reproduction number $R_t$ estimate (on the last date of the data) is 1.8 (1 -- 3.2). The exponential growth rate of case numbers is 0.049 (-0.016 -- 0.12).
 
 Visualize the estimates:
 
 
-```r
+``` r
 plot(ebola_estimates)
 ```
 

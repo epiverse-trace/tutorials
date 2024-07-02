@@ -86,7 +86,7 @@ The diagram below describes the flow of individuals through the different compar
 To run the model with no vaccination in place we can *either* create two vaccination objects (one for each dose) using `vaccination()` with the time start, time end and vaccination rate all set to 0, or we can use the `no_vaccination()` function to create a vaccination object for two doses with all values set to 0.
 
 
-```r
+``` r
 no_vaccination <- no_vaccination(population = uk_population, doses = 2)
 ```
 ::::::::::::::::::::::
@@ -99,7 +99,7 @@ We can run the Vacamole model with [default parameter values](https://epiverse-t
 
 
 
-```r
+``` r
 output <- model_vacamole_cpp(
   population = uk_population,
   vaccination = no_vaccination,
@@ -118,7 +118,7 @@ output <- model_vacamole_cpp(
 1.  Run the model
 
 
-```r
+``` r
 polymod <- socialmixr::polymod
 contact_data <- socialmixr::contact_matrix(
   survey = polymod,
@@ -128,15 +128,11 @@ contact_data <- socialmixr::contact_matrix(
 )
 ```
 
-```{.output}
-Using POLYMOD social contact data. To cite this in a publication, use the 'get_citation()' function
-```
-
-```{.output}
+``` output
 Removing participants that have contacts without age information. To change this behaviour, set the 'missing.contact.age' option
 ```
 
-```r
+``` r
 # prepare contact matrix
 contact_matrix <- t(contact_data$matrix)
 
@@ -171,19 +167,19 @@ uk_population <- population(
 )
 ```
 
-```{.error}
+``` error
 Error in population(name = "UK", contact_matrix = contact_matrix, demography_vector = demography_vector, : could not find function "population"
 ```
 
-```r
+``` r
 no_vaccination <- no_vaccination(population = uk_population, doses = 2)
 ```
 
-```{.error}
+``` error
 Error in no_vaccination(population = uk_population, doses = 2): could not find function "no_vaccination"
 ```
 
-```r
+``` r
 # run model
 output <- model_vacamole_cpp(
   population = uk_population,
@@ -192,14 +188,14 @@ output <- model_vacamole_cpp(
 )
 ```
 
-```{.error}
+``` error
 Error in model_vacamole_cpp(population = uk_population, vaccination = no_vaccination, : could not find function "model_vacamole_cpp"
 ```
 
 2. Plot the number of deaths through time
 
 
-```r
+``` r
 ggplot(output[output$compartment == "dead", ]) +
   geom_line(
     aes(time, value, colour = demography_group),
@@ -225,7 +221,7 @@ ggplot(output[output$compartment == "dead", ]) +
   )
 ```
 
-```{.error}
+``` error
 Error in ggplot(output[output$compartment == "dead", ]): could not find function "ggplot"
 ```
 

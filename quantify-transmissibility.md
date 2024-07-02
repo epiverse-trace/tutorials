@@ -68,7 +68,7 @@ In Bayesian inference, we use prior knowledge (prior distributions) with data (i
 The first step is to load the `{EpiNow2}` package :
 
 
-```r
+``` r
 library(EpiNow2)
 ```
 
@@ -85,11 +85,11 @@ This tutorial illustrates the usage of `epinow()` to estimate the time-varying r
 To illustrate the functions of `EpiNow2` we will use outbreak data of the start of the COVID-19 pandemic from the United Kingdom. The data are available in the R package `{incidence2}`. 
 
 
-```r
+``` r
 head(incidence2::covidregionaldataUK)
 ```
 
-```{.output}
+``` output
         date          region region_code cases_new cases_total deaths_new
 1 2020-01-30   East Midlands   E12000004        NA          NA         NA
 2 2020-01-30 East of England   E12000006        NA          NA         NA
@@ -119,7 +119,7 @@ To use the data, we must format the data to have two columns:
 + `confirm` : number of confirmed cases on that date.
 
 
-```r
+``` r
 cases <- aggregate(
   cases_new ~ date,
   data = incidence2::covidregionaldataUK[, c("date", "cases_new")],
@@ -169,17 +169,34 @@ The distribution of incubation period can usually be obtained from the literatur
 We specify a (fixed) gamma distribution with mean $\mu = 4$ and standard deviation $\sigma^2= 2$ (shape = $4$, scale = $1$) using the function `dist_spec()` as follows:
 
 
-```r
+``` r
 incubation_period_fixed <- dist_spec(
   mean = 4, sd = 2,
   max = 20, distribution = "gamma"
 )
+```
+
+``` warning
+Warning: `dist_spec()` was deprecated in EpiNow2 1.5.0.
+ℹ Please use distribution functions such as `Gamma()` or `Lognormal()` instead.
+ℹ The function will become internal only in the next version.
+This warning is displayed once every 8 hours.
+Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
+generated.
+```
+
+``` r
 incubation_period_fixed
 ```
 
-```{.output}
-
-  Fixed distribution with PMF [0.019 0.12 0.21 0.21 0.17 0.11 0.069 0.039 0.021 0.011 0.0054 0.0026 0.0012 0.00058 0.00026 0.00012 5.3e-05 2.3e-05 1e-05 4.3e-06]
+``` output
+- gamma distribution (max: 20):
+  shape:
+    - fixed value:
+      4
+  rate:
+    - fixed value:
+      1
 ```
 
 The argument `max` is the maximum value the distribution can take, in this example 20 days. 
@@ -210,18 +227,40 @@ $$\mbox{Normal}(\sigma^2,\sigma_{\sigma^2}^2).$$
 We specify this using `dist_spec` with the additional arguments `mean_sd` ($\sigma_{\mu}^2$) and `sd_sd` ($\sigma_{\sigma^2}^2$).
 
 
-```r
+``` r
 incubation_period_variable <- dist_spec(
   mean = 4, sd = 2,
   mean_sd = 0.5, sd_sd = 0.5,
   max = 20, distribution = "gamma"
 )
+```
+
+``` warning
+Warning in new_dist_spec(params, "gamma"): Uncertain gamma distribution
+specified in terms of parameters that are not the "natural" parameters of the
+distribution (shape, rate). Converting using a crude and very approximate
+method that is likely to produce biased results. If possible, it is preferable
+to specify the distribution directly in terms of the natural parameters.
+```
+
+``` r
 incubation_period_variable
 ```
 
-```{.output}
-
-  Uncertain gamma distribution with (untruncated) mean 4 (SD 0.5) and SD 2 (SD 0.5)
+``` output
+- gamma distribution (max: 20):
+  shape:
+    - normal distribution:
+      mean:
+        4
+      sd:
+        0.61
+  rate:
+    - normal distribution:
+      mean:
+        1
+      sd:
+        0.31
 ```
 
 
@@ -235,7 +274,7 @@ When specifying a distribution, it is useful to visualise the probability densit
 If we want to assume that the mean reporting delay is 2 days (with a standard deviation of 1 day), the log normal distribution will look like: 
 
 
-```r
+``` r
 log_mean <- convert_to_logmean(2, 1)
 log_sd <- convert_to_logsd(2, 1)
 x <- seq(from = 0, to = 10, length = 1000)
@@ -254,7 +293,7 @@ ggplot(df) +
 Using the mean and standard deviation for the log normal distribution, we can specify a fixed or variable distribution using `dist_spec()` as before: 
 
 
-```r
+``` r
 reporting_delay_variable <- dist_spec(
   mean = log_mean, sd = log_sd,
   mean_sd = 0.5, sd_sd = 0.5,
@@ -265,7 +304,7 @@ reporting_delay_variable <- dist_spec(
 If data is available on the time between symptom onset and reporting, we can use the function `estimate_delay()` to estimate a log normal distribution from a vector of delays. The code below illustrates how to use `estimate_delay()` with synthetic delay data. 
 
 
-```r
+``` r
 delay_data <- rlnorm(500, log(5), 1) # synthetic delay data
 reporting_delay <- estimate_delay(
   delay_data,
@@ -281,7 +320,7 @@ We also must specify a distribution for the generation time. Here we will use a 
 
 
 
-```r
+``` r
 generation_time_variable <- dist_spec(
   mean = 3.6, sd = 3.1,
   mean_sd = 0.5, sd_sd = 0.5,
@@ -298,7 +337,7 @@ There are numerous other inputs that can be passed to `epinow()`, see `EpiNow2::
 One optional input is to specify a log normal prior for the effective reproduction number $R_t$ at the start of the outbreak. We specify a mean and standard deviation as arguments of `prior` within `rt_opts()`:
 
 
-```r
+``` r
 rt_log_mean <- convert_to_logmean(2, 1)
 rt_log_sd <- convert_to_logsd(2, 1)
 rt <- rt_opts(prior = list(mean = rt_log_mean, sd = rt_log_sd))
@@ -312,7 +351,7 @@ The Bayesian inference is performed using MCMC methods with the program [Stan](h
 To reduce computation time, we can run chains in parallel. To do this, we must set the number of cores to be used. By default, 4 MCMC chains are run (see `stan_opts()$chains`), so we can set an equal number of cores to be used in parallel as follows:
 
 
-```r
+``` r
 withr::local_options(list(mc.cores = 4))
 ```
 
@@ -325,7 +364,7 @@ To find the maximum number of available cores on your machine, use `parallel::de
 *Note : in the code below fixed distributions are used instead of variable. This is to speed up computation time. It is generally recommended to use variable distributions that account for additional uncertainty.*
 
 
-```r
+``` r
 reported_cases <- cases[1:90, ]
 estimates <- epinow(
   reported_cases = reported_cases,
@@ -335,12 +374,30 @@ estimates <- epinow(
 )
 ```
 
-```{.output}
-WARN [2024-07-02 01:18:38] epinow: There were 1 divergent transitions after warmup. See
+``` warning
+Warning: The `reported_cases` argument of `epinow()` is deprecated as of EpiNow2 1.5.0.
+ℹ Please use the `data` argument instead.
+ℹ The argument will be removed completely in the next version.
+This warning is displayed once every 8 hours.
+Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
+generated.
+```
+
+``` output
+WARN [2024-07-02 01:54:21] epinow: There were 1994 divergent transitions after warmup. See
 https://mc-stan.org/misc/warnings.html#divergent-transitions-after-warmup
 to find out why this is a problem and how to eliminate them. - 
-WARN [2024-07-02 01:18:38] epinow: Examine the pairs() plot to diagnose sampling problems
+WARN [2024-07-02 01:54:21] epinow: Examine the pairs() plot to diagnose sampling problems
  - 
+WARN [2024-07-02 01:54:22] epinow: The largest R-hat is NA, indicating chains have not mixed.
+Running the chains for more iterations may help. See
+https://mc-stan.org/misc/warnings.html#r-hat - 
+WARN [2024-07-02 01:54:24] epinow: Bulk Effective Samples Size (ESS) is too low, indicating posterior means and medians may be unreliable.
+Running the chains for more iterations may help. See
+https://mc-stan.org/misc/warnings.html#bulk-ess - 
+WARN [2024-07-02 01:54:26] epinow: Tail Effective Samples Size (ESS) is too low, indicating posterior variances and tail quantiles may be unreliable.
+Running the chains for more iterations may help. See
+https://mc-stan.org/misc/warnings.html#tail-ess - 
 ```
 
 ### Results
@@ -348,7 +405,7 @@ WARN [2024-07-02 01:18:38] epinow: Examine the pairs() plot to diagnose sampling
 We can extract and visualise estimates of the effective reproduction number through time:
 
 
-```r
+``` r
 estimates$plots$R
 ```
 
@@ -358,7 +415,7 @@ The uncertainty in the estimates increases through time. This is because estimat
 
 We can also visualise the growth rate estimate through time: 
 
-```r
+``` r
 estimates$plots$growth_rate
 ```
 
@@ -367,29 +424,29 @@ estimates$plots$growth_rate
 To extract a summary of the key transmission metrics at the *latest date* in the data:
 
 
-```r
+``` r
 summary(estimates)
 ```
 
-```{.output}
-                                 measure                 estimate
-                                  <char>                   <char>
-1: New confirmed cases by infection date     7228 (4056 -- 12526)
-2:        Expected change in daily cases        Likely decreasing
-3:            Effective reproduction no.       0.89 (0.57 -- 1.3)
-4:                        Rate of growth -0.015 (-0.065 -- 0.038)
-5:          Doubling/halving time (days)          -46 (18 -- -11)
+``` output
+                            measure               estimate
+                             <char>                 <char>
+1:           New infections per day    5646 (590 -- 41311)
+2: Expected change in daily reports      Likely decreasing
+3:       Effective reproduction no.     0.91 (0.69 -- 1.2)
+4:                   Rate of growth -0.078 (-0.23 -- 0.14)
+5:     Doubling/halving time (days)     -8.8 (5.1 -- -3.1)
 ```
 
 As these estimates are based on partial data, they have a wide uncertainty interval.
 
-+ From the summary of our analysis we see that the expected change in daily cases is Likely decreasing with the estimated new confirmed cases 7228 (4056 -- 12526).
++ From the summary of our analysis we see that the expected change in daily cases is  with the estimated new confirmed cases .
 
-+ The effective reproduction number $R_t$ estimate (on the last date of the data) is 0.89 (0.57 -- 1.3). 
++ The effective reproduction number $R_t$ estimate (on the last date of the data) is 0.91 (0.69 -- 1.2). 
 
-+ The exponential growth rate of case numbers is -0.015 (-0.065 -- 0.038).
++ The exponential growth rate of case numbers is -0.078 (-0.23 -- 0.14).
 
-+ The doubling time (the time taken for case numbers to double) is -46 (18 -- -11).
++ The doubling time (the time taken for case numbers to double) is -8.8 (5.1 -- -3.1).
 
 ::::::::::::::::::::::::::::::::::::: callout
 ### `Expected change in daily cases` 
@@ -420,7 +477,7 @@ The outbreak data of the start of the COVID-19 pandemic from the United Kingdom 
 + `confirm` : number of confirmed cases for a region on a given date.
 
 
-```r
+``` r
 regional_cases <-
   incidence2::covidregionaldataUK[, c("date", "cases_new", "region")]
 colnames(regional_cases) <- c("date", "confirm", "region")
@@ -432,7 +489,7 @@ regional_cases <- regional_cases[which(regional_cases$date %in% dates), ]
 head(regional_cases)
 ```
 
-```{.output}
+``` output
         date confirm          region
 1 2020-01-30      NA   East Midlands
 2 2020-01-30      NA East of England
@@ -445,7 +502,7 @@ head(regional_cases)
 To find regional estimates, we use the same inputs as `epinow()` to the function `regional_epinow()`:
 
 
-```r
+``` r
 estimates_regional <- regional_epinow(
   reported_cases = regional_cases,
   generation_time = generation_time_opts(generation_time_fixed),
@@ -454,73 +511,74 @@ estimates_regional <- regional_epinow(
 )
 ```
 
-```{.output}
-INFO [2024-07-02 01:18:43] Producing following optional outputs: regions, summary, samples, plots, latest
-INFO [2024-07-02 01:18:43] Reporting estimates using data up to: 2020-04-28
-INFO [2024-07-02 01:18:43] No target directory specified so returning output
-INFO [2024-07-02 01:18:43] Producing estimates for: East Midlands, East of England, England, London, North East, North West, Northern Ireland, Scotland, South East, South West, Wales, West Midlands, Yorkshire and The Humber
-INFO [2024-07-02 01:18:43] Regions excluded: none
-INFO [2024-07-02 02:02:28] Completed regional estimates
-INFO [2024-07-02 02:02:28] Regions with estimates: 13
-INFO [2024-07-02 02:02:28] Regions with runtime errors: 0
-INFO [2024-07-02 02:02:28] Producing summary
-INFO [2024-07-02 02:02:28] No summary directory specified so returning summary output
-INFO [2024-07-02 02:02:29] No target directory specified so returning timings
+``` warning
+Warning: The `reported_cases` argument of `regional_epinow()` is deprecated as of
+EpiNow2 1.5.0.
+ℹ Please use the `data` argument instead.
+ℹ The argument will be removed completely in the next version.
+This warning is displayed once every 8 hours.
+Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
+generated.
 ```
 
-```r
+``` output
+INFO [2024-07-02 01:54:29] Producing following optional outputs: regions, summary, samples, plots, latest
+INFO [2024-07-02 01:54:29] Reporting estimates using data up to: 2020-04-28
+INFO [2024-07-02 01:54:29] No target directory specified so returning output
+INFO [2024-07-02 01:54:29] Producing estimates for: East Midlands, East of England, England, London, North East, North West, Northern Ireland, Scotland, South East, South West, Wales, West Midlands, Yorkshire and The Humber
+INFO [2024-07-02 01:54:29] Regions excluded: none
+Error in FUN(X[[i]], ...) : 
+  Stan does not support NA (in shifted_cases) in data
+Error in FUN(X[[i]], ...) : 
+  Stan does not support NA (in shifted_cases) in data
+Error in FUN(X[[i]], ...) : 
+  Stan does not support NA (in shifted_cases) in data
+Error in FUN(X[[i]], ...) : 
+  Stan does not support NA (in shifted_cases) in data
+Error in FUN(X[[i]], ...) : 
+  Stan does not support NA (in shifted_cases) in data
+Error in FUN(X[[i]], ...) : 
+  Stan does not support NA (in shifted_cases) in data
+Error in FUN(X[[i]], ...) : 
+  Stan does not support NA (in shifted_cases) in data
+Error in FUN(X[[i]], ...) : 
+  Stan does not support NA (in shifted_cases) in data
+Error in FUN(X[[i]], ...) : 
+  Stan does not support NA (in shifted_cases) in data
+INFO [2024-07-02 02:21:19] Completed regional estimates
+INFO [2024-07-02 02:21:19] Regions with estimates: 4
+INFO [2024-07-02 02:21:19] Regions with runtime errors: 9
+INFO [2024-07-02 02:21:19] Producing summary
+INFO [2024-07-02 02:21:19] No summary directory specified so returning summary output
+INFO [2024-07-02 02:21:19] No target directory specified so returning timings
+```
+
+``` r
 estimates_regional$summary$summarised_results$table
 ```
 
-```{.output}
-                      Region New confirmed cases by infection date
-                      <char>                                <char>
- 1:            East Midlands                      347 (212 -- 549)
- 2:          East of England                      534 (328 -- 853)
- 3:                  England                   3597 (2177 -- 5608)
- 4:                   London                      297 (195 -- 452)
- 5:               North East                      253 (145 -- 436)
- 6:               North West                      551 (318 -- 883)
- 7:         Northern Ireland                         42 (23 -- 82)
- 8:                 Scotland                      284 (153 -- 531)
- 9:               South East                     595 (354 -- 1004)
-10:               South West                      414 (292 -- 592)
-11:                    Wales                        94 (66 -- 137)
-12:            West Midlands                      272 (142 -- 495)
-13: Yorkshire and The Humber                      483 (272 -- 792)
-    Expected change in daily cases Effective reproduction no.
-                            <fctr>                     <char>
- 1:              Likely increasing          1.2 (0.85 -- 1.6)
- 2:              Likely increasing          1.2 (0.82 -- 1.6)
- 3:              Likely decreasing         0.92 (0.64 -- 1.3)
- 4:              Likely decreasing         0.79 (0.57 -- 1.1)
- 5:              Likely decreasing          0.91 (0.6 -- 1.3)
- 6:              Likely decreasing         0.86 (0.57 -- 1.2)
- 7:              Likely decreasing           0.63 (0.38 -- 1)
- 8:              Likely decreasing         0.91 (0.58 -- 1.4)
- 9:                         Stable            1 (0.67 -- 1.4)
-10:                     Increasing           1.4 (1.1 -- 1.7)
-11:                     Decreasing        0.57 (0.42 -- 0.75)
-12:              Likely decreasing         0.71 (0.42 -- 1.1)
-13:                         Stable            1 (0.68 -- 1.4)
-                Rate of growth Doubling/halving time (days)
-                        <char>                       <char>
- 1:     0.024 (-0.02 -- 0.068)               29 (10 -- -34)
- 2:    0.022 (-0.024 -- 0.065)               32 (11 -- -28)
- 3:   -0.011 (-0.052 -- 0.032)              -63 (22 -- -13)
- 4:  -0.029 (-0.064 -- 0.0091)              -24 (76 -- -11)
- 5:   -0.012 (-0.059 -- 0.037)              -60 (19 -- -12)
- 6:   -0.018 (-0.065 -- 0.024)              -38 (29 -- -11)
- 7:    -0.053 (-0.1 -- 0.0048)            -13 (150 -- -6.9)
- 8:   -0.012 (-0.063 -- 0.042)              -56 (16 -- -11)
- 9: -0.00047 (-0.047 -- 0.051)            -1500 (14 -- -15)
-10:     0.046 (0.012 -- 0.083)               15 (8.4 -- 60)
-11:  -0.065 (-0.092 -- -0.034)            -11 (-20 -- -7.5)
-12:   -0.041 (-0.092 -- 0.014)             -17 (51 -- -7.5)
-13:   0.0037 (-0.046 -- 0.052)              190 (13 -- -15)
+``` output
+                     Region New infections per day
+                     <char>                 <char>
+1:                  England      1147 (8 -- 13672)
+2:                   London          70 (9 -- 695)
+3:               South East     794 (125 -- 10455)
+4: Yorkshire and The Humber       417 (3 -- 18022)
+   Expected change in daily reports Effective reproduction no.
+                             <fctr>                     <char>
+1:                           Stable         0.98 (0.35 -- 1.2)
+2:                Likely decreasing          0.9 (0.68 -- 1.1)
+3:                           Stable            1 (0.91 -- 1.2)
+4:                           Stable         0.99 (0.56 -- 1.5)
+             Rate of growth Doubling/halving time (days)
+                     <char>                       <char>
+1:   -0.017 (-0.37 -- 0.17)            -40 (4.1 -- -1.9)
+2:   -0.11 (-0.39 -- 0.055)            -6.4 (13 -- -1.8)
+3: -0.0021 (-0.092 -- 0.22)           -330 (3.1 -- -7.5)
+4:   -0.0068 (-0.57 -- 0.4)           -100 (1.7 -- -1.2)
 ```
 
-```r
+``` r
 estimates_regional$summary$plots$R
 ```
 

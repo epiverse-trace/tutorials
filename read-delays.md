@@ -84,7 +84,7 @@ generation_time <- dist_spec(
 Let's explore how we can access this and other time delays using `{epiparameter}`. We'll use the pipe `%>%` to connect some of their functions, so let's also call to the `{tidyverse}` package:
 
 
-```r
+``` r
 library(epiparameter)
 library(EpiNow2)
 library(tidyverse)
@@ -186,25 +186,59 @@ First, let's assume that the data set `example_confirmed` has COVID-19 observed 
 Let's start by looking at how many parameters we have in the epidemiological distributions database (`epidist_db`) for the `disease` named `covid`-19:
 
 
-```r
+``` r
 epiparameter::epidist_db(
   disease = "covid"
 )
 ```
 
-```{.output}
+``` output
 Returning 27 results that match the criteria (22 are parameterised). 
 Use subset to filter by entry variables or single_epidist to return a single entry. 
-To retrieve the short citation for each use the 'get_citation' function
+To retrieve the citation for each use the 'get_citation' function
 ```
 
-```{.output}
-List of <epidist> objects
-  Number of entries in library: 27
-  Number of studies in library: 10
-  Number of diseases: 1
-  Number of delay distributions: 27
-  Number of offspring distributions: 0
+``` output
+# List of 27 <epidist> objects
+Number of diseases: 1
+❯ COVID-19
+Number of epi distributions: 5
+❯ hospitalisation to death ❯ incubation period ❯ onset to death ❯ onset to hospitalisation ❯ serial interval
+[[1]]
+Disease: COVID-19
+Pathogen: SARS-CoV-2
+Epi Distribution: incubation period
+Study: Men K, Wang X, Yihao L, Zhang G, Hu J, Gao Y, Han H (2020). "Estimate
+the incubation period of coronavirus 2019 (COVID-19)." _medRxiv_.
+doi:10.1101/2020.02.24.20027474
+<https://doi.org/10.1101/2020.02.24.20027474>.
+Parameters: <no parameters>
+
+[[2]]
+Disease: COVID-19
+Pathogen: SARS-CoV-2
+Epi Distribution: incubation period
+Study: Rai B, Shukla A, Dwivedi L (2022). "Incubation period for COVID-19: a
+systematic review and meta-analysis." _Zeitschrift fur
+Gesundheitswissenschaften_. doi:10.1007/s10389-021-01478-1
+<https://doi.org/10.1007/s10389-021-01478-1>.
+Parameters: <no parameters>
+
+[[3]]
+Disease: COVID-19
+Pathogen: SARS-CoV-2
+Epi Distribution: incubation period
+Study: Alene M, Yismaw L, Assemie M, Ketema D, Gietaneh W, Birhan T (2021).
+"Serial interval and incubation period of COVID-19: a systematic review
+and meta-analysis." _BMC Infectious Diseases_.
+doi:10.1186/s12879-021-05950-x
+<https://doi.org/10.1186/s12879-021-05950-x>.
+Parameters: <no parameters>
+
+# ℹ 24 more elements
+# ℹ Use `print(n = ...)` to see more elements.
+# ℹ Use `parameter_tbl()` to see a summary table of the parameters.
+# ℹ Explore database online at: https://epiverse-trace.github.io/epiparameter/dev/articles/database.html
 ```
 
 From the `{epiparameter}` package, we can use the `epidist_db()` function to ask for any `disease` and also for a specific epidemiological distribution (`epi_dist`). 
@@ -212,19 +246,19 @@ From the `{epiparameter}` package, we can use the `epidist_db()` function to ask
 Let's ask now how many parameters we have in the epidemiological distributions database (`epidist_db`) with the generation time using the string `generation`:
 
 
-```r
+``` r
 epiparameter::epidist_db(
   epi_dist = "generation"
 )
 ```
 
-```{.output}
+``` output
 Returning 1 results that match the criteria (1 are parameterised). 
 Use subset to filter by entry variables or single_epidist to return a single entry. 
-To retrieve the short citation for each use the 'get_citation' function
+To retrieve the citation for each use the 'get_citation' function
 ```
 
-```{.output}
+``` output
 Disease: Influenza
 Pathogen: Influenza-A-H1N1
 Epi Distribution: generation time
@@ -242,20 +276,25 @@ Parameters:
 Currently, in the library of epidemiological parameters, we have one `generation` time entry for Influenza. Considering the abovementioned considerations, we can look at the `serial` intervals for `COVID`-19.
 
 
-```r
+``` r
 epiparameter::epidist_db(
   disease = "COVID",
   epi_dist = "serial"
 )
 ```
 
-```{.output}
+``` output
 Returning 4 results that match the criteria (3 are parameterised). 
 Use subset to filter by entry variables or single_epidist to return a single entry. 
-To retrieve the short citation for each use the 'get_citation' function
+To retrieve the citation for each use the 'get_citation' function
 ```
 
-```{.output}
+``` output
+# List of 4 <epidist> objects
+Number of diseases: 1
+❯ COVID-19
+Number of epi distributions: 1
+❯ serial interval
 [[1]]
 Disease: COVID-19
 Pathogen: SARS-CoV-2
@@ -307,8 +346,8 @@ Parameters:
   mean: 4.600
   sd: 4.400
 
-attr(,"class")
-[1] "multi_epidist"
+# ℹ Use `parameter_tbl()` to see a summary table of the parameters.
+# ℹ Explore database online at: https://epiverse-trace.github.io/epiparameter/dev/articles/database.html
 ```
 
 ::::::::::::::::: callout
@@ -322,7 +361,7 @@ attr(,"class")
 We get more than one epidemiological delay. To summarize this view and get the column names from the underlying parameter dataset, we can add the `epiparameter::list_distributions()` function to the previous code using the pipe `%>%`:
 
 
-```r
+``` r
 epiparameter::epidist_db(
   disease = "covid",
   epi_dist = "serial"
@@ -330,18 +369,8 @@ epiparameter::epidist_db(
   epiparameter::list_distributions()
 ```
 
-```{.output}
-Returning 4 results that match the criteria (3 are parameterised). 
-Use subset to filter by entry variables or single_epidist to return a single entry. 
-To retrieve the short citation for each use the 'get_citation' function
-```
-
-```{.output}
-   disease epi_distribution prob_distribution       author year
-1 COVID-19  serial interval              <NA> Muluneh .... 2021
-2 COVID-19  serial interval             lnorm Hiroshi .... 2020
-3 COVID-19  serial interval           weibull Hiroshi .... 2020
-4 COVID-19  serial interval              norm Lin Yang.... 2020
+``` error
+Error: 'list_distributions' is not an exported object from 'namespace:epiparameter'
 ```
 
 ::::::::::::::::::::::::::::::::: challenge
@@ -371,7 +400,7 @@ The `{epiparameter}` combo of `epidist_db()` plus `list_distributions()` list al
 ::::::::::::::::: solution
 
 
-```r
+``` r
 # 16 delays distributions
 epiparameter::epidist_db(
   disease = "ebola"
@@ -396,7 +425,7 @@ Now, from the output of `epiparameter::epidist_db()`, What is an [offspring dist
 The `epiparameter::epidist_db()` function works as a filtering or subset function. Let's use the `author` argument to filter `Hiroshi Nishiura` parameters:
 
 
-```r
+``` r
 epiparameter::epidist_db(
   disease = "covid",
   epi_dist = "serial",
@@ -405,22 +434,14 @@ epiparameter::epidist_db(
   epiparameter::list_distributions()
 ```
 
-```{.output}
-Returning 2 results that match the criteria (2 are parameterised). 
-Use subset to filter by entry variables or single_epidist to return a single entry. 
-To retrieve the short citation for each use the 'get_citation' function
-```
-
-```{.output}
-   disease epi_distribution prob_distribution       author year
-1 COVID-19  serial interval             lnorm Hiroshi .... 2020
-2 COVID-19  serial interval           weibull Hiroshi .... 2020
+``` error
+Error: 'list_distributions' is not an exported object from 'namespace:epiparameter'
 ```
 
 We still get more than one epidemiological parameter. We can set the `single_epidist` argument to `TRUE` to only one:
 
 
-```r
+``` r
 epiparameter::epidist_db(
   disease = "covid",
   epi_dist = "serial",
@@ -429,15 +450,15 @@ epiparameter::epidist_db(
 )
 ```
 
-```{.output}
+``` output
 Using Nishiura H, Linton N, Akhmetzhanov A (2020). "Serial interval of novel
 coronavirus (COVID-19) infections." _International Journal of
 Infectious Diseases_. doi:10.1016/j.ijid.2020.02.060
 <https://doi.org/10.1016/j.ijid.2020.02.060>.. 
-To retrieve the short citation use the 'get_citation' function
+To retrieve the citation use the 'get_citation' function
 ```
 
-```{.output}
+``` output
 Disease: COVID-19
 Pathogen: SARS-CoV-2
 Epi Distribution: serial interval
@@ -470,7 +491,7 @@ Now, we have an epidemiological parameter we can reuse! We can replace the numbe
 Let's assign this `<epidist>` class object to the `covid_serialint` object.
 
 
-```r
+``` r
 covid_serialint <-
   epiparameter::epidist_db(
     disease = "covid",
@@ -480,19 +501,19 @@ covid_serialint <-
   )
 ```
 
-```{.output}
+``` output
 Using Nishiura H, Linton N, Akhmetzhanov A (2020). "Serial interval of novel
 coronavirus (COVID-19) infections." _International Journal of
 Infectious Diseases_. doi:10.1016/j.ijid.2020.02.060
 <https://doi.org/10.1016/j.ijid.2020.02.060>.. 
-To retrieve the short citation use the 'get_citation' function
+To retrieve the citation use the 'get_citation' function
 ```
 
-```r
+``` r
 covid_serialint
 ```
 
-```{.output}
+``` output
 Disease: COVID-19
 Pathogen: SARS-CoV-2
 Epi Distribution: serial interval
@@ -528,7 +549,7 @@ The `{epiparameter}` combo of `epidist_db()` plus `list_distributions()` list al
 This is a `<multi_epidist>` class object:
 
 
-```r
+``` r
 epiparameter::epidist_db(
   disease = "ebola",
   epi_dist = "incubation"
@@ -541,7 +562,7 @@ epiparameter::epidist_db(
 ::::::::::::::::: solution
 
 
-```r
+``` r
 # the distribution with the highest sample size has a gamma distribution
 epiparameter::epidist_db(
   disease = "ebola",
@@ -561,12 +582,12 @@ To access the `sample_size`, review an [issue reported in the GitHub repository]
 We can get the `mean` and standard deviation (`sd`) from this `<epidist>` diving into the `summary_stats` object:
 
 
-```r
+``` r
 # get the mean
 covid_serialint$summary_stats$mean
 ```
 
-```{.output}
+``` output
 [1] 4.7
 ```
 
@@ -602,7 +623,7 @@ Use the `str()` to display the structure of the `<epidist>` R object.
 :::::::::: solution
 
 
-```r
+``` r
 # get the sd
 covid_serialint$summary_stats$sd
 
@@ -619,11 +640,11 @@ covid_serialint$metadata$sample_size
 An interesting element is the `method_assess` nested entry, which refers to the methods used by the study authors to assess for bias while estimating the serial interval distribution.
 
 
-```r
+``` r
 covid_serialint$method_assess
 ```
 
-```{.output}
+``` output
 $censored
 [1] TRUE
 
@@ -658,7 +679,7 @@ An informative delay measures the time from symptom onset to recovery or death.
 ::::::::::::::::: solution
 
 
-```r
+``` r
 # one way to get the list of all the available parameters
 epidist_db(disease = "all") %>%
   list_distributions() %>%
@@ -688,7 +709,7 @@ ebola_severity$summary_stats$mean_ci_limits
 The following output has four entries with different content in the **probability distribution** (`prob_distribution`) column:
 
 
-```r
+``` r
 distribution <-
   epiparameter::epidist_db(
     disease = "covid",
@@ -696,29 +717,25 @@ distribution <-
   )
 ```
 
-```{.output}
+``` output
 Returning 4 results that match the criteria (3 are parameterised). 
 Use subset to filter by entry variables or single_epidist to return a single entry. 
-To retrieve the short citation for each use the 'get_citation' function
+To retrieve the citation for each use the 'get_citation' function
 ```
 
-```r
+``` r
 distribution %>%
   list_distributions()
 ```
 
-```{.output}
-   disease epi_distribution prob_distribution       author year
-1 COVID-19  serial interval              <NA> Muluneh .... 2021
-2 COVID-19  serial interval             lnorm Hiroshi .... 2020
-3 COVID-19  serial interval           weibull Hiroshi .... 2020
-4 COVID-19  serial interval              norm Lin Yang.... 2020
+``` error
+Error in list_distributions(.): could not find function "list_distributions"
 ```
 
 Entries with a missing value (`<NA>`) in the `prob_distribution` column are *non-parameterised* entries. They have summary statistics but no probability distribution. Compare these two outputs:
 
 
-```r
+``` r
 distribution[[1]]$summary_stats
 distribution[[1]]$prob_dist
 ```
@@ -730,7 +747,7 @@ distribution[[1]]$prob_dist
 As detailed in `?is_parameterised`, a parameterised distribution is the entry that has a probability distribution associated with it provided by an `inference_method` as shown in `metadata`:
 
 
-```r
+``` r
 distribution[[1]]$metadata$inference_method
 distribution[[2]]$metadata$inference_method
 distribution[[4]]$metadata$inference_method
@@ -741,17 +758,13 @@ distribution[[4]]$metadata$inference_method
 In the `epiparameter::list_distributions()` output, we can also find different types of probability distributions (e.g., Log-normal, Weibull, Normal).
 
 
-```r
+``` r
 distribution %>%
   list_distributions()
 ```
 
-```{.output}
-   disease epi_distribution prob_distribution       author year
-1 COVID-19  serial interval              <NA> Muluneh .... 2021
-2 COVID-19  serial interval             lnorm Hiroshi .... 2020
-3 COVID-19  serial interval           weibull Hiroshi .... 2020
-4 COVID-19  serial interval              norm Lin Yang.... 2020
+``` error
+Error in list_distributions(.): could not find function "list_distributions"
 ```
 
 In `{epiparameter}`, you will mostly find **continuous** distributions like these. You can visualize any of them with the `plot()` function and access to: 
@@ -760,7 +773,7 @@ In `{epiparameter}`, you will mostly find **continuous** distributions like thes
 - the *Cumulative Distribution Function (CDF)*.
 
 
-```r
+``` r
 plot(distribution[[2]])
 ```
 
@@ -769,7 +782,7 @@ plot(distribution[[2]])
 With the `day_range` argument, you can change the length or number of days in the `x` axis. Explore what it look like:
 
 
-```r
+``` r
 plot(distribution[[2]], day_range = 0:20)
 ```
 
@@ -819,48 +832,48 @@ If you need it, read in detail about the [R probability functions for the normal
 If you look at `?stats::Distributions`, each type of distribution has a unique set of functions. However, `{epiparameter}` gives you the same four functions to access each of the values above for any `<epidist>` object you want! 
 
 
-```r
+``` r
 # plot this to have a visual reference
 plot(covid_serialint, day_range = 0:20)
 ```
 
 
-```r
+``` r
 # the density value at quantile value of 10 (days)
 density(covid_serialint, at = 10)
 ```
 
-```{.output}
+``` output
 [1] 0.01911607
 ```
 
-```r
+``` r
 # the cumulative probability at quantile value of 10 (days)
 cdf(covid_serialint, q = 10)
 ```
 
-```{.output}
+``` output
 [1] 0.9466605
 ```
 
-```r
+``` r
 # the quantile value (day) at a cumulative probability of 60%
 quantile(covid_serialint, p = 0.6)
 ```
 
-```{.output}
+``` output
 [1] 4.618906
 ```
 
-```r
+``` r
 # generate 10 random values (days) given
 # the distribution family and its parameters
 generate(covid_serialint, times = 10)
 ```
 
-```{.output}
- [1] 3.699438 1.079265 3.468895 7.358368 3.553574 7.719362 1.557383 1.134973
- [9] 9.779812 6.748984
+``` output
+ [1] 2.566130 2.840252 2.675253 5.179135 4.549618 5.261451 2.861703 1.690031
+ [9] 4.533478 4.735248
 ```
 
 ::::::::: instructor
@@ -893,12 +906,12 @@ In Figure 5 from the [R probability functions for the normal distribution](https
 ::::::::::::::::: solution
 
 
-```r
+``` r
 plot(covid_serialint)
 ```
 
 
-```r
+``` r
 cdf(covid_serialint, q = 2)
 cdf(covid_serialint, q = 6)
 ```
@@ -920,7 +933,7 @@ If we exchange the question between days and cumulative probability to:
 - When considering secondary cases, how many days following the symptom onset of primary cases can we expect 55% of symptom onset to occur?
 
 
-```r
+``` r
 quantile(covid_serialint, p = 0.55)
 ```
 
@@ -945,14 +958,14 @@ We can use the set of distribution functions for a _continuous_ distribution (as
 When we `epiparameter::discretise()` the continuous distribution we get a **discrete**(-ized) distribution:
 
 
-```r
+``` r
 covid_serialint_discrete <-
   epiparameter::discretise(covid_serialint)
 
 covid_serialint_discrete
 ```
 
-```{.output}
+``` output
 Disease: COVID-19
 Pathogen: SARS-CoV-2
 Epi Distribution: serial interval
@@ -975,7 +988,7 @@ Distribution: discrete lnorm
 While for a **continuous** distribution, we plot the *Probability Density Function (PDF)*, for a **discrete** distribution, we plot the *Probability Mass Function (PMF)*:
 
 
-```r
+``` r
 # continuous
 plot(covid_serialint)
 
@@ -986,7 +999,7 @@ plot(covid_serialint_discrete)
 To finally get a `max` value, let's access the quantile value of the 99.9th percentile or `0.999` probability of the distribution with the `prob_dist$q` notation, similarly to how we access the `summary_stats` values.
 
 
-```r
+``` r
 covid_serialint_discrete_max <-
   covid_serialint_discrete$prob_dist$q(p = 0.999)
 ```
@@ -1008,7 +1021,7 @@ What delay distribution measures the time between infection and the onset of sym
 The probability function for `<epidist>` **discrete** distributions differ from the *continuous* ones!
 
 
-```r
+``` r
 # plot to have a visual reference
 plot(covid_serialint_discrete, day_range = 0:20)
 
@@ -1030,7 +1043,7 @@ covid_serialint_discrete$prob_dist$r(10)
 ::::::::::::::::: solution
 
 
-```r
+``` r
 covid_incubation <-
   epiparameter::epidist_db(
     disease = "covid",
@@ -1056,7 +1069,7 @@ Now, _Is this result expected in epidemiological terms?_
 From a maximum value with `$prob_dist$q()`, we can create a sequence of quantile values as a numeric vector and map density values for each:
 
 
-```r
+``` r
 # create a discrete distribution visualization
 # from a maximum value from the distribution
 covid_serialint_discrete$prob_dist$q(0.999) %>%
@@ -1091,7 +1104,7 @@ covid_serialint_discrete$prob_dist$q(0.999) %>%
 Now we can plug everything into the `EpiNow2::dist_spec()` function!
 
 
-```r
+``` r
 serial_interval_covid <-
   dist_spec(
     mean = covid_serialint$summary_stats$mean,
@@ -1099,13 +1112,29 @@ serial_interval_covid <-
     max = covid_serialint_discrete_max,
     distribution = "lognormal"
   )
+```
 
+``` warning
+Warning: `dist_spec()` was deprecated in EpiNow2 1.5.0.
+ℹ Please use distribution functions such as `Gamma()` or `Lognormal()` instead.
+ℹ The function will become internal only in the next version.
+This warning is displayed once every 8 hours.
+Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
+generated.
+```
+
+``` r
 serial_interval_covid
 ```
 
-```{.output}
-
-  Fixed distribution with PMF [0.18 0.11 0.08 0.066 0.057 0.05 0.045 0.041 0.037 0.034 0.032 0.03 0.028 0.027 0.025 0.024 0.023 0.022 0.021 0.02 0.019 0.019 0.018]
+``` output
+- lognormal distribution (max: 23):
+  meanlog:
+    - fixed value:
+      4.7
+  sdlog:
+    - fixed value:
+      2.9
 ```
 
 :::::::::: callout
@@ -1119,7 +1148,7 @@ Using the serial interval instead of the generation time is an alternative that 
 Let's replace the `generation_time` input we used for `EpiNow2::epinow()`.
 
 
-```r
+``` r
 epinow_estimates <- epinow(
   # cases
   reported_cases = example_confirmed[1:60],
@@ -1165,7 +1194,7 @@ Key functions we applied in this episode are:
 
 
 
-```r
+``` r
 # read data
 # e.g.: if path to file is data/raw-data/ebola_cases.csv then:
 ebola_confirmed <-
@@ -1261,7 +1290,7 @@ epinow_estimates <- epinow(
 ::::::::::::::::: solution
 
 
-```r
+``` r
 covid_incubation <- epiparameter::epidist_db(
   disease = "covid",
   epi_dist = "incubation",
@@ -1334,7 +1363,7 @@ We can use two complementary delay distributions to estimate the $R_t$ at time $
 
 
 
-```r
+``` r
 # read data
 # e.g.: if path to file is data/raw-data/ebola_cases.csv then:
 ebola_confirmed <-
@@ -1418,7 +1447,7 @@ How to get the mean and standard deviation from a generation time with median an
 <!-- https://github.com/epiverse-trace/epiparameter/issues/114 -->
 
 
-```r
+``` r
 # What parameters are available for Influenza?
 epidist_db(disease = "influenza") %>%
   list_distributions() %>%
@@ -1507,11 +1536,11 @@ However, the methods to accurately estimate delays like the generation interval 
 We can identify what entries in the `{epiparameter}` library assessed for these biases in their methodology with the `method_assess` nested entry:
 
 
-```r
+``` r
 covid_serialint$method_assess
 ```
 
-```{.output}
+``` output
 $censored
 [1] TRUE
 
@@ -1577,7 +1606,7 @@ Key functions:
 In this solution we use `purrr::pluck()` to extract elements within the `summary_stats` object which is of class `list`.
 
 
-```r
+``` r
 # pre-symptomatic transmission
 epidist_db(
   disease = "influenza",
@@ -1614,7 +1643,7 @@ epidist_db(
 ```
 
 
-```r
+``` r
 # pre-symptomatic transmission
 epidist_db(
   disease = "covid",

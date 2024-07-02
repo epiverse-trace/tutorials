@@ -50,7 +50,7 @@ In this tutorial different types of intervention and how they can be modelled ar
 We will investigate the effect of interventions on a COVID-19 outbreak using an SEIR model (`model_default_cpp()` in the R package `{epidemics}`). We will set $R_0 = 2.7$, latent period or preinfectious period $= 4$ and the infectious_period $= 5.5$ (parameters adapted from [Davies et al. (2020)](https://doi.org/10.1016/S2468-2667(20)30133-X)). We load a contact matrix with age bins 0-18, 18-65, 65 years and older using `{socialmixr}` and assume that one in every 1 million in each age group is infectious at the start of the epidemic.
 
 
-```r
+``` r
 polymod <- socialmixr::polymod
 contact_data <- socialmixr::contact_matrix(
   polymod,
@@ -95,18 +95,18 @@ The first NPI we will consider is the effect of school closures on reducing the 
 To include an intervention in our model we must create an `intervention` object. The inputs are the name of the intervention (`name`), the type of intervention (`contacts` or `rate`), the start time (`time_begin`), the end time (`time_end`) and the reduction (`reduction`). The values of the reduction matrix are specified in the same order as the age groups in the contact matrix. 
 
 
-```r
+``` r
 rownames(contact_matrix)
 ```
 
-```{.output}
+``` output
 [1] "[0,15)"  "[15,65)" "65+"    
 ```
 
 Therefore, we specify ` reduction = matrix(c(0.5, 0.01, 0.01))`. We assume that the school closures start on day 50 and are in place for a further 100 days. Therefore our intervention object is : 
 
 
-```r
+``` r
 close_schools <- intervention(
   name = "School closure",
   type = "contacts",
@@ -122,7 +122,7 @@ close_schools <- intervention(
 In `epidemics`, the contact matrix is scaled down by proportions for the period in which the intervention is in place. To understand how the reduction is calculated within the model functions, consider a contact matrix for two age groups with equal number of contacts:
 
 
-```{.output}
+``` output
      [,1] [,2]
 [1,]    1    1
 [2,]    1    1
@@ -131,7 +131,7 @@ In `epidemics`, the contact matrix is scaled down by proportions for the period 
 If the reduction is 50% in group 1 and 10% in group 2, the contact matrix during the intervention will be:
 
 
-```{.output}
+``` output
      [,1] [,2]
 [1,] 0.25 0.45
 [2,] 0.45 0.81
@@ -144,7 +144,7 @@ The contacts within group 1 are reduced by 50% twice to accommodate for a 50% re
 Using transmissibility $= 2.7/5.5$ (remember that [transmissibility = $R_0$/ infectious period](../episodes/simulating-transmission.md#the-basic-reproduction-number-r_0)), infectiousness rate $1/= 4$ and the recovery rate $= 1/5.5$ we run the model with` intervention = list(contacts = close_schools)` as follows :
 
 
-```r
+``` r
 output_school <- model_default_cpp(
   population = uk_population,
   transmissibility = 2.7 / 5.5,
@@ -155,11 +155,15 @@ output_school <- model_default_cpp(
 )
 ```
 
+``` error
+Error in model_default_cpp(population = uk_population, transmissibility = 2.7/5.5, : could not find function "model_default_cpp"
+```
+
 
 To be able to see the effect of our intervention, we also run the model where there is no intervention, combine the two outputs into one data frame and then plot the output. Here we plot the total number of infectious individuals in all age groups using `ggplot2::stat_summary()`:
 
 
-```r
+``` r
 # run baseline simulation with no intervention
 output_baseline <- model_default_cpp(
   population = uk_population,
@@ -168,12 +172,38 @@ output_baseline <- model_default_cpp(
   recovery_rate = 1.0 / 5.5,
   time_end = 300, increment = 1.0
 )
+```
 
+``` error
+Error in model_default_cpp(population = uk_population, transmissibility = 2.7/5.5, : could not find function "model_default_cpp"
+```
+
+``` r
 # create intervention_type column for plotting
 output_school$intervention_type <- "school closure"
-output_baseline$intervention_type <- "baseline"
-output <- rbind(output_school, output_baseline)
+```
 
+``` error
+Error: object 'output_school' not found
+```
+
+``` r
+output_baseline$intervention_type <- "baseline"
+```
+
+``` error
+Error: object 'output_baseline' not found
+```
+
+``` r
+output <- rbind(output_school, output_baseline)
+```
+
+``` error
+Error in eval(expr, envir, enclos): object 'output_school' not found
+```
+
+``` r
 ggplot(data = output[output$compartment == "infectious", ]) +
   aes(
     x = time,
@@ -214,7 +244,9 @@ ggplot(data = output[output$compartment == "infectious", ]) +
   )
 ```
 
-<img src="fig/modelling-interventions-rendered-baseline-1.png" style="display: block; margin: auto;" />
+``` error
+Error in eval(expr, envir, enclos): object 'output' not found
+```
 We see that with the intervention in place, the infection still spreads through the population, though the peak number of infectious individuals is smaller than the baseline with no intervention in place (solid line).
 
 
@@ -228,7 +260,7 @@ We expect that mask wearing will reduce an individual's infectiousness. As we ar
 We create an intervention object with `type = rate` and `reduction = 0.161`. Using parameters adapted from [Li et al. 2020](https://doi.org/10.1371/journal.pone.0237691) we have proportion wearing masks = coverage $\times$ availability = $0.54 \times 0.525 = 0.2835$, proportion reduction in transmissibility = $0.575$. Therefore, $\theta = 0.2835 \times 0.575 = 0.163$. We assume that the mask wearing mandate starts at day 40 and is in place for 200 days.
 
 
-```r
+``` r
 mask_mandate <- intervention(
   name = "mask mandate",
   type = "rate",
@@ -241,7 +273,7 @@ mask_mandate <- intervention(
 To implement this intervention on the parameter $\beta$, we specify `intervention = list(beta = mask_mandate)`.
 
 
-```r
+``` r
 output_masks <- model_default_cpp(
   population = uk_population,
   transmissibility = 2.7 / 5.5,
@@ -252,14 +284,38 @@ output_masks <- model_default_cpp(
 )
 ```
 
+``` error
+Error in model_default_cpp(population = uk_population, transmissibility = 2.7/5.5, : could not find function "model_default_cpp"
+```
 
 
-```r
+
+``` r
 # create intervention_type column for plotting
 output_masks$intervention_type <- "mask mandate"
-output_baseline$intervention_type <- "baseline"
-output <- rbind(output_masks, output_baseline)
+```
 
+``` error
+Error: object 'output_masks' not found
+```
+
+``` r
+output_baseline$intervention_type <- "baseline"
+```
+
+``` error
+Error: object 'output_baseline' not found
+```
+
+``` r
+output <- rbind(output_masks, output_baseline)
+```
+
+``` error
+Error in eval(expr, envir, enclos): object 'output_masks' not found
+```
+
+``` r
 ggplot(data = output[output$compartment == "infectious", ]) +
   aes(
     x = time,
@@ -300,7 +356,9 @@ ggplot(data = output[output$compartment == "infectious", ]) +
   )
 ```
 
-<img src="fig/modelling-interventions-rendered-plot_masks-1.png" style="display: block; margin: auto;" />
+``` error
+Error in eval(expr, envir, enclos): object 'output' not found
+```
 
 ::::::::::::::::::::::::::::::::::::: callout
 ### Intervention types
@@ -340,7 +398,7 @@ To explore the effect of vaccination we need to create a vaccination object to p
 Here we will assume all age groups are vaccinated at the same rate 0.01 and that the vaccination program starts on day 40 and is in place for 150 days.
 
 
-```r
+``` r
 # prepare a vaccination object
 vaccinate <- vaccination(
   name = "vaccinate all",
@@ -353,7 +411,7 @@ vaccinate <- vaccination(
 We pass our vaccination object using `vaccination = vaccinate`:
 
 
-```r
+``` r
 output_vaccinate <- model_default_cpp(
   population = uk_population,
   transmissibility = 2.7 / 5.5,
@@ -362,6 +420,10 @@ output_vaccinate <- model_default_cpp(
   vaccination = vaccinate,
   time_end = 300, increment = 1.0
 )
+```
+
+``` error
+Error in model_default_cpp(population = uk_population, transmissibility = 2.7/5.5, : could not find function "model_default_cpp"
 ```
 
 
@@ -377,11 +439,24 @@ Plot the three interventions vaccination, school closure and mask mandate and th
 ## Output
 
 
-```r
+``` r
 # create intervention_type column for plotting
 output_vaccinate$intervention_type <- "vaccination"
-output <- rbind(output_school, output_masks, output_vaccinate, output_baseline)
+```
 
+``` error
+Error: object 'output_vaccinate' not found
+```
+
+``` r
+output <- rbind(output_school, output_masks, output_vaccinate, output_baseline)
+```
+
+``` error
+Error in eval(expr, envir, enclos): object 'output_school' not found
+```
+
+``` r
 ggplot(data = output[output$compartment == "infectious", ]) +
   aes(
     x = time,
@@ -406,7 +481,9 @@ ggplot(data = output[output$compartment == "infectious", ]) +
   )
 ```
 
-<img src="fig/modelling-interventions-rendered-plot_vaccinate-1.png" style="display: block; margin: auto;" />
+``` error
+Error in eval(expr, envir, enclos): object 'output' not found
+```
 
 From the plot we see that the peak number of total number of infectious individuals when vaccination is in place is much lower compared to school closures and mask wearing interventions. 
 

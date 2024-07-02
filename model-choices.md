@@ -214,7 +214,7 @@ You have been tasked to generate initial trajectories of an Ebola outbreak in Gu
 ### Code for initial conditions 
 
 
-```r
+``` r
 # set population size
 population_size <- 14e6
 
@@ -256,7 +256,7 @@ Adapt the code from the [accounting for uncertainty](../episodes/simulating-tran
 
 
 
-```r
+``` r
 output <- model_ebola_r(
   population = guinea_population,
   transmissibility = 1.1 / 12,
@@ -267,7 +267,13 @@ output <- model_ebola_r(
   funeral_risk = 0.5,
   time_end = 100
 )
+```
 
+``` error
+Error in model_ebola_r(population = guinea_population, transmissibility = 1.1/12, : could not find function "model_ebola_r"
+```
+
+``` r
 ggplot(output[output$compartment == "infectious", ]) +
   geom_line(
     aes(time, value),
@@ -285,14 +291,16 @@ ggplot(output[output$compartment == "infectious", ]) +
   )
 ```
 
-<img src="fig/model-choices-rendered-unnamed-chunk-3-1.png" style="display: block; margin: auto;" />
+``` error
+Error in eval(expr, envir, enclos): object 'output' not found
+```
 
 2. Run model 100 times and plot the mean, upper and lower 95% quantiles of the number of infectious individuals through time
 
 We run the model 100 times with the *same* parameter values. 
 
 
-```r
+``` r
 output_samples <- Map(
   x = seq(100),
   f = function(x) {
@@ -311,9 +319,21 @@ output_samples <- Map(
     output
   }
 )
+```
 
+``` error
+Error in model_ebola_r(population = guinea_population, transmissibility = 1.1/12, : could not find function "model_ebola_r"
+```
+
+``` r
 output_samples <- bind_rows(output_samples) # requires the dplyr package
+```
 
+``` error
+Error in eval(expr, envir, enclos): object 'output_samples' not found
+```
+
+``` r
 ggplot(
   output_samples[output_samples$compartment == "infectious", ],
   aes(time, value)
@@ -338,7 +358,9 @@ ggplot(
   )
 ```
 
-<img src="fig/model-choices-rendered-unnamed-chunk-4-1.png" style="display: block; margin: auto;" />
+``` error
+Error in eval(expr, envir, enclos): object 'output_samples' not found
+```
 
 :::::::::::::::::::::::::::
 

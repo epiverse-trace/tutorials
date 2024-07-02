@@ -41,7 +41,14 @@ Learners should familiarise themselves with following concept dependencies befor
 
 Mathematical models are useful tools for generating future trajectories of disease spread. In this tutorial, we will use the R package `{epidemics}` to generate disease trajectories of an influenza strain with pandemic potential. By the end of this tutorial, you will be able to generate the trajectory below showing the number of infectious individuals in different age categories over time.
 
-<img src="fig/simulating-transmission-rendered-traj-1.png" style="display: block; margin: auto;" />
+
+``` error
+Error in model_default_cpp(population = uk_population, transmissibility = 1.46/7, : could not find function "model_default_cpp"
+```
+
+``` error
+Error in eval(expr, envir, enclos): object 'output_plot' not found
+```
 
 
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: instructor
@@ -144,7 +151,7 @@ contact_matrix
 ## Output
  
 
-```{.output}
+``` output
                  
 contact.age.group     [,1]     [,2]     [,3]
           [0,20)  7.883663 2.794154 1.565665
@@ -172,7 +179,7 @@ The initial conditions are the proportion of individuals in each disease state $
 The initial conditions in the first age category are $S(0)=1-\frac{1}{1,000,000}$, $E(0) =0$, $I(0)=\frac{1}{1,000,000}$, $R(0)=0$. This is specified as a vector as follows:
 
 
-```r
+``` r
 initial_i <- 1e-6
 initial_conditions_inf <- c(
   S = 1 - initial_i, E = 0, I = initial_i, R = 0, V = 0
@@ -182,7 +189,7 @@ initial_conditions_inf <- c(
 For the age categories that are free from infection, the initial conditions are $S(0)=1$, $E(0) =0$, $I(0)=0$, $R(0)=0$. We specify this as follows,
 
 
-```r
+``` r
 initial_conditions_free <- c(
   S = 1, E = 0, I = 0, R = 0, V = 0
 )
@@ -191,7 +198,7 @@ initial_conditions_free <- c(
 We combine the three initial conditions vectors into one matrix, 
 
 
-```r
+``` r
 # combine the initial conditions
 initial_conditions <- rbind(
   initial_conditions_inf, # age group 1
@@ -204,7 +211,7 @@ rownames(initial_conditions) <- rownames(contact_matrix)
 initial_conditions
 ```
 
-```{.output}
+``` output
                S E     I R V
 [0,20)  0.999999 0 1e-06 0 0
 [20,40) 1.000000 0 0e+00 0 0
@@ -218,13 +225,13 @@ initial_conditions
 The population object requires a vector containing the demographic structure of the population. The demographic vector must be a named vector containing the number of individuals in each age group of our given population. In this example, we can extract the demographic information from the `contact_data` object that we obtained using the `socialmixr` package.
 
 
-```r
+``` r
 demography_vector <- contact_data$demography$population
 names(demography_vector) <- rownames(contact_matrix)
 demography_vector
 ```
 
-```{.output}
+``` output
   [0,20)  [20,40)      40+ 
 14799290 16526302 28961159 
 ```
@@ -232,7 +239,7 @@ demography_vector
 To create our population object, we call the function `population()` specifying a name, the contact matrix, the demography vector and the initial conditions.
 
 
-```r
+``` r
 uk_population <- population(
   name = "UK",
   contact_matrix = contact_matrix,
@@ -292,13 +299,13 @@ In `epidemics`, the [ODE solver](https://www.boost.org/doc/libs/1_82_0/libs/nume
 Now we are ready to run our model. Let's load the `epidemics` package : 
 
 
-```r
+``` r
 library(epidemics)
 ```
 
 Then we specify `time_end=600` to run the model for 600 days.
 
-```r
+``` r
 output <- model_default_cpp(
   population = uk_population,
   transmissibility = 1.46 / 7.0,
@@ -306,17 +313,18 @@ output <- model_default_cpp(
   recovery_rate = 1.0 / 7.0,
   time_end = 600, increment = 1.0
 )
+```
+
+``` error
+Error in model_default_cpp(population = uk_population, transmissibility = 1.46/7, : could not find function "model_default_cpp"
+```
+
+``` r
 head(output)
 ```
 
-```{.output}
-  time demography_group compartment    value
-1    0           [0,20) susceptible 14799275
-2    0          [20,40) susceptible 16526302
-3    0              40+ susceptible 28961159
-4    0           [0,20)     exposed        0
-5    0          [20,40)     exposed        0
-6    0              40+     exposed        0
+``` error
+Error in eval(expr, envir, enclos): object 'output' not found
 ```
 
 *Note : This model also has the functionality to include vaccination and tracks the number of vaccinated individuals through time. Even though we have not specified any vaccination, there is still a vaccinated compartment in the output (containing no individuals). We will cover the use of vaccination in future tutorials.*
@@ -324,7 +332,7 @@ head(output)
 Our model output consists of the number of individuals in each compartment in each age group through time. We can visualise the infectious individuals only (those in the $I$ class) through time.
 
 
-```r
+``` r
 filter(output_plot, compartment %in% c("exposed", "infectious")) %>%
   ggplot(
     aes(
@@ -363,7 +371,9 @@ filter(output_plot, compartment %in% c("exposed", "infectious")) %>%
   )
 ```
 
-<img src="fig/simulating-transmission-rendered-visualise-1.png" style="display: block; margin: auto;" />
+``` error
+Error in eval(expr, envir, enclos): object 'output_plot' not found
+```
 
 
 ::::::::::::::::::::::::::::::::::::: callout
@@ -384,14 +394,14 @@ We ran our model with $R_0= 1.5$. However, we believe that $R_0$ follows a norma
 1. Obtain 100 samples from the from a normal distribution
 
 
-```r
+``` r
 R0_vec <- rnorm(100, 1.5, 0.05)
 ```
 
 2. Run the model 100 times with $R_0$ equal to a different sample each time
 
 
-```r
+``` r
 output_samples <- Map(
   R0_vec,
   seq_along(R0_vec),
@@ -410,16 +420,26 @@ output_samples <- Map(
     output
   }
 )
+```
 
+``` error
+Error in model_default_cpp(population = uk_population, transmissibility = x/7, : could not find function "model_default_cpp"
+```
+
+``` r
 # combine to prepare for plotting
 output_samples <- bind_rows(output_samples)
+```
+
+``` error
+Error in eval(expr, envir, enclos): object 'output_samples' not found
 ```
 
 
 3. Calculate the mean and 95% quantiles of number of infectious individuals across each model simulation and visualise output
 
 
-```r
+``` r
 ggplot(
   output_samples[output_samples$compartment == "infectious", ],
   aes(time, value)
@@ -447,7 +467,9 @@ ggplot(
   )
 ```
 
-<img src="fig/simulating-transmission-rendered-plot-1.png" style="display: block; margin: auto;" />
+``` error
+Error in eval(expr, envir, enclos): object 'output_samples' not found
+```
 
 
 Deciding which parameters to include uncertainty in depends on a few factors: how well informed a parameter value is e.g. consistency of estimates from the literature; how sensitive model outputs are to parameter value changes; and the purpose of the modelling task. See [McCabe et al. 2021](https://doi.org/10.1016%2Fj.epidem.2021.100520) to learn about different types of uncertainty in infectious disease modelling.
