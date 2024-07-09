@@ -31,12 +31,12 @@
           </a>
           <span class="visually-hidden">This lesson is in the pre-alpha phase, which means that it is in early development, but has not yet been taught.</span>
         </abbr>
-        
+
       </div>
     </div>
     <div class="selector-container">
-      
-      
+
+
       <div class="dropdown">
         <button class="btn btn-secondary dropdown-toggle bordered-button" type="button" id="dropdownMenu1" data-bs-toggle="dropdown" aria-expanded="false">
           <i aria-hidden="true" class="icon" data-feather="eye"></i> Learner View <i data-feather="chevron-down"></i>
@@ -133,7 +133,7 @@
                 </div><!--/div.accordion-flush-->
               </div><!--div.sidenav-view-selector -->
             </div><!--/div.col -->
-      
+
             <hr></div><!--/div.mobile-row -->
 
           <div class="accordion accordion-flush" id="accordionFlush11">
@@ -152,7 +152,7 @@
     <div class="accordion-header" id="flush-heading1">
         <a href="index.html">Summary and Setup</a>
     </div><!--/div.accordion-header-->
-        
+
   </div><!--/div.accordion-item-->
 </div><!--/div.accordion-flush-->
 
@@ -161,7 +161,7 @@
     <div class="accordion-header" id="flush-heading2">
         <a href="introduction.html">1. Outbreak analytics pipelines</a>
     </div><!--/div.accordion-header-->
-        
+
   </div><!--/div.accordion-item-->
 </div><!--/div.accordion-flush-->
 
@@ -175,7 +175,7 @@
         </span>
       </button>
     </div><!--/div.accordion-header-->
-        
+
     <div id="flush-collapsecurrent" class="accordion-collapse collapse show" aria-labelledby="flush-headingcurrent" data-bs-parent="#accordionFlushcurrent">
       <div class="accordion-body">
         <ul><li><a href="#introduction">Introduction</a></li>
@@ -191,7 +191,7 @@
 <li><a href="#when-to-reuse-when-to-estimate">When to reuse? When to estimate?</a></li>
         </ul></div><!--/div.accordion-body-->
     </div><!--/div.accordion-collapse-->
-        
+
   </div><!--/div.accordion-item-->
 </div><!--/div.accordion-flush-->
 
@@ -200,7 +200,7 @@
     <div class="accordion-header" id="flush-heading4">
         <a href="quantify-transmissibility.html">3. Quantifying transmission</a>
     </div><!--/div.accordion-header-->
-        
+
   </div><!--/div.accordion-item-->
 </div><!--/div.accordion-flush-->
 
@@ -209,7 +209,7 @@
     <div class="accordion-header" id="flush-heading5">
         <a href="create-forecast.html">4. Create a short-term forecast</a>
     </div><!--/div.accordion-header-->
-        
+
   </div><!--/div.accordion-item-->
 </div><!--/div.accordion-flush-->
 
@@ -218,7 +218,7 @@
     <div class="accordion-header" id="flush-heading6">
         <a href="simulating-transmission.html">5. Simulating transmission</a>
     </div><!--/div.accordion-header-->
-        
+
   </div><!--/div.accordion-item-->
 </div><!--/div.accordion-flush-->
 
@@ -227,7 +227,7 @@
     <div class="accordion-header" id="flush-heading7">
         <a href="model-choices.html">6. Choosing an appropriate model</a>
     </div><!--/div.accordion-header-->
-        
+
   </div><!--/div.accordion-item-->
 </div><!--/div.accordion-flush-->
 
@@ -236,7 +236,7 @@
     <div class="accordion-header" id="flush-heading8">
         <a href="modelling-interventions.html">7. Modelling interventions</a>
     </div><!--/div.accordion-header-->
-        
+
   </div><!--/div.accordion-item-->
 </div><!--/div.accordion-flush-->
 
@@ -245,7 +245,7 @@
     <div class="accordion-header" id="flush-heading9">
         <a href="compare-interventions.html">8. Comparing public health outcomes of interventions</a>
     </div><!--/div.accordion-header-->
-        
+
   </div><!--/div.accordion-item-->
 </div><!--/div.accordion-flush-->
 
@@ -277,10 +277,10 @@
               </div>
             </div>
             <hr class="half-width resources"><a href="aio.html">See all in one page</a>
-            
+
 
             <hr class="d-none d-sm-block d-md-none"><div class="d-grid gap-1">
-            
+
             </div>
           </div><!-- /div.accordion -->
         </div><!-- /div.sidebar-inner -->
@@ -301,18 +301,18 @@
           Previous: Outbreak analytics
         </a>
         <a class="chapter-link float-end" href="quantify-transmissibility.html" rel="next">
-          Next: Quantifying... 
+          Next: Quantifying...
           <i aria-hidden="true" class="small-arrow" data-feather="arrow-right"></i>
         </a>
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Read delays</h1>
         <p>Last updated on 2024-07-02 |
-        
+
         <a href="https://github.com/epiverse-trace/tutorials/edit/main/episodes/read-delays.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
-        
-        
-        
+
+
+
         <div class="text-end">
           <button role="button" aria-pressed="false" tabindex="0" id="expand-code" class="pull-right" data-expand="Expand All Solutions " data-collapse="Collapse All Solutions "> Expand All Solutions <i aria-hidden="true" data-feather="plus"></i></button>
         </div>
@@ -363,8 +363,8 @@ periods.</p>
 </div>
 </div>
 </div>
-<section id="introduction"><h2 class="section-heading">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
-</h2>
+<section><h2 class="section-heading" id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
+<a class="anchor" aria-label="anchor" href="#introduction"></a></h2>
 <hr class="half-width"><p>The <a href="reference.html#naturalhistory">natural history</a> of an
 infectious disease shows that its development has a regularity from
 stage to stage. The time periods from an infectious disease inform about
@@ -442,8 +442,8 @@ connect some of their functions, so let’s also call to the
 <span><span class="kw">library</span><span class="op">(</span><span class="va">EpiNow2</span><span class="op">)</span></span>
 <span><span class="kw">library</span><span class="op">(</span><span class="va">tidyverse</span><span class="op">)</span></span></code></pre>
 </div>
-</section><section id="find-a-generation-time"><h2 class="section-heading">Find a Generation time<a class="anchor" aria-label="anchor" href="#find-a-generation-time"></a>
-</h2>
+</section><section><h2 class="section-heading" id="find-a-generation-time">Find a Generation time<a class="anchor" aria-label="anchor" href="#find-a-generation-time"></a>
+<a class="anchor" aria-label="anchor" href="#find-a-generation-time"></a></h2>
 <hr class="half-width"><p>The generation time, jointly with the <span class="math inline">\(R\)</span>, can inform about the speed of spread
 and its feasibility of control. Given a <span class="math inline">\(R&gt;1\)</span>, with a shorter generation time,
 cases can appear more quickly.</p>
@@ -574,7 +574,7 @@ et al, 2020</a>)</div>
 <button class="accordion-button hint-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseHint1" aria-expanded="false" aria-controls="collapseHint1">
   <h4 class="accordion-header" id="headingHint1"> Give me a hint </h4>
 </button>
-<div id="collapseHint1" class="accordion-collapse collapse" data-bs-parent="#accordionHint1" aria-labelledby="headingHint1">
+<div id="collapseHint1" class="accordion-collapse collapse" aria-labelledby="headingHint1" data-bs-parent="#accordionHint1">
 <div class="accordion-body">
 <p>The peak of each curve can inform you about the location of the mean
 of each distribution. The larger the mean, the larger the serial
@@ -588,7 +588,7 @@ interval.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <p>Which one would be harder to control?</p>
 <ul><li>COVID-19</li>
@@ -602,8 +602,8 @@ in less time than SARS, assuming similar reproduction numbers.</li>
 </div>
 </div>
 
-</section><section id="extract-epidemiological-parameters"><h2 class="section-heading">Extract epidemiological parameters<a class="anchor" aria-label="anchor" href="#extract-epidemiological-parameters"></a>
-</h2>
+</section><section><h2 class="section-heading" id="extract-epidemiological-parameters">Extract epidemiological parameters<a class="anchor" aria-label="anchor" href="#extract-epidemiological-parameters"></a>
+<a class="anchor" aria-label="anchor" href="#extract-epidemiological-parameters"></a></h2>
 <hr class="half-width"><p>First, let’s assume that the data set <code>example_confirmed</code>
 has COVID-19 observed cases. So, we need to find a reported generation
 time for COVID-19 or any other useful parameter for this aim.</p>
@@ -621,8 +621,8 @@ epidemiological distributions database (<code>epidist_db</code>) for the
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code>Returning 27 results that match the criteria (22 are parameterised). 
-Use subset to filter by entry variables or single_epidist to return a single entry. 
+<pre class="output" tabindex="0"><code>Returning 27 results that match the criteria (22 are parameterised).
+Use subset to filter by entry variables or single_epidist to return a single entry.
 To retrieve the short citation for each use the 'get_citation' function</code></pre>
 </div>
 <div class="codewrapper">
@@ -653,8 +653,8 @@ time using the string <code>generation</code>:</p>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code>Returning 1 results that match the criteria (1 are parameterised). 
-Use subset to filter by entry variables or single_epidist to return a single entry. 
+<pre class="output" tabindex="0"><code>Returning 1 results that match the criteria (1 are parameterised).
+Use subset to filter by entry variables or single_epidist to return a single entry.
 To retrieve the short citation for each use the 'get_citation' function</code></pre>
 </div>
 <div class="codewrapper">
@@ -689,8 +689,8 @@ intervals for <code>COVID</code>-19.</p>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code>Returning 4 results that match the criteria (3 are parameterised). 
-Use subset to filter by entry variables or single_epidist to return a single entry. 
+<pre class="output" tabindex="0"><code>Returning 4 results that match the criteria (3 are parameterised).
+Use subset to filter by entry variables or single_epidist to return a single entry.
 To retrieve the short citation for each use the 'get_citation' function</code></pre>
 </div>
 <div class="codewrapper">
@@ -781,8 +781,8 @@ previous code using the pipe <code>%&gt;%</code>:</p>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code>Returning 4 results that match the criteria (3 are parameterised). 
-Use subset to filter by entry variables or single_epidist to return a single entry. 
+<pre class="output" tabindex="0"><code>Returning 4 results that match the criteria (3 are parameterised).
+Use subset to filter by entry variables or single_epidist to return a single entry.
 To retrieve the short citation for each use the 'get_citation' function</code></pre>
 </div>
 <div class="codewrapper">
@@ -816,7 +816,7 @@ distribution of your interest! Do you recognize the paper?</p></li>
 <button class="accordion-button hint-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseHint2" aria-expanded="false" aria-controls="collapseHint2">
   <h4 class="accordion-header" id="headingHint2"> Give me a hint </h4>
 </button>
-<div id="collapseHint2" class="accordion-collapse collapse" data-bs-parent="#accordionHint2" aria-labelledby="headingHint2">
+<div id="collapseHint2" class="accordion-collapse collapse" aria-labelledby="headingHint2" data-bs-parent="#accordionHint2">
 <div class="accordion-body">
 <p>The <code>{epiparameter}</code> combo of <code>epidist_db()</code>
 plus <code>list_distributions()</code> list all the entries by:</p>
@@ -834,7 +834,7 @@ plus <code>list_distributions()</code> list all the entries by:</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb16">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -858,8 +858,8 @@ distribution</a>?</p>
 </div>
 </div>
 </div>
-</section><section id="select-a-single-distribution"><h2 class="section-heading">Select a single distribution<a class="anchor" aria-label="anchor" href="#select-a-single-distribution"></a>
-</h2>
+</section><section><h2 class="section-heading" id="select-a-single-distribution">Select a single distribution<a class="anchor" aria-label="anchor" href="#select-a-single-distribution"></a>
+<a class="anchor" aria-label="anchor" href="#select-a-single-distribution"></a></h2>
 <hr class="half-width"><p>The <code>epiparameter::epidist_db()</code> function works as a
 filtering or subset function. Let’s use the <code>author</code> argument
 to filter <code>Hiroshi Nishiura</code> parameters:</p>
@@ -877,8 +877,8 @@ to filter <code>Hiroshi Nishiura</code> parameters:</p>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code>Returning 2 results that match the criteria (2 are parameterised). 
-Use subset to filter by entry variables or single_epidist to return a single entry. 
+<pre class="output" tabindex="0"><code>Returning 2 results that match the criteria (2 are parameterised).
+Use subset to filter by entry variables or single_epidist to return a single entry.
 To retrieve the short citation for each use the 'get_citation' function</code></pre>
 </div>
 <div class="codewrapper">
@@ -908,7 +908,7 @@ one:</p>
 <pre class="output" tabindex="0"><code>Using Nishiura H, Linton N, Akhmetzhanov A (2020). "Serial interval of novel
 coronavirus (COVID-19) infections." _International Journal of
 Infectious Diseases_. doi:10.1016/j.ijid.2020.02.060
-&lt;https://doi.org/10.1016/j.ijid.2020.02.060&gt;.. 
+&lt;https://doi.org/10.1016/j.ijid.2020.02.060&gt;..
 To retrieve the short citation use the 'get_citation' function</code></pre>
 </div>
 <div class="codewrapper">
@@ -970,7 +970,7 @@ replace the numbers we plug into <code>EpiNow2::dist_spec()</code>.</p>
 <pre class="output" tabindex="0"><code>Using Nishiura H, Linton N, Akhmetzhanov A (2020). "Serial interval of novel
 coronavirus (COVID-19) infections." _International Journal of
 Infectious Diseases_. doi:10.1016/j.ijid.2020.02.060
-&lt;https://doi.org/10.1016/j.ijid.2020.02.060&gt;.. 
+&lt;https://doi.org/10.1016/j.ijid.2020.02.060&gt;..
 To retrieve the short citation use the 'get_citation' function</code></pre>
 </div>
 <div class="codewrapper sourceCode" id="cb25">
@@ -1015,7 +1015,7 @@ the highest sample size?</li>
 <button class="accordion-button hint-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseHint3" aria-expanded="false" aria-controls="collapseHint3">
   <h4 class="accordion-header" id="headingHint3"> Give me a hint </h4>
 </button>
-<div id="collapseHint3" class="accordion-collapse collapse" data-bs-parent="#accordionHint3" aria-labelledby="headingHint3">
+<div id="collapseHint3" class="accordion-collapse collapse" aria-labelledby="headingHint3" data-bs-parent="#accordionHint3">
 <div class="accordion-body">
 <p>The <code>{epiparameter}</code> combo of <code>epidist_db()</code>
 plus <code>list_distributions()</code> list all the entries by:</p>
@@ -1043,7 +1043,7 @@ plus <code>list_distributions()</code> list all the entries by:</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution3" aria-expanded="false" aria-controls="collapseSolution3">
   <h4 class="accordion-header" id="headingSolution3"> Show me the solution </h4>
 </button>
-<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
+<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb28">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -1063,8 +1063,8 @@ package.</p>
 </div>
 </div>
 </div>
-</section><section id="extract-the-summary-statistics"><h2 class="section-heading">Extract the summary statistics<a class="anchor" aria-label="anchor" href="#extract-the-summary-statistics"></a>
-</h2>
+</section><section><h2 class="section-heading" id="extract-the-summary-statistics">Extract the summary statistics<a class="anchor" aria-label="anchor" href="#extract-the-summary-statistics"></a>
+<a class="anchor" aria-label="anchor" href="#extract-the-summary-statistics"></a></h2>
 <hr class="half-width"><p>We can get the <code>mean</code> and standard deviation
 (<code>sd</code>) from this <code>&lt;epidist&gt;</code> diving into the
 <code>summary_stats</code> object:</p>
@@ -1106,7 +1106,7 @@ distribution.</p></li>
 <button class="accordion-button hint-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseHint4" aria-expanded="false" aria-controls="collapseHint4">
   <h4 class="accordion-header" id="headingHint4"> Give me a hint </h4>
 </button>
-<div id="collapseHint4" class="accordion-collapse collapse" data-bs-parent="#accordionHint4" aria-labelledby="headingHint4">
+<div id="collapseHint4" class="accordion-collapse collapse" aria-labelledby="headingHint4" data-bs-parent="#accordionHint4">
 <div class="accordion-body">
 <p>Use the <code>$</code> operator plus the <kbd>tab</kbd> keyboard
 button to explore them as an expandable list:</p>
@@ -1126,7 +1126,7 @@ button to explore them as an expandable list:</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution4" aria-expanded="false" aria-controls="collapseSolution4">
   <h4 class="accordion-header" id="headingSolution4"> Show me the solution </h4>
 </button>
-<div id="collapseSolution4" class="accordion-collapse collapse" data-bs-parent="#accordionSolution4" aria-labelledby="headingSolution4">
+<div id="collapseSolution4" class="accordion-collapse collapse" aria-labelledby="headingSolution4" data-bs-parent="#accordionSolution4">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb32">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -1189,7 +1189,7 @@ duration of health-care and case isolation?</li>
 <button class="accordion-button hint-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseHint5" aria-expanded="false" aria-controls="collapseHint5">
   <h4 class="accordion-header" id="headingHint5"> Give me a hint </h4>
 </button>
-<div id="collapseHint5" class="accordion-collapse collapse" data-bs-parent="#accordionHint5" aria-labelledby="headingHint5">
+<div id="collapseHint5" class="accordion-collapse collapse" aria-labelledby="headingHint5" data-bs-parent="#accordionHint5">
 <div class="accordion-body">
 <p>An informative delay measures the time from symptom onset to recovery
 or death.</p>
@@ -1202,7 +1202,7 @@ or death.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution5" aria-expanded="false" aria-controls="collapseSolution5">
   <h4 class="accordion-header" id="headingSolution5"> Show me the solution </h4>
 </button>
-<div id="collapseSolution5" class="accordion-collapse collapse" data-bs-parent="#accordionSolution5" aria-labelledby="headingSolution5">
+<div id="collapseSolution5" class="accordion-collapse collapse" aria-labelledby="headingSolution5" data-bs-parent="#accordionSolution5">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb35">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -1230,8 +1230,8 @@ or death.</p>
 </div>
 </div>
 </div>
-</section><section id="continuous-distributions"><h2 class="section-heading">Continuous distributions<a class="anchor" aria-label="anchor" href="#continuous-distributions"></a>
-</h2>
+</section><section><h2 class="section-heading" id="continuous-distributions">Continuous distributions<a class="anchor" aria-label="anchor" href="#continuous-distributions"></a>
+<a class="anchor" aria-label="anchor" href="#continuous-distributions"></a></h2>
 <hr class="half-width"><p>The following output has four entries with different content in the
 <strong>probability distribution</strong>
 (<code>prob_distribution</code>) column:</p>
@@ -1248,8 +1248,8 @@ or death.</p>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code>Returning 4 results that match the criteria (3 are parameterised). 
-Use subset to filter by entry variables or single_epidist to return a single entry. 
+<pre class="output" tabindex="0"><code>Returning 4 results that match the criteria (3 are parameterised).
+Use subset to filter by entry variables or single_epidist to return a single entry.
 To retrieve the short citation for each use the 'get_citation' function</code></pre>
 </div>
 <div class="codewrapper sourceCode" id="cb38">
@@ -1284,7 +1284,7 @@ Compare these two outputs:</p>
 <button class="accordion-button spoiler-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSpoiler1" aria-expanded="false" aria-controls="collapseSpoiler1">
   <h3 class="accordion-header" id="headingSpoiler1">  <div class="note-square"><i aria-hidden="true" class="callout-icon" data-feather="eye"></i></div> Parameterised entries have an Inference method </h3>
 </button>
-<div id="collapseSpoiler1" class="accordion-collapse collapse" data-bs-parent="#accordionSpoiler1" aria-labelledby="headingSpoiler1">
+<div id="collapseSpoiler1" class="accordion-collapse collapse" aria-labelledby="headingSpoiler1" data-bs-parent="#accordionSpoiler1">
 <div class="accordion-body">
 <p>As detailed in <code>?is_parameterised</code>, a parameterised
 distribution is the entry that has a probability distribution associated
@@ -1374,8 +1374,8 @@ change.</p>
 </div>
 </div>
 <!-- A slider, in the context of user interfaces and graphical user interfaces (GUIs), is a graphical control element that allows users to adjust a value by moving a handle along a track or bar. Conceptually, it provides a way to select a numeric value within a specified range by visually sliding or dragging a pointer (the handle) along a continuous axis. -->
-</section><section id="distribution-functions"><h2 class="section-heading">Distribution functions<a class="anchor" aria-label="anchor" href="#distribution-functions"></a>
-</h2>
+</section><section><h2 class="section-heading" id="distribution-functions">Distribution functions<a class="anchor" aria-label="anchor" href="#distribution-functions"></a>
+<a class="anchor" aria-label="anchor" href="#distribution-functions"></a></h2>
 <hr class="half-width"><p>In R, all the statistical distributions have functions to access
 the:</p>
 <ul><li>Probability <strong>Density</strong> function (PDF),</li>
@@ -1389,7 +1389,7 @@ the:</p>
 <button class="accordion-button spoiler-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSpoiler2" aria-expanded="false" aria-controls="collapseSpoiler2">
   <h3 class="accordion-header" id="headingSpoiler2">  <div class="note-square"><i aria-hidden="true" class="callout-icon" data-feather="eye"></i></div> Functions for the Normal distribution </h3>
 </button>
-<div id="collapseSpoiler2" class="accordion-collapse collapse" data-bs-parent="#accordionSpoiler2" aria-labelledby="headingSpoiler2">
+<div id="collapseSpoiler2" class="accordion-collapse collapse" aria-labelledby="headingSpoiler2" data-bs-parent="#accordionSpoiler2">
 <div class="accordion-body">
 <p>If you need it, read in detail about the <a href="https://sakai.unc.edu/access/content/group/3d1eb92e-7848-4f55-90c3-7c72a54e7e43/public/docs/lectures/lecture13.htm#probfunc" class="external-link">R
 probability functions for the normal distribution</a>, each of its
@@ -1493,7 +1493,7 @@ days pre-onset?</li>
 <button class="accordion-button hint-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseHint6" aria-expanded="false" aria-controls="collapseHint6">
   <h4 class="accordion-header" id="headingHint6"> Give me a hint </h4>
 </button>
-<div id="collapseHint6" class="accordion-collapse collapse" data-bs-parent="#accordionHint6" aria-labelledby="headingHint6">
+<div id="collapseHint6" class="accordion-collapse collapse" aria-labelledby="headingHint6" data-bs-parent="#accordionHint6">
 <div class="accordion-body">
 <p>In Figure 5 from the <a href="https://sakai.unc.edu/access/content/group/3d1eb92e-7848-4f55-90c3-7c72a54e7e43/public/docs/lectures/lecture13.htm#probfunc" class="external-link">R
 probability functions for the normal distribution</a>, the shadowed
@@ -1508,7 +1508,7 @@ the quantile value at <code>x = 2</code>.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution6" aria-expanded="false" aria-controls="collapseSolution6">
   <h4 class="accordion-header" id="headingSolution6"> Show me the solution </h4>
 </button>
-<div id="collapseSolution6" class="accordion-collapse collapse" data-bs-parent="#accordionSolution6" aria-labelledby="headingSolution6">
+<div id="collapseSolution6" class="accordion-collapse collapse" aria-labelledby="headingSolution6" data-bs-parent="#accordionSolution6">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb55">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -1537,7 +1537,7 @@ include 76.2% of backward contacts.</p></li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution7" aria-expanded="false" aria-controls="collapseSolution7">
   <h4 class="accordion-header" id="headingSolution7"> What if </h4>
 </button>
-<div id="collapseSolution7" class="accordion-collapse collapse" data-bs-parent="#accordionSolution7" aria-labelledby="headingSolution7">
+<div id="collapseSolution7" class="accordion-collapse collapse" aria-labelledby="headingSolution7" data-bs-parent="#accordionSolution7">
 <div class="accordion-body">
 <p>If we exchange the question between days and cumulative probability
 to:</p>
@@ -1557,8 +1557,8 @@ after 4.2 days after the symptom onset of primary cases.</li>
 </div>
 </div>
 </div>
-</section><section id="discretize-a-continuous-distribution"><h2 class="section-heading">Discretize a continuous distribution<a class="anchor" aria-label="anchor" href="#discretize-a-continuous-distribution"></a>
-</h2>
+</section><section><h2 class="section-heading" id="discretize-a-continuous-distribution">Discretize a continuous distribution<a class="anchor" aria-label="anchor" href="#discretize-a-continuous-distribution"></a>
+<a class="anchor" aria-label="anchor" href="#discretize-a-continuous-distribution"></a></h2>
 <hr class="half-width"><p>We are getting closer to the end! <code>EpiNow2::dist_spec()</code>
 still needs a maximum value (<code>max</code>).</p>
 <p>One way to do this is to get the quantile value for the
@@ -1650,7 +1650,7 @@ COVID-19 symptoms exhibit them after infection?</li>
 <button class="accordion-button hint-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseHint7" aria-expanded="false" aria-controls="collapseHint7">
   <h4 class="accordion-header" id="headingHint7"> Give me a hint </h4>
 </button>
-<div id="collapseHint7" class="accordion-collapse collapse" data-bs-parent="#accordionHint7" aria-labelledby="headingHint7">
+<div id="collapseHint7" class="accordion-collapse collapse" aria-labelledby="headingHint7" data-bs-parent="#accordionHint7">
 <div class="accordion-body">
 <p>What delay distribution measures the time between infection and the
 onset of symptoms?</p>
@@ -1685,7 +1685,7 @@ onset of symptoms?</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution8" aria-expanded="false" aria-controls="collapseSolution8">
   <h4 class="accordion-header" id="headingSolution8"> Show me the solution </h4>
 </button>
-<div id="collapseSolution8" class="accordion-collapse collapse" data-bs-parent="#accordionSolution8" aria-labelledby="headingSolution8">
+<div id="collapseSolution8" class="accordion-collapse collapse" aria-labelledby="headingSolution8" data-bs-parent="#accordionSolution8">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb64">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -1714,7 +1714,7 @@ of infection.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution9" aria-expanded="false" aria-controls="collapseSolution9">
   <h4 class="accordion-header" id="headingSolution9"> how to create a distribution plot? </h4>
 </button>
-<div id="collapseSolution9" class="accordion-collapse collapse" data-bs-parent="#accordionSolution9" aria-labelledby="headingSolution9">
+<div id="collapseSolution9" class="accordion-collapse collapse" aria-labelledby="headingSolution9" data-bs-parent="#accordionSolution9">
 <div class="accordion-body">
 <p>From a maximum value with <code>$prob_dist$q()</code>, we can create
 a sequence of quantile values as a numeric vector and map density values
@@ -1750,8 +1750,8 @@ for each:</p>
 </div>
 </div>
 </div>
-</section><section id="plug-in-epiparameter-to-epinow2"><h2 class="section-heading">Plug-in <code>{epiparameter}</code> to <code>{EpiNow2}</code><a class="anchor" aria-label="anchor" href="#plug-in-epiparameter-to-epinow2"></a>
-</h2>
+</section><section><h2 class="section-heading" id="plug-in-epiparameter-to-epinow2">Plug-in <code>{epiparameter}</code> to <code>{EpiNow2}</code><a class="anchor" aria-label="anchor" href="#plug-in-epiparameter-to-epinow2"></a>
+<a class="anchor" aria-label="anchor" href="#plug-in-epiparameter-to-epinow2"></a></h2>
 <hr class="half-width"><p>Now we can plug everything into the <code>EpiNow2::dist_spec()</code>
 function!</p>
 <div class="codewrapper sourceCode" id="cb66">
@@ -1829,7 +1829,7 @@ reproduction number for the Ebola dataset.</li>
 <button class="accordion-button hint-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseHint8" aria-expanded="false" aria-controls="collapseHint8">
   <h4 class="accordion-header" id="headingHint8"> Give me a hint </h4>
 </button>
-<div id="collapseHint8" class="accordion-collapse collapse" data-bs-parent="#accordionHint8" aria-labelledby="headingHint8">
+<div id="collapseHint8" class="accordion-collapse collapse" aria-labelledby="headingHint8" data-bs-parent="#accordionHint8">
 <div class="accordion-body">
 <p>To calculate the <span class="math inline">\(R_t\)</span>, we
 need:</p>
@@ -1849,7 +1849,7 @@ need:</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution10" aria-expanded="false" aria-controls="collapseSolution10">
   <h4 class="accordion-header" id="headingSolution10"> Show me the solution </h4>
 </button>
-<div id="collapseSolution10" class="accordion-collapse collapse" data-bs-parent="#accordionSolution10" aria-labelledby="headingSolution10">
+<div id="collapseSolution10" class="accordion-collapse collapse" aria-labelledby="headingSolution10" data-bs-parent="#accordionSolution10">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb69">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -1903,8 +1903,8 @@ need:</p>
 </div>
 </div>
 </div>
-</section><section id="adjusting-for-reporting-delays"><h2 class="section-heading">Adjusting for reporting delays<a class="anchor" aria-label="anchor" href="#adjusting-for-reporting-delays"></a>
-</h2>
+</section><section><h2 class="section-heading" id="adjusting-for-reporting-delays">Adjusting for reporting delays<a class="anchor" aria-label="anchor" href="#adjusting-for-reporting-delays"></a>
+<a class="anchor" aria-label="anchor" href="#adjusting-for-reporting-delays"></a></h2>
 <hr class="half-width"><p>Estimating <span class="math inline">\(R_t\)</span> requires data on
 the daily number of new infections. Due to lags in the development of
 detectable viral loads, symptom onset, seeking care, and reporting,
@@ -1949,7 +1949,7 @@ function.</li>
 <button class="accordion-button hint-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseHint9" aria-expanded="false" aria-controls="collapseHint9">
   <h4 class="accordion-header" id="headingHint9"> Give me a hint </h4>
 </button>
-<div id="collapseHint9" class="accordion-collapse collapse" data-bs-parent="#accordionHint9" aria-labelledby="headingHint9">
+<div id="collapseHint9" class="accordion-collapse collapse" aria-labelledby="headingHint9" data-bs-parent="#accordionHint9">
 <div class="accordion-body">
 <p>The <code>delays</code> argument and the <code>delay_opts()</code>
 helper function are analogous to the <code>generation_time</code>
@@ -1981,7 +1981,7 @@ function.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution11" aria-expanded="false" aria-controls="collapseSolution11">
   <h4 class="accordion-header" id="headingSolution11"> Show me the solution </h4>
 </button>
-<div id="collapseSolution11" class="accordion-collapse collapse" data-bs-parent="#accordionSolution11" aria-labelledby="headingSolution11">
+<div id="collapseSolution11" class="accordion-collapse collapse" aria-labelledby="headingSolution11" data-bs-parent="#accordionSolution11">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb71">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -2029,7 +2029,7 @@ function.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution12" aria-expanded="false" aria-controls="collapseSolution12">
   <h4 class="accordion-header" id="headingSolution12"> How much has it changed? </h4>
 </button>
-<div id="collapseSolution12" class="accordion-collapse collapse" data-bs-parent="#accordionSolution12" aria-labelledby="headingSolution12">
+<div id="collapseSolution12" class="accordion-collapse collapse" aria-labelledby="headingSolution12" data-bs-parent="#accordionSolution12">
 <div class="accordion-body">
 <p>After adding the incubation period, discuss:</p>
 <ul><li>Does the retrospective trend of forecast change?</li>
@@ -2061,7 +2061,7 @@ function.</p>
 <button class="accordion-button hint-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseHint10" aria-expanded="false" aria-controls="collapseHint10">
   <h4 class="accordion-header" id="headingHint10"> Give me a hint </h4>
 </button>
-<div id="collapseHint10" class="accordion-collapse collapse" data-bs-parent="#accordionHint10" aria-labelledby="headingHint10">
+<div id="collapseHint10" class="accordion-collapse collapse" aria-labelledby="headingHint10" data-bs-parent="#accordionHint10">
 <div class="accordion-body">
 <p>We can use two complementary delay distributions to estimate the
 <span class="math inline">\(R_t\)</span> at time <span class="math inline">\(t\)</span>.</p>
@@ -2074,7 +2074,7 @@ function.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution13" aria-expanded="false" aria-controls="collapseSolution13">
   <h4 class="accordion-header" id="headingSolution13"> Show me the solution </h4>
 </button>
-<div id="collapseSolution13" class="accordion-collapse collapse" data-bs-parent="#accordionSolution13" aria-labelledby="headingSolution13">
+<div id="collapseSolution13" class="accordion-collapse collapse" aria-labelledby="headingSolution13" data-bs-parent="#accordionSolution13">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb72">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -2161,7 +2161,7 @@ number.</p>
 <button class="accordion-button hint-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseHint11" aria-expanded="false" aria-controls="collapseHint11">
   <h4 class="accordion-header" id="headingHint11"> Give me a hint </h4>
 </button>
-<div id="collapseHint11" class="accordion-collapse collapse" data-bs-parent="#accordionHint11" aria-labelledby="headingHint11">
+<div id="collapseHint11" class="accordion-collapse collapse" aria-labelledby="headingHint11" data-bs-parent="#accordionHint11">
 <div class="accordion-body">
 <p>How to get the mean and standard deviation from a generation time
 with median and quantiles as summary statistics?</p>
@@ -2178,7 +2178,7 @@ extraction and conversion</a>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution14" aria-expanded="false" aria-controls="collapseSolution14">
   <h4 class="accordion-header" id="headingSolution14"> Show me the solution </h4>
 </button>
-<div id="collapseSolution14" class="accordion-collapse collapse" data-bs-parent="#accordionSolution14" aria-labelledby="headingSolution14">
+<div id="collapseSolution14" class="accordion-collapse collapse" aria-labelledby="headingSolution14" data-bs-parent="#accordionSolution14">
 <div class="accordion-body">
 <!-- https://github.com/epiverse-trace/epiparameter/issues/114 -->
 <div class="codewrapper sourceCode" id="cb73">
@@ -2248,8 +2248,8 @@ extraction and conversion</a>
 </div>
 </div>
 </div>
-</section><section id="when-to-reuse-when-to-estimate"><h2 class="section-heading">When to reuse? When to estimate?<a class="anchor" aria-label="anchor" href="#when-to-reuse-when-to-estimate"></a>
-</h2>
+</section><section><h2 class="section-heading" id="when-to-reuse-when-to-estimate">When to reuse? When to estimate?<a class="anchor" aria-label="anchor" href="#when-to-reuse-when-to-estimate"></a>
+<a class="anchor" aria-label="anchor" href="#when-to-reuse-when-to-estimate"></a></h2>
 <hr class="half-width"><p>In the early stage of an outbreak, we can rely on reusing parameters
 for known pathogens to unknown ones, like for the <a href="https://en.wikipedia.org/wiki/Disease_X" class="external-link">Disease X</a>, a pathogen
 currently unknown to cause human disease and potentially cause a serious
@@ -2314,7 +2314,7 @@ using Bayesian inference with packages like <a href="https://mc-stan.org/rstan/"
 <button class="accordion-button spoiler-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSpoiler3" aria-expanded="false" aria-controls="collapseSpoiler3">
   <h3 class="accordion-header" id="headingSpoiler3">  <div class="note-square"><i aria-hidden="true" class="callout-icon" data-feather="eye"></i></div> How to assess for pre-symptomatic infection? </h3>
 </button>
-<div id="collapseSpoiler3" class="accordion-collapse collapse" data-bs-parent="#accordionSpoiler3" aria-labelledby="headingSpoiler3">
+<div id="collapseSpoiler3" class="accordion-collapse collapse" aria-labelledby="headingSpoiler3" data-bs-parent="#accordionSpoiler3">
 <div class="accordion-body">
 <p>The lengths of the Serial interval and Incubation period determine
 the type of disease transmission.</p>
@@ -2368,7 +2368,7 @@ MERS:</p>
 <button class="accordion-button hint-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseHint12" aria-expanded="false" aria-controls="collapseHint12">
   <h4 class="accordion-header" id="headingHint12"> Give me a hint </h4>
 </button>
-<div id="collapseHint12" class="accordion-collapse collapse" data-bs-parent="#accordionHint12" aria-labelledby="headingHint12">
+<div id="collapseHint12" class="accordion-collapse collapse" aria-labelledby="headingHint12" data-bs-parent="#accordionHint12">
 <div class="accordion-body">
 <p>For types of transmission, we refer to infections with symptomatic or
 pre-symptomatic transmission.</p>
@@ -2384,7 +2384,7 @@ pre-symptomatic transmission.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution15" aria-expanded="false" aria-controls="collapseSolution15">
   <h4 class="accordion-header" id="headingSolution15"> Show me the solution </h4>
 </button>
-<div id="collapseSolution15" class="accordion-collapse collapse" data-bs-parent="#accordionSolution15" aria-labelledby="headingSolution15">
+<div id="collapseSolution15" class="accordion-collapse collapse" aria-labelledby="headingSolution15" data-bs-parent="#accordionSolution15">
 <div class="accordion-body">
 <p>In this solution we use <code>purrr::pluck()</code> to extract
 elements within the <code>summary_stats</code> object which is of class
@@ -2474,7 +2474,7 @@ elements within the <code>summary_stats</code> object which is of class
 <!--
 ## Concept map
 
-update it from last epiparameter test 
+update it from last epiparameter test
 -->
 <div id="keypoints1" class="callout keypoints">
 <div class="callout-square">
@@ -2497,9 +2497,9 @@ distributions.</li>
 </ul></div>
 </div>
 </div>
-<!-- 
+<!--
 Place links that you need to refer to multiple times across pages here. Delete
-any links that you are not going to use. 
+any links that you are not going to use.
  -->
 </section></div> <!-- / div.lesson-content -->
     </main><!-- / main#main-content.main-content --><nav class="bottom-pagination mx-md-4" aria-label="Previous and Next Chapter"><div class="d-block d-sm-block d-md-none">
@@ -2513,7 +2513,7 @@ any links that you are not going to use.
           Previous: Outbreak analytics
         </a>
         <a class="chapter-link float-end" href="quantify-transmissibility.html" rel="next">
-          Next: Quantifying... 
+          Next: Quantifying...
           <i aria-hidden="true" class="small-arrow" data-feather="arrow-right"></i>
         </a>
       </div>
@@ -2524,18 +2524,18 @@ any links that you are not going to use.
       		<footer class="row footer mx-md-3"><hr><div class="col-md-6">
         <p>This lesson is subject to the <a href="CODE_OF_CONDUCT.html">Code of Conduct</a></p>
         <p>
-        
+
         <a href="https://github.com/epiverse-trace/tutorials/edit/main/episodes/read-delays.Rmd" class="external-link">Edit on GitHub</a>
-        
+
 	
         | <a href="https://github.com/epiverse-trace/tutorials/blob/main/CONTRIBUTING.md" class="external-link">Contributing</a>
         | <a href="https://github.com/epiverse-trace/tutorials/" class="external-link">Source</a></p>
 				<p><a href="https://github.com/epiverse-trace/tutorials/blob/main/CITATION" class="external-link">Cite</a> | <a href="mailto:andree.valle-campos@lshtm.ac.uk">Contact</a> | <a href="https://carpentries.org/about/" class="external-link">About</a></p>
 			</div>
 			<div class="col-md-6">
-        
+
         <p>Materials licensed under <a href="LICENSE.html">CC-BY 4.0</a> by the authors</p>
-        
+
         <p>Template licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/" class="external-link">CC-BY 4.0</a> by <a href="https://carpentries.org/" class="external-link">The Carpentries</a></p>
         <p>Built with <a href="https://github.com/epiverse-trace/sandpaper/tree/patch-renv-github-bug" class="external-link">sandpaper (0.16.5)</a>, <a href="https://github.com/carpentries/pegboard/tree/ad2542f7f7b9c3f90cc871b355ff81ec14a09ca9" class="external-link">pegboard (0.7.6)</a>, and <a href="https://github.com/epiverse-trace/varnish/tree/epiversetheme" class="external-link">varnish (1.0.2)</a></p>
 			</div>
@@ -2560,7 +2560,7 @@ any links that you are not going to use.
   "identifier": "https://epiverse-trace.github.io/tutorials/read-delays.html",
   "dateCreated": "2024-02-06",
   "dateModified": "2024-07-02",
-  "datePublished": "2024-07-02"
+  "datePublished": "2024-07-09"
 }
 
   </script><script>
