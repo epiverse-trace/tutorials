@@ -404,8 +404,7 @@ package</li>
 <i class="callout-icon" data-feather="check"></i>
 </div>
 <div id="prerequisites" class="callout-inner">
-<h3 class="callout-title">Prerequisites<a class="anchor" aria-label="anchor" href="#prerequisites"></a>
-</h3>
+<h3 class="callout-title">Prerequisites</h3>
 <div class="callout-content">
 <p>Learners should familiarise themselves with following concept
 dependencies before working through this tutorial:</p>
@@ -417,8 +416,7 @@ number</a>.</p>
 </div>
 </div>
 </div>
-<section><h2 class="section-heading" id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
-<a class="anchor" aria-label="anchor" href="#introduction"></a></h2>
+<section><h2 class="section-heading" id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a></h2>
 <hr class="half-width"><p>Mathematical models are useful tools for generating future
 trajectories of disease spread. In this tutorial, we will use the R
 package <code>{epidemics}</code> to generate disease trajectories of an
@@ -438,8 +436,7 @@ above image on their own computers.</p>
 </div>
 </div>
 </div>
-</section><section><h2 class="section-heading" id="simulating-disease-spread">Simulating disease spread<a class="anchor" aria-label="anchor" href="#simulating-disease-spread"></a>
-<a class="anchor" aria-label="anchor" href="#simulating-disease-spread"></a></h2>
+</section><section><h2 class="section-heading" id="simulating-disease-spread">Simulating disease spread<a class="anchor" aria-label="anchor" href="#simulating-disease-spread"></a></h2>
 <hr class="half-width"><p>To generate predictions of infectious disease trajectories, we must
 first select a mathematical model to use. There is a library of models
 to choose from in <code>epidemics</code>. Models in
@@ -462,8 +459,7 @@ each process.</p>
 <i class="callout-icon" data-feather="bell"></i>
 </div>
 <div id="model-parameters-rates" class="callout-inner">
-<h3 class="callout-title">Model parameters : rates<a class="anchor" aria-label="anchor" href="#model-parameters-rates"></a>
-</h3>
+<h3 class="callout-title">Model parameters : rates</h3>
 <div class="callout-content">
 <p>In ODE models, model parameters are often (but not always) specified
 as rates. The rate at which an event occurs is the inverse of the
@@ -509,8 +505,7 @@ period</a>) =<span class="math inline">\(1/\alpha\)</span>),</li>
 <i class="callout-icon" data-feather="bell"></i>
 </div>
 <div id="exposed-infected-infectious" class="callout-inner">
-<h3 class="callout-title">Exposed, infected, infectious<a class="anchor" aria-label="anchor" href="#exposed-infected-infectious"></a>
-</h3>
+<h3 class="callout-title">Exposed, infected, infectious</h3>
 <div class="callout-content">
 <p>Confusion sometimes arises when referring to the terms ‘exposed’,
 ‘infected’ and ‘infectious’ in mathematical modelling. Infection occurs
@@ -544,8 +539,7 @@ al. 2008)</a>.</p>
 <i class="callout-icon" data-feather="zap"></i>
 </div>
 <div id="load-contact-and-population-data" class="callout-inner">
-<h3 class="callout-title">Load contact and population data<a class="anchor" aria-label="anchor" href="#load-contact-and-population-data"></a>
-</h3>
+<h3 class="callout-title">Load contact and population data</h3>
 <div class="callout-content">
 <p>Using the R package <code>socialmixr</code>, run the following lines
 of R code to obtain the contact matrix for the United Kingdom for the
@@ -599,8 +593,7 @@ be formatted as a matrix to be used in <code>epidemics</code>.</p>
 <i class="callout-icon" data-feather="bell"></i>
 </div>
 <div id="why-would-a-contact-matrix-be-non-symmetric" class="callout-inner">
-<h3 class="callout-title">Why would a contact matrix be non-symmetric?<a class="anchor" aria-label="anchor" href="#why-would-a-contact-matrix-be-non-symmetric"></a>
-</h3>
+<h3 class="callout-title">Why would a contact matrix be non-symmetric?</h3>
 <div class="callout-content">
 <p>One of the arguments of the function <code>contact_matrix()</code> is
 <code>symmetric=TRUE</code>. This means that the total number of
@@ -738,7 +731,7 @@ be:</p>
 <i class="callout-icon" data-feather="bell"></i>
 </div>
 <div id="the-basic-reproduction-number-r_0" class="callout-inner">
-<h3 class="callout-title">The basic reproduction number <span class="math inline">\(R_0\)</span><a class="anchor" aria-label="anchor" href="#the-basic-reproduction-number-r_0"></a>
+<h3 class="callout-title">The basic reproduction number <span class="math inline">\(R_0\)</span>
 </h3>
 <div class="callout-content">
 <p>The basic reproduction number, <span class="math inline">\(R_0\)</span>, for the SEIR model is:</p>
@@ -750,15 +743,13 @@ be:</p>
 </div>
 </div>
 </div>
-</section><section><h2 class="section-heading" id="running-the-model">Running the model<a class="anchor" aria-label="anchor" href="#running-the-model"></a>
-<a class="anchor" aria-label="anchor" href="#running-the-model"></a></h2>
+</section><section><h2 class="section-heading" id="running-the-model">Running the model<a class="anchor" aria-label="anchor" href="#running-the-model"></a></h2>
 <hr class="half-width"><div id="running-solving-the-model" class="callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
 <div id="running-solving-the-model" class="callout-inner">
-<h3 class="callout-title">Running (solving) the model<a class="anchor" aria-label="anchor" href="#running-solving-the-model"></a>
-</h3>
+<h3 class="callout-title">Running (solving) the model</h3>
 <div class="callout-content">
 <p>For models that are described by ODEs, running the model actually
 means to solve the system of ODEs. ODEs describe the rate of change in
@@ -859,8 +850,7 @@ infectious individuals only (those in the <span class="math inline">\(I\)</span>
 <i class="callout-icon" data-feather="bell"></i>
 </div>
 <div id="time-increments" class="callout-inner">
-<h3 class="callout-title">Time increments<a class="anchor" aria-label="anchor" href="#time-increments"></a>
-</h3>
+<h3 class="callout-title">Time increments</h3>
 <div class="callout-content">
 <p>Note that there is a default argument of <code>increment = 1</code>.
 This relates to the time step of the ODE solver. When the parameters are
@@ -875,8 +865,7 @@ within a month, then the increment should be less than one month.</p>
 </div>
 </div>
 </div>
-</section><section><h2 class="section-heading" id="accounting-for-uncertainty">Accounting for uncertainty<a class="anchor" aria-label="anchor" href="#accounting-for-uncertainty"></a>
-<a class="anchor" aria-label="anchor" href="#accounting-for-uncertainty"></a></h2>
+</section><section><h2 class="section-heading" id="accounting-for-uncertainty">Accounting for uncertainty<a class="anchor" aria-label="anchor" href="#accounting-for-uncertainty"></a></h2>
 <hr class="half-width"><p>As the epidemic model is <a href="reference.html#deterministic">deterministic</a>, we have one
 trajectory for our given parameter values. In practice, we have
 uncertainty in the value of our parameters. To account for this, we must
@@ -960,8 +949,7 @@ estimates from the literature; how sensitive model outputs are to
 parameter value changes; and the purpose of the modelling task. See <a href="https://doi.org/10.1016%2Fj.epidem.2021.100520" class="external-link">McCabe et
 al. 2021</a> to learn about different types of uncertainty in infectious
 disease modelling.</p>
-</section><section><h2 class="section-heading" id="summary">Summary<a class="anchor" aria-label="anchor" href="#summary"></a>
-<a class="anchor" aria-label="anchor" href="#summary"></a></h2>
+</section><section><h2 class="section-heading" id="summary">Summary<a class="anchor" aria-label="anchor" href="#summary"></a></h2>
 <hr class="half-width"><p>In this tutorial, we have learnt how to simulate disease spread using
 a mathematical model. Once a model has been chosen, the parameters and
 other inputs must be specified in the correct way to perform model
@@ -972,8 +960,7 @@ right model for different tasks.</p>
 <i class="callout-icon" data-feather="key"></i>
 </div>
 <div class="callout-inner">
-<h3 class="callout-title">Key Points<a class="anchor" aria-label="anchor" href="#keypoints1"></a>
-</h3>
+<h3 class="callout-title">Key Points</h3>
 <div class="callout-content">
 <ul><li>Disease trajectories can be generated using the R package
 <code>epidemics</code>
@@ -1023,7 +1010,7 @@ any links that you are not going to use.
         <p>Materials licensed under <a href="LICENSE.html">CC-BY 4.0</a> by the authors</p>
 
         <p>Template licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/" class="external-link">CC-BY 4.0</a> by <a href="https://carpentries.org/" class="external-link">The Carpentries</a></p>
-        <p>Built with <a href="https://github.com/epiverse-trace/sandpaper/tree/patch-renv-github-bug" class="external-link">sandpaper (0.16.5)</a>, <a href="https://github.com/carpentries/pegboard/tree/ad2542f7f7b9c3f90cc871b355ff81ec14a09ca9" class="external-link">pegboard (0.7.6)</a>, and <a href="https://github.com/epiverse-trace/varnish/tree/epiversetheme" class="external-link">varnish (1.0.3)</a></p>
+        <p>Built with <a href="https://github.com/epiverse-trace/sandpaper/tree/patch-renv-github-bug" class="external-link">sandpaper (0.16.6)</a>, <a href="https://github.com/carpentries/pegboard/tree/ad2542f7f7b9c3f90cc871b355ff81ec14a09ca9" class="external-link">pegboard (0.7.6)</a>, and <a href="https://github.com/epiverse-trace/varnish/tree/epiversetheme" class="external-link">varnish (1.0.3)</a></p>
 			</div>
 		</footer></div> <!-- / div.container -->
 	<div id="to-top">
@@ -1046,7 +1033,7 @@ any links that you are not going to use.
   "identifier": "https://epiverse-trace.github.io/tutorials/instructor/simulating-transmission.html",
   "dateCreated": "2024-02-06",
   "dateModified": "2024-07-02",
-  "datePublished": "2024-08-27"
+  "datePublished": "2024-09-03"
 }
 
   </script><script>

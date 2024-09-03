@@ -399,8 +399,7 @@ with R.</li>
 <i class="callout-icon" data-feather="check"></i>
 </div>
 <div id="prerequisites" class="callout-inner">
-<h3 class="callout-title">Prerequisites<a class="anchor" aria-label="anchor" href="#prerequisites"></a>
-</h3>
+<h3 class="callout-title">Prerequisites</h3>
 <div class="callout-content">
 <p>This episode requires you to be familiar with:</p>
 <p><strong>Data science</strong> : Basic programming with R.</p>
@@ -408,8 +407,7 @@ with R.</li>
 </div>
 </div>
 </div>
-<section><h2 class="section-heading" id="why-to-use-r-packages-for-outbreak-analytics">Why to use R packages for Outbreak analytics?<a class="anchor" aria-label="anchor" href="#why-to-use-r-packages-for-outbreak-analytics"></a>
-<a class="anchor" aria-label="anchor" href="#why-to-use-r-packages-for-outbreak-analytics"></a></h2>
+<section><h2 class="section-heading" id="why-to-use-r-packages-for-outbreak-analytics">Why to use R packages for Outbreak analytics?<a class="anchor" aria-label="anchor" href="#why-to-use-r-packages-for-outbreak-analytics"></a></h2>
 <hr class="half-width"><p>Outbreaks appear with different diseases and in different contexts,
 but what all of them have in common are the key public health questions
 (<a href="https://royalsocietypublishing.org/doi/10.1098/rstb.2016.0371#d1e605" class="external-link">Cori
@@ -444,8 +442,7 @@ pipelines.</p>
 <i class="callout-icon" data-feather="message-circle"></i>
 </div>
 <div id="questions-to-think-about" class="callout-inner">
-<h3 class="callout-title">Questions to think about<a class="anchor" aria-label="anchor" href="#questions-to-think-about"></a>
-</h3>
+<h3 class="callout-title">Questions to think about</h3>
 <div class="callout-content">
 <p>Remember your last experience with outbreak data and reflect on these
 questions:</p>
@@ -457,8 +454,7 @@ response?</li>
 </div>
 </div>
 </div>
-</section><section><h2 class="section-heading" id="example-quantify-transmission">Example: Quantify transmission<a class="anchor" aria-label="anchor" href="#example-quantify-transmission"></a>
-<a class="anchor" aria-label="anchor" href="#example-quantify-transmission"></a></h2>
+</section><section><h2 class="section-heading" id="example-quantify-transmission">Example: Quantify transmission<a class="anchor" aria-label="anchor" href="#example-quantify-transmission"></a></h2>
 <hr class="half-width"><p>The <a href="https://epiforecasts.io/EpiNow2/" class="external-link">EpiNow2</a> package provides a three-step solution to
 <em>quantify the transmissibility</em>. Let’s see how to do this with a
 minimal example. First, load the package:</p>
@@ -561,8 +557,7 @@ as well as the cases by date of report and date of infection:</p>
 <i class="callout-icon" data-feather="bell"></i>
 </div>
 <div id="is-this-rt-estimation-biased" class="callout-inner">
-<h3 class="callout-title">Is this <span class="math inline">\(Rt\)</span> estimation biased?<a class="anchor" aria-label="anchor" href="#is-this-rt-estimation-biased"></a>
-</h3>
+<h3 class="callout-title">Is this <span class="math inline">\(Rt\)</span> estimation biased?</h3>
 <div class="callout-content">
 <p>Review <a href="https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1008409" class="external-link">Gostic
 et al., 2020</a> about what additional adjustments this estimation
@@ -571,8 +566,7 @@ requires to avoid false precision in <span class="math inline">\(Rt\)</span>.</p
 </div>
 </div>
 </div>
-</section><section><h2 class="section-heading" id="the-problem">The problem!<a class="anchor" aria-label="anchor" href="#the-problem"></a>
-<a class="anchor" aria-label="anchor" href="#the-problem"></a></h2>
+</section><section><h2 class="section-heading" id="the-problem">The problem!<a class="anchor" aria-label="anchor" href="#the-problem"></a></h2>
 <hr class="half-width"><p>However, <em>quantifying the transmissibility</em> during a real-life
 outbreak response is more challenging than this example!</p>
 <p>Usually, we receive outbreak data in non-standard formats, requiring
@@ -593,8 +587,7 @@ complementary tasks. For example:</p>
 <li>Compare interventions</li>
 </ul><p>So, all these tasks can be interconnected in a pipeline:</p>
 <figure><img src="https://epiverse-trace.github.io/task_pipeline-minimal.svg" alt="The outbreak analytics pipeline." class="figure mx-auto d-block"><div class="figcaption">The outbreak analytics pipeline.</div>
-</figure></section><section><h2 class="section-heading" id="what-can-we-do">What can we do?<a class="anchor" aria-label="anchor" href="#what-can-we-do"></a>
-<a class="anchor" aria-label="anchor" href="#what-can-we-do"></a></h2>
+</figure></section><section><h2 class="section-heading" id="what-can-we-do">What can we do?<a class="anchor" aria-label="anchor" href="#what-can-we-do"></a></h2>
 <hr class="half-width"><p>Our strategy is gradually incorporating specialised R packages into
 our traditional analysis pipeline. These packages should fill the gaps
 in these epidemiology-specific tasks in response to outbreaks.</p>
@@ -602,8 +595,7 @@ in these epidemiology-specific tasks in response to outbreaks.</p>
 analytics. We support the development of software pieces, make the
 existing ones interoperable for the user experience, and stimulate a
 community of practice.</p>
-<figure><img src="fig/pkgs-hexlogos.png" class="figure mx-auto d-block"></figure></section><section><h2 class="section-heading" id="how-can-i-start">How can I start?<a class="anchor" aria-label="anchor" href="#how-can-i-start"></a>
-<a class="anchor" aria-label="anchor" href="#how-can-i-start"></a></h2>
+<figure><img src="fig/pkgs-hexlogos.png" class="figure mx-auto d-block"></figure></section><section><h2 class="section-heading" id="how-can-i-start">How can I start?<a class="anchor" aria-label="anchor" href="#how-can-i-start"></a></h2>
 <hr class="half-width"><p>Our plan for these tutorials is to introduce key solutions from
 packages in all the tasks before and after the <em>Quantify
 transmission</em> task, plus the required theory concepts to interpret
@@ -630,8 +622,7 @@ part of the <strong>Late tasks</strong>. This includes
 <i class="callout-icon" data-feather="key"></i>
 </div>
 <div class="callout-inner">
-<h3 class="callout-title">Key Points<a class="anchor" aria-label="anchor" href="#keypoints1"></a>
-</h3>
+<h3 class="callout-title">Key Points</h3>
 <div class="callout-content">
 <ul><li>Our vision is to have pipelines of R packages for outbreak
 analytics.</li>
@@ -682,7 +673,7 @@ any links that you are not going to use.
         <p>Materials licensed under <a href="LICENSE.html">CC-BY 4.0</a> by the authors</p>
 
         <p>Template licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/" class="external-link">CC-BY 4.0</a> by <a href="https://carpentries.org/" class="external-link">The Carpentries</a></p>
-        <p>Built with <a href="https://github.com/epiverse-trace/sandpaper/tree/patch-renv-github-bug" class="external-link">sandpaper (0.16.5)</a>, <a href="https://github.com/carpentries/pegboard/tree/ad2542f7f7b9c3f90cc871b355ff81ec14a09ca9" class="external-link">pegboard (0.7.6)</a>, and <a href="https://github.com/epiverse-trace/varnish/tree/epiversetheme" class="external-link">varnish (1.0.3)</a></p>
+        <p>Built with <a href="https://github.com/epiverse-trace/sandpaper/tree/patch-renv-github-bug" class="external-link">sandpaper (0.16.6)</a>, <a href="https://github.com/carpentries/pegboard/tree/ad2542f7f7b9c3f90cc871b355ff81ec14a09ca9" class="external-link">pegboard (0.7.6)</a>, and <a href="https://github.com/epiverse-trace/varnish/tree/epiversetheme" class="external-link">varnish (1.0.3)</a></p>
 			</div>
 		</footer></div> <!-- / div.container -->
 	<div id="to-top">
@@ -705,7 +696,7 @@ any links that you are not going to use.
   "identifier": "https://epiverse-trace.github.io/tutorials/introduction.html",
   "dateCreated": "2024-02-06",
   "dateModified": "2024-07-02",
-  "datePublished": "2024-08-27"
+  "datePublished": "2024-09-03"
 }
 
   </script><script>

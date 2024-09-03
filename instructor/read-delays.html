@@ -408,8 +408,7 @@ distributions.</li>
 <i class="callout-icon" data-feather="check"></i>
 </div>
 <div id="prerequisites" class="callout-inner">
-<h3 class="callout-title">Prerequisites<a class="anchor" aria-label="anchor" href="#prerequisites"></a>
-</h3>
+<h3 class="callout-title">Prerequisites</h3>
 <div class="callout-content">
 <p>This episode requires you to be familiar with:</p>
 <p><strong>Data science</strong> : Basic programming with R.</p>
@@ -418,8 +417,7 @@ periods.</p>
 </div>
 </div>
 </div>
-<section><h2 class="section-heading" id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
-<a class="anchor" aria-label="anchor" href="#introduction"></a></h2>
+<section><h2 class="section-heading" id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a></h2>
 <hr class="half-width"><p>The <a href="reference.html#naturalhistory">natural history</a> of an
 infectious disease shows that its development has a regularity from
 stage to stage. The time periods from an infectious disease inform about
@@ -432,8 +430,7 @@ et al, 2021</a>
 <i class="callout-icon" data-feather="bell"></i>
 </div>
 <div id="definitions" class="callout-inner">
-<h3 class="callout-title">Definitions<a class="anchor" aria-label="anchor" href="#definitions"></a>
-</h3>
+<h3 class="callout-title">Definitions</h3>
 <div class="callout-content">
 <p>Look at the <a href="reference.html">glossary</a> for the definitions
 of all the time periods of the figure above!</p>
@@ -497,8 +494,7 @@ connect some of their functions, so let’s also call to the
 <span><span class="kw">library</span><span class="op">(</span><span class="va">EpiNow2</span><span class="op">)</span></span>
 <span><span class="kw">library</span><span class="op">(</span><span class="va">tidyverse</span><span class="op">)</span></span></code></pre>
 </div>
-</section><section><h2 class="section-heading" id="find-a-generation-time">Find a Generation time<a class="anchor" aria-label="anchor" href="#find-a-generation-time"></a>
-<a class="anchor" aria-label="anchor" href="#find-a-generation-time"></a></h2>
+</section><section><h2 class="section-heading" id="find-a-generation-time">Find a Generation time<a class="anchor" aria-label="anchor" href="#find-a-generation-time"></a></h2>
 <hr class="half-width"><p>The generation time, jointly with the <span class="math inline">\(R\)</span>, can inform about the speed of spread
 and its feasibility of control. Given a <span class="math inline">\(R&gt;1\)</span>, with a shorter generation time,
 cases can appear more quickly.</p>
@@ -535,8 +531,7 @@ et al., 2020)</a>.</p>
 <i class="callout-icon" data-feather="bell"></i>
 </div>
 <div id="from-time-periods-to-probability-distributions." class="callout-inner">
-<h3 class="callout-title">From time periods to probability distributions.<a class="anchor" aria-label="anchor" href="#from-time-periods-to-probability-distributions."></a>
-</h3>
+<h3 class="callout-title">From time periods to probability distributions.</h3>
 <div class="callout-content">
 <p>When we calculate the <em>serial interval</em>, we see that not all
 case pairs have the same time length. We will observe this variability
@@ -610,8 +605,7 @@ et al., 2022</a>).</caption>
 <i class="callout-icon" data-feather="zap"></i>
 </div>
 <div id="serial-interval" class="callout-inner">
-<h3 class="callout-title">Serial interval<a class="anchor" aria-label="anchor" href="#serial-interval"></a>
-</h3>
+<h3 class="callout-title">Serial interval</h3>
 <div class="callout-content">
 <p>Assume that COVID-19 and SARS have similar reproduction number values
 and that the serial interval approximates the generation time.</p>
@@ -669,8 +663,7 @@ of a larger or shorter generation time.</p>
 </div>
 </div>
 </div>
-</section><section><h2 class="section-heading" id="extract-epidemiological-parameters">Extract epidemiological parameters<a class="anchor" aria-label="anchor" href="#extract-epidemiological-parameters"></a>
-<a class="anchor" aria-label="anchor" href="#extract-epidemiological-parameters"></a></h2>
+</section><section><h2 class="section-heading" id="extract-epidemiological-parameters">Extract epidemiological parameters<a class="anchor" aria-label="anchor" href="#extract-epidemiological-parameters"></a></h2>
 <hr class="half-width"><p>First, let’s assume that the data set <code>example_confirmed</code>
 has COVID-19 observed cases. So, we need to find a reported generation
 time for COVID-19 or any other useful parameter for this aim.</p>
@@ -822,8 +815,7 @@ attr(,"class")
 <i class="callout-icon" data-feather="bell"></i>
 </div>
 <div id="case-insensitive" class="callout-inner">
-<h3 class="callout-title">CASE-INSENSITIVE<a class="anchor" aria-label="anchor" href="#case-insensitive"></a>
-</h3>
+<h3 class="callout-title">CASE-INSENSITIVE</h3>
 <div class="callout-content">
 <p><code>epidist_db</code> is <a href="https://dillionmegida.com/p/case-sensitivity-vs-case-insensitivity/#case-insensitivity" class="external-link">case-insensitive</a>.
 This means that you can use strings with letters in upper or lower case
@@ -866,8 +858,7 @@ To retrieve the short citation for each use the 'get_citation' function</code></
 <i class="callout-icon" data-feather="zap"></i>
 </div>
 <div id="ebolas-incubation-periods" class="callout-inner">
-<h3 class="callout-title">Ebola’s incubation periods<a class="anchor" aria-label="anchor" href="#ebolas-incubation-periods"></a>
-</h3>
+<h3 class="callout-title">Ebola’s incubation periods</h3>
 <div class="callout-content">
 <p>Take 5 minutes:</p>
 <ul><li><p>How many delay distributions are for the Ebola disease?</p></li>
@@ -925,8 +916,7 @@ distribution</a>?</p>
 </div>
 </div>
 </div>
-</section><section><h2 class="section-heading" id="select-a-single-distribution">Select a single distribution<a class="anchor" aria-label="anchor" href="#select-a-single-distribution"></a>
-<a class="anchor" aria-label="anchor" href="#select-a-single-distribution"></a></h2>
+</section><section><h2 class="section-heading" id="select-a-single-distribution">Select a single distribution<a class="anchor" aria-label="anchor" href="#select-a-single-distribution"></a></h2>
 <hr class="half-width"><p>The <code>epiparameter::epidist_db()</code> function works as a
 filtering or subset function. Let’s use the <code>author</code> argument
 to filter <code>Hiroshi Nishiura</code> parameters:</p>
@@ -999,8 +989,7 @@ Parameters:
 </div>
 <div id="how-does-single_epidist-works" class="callout-inner">
 <h3 class="callout-title">How does <code>single_epidist</code>
-works?<a class="anchor" aria-label="anchor" href="#how-does-single_epidist-works"></a>
-</h3>
+works?</h3>
 <div class="callout-content">
 <p>Looking at the help documentation for
 <code>?epiparameter::epidist_db()</code>:</p>
@@ -1066,8 +1055,7 @@ Parameters:
 <i class="callout-icon" data-feather="zap"></i>
 </div>
 <div id="ebolas-incubation-period" class="callout-inner">
-<h3 class="callout-title">Ebola’s incubation period<a class="anchor" aria-label="anchor" href="#ebolas-incubation-period"></a>
-</h3>
+<h3 class="callout-title">Ebola’s incubation period</h3>
 <div class="callout-content">
 <p>Take 2 minutes:</p>
 <ul><li>What type of distribution has the incubation period of Ebola with
@@ -1130,8 +1118,7 @@ package.</p>
 </div>
 </div>
 </div>
-</section><section><h2 class="section-heading" id="extract-the-summary-statistics">Extract the summary statistics<a class="anchor" aria-label="anchor" href="#extract-the-summary-statistics"></a>
-<a class="anchor" aria-label="anchor" href="#extract-the-summary-statistics"></a></h2>
+</section><section><h2 class="section-heading" id="extract-the-summary-statistics">Extract the summary statistics<a class="anchor" aria-label="anchor" href="#extract-the-summary-statistics"></a></h2>
 <hr class="half-width"><p>We can get the <code>mean</code> and standard deviation
 (<code>sd</code>) from this <code>&lt;epidist&gt;</code> diving into the
 <code>summary_stats</code> object:</p>
@@ -1153,8 +1140,7 @@ package.</p>
 </div>
 <div id="how-to-get-the-sd-and-other-nested-elements" class="callout-inner">
 <h3 class="callout-title">How to get the <code>sd</code> and other
-nested elements?<a class="anchor" aria-label="anchor" href="#how-to-get-the-sd-and-other-nested-elements"></a>
-</h3>
+nested elements?</h3>
 <div class="callout-content">
 <p>Take 1 minute to:</p>
 <ol style="list-style-type: decimal"><li><p>Get the <code>sd</code> of the epidemiological
@@ -1238,8 +1224,7 @@ $phase_bias_adjusted
 <i class="callout-icon" data-feather="zap"></i>
 </div>
 <div id="ebolas-severity-parameter" class="callout-inner">
-<h3 class="callout-title">Ebola’s severity parameter<a class="anchor" aria-label="anchor" href="#ebolas-severity-parameter"></a>
-</h3>
+<h3 class="callout-title">Ebola’s severity parameter</h3>
 <div class="callout-content">
 <p>A severity parameter like the duration of hospitalization could add
 to the information needed about the bed capacity in response to an
@@ -1297,8 +1282,7 @@ or death.</p>
 </div>
 </div>
 </div>
-</section><section><h2 class="section-heading" id="continuous-distributions">Continuous distributions<a class="anchor" aria-label="anchor" href="#continuous-distributions"></a>
-<a class="anchor" aria-label="anchor" href="#continuous-distributions"></a></h2>
+</section><section><h2 class="section-heading" id="continuous-distributions">Continuous distributions<a class="anchor" aria-label="anchor" href="#continuous-distributions"></a></h2>
 <hr class="half-width"><p>The following output has four entries with different content in the
 <strong>probability distribution</strong>
 (<code>prob_distribution</code>) column:</p>
@@ -1413,8 +1397,7 @@ like:</p>
 <i class="callout-icon" data-feather="message-circle"></i>
 </div>
 <div id="the-distribution-zoo" class="callout-inner">
-<h3 class="callout-title">The distribution Zoo<a class="anchor" aria-label="anchor" href="#the-distribution-zoo"></a>
-</h3>
+<h3 class="callout-title">The distribution Zoo</h3>
 <div class="callout-content">
 <p>Explore this shinyapp called <strong>The Distribution
 Zoo</strong>!</p>
@@ -1441,8 +1424,7 @@ change.</p>
 </div>
 </div>
 <!-- A slider, in the context of user interfaces and graphical user interfaces (GUIs), is a graphical control element that allows users to adjust a value by moving a handle along a track or bar. Conceptually, it provides a way to select a numeric value within a specified range by visually sliding or dragging a pointer (the handle) along a continuous axis. -->
-</section><section><h2 class="section-heading" id="distribution-functions">Distribution functions<a class="anchor" aria-label="anchor" href="#distribution-functions"></a>
-<a class="anchor" aria-label="anchor" href="#distribution-functions"></a></h2>
+</section><section><h2 class="section-heading" id="distribution-functions">Distribution functions<a class="anchor" aria-label="anchor" href="#distribution-functions"></a></h2>
 <hr class="half-width"><p>In R, all the statistical distributions have functions to access
 the:</p>
 <ul><li>Probability <strong>Density</strong> function (PDF),</li>
@@ -1554,8 +1536,7 @@ functions is accessible with the three double-colon notation:
 <i class="callout-icon" data-feather="zap"></i>
 </div>
 <div id="window-for-contact-tracing-and-the-serial-interval" class="callout-inner">
-<h3 class="callout-title">Window for contact tracing and the Serial interval<a class="anchor" aria-label="anchor" href="#window-for-contact-tracing-and-the-serial-interval"></a>
-</h3>
+<h3 class="callout-title">Window for contact tracing and the Serial interval</h3>
 <div class="callout-content">
 <p>The <strong>serial interval</strong> is important in the optimization
 of contact tracing since it provides a time window for the containment
@@ -1641,8 +1622,7 @@ after 4.2 days after the symptom onset of primary cases.</li>
 </div>
 </div>
 </div>
-</section><section><h2 class="section-heading" id="discretize-a-continuous-distribution">Discretize a continuous distribution<a class="anchor" aria-label="anchor" href="#discretize-a-continuous-distribution"></a>
-<a class="anchor" aria-label="anchor" href="#discretize-a-continuous-distribution"></a></h2>
+</section><section><h2 class="section-heading" id="discretize-a-continuous-distribution">Discretize a continuous distribution<a class="anchor" aria-label="anchor" href="#discretize-a-continuous-distribution"></a></h2>
 <hr class="half-width"><p>We are getting closer to the end! <code>EpiNow2::dist_spec()</code>
 still needs a maximum value (<code>max</code>).</p>
 <p>One way to do this is to get the quantile value for the
@@ -1714,8 +1694,7 @@ how we access the <code>summary_stats</code> values.</p>
 <i class="callout-icon" data-feather="zap"></i>
 </div>
 <div id="lenght-of-quarantine-and-incubation-period" class="callout-inner">
-<h3 class="callout-title">Lenght of quarantine and Incubation period<a class="anchor" aria-label="anchor" href="#lenght-of-quarantine-and-incubation-period"></a>
-</h3>
+<h3 class="callout-title">Lenght of quarantine and Incubation period</h3>
 <div class="callout-content">
 <p>The <strong>incubation period</strong> distribution is a useful delay
 to assess the length of active monitoring or quarantine (<a href="https://www.acpjournals.org/doi/10.7326/M20-0504" class="external-link">Lauer et al.,
@@ -1834,7 +1813,7 @@ for each:</p>
 </div>
 </div>
 </div>
-</section><section><h2 class="section-heading" id="plug-in-epiparameter-to-epinow2">Plug-in <code>{epiparameter}</code> to <code>{EpiNow2}</code><a class="anchor" aria-label="anchor" href="#plug-in-epiparameter-to-epinow2"></a>
+</section><section><h2 class="section-heading" id="plug-in-epiparameter-to-epinow2">Plug-in <code>{epiparameter}</code> to <code>{EpiNow2}</code>
 <a class="anchor" aria-label="anchor" href="#plug-in-epiparameter-to-epinow2"></a></h2>
 <hr class="half-width"><p>Now we can plug everything into the <code>EpiNow2::dist_spec()</code>
 function!</p>
@@ -1863,8 +1842,7 @@ function!</p>
 <i class="callout-icon" data-feather="bell"></i>
 </div>
 <div id="warning" class="callout-inner">
-<h3 class="callout-title">Warning<a class="anchor" aria-label="anchor" href="#warning"></a>
-</h3>
+<h3 class="callout-title">Warning</h3>
 <div class="callout-content">
 <p>Using the serial interval instead of the generation time is an
 alternative that can propagate bias in your estimates, even more so in
@@ -1897,8 +1875,7 @@ diseases with reported pre-symptomatic transmission.</p>
 <i class="callout-icon" data-feather="zap"></i>
 </div>
 <div id="ebolas-effective-reproduction-number" class="callout-inner">
-<h3 class="callout-title">Ebola’s effective reproduction number<a class="anchor" aria-label="anchor" href="#ebolas-effective-reproduction-number"></a>
-</h3>
+<h3 class="callout-title">Ebola’s effective reproduction number</h3>
 <div class="callout-content">
 <p>Download and read the <a href="../data/ebola_cases.csv">Ebola
 dataset</a>:</p>
@@ -1987,8 +1964,7 @@ need:</p>
 </div>
 </div>
 </div>
-</section><section><h2 class="section-heading" id="adjusting-for-reporting-delays">Adjusting for reporting delays<a class="anchor" aria-label="anchor" href="#adjusting-for-reporting-delays"></a>
-<a class="anchor" aria-label="anchor" href="#adjusting-for-reporting-delays"></a></h2>
+</section><section><h2 class="section-heading" id="adjusting-for-reporting-delays">Adjusting for reporting delays<a class="anchor" aria-label="anchor" href="#adjusting-for-reporting-delays"></a></h2>
 <hr class="half-width"><p>Estimating <span class="math inline">\(R_t\)</span> requires data on
 the daily number of new infections. Due to lags in the development of
 detectable viral loads, symptom onset, seeking care, and reporting,
@@ -2017,8 +1993,7 @@ et al., 2020</a>
 <i class="callout-icon" data-feather="zap"></i>
 </div>
 <div id="reuse-an-incubation-period-for-covid-19" class="callout-inner">
-<h3 class="callout-title">Reuse an Incubation period for COVID-19<a class="anchor" aria-label="anchor" href="#reuse-an-incubation-period-for-covid-19"></a>
-</h3>
+<h3 class="callout-title">Reuse an Incubation period for COVID-19</h3>
 <div class="callout-content">
 <p>Use <code>{epiparameter}</code> to:</p>
 <ul><li>Find an incubation period for COVID-19.</li>
@@ -2128,8 +2103,7 @@ function.</p>
 <i class="callout-icon" data-feather="zap"></i>
 </div>
 <div id="ebolas-effective-reproduction-number-was-adjusted-by-reporting-delays" class="callout-inner">
-<h3 class="callout-title">Ebola’s effective reproduction number was adjusted by reporting delays<a class="anchor" aria-label="anchor" href="#ebolas-effective-reproduction-number-was-adjusted-by-reporting-delays"></a>
-</h3>
+<h3 class="callout-title">Ebola’s effective reproduction number was adjusted by reporting delays</h3>
 <div class="callout-content">
 <p>Using the same <a href="../data/ebola_cases.csv">Ebola dataset</a>:</p>
 <ul><li>Reuse one additional epidemiological parameter for the
@@ -2231,8 +2205,7 @@ function.</p>
 <i class="callout-icon" data-feather="zap"></i>
 </div>
 <div id="extract-parameters" class="callout-inner">
-<h3 class="callout-title">Extract parameters<a class="anchor" aria-label="anchor" href="#extract-parameters"></a>
-</h3>
+<h3 class="callout-title">Extract parameters</h3>
 <div class="callout-content">
 <p>Use the <code>influenza_england_1978_school</code> from the
 <a href="https://github.com/reconhub/outbreaks" class="external-link">outbreaks</a> package to calculate the effective reproduction
@@ -2332,8 +2305,7 @@ extraction and conversion</a>
 </div>
 </div>
 </div>
-</section><section><h2 class="section-heading" id="when-to-reuse-when-to-estimate">When to reuse? When to estimate?<a class="anchor" aria-label="anchor" href="#when-to-reuse-when-to-estimate"></a>
-<a class="anchor" aria-label="anchor" href="#when-to-reuse-when-to-estimate"></a></h2>
+</section><section><h2 class="section-heading" id="when-to-reuse-when-to-estimate">When to reuse? When to estimate?<a class="anchor" aria-label="anchor" href="#when-to-reuse-when-to-estimate"></a></h2>
 <hr class="half-width"><p>In the early stage of an outbreak, we can rely on reusing parameters
 for known pathogens to unknown ones, like for the <a href="https://en.wikipedia.org/wiki/Disease_X" class="external-link">Disease X</a>, a pathogen
 currently unknown to cause human disease and potentially cause a serious
@@ -2378,8 +2350,7 @@ $phase_bias_adjusted
 <i class="callout-icon" data-feather="heart"></i>
 </div>
 <div id="how-to-estimate-delay-distributions-for-disease-x" class="callout-inner">
-<h3 class="callout-title">How to estimate delay distributions for Disease X?<a class="anchor" aria-label="anchor" href="#how-to-estimate-delay-distributions-for-disease-x"></a>
-</h3>
+<h3 class="callout-title">How to estimate delay distributions for Disease X?</h3>
 <div class="callout-content">
 <p>Refer to this excellent tutorial on estimating the serial interval
 and incubation period of Disease X accounting for <em>censoring</em>
@@ -2436,8 +2407,7 @@ outbreak.</p>
 <i class="callout-icon" data-feather="zap"></i>
 </div>
 <div id="what-type-of-transmission" class="callout-inner">
-<h3 class="callout-title">What type of transmission?<a class="anchor" aria-label="anchor" href="#what-type-of-transmission"></a>
-</h3>
+<h3 class="callout-title">What type of transmission?</h3>
 <div class="callout-content">
 <p>Compare the serial interval and incubation period of Influenza and
 MERS:</p>
@@ -2565,8 +2535,7 @@ update it from last epiparameter test
 <i class="callout-icon" data-feather="key"></i>
 </div>
 <div class="callout-inner">
-<h3 class="callout-title">Key Points<a class="anchor" aria-label="anchor" href="#keypoints1"></a>
-</h3>
+<h3 class="callout-title">Key Points</h3>
 <div class="callout-content">
 <ul><li>Use <code>{epiparameter}</code> to access the systematic review
 catalogue of epidemiological delay distributions.</li>
@@ -2621,7 +2590,7 @@ any links that you are not going to use.
         <p>Materials licensed under <a href="LICENSE.html">CC-BY 4.0</a> by the authors</p>
 
         <p>Template licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/" class="external-link">CC-BY 4.0</a> by <a href="https://carpentries.org/" class="external-link">The Carpentries</a></p>
-        <p>Built with <a href="https://github.com/epiverse-trace/sandpaper/tree/patch-renv-github-bug" class="external-link">sandpaper (0.16.5)</a>, <a href="https://github.com/carpentries/pegboard/tree/ad2542f7f7b9c3f90cc871b355ff81ec14a09ca9" class="external-link">pegboard (0.7.6)</a>, and <a href="https://github.com/epiverse-trace/varnish/tree/epiversetheme" class="external-link">varnish (1.0.3)</a></p>
+        <p>Built with <a href="https://github.com/epiverse-trace/sandpaper/tree/patch-renv-github-bug" class="external-link">sandpaper (0.16.6)</a>, <a href="https://github.com/carpentries/pegboard/tree/ad2542f7f7b9c3f90cc871b355ff81ec14a09ca9" class="external-link">pegboard (0.7.6)</a>, and <a href="https://github.com/epiverse-trace/varnish/tree/epiversetheme" class="external-link">varnish (1.0.3)</a></p>
 			</div>
 		</footer></div> <!-- / div.container -->
 	<div id="to-top">
@@ -2644,7 +2613,7 @@ any links that you are not going to use.
   "identifier": "https://epiverse-trace.github.io/tutorials/instructor/read-delays.html",
   "dateCreated": "2024-02-06",
   "dateModified": "2024-07-02",
-  "datePublished": "2024-08-27"
+  "datePublished": "2024-09-03"
 }
 
   </script><script>
