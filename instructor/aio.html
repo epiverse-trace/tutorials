@@ -400,7 +400,7 @@
         
 <section id="aio-introduction"><p>Content from <a href="introduction.html">Outbreak analytics pipelines</a></p>
 <hr>
-<p>Last updated on 2024-07-02 |
+<p>Last updated on 2024-09-24 |
 
         <a href="https://github.com/epiverse-trace/tutorials/edit/main/episodes/introduction.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <p>Estimated time: <i aria-hidden="true" data-feather="clock"></i> 12 minutes</p>
@@ -595,10 +595,10 @@ calculation:</li>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code>WARN [2024-07-02 01:12:06] epinow: Bulk Effective Samples Size (ESS) is too low, indicating posterior means and medians may be unreliable.
+<pre class="output" tabindex="0"><code>WARN [2024-09-24 01:16:09] epinow: Bulk Effective Samples Size (ESS) is too low, indicating posterior means and medians may be unreliable.
 Running the chains for more iterations may help. See
 https://mc-stan.org/misc/warnings.html#bulk-ess -
-WARN [2024-07-02 01:12:06] epinow: Tail Effective Samples Size (ESS) is too low, indicating posterior variances and tail quantiles may be unreliable.
+WARN [2024-09-24 01:16:10] epinow: Tail Effective Samples Size (ESS) is too low, indicating posterior variances and tail quantiles may be unreliable.
 Running the chains for more iterations may help. See
 https://mc-stan.org/misc/warnings.html#tail-ess - </code></pre>
 </div>
@@ -711,7 +711,7 @@ any links that you are not going to use.
  -->
 </section></section><section id="aio-read-delays"><p>Content from <a href="read-delays.html">Read delays</a></p>
 <hr>
-<p>Last updated on 2024-07-02 |
+<p>Last updated on 2024-09-24 |
 
         <a href="https://github.com/epiverse-trace/tutorials/edit/main/episodes/read-delays.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <p>Estimated time: <i aria-hidden="true" data-feather="clock"></i> 12 minutes</p>
@@ -1934,8 +1934,8 @@ want!</p>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code> [1] 3.699438 1.079265 3.468895 7.358368 3.553574 7.719362 1.557383 1.134973
- [9] 9.779812 6.748984</code></pre>
+<pre class="output" tabindex="0"><code> [1] 2.271797 5.917676 6.223395 6.321504 1.785465 4.854480 2.087282 3.985876
+ [9] 3.777108 4.779382</code></pre>
 </div>
 <div id="accordionInstructor2" class="accordion instructor-note accordion-flush">
 <div class="accordion-item">
@@ -3024,7 +3024,7 @@ any links that you are not going to use.
  -->
 </section></section><section id="aio-quantify-transmissibility"><p>Content from <a href="quantify-transmissibility.html">Quantifying transmission</a></p>
 <hr>
-<p>Last updated on 2024-07-02 |
+<p>Last updated on 2024-09-24 |
 
         <a href="https://github.com/epiverse-trace/tutorials/edit/main/episodes/quantify-transmissibility.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <p>Estimated time: <i aria-hidden="true" data-feather="clock"></i> 30 minutes</p>
@@ -3148,7 +3148,7 @@ likelihood <span class="math inline">\(\times\)</span> prior probability
 <button class="accordion-button instructor-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseInstructor1" aria-expanded="false" aria-controls="collapseInstructor1">
   <h3 class="accordion-header" id="headingInstructor1">  <div class="note-square"><i aria-hidden="true" class="callout-icon" data-feather="edit-2"></i></div> Instructor Note </h3>
 </button>
-<div id="collapseInstructor1" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor1" aria-labelledby="headingInstructor1">
+<div id="collapseInstructor1" class="accordion-collapse collapse" aria-labelledby="headingInstructor1" data-bs-parent="#accordionInstructor1">
 <div class="accordion-body">
 <p>This tutorial illustrates the usage of <code>epinow()</code> to
 estimate the time-varying reproduction number and infection times.
@@ -3513,10 +3513,10 @@ uncertainty.</em></p>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code>WARN [2024-07-02 01:18:38] epinow: There were 1 divergent transitions after warmup. See
+<pre class="output" tabindex="0"><code>WARN [2024-09-24 01:23:52] epinow: There were 3 divergent transitions after warmup. See
 https://mc-stan.org/misc/warnings.html#divergent-transitions-after-warmup
 to find out why this is a problem and how to eliminate them. -
-WARN [2024-07-02 01:18:38] epinow: Examine the pairs() plot to diagnose sampling problems
+WARN [2024-09-24 01:23:52] epinow: Examine the pairs() plot to diagnose sampling problems
  - </code></pre>
 </div>
 <div class="section level3">
@@ -3559,24 +3559,24 @@ intervals towards the date of the last data point. Finally, the
 </h3>
 <pre class="output" tabindex="0"><code>                                 measure                 estimate
                                   &lt;char&gt;                   &lt;char&gt;
-1: New confirmed cases by infection date     7228 (4056 -- 12526)
+1: New confirmed cases by infection date     7267 (4048 -- 12834)
 2:        Expected change in daily cases        Likely decreasing
-3:            Effective reproduction no.       0.89 (0.57 -- 1.3)
-4:                        Rate of growth -0.015 (-0.065 -- 0.038)
-5:          Doubling/halving time (days)          -46 (18 -- -11)</code></pre>
+3:            Effective reproduction no.        0.9 (0.58 -- 1.4)
+4:                        Rate of growth -0.014 (-0.063 -- 0.042)
+5:          Doubling/halving time (days)          -51 (16 -- -11)</code></pre>
 </div>
 <p>As these estimates are based on partial data, they have a wide
 uncertainty interval.</p>
 <ul>
 <li><p>From the summary of our analysis we see that the expected change
 in daily cases is Likely decreasing with the estimated new confirmed
-cases 7228 (4056 – 12526).</p></li>
+cases 7267 (4048 – 12834).</p></li>
 <li><p>The effective reproduction number <span class="math inline">\(R_t\)</span> estimate (on the last date of the
-data) is 0.89 (0.57 – 1.3).</p></li>
-<li><p>The exponential growth rate of case numbers is -0.015 (-0.065 –
-0.038).</p></li>
+data) is 0.9 (0.58 – 1.4).</p></li>
+<li><p>The exponential growth rate of case numbers is -0.014 (-0.063 –
+0.042).</p></li>
 <li><p>The doubling time (the time taken for case numbers to double) is
--46 (18 – -11).</p></li>
+-51 (16 – -11).</p></li>
 </ul>
 <div id="expected-change-in-daily-cases" class="callout">
 <div class="callout-square">
@@ -3681,17 +3681,17 @@ given date.</li>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code>INFO [2024-07-02 01:18:43] Producing following optional outputs: regions, summary, samples, plots, latest
-INFO [2024-07-02 01:18:43] Reporting estimates using data up to: 2020-04-28
-INFO [2024-07-02 01:18:43] No target directory specified so returning output
-INFO [2024-07-02 01:18:43] Producing estimates for: East Midlands, East of England, England, London, North East, North West, Northern Ireland, Scotland, South East, South West, Wales, West Midlands, Yorkshire and The Humber
-INFO [2024-07-02 01:18:43] Regions excluded: none
-INFO [2024-07-02 02:02:28] Completed regional estimates
-INFO [2024-07-02 02:02:28] Regions with estimates: 13
-INFO [2024-07-02 02:02:28] Regions with runtime errors: 0
-INFO [2024-07-02 02:02:28] Producing summary
-INFO [2024-07-02 02:02:28] No summary directory specified so returning summary output
-INFO [2024-07-02 02:02:29] No target directory specified so returning timings</code></pre>
+<pre class="output" tabindex="0"><code>INFO [2024-09-24 01:23:57] Producing following optional outputs: regions, summary, samples, plots, latest
+INFO [2024-09-24 01:23:57] Reporting estimates using data up to: 2020-04-28
+INFO [2024-09-24 01:23:57] No target directory specified so returning output
+INFO [2024-09-24 01:23:57] Producing estimates for: East Midlands, East of England, England, London, North East, North West, Northern Ireland, Scotland, South East, South West, Wales, West Midlands, Yorkshire and The Humber
+INFO [2024-09-24 01:23:57] Regions excluded: none
+INFO [2024-09-24 02:07:37] Completed regional estimates
+INFO [2024-09-24 02:07:37] Regions with estimates: 13
+INFO [2024-09-24 02:07:37] Regions with runtime errors: 0
+INFO [2024-09-24 02:07:37] Producing summary
+INFO [2024-09-24 02:07:37] No summary directory specified so returning summary output
+INFO [2024-09-24 02:07:38] No target directory specified so returning timings</code></pre>
 </div>
 <div class="codewrapper sourceCode" id="cb25">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -3704,49 +3704,49 @@ INFO [2024-07-02 02:02:29] No target directory specified so returning timings</c
 </h3>
 <pre class="output" tabindex="0"><code>                      Region New confirmed cases by infection date
                       &lt;char&gt;                                &lt;char&gt;
- 1:            East Midlands                      347 (212 -- 549)
- 2:          East of England                      534 (328 -- 853)
- 3:                  England                   3597 (2177 -- 5608)
- 4:                   London                      297 (195 -- 452)
- 5:               North East                      253 (145 -- 436)
- 6:               North West                      551 (318 -- 883)
- 7:         Northern Ireland                         42 (23 -- 82)
- 8:                 Scotland                      284 (153 -- 531)
- 9:               South East                     595 (354 -- 1004)
-10:               South West                      414 (292 -- 592)
-11:                    Wales                        94 (66 -- 137)
-12:            West Midlands                      272 (142 -- 495)
-13: Yorkshire and The Humber                      483 (272 -- 792)
+ 1:            East Midlands                      343 (213 -- 560)
+ 2:          East of England                      543 (331 -- 863)
+ 3:                  England                   3564 (2190 -- 5511)
+ 4:                   London                      293 (190 -- 452)
+ 5:               North East                      254 (147 -- 431)
+ 6:               North West                      557 (330 -- 877)
+ 7:         Northern Ireland                         43 (22 -- 84)
+ 8:                 Scotland                      283 (157 -- 539)
+ 9:               South East                      596 (354 -- 965)
+10:               South West                      416 (293 -- 601)
+11:                    Wales                        95 (64 -- 141)
+12:            West Midlands                      270 (141 -- 486)
+13: Yorkshire and The Humber                      481 (278 -- 784)
     Expected change in daily cases Effective reproduction no.
                             &lt;fctr&gt;                     &lt;char&gt;
  1:              Likely increasing          1.2 (0.85 -- 1.6)
- 2:              Likely increasing          1.2 (0.82 -- 1.6)
- 3:              Likely decreasing         0.92 (0.64 -- 1.3)
- 4:              Likely decreasing         0.79 (0.57 -- 1.1)
- 5:              Likely decreasing          0.91 (0.6 -- 1.3)
- 6:              Likely decreasing         0.86 (0.57 -- 1.2)
- 7:              Likely decreasing           0.63 (0.38 -- 1)
- 8:              Likely decreasing         0.91 (0.58 -- 1.4)
- 9:                         Stable            1 (0.67 -- 1.4)
-10:                     Increasing           1.4 (1.1 -- 1.7)
-11:                     Decreasing        0.57 (0.42 -- 0.75)
+ 2:              Likely increasing          1.2 (0.83 -- 1.6)
+ 3:              Likely decreasing         0.91 (0.64 -- 1.2)
+ 4:              Likely decreasing         0.78 (0.56 -- 1.1)
+ 5:              Likely decreasing         0.91 (0.61 -- 1.3)
+ 6:              Likely decreasing         0.86 (0.58 -- 1.2)
+ 7:              Likely decreasing           0.64 (0.38 -- 1)
+ 8:              Likely decreasing          0.9 (0.58 -- 1.4)
+ 9:                         Stable         0.99 (0.67 -- 1.4)
+10:                     Increasing           1.4 (1.1 -- 1.8)
+11:                     Decreasing        0.57 (0.42 -- 0.77)
 12:              Likely decreasing         0.71 (0.42 -- 1.1)
-13:                         Stable            1 (0.68 -- 1.4)
+13:                         Stable            1 (0.69 -- 1.4)
                 Rate of growth Doubling/halving time (days)
                         &lt;char&gt;                       &lt;char&gt;
- 1:     0.024 (-0.02 -- 0.068)               29 (10 -- -34)
- 2:    0.022 (-0.024 -- 0.065)               32 (11 -- -28)
- 3:   -0.011 (-0.052 -- 0.032)              -63 (22 -- -13)
- 4:  -0.029 (-0.064 -- 0.0091)              -24 (76 -- -11)
- 5:   -0.012 (-0.059 -- 0.037)              -60 (19 -- -12)
- 6:   -0.018 (-0.065 -- 0.024)              -38 (29 -- -11)
- 7:    -0.053 (-0.1 -- 0.0048)            -13 (150 -- -6.9)
- 8:   -0.012 (-0.063 -- 0.042)              -56 (16 -- -11)
- 9: -0.00047 (-0.047 -- 0.051)            -1500 (14 -- -15)
-10:     0.046 (0.012 -- 0.083)               15 (8.4 -- 60)
-11:  -0.065 (-0.092 -- -0.034)            -11 (-20 -- -7.5)
-12:   -0.041 (-0.092 -- 0.014)             -17 (51 -- -7.5)
-13:   0.0037 (-0.046 -- 0.052)              190 (13 -- -15)</code></pre>
+ 1:    0.023 (-0.021 -- 0.068)               30 (10 -- -33)
+ 2:    0.023 (-0.023 -- 0.067)               31 (10 -- -30)
+ 3:    -0.011 (-0.053 -- 0.03)              -61 (23 -- -13)
+ 4:   -0.03 (-0.066 -- 0.0098)              -23 (71 -- -11)
+ 5:   -0.011 (-0.057 -- 0.037)              -61 (19 -- -12)
+ 6:   -0.019 (-0.062 -- 0.023)              -37 (30 -- -11)
+ 7:    -0.052 (-0.1 -- 0.0053)            -13 (130 -- -6.8)
+ 8:   -0.013 (-0.062 -- 0.047)              -53 (15 -- -11)
+ 9: -0.00095 (-0.047 -- 0.046)             -730 (15 -- -15)
+10:     0.046 (0.013 -- 0.084)               15 (8.3 -- 54)
+11:  -0.065 (-0.094 -- -0.032)            -11 (-21 -- -7.4)
+12:   -0.041 (-0.092 -- 0.012)             -17 (59 -- -7.5)
+13:   0.0033 (-0.044 -- 0.051)              210 (14 -- -16)</code></pre>
 </div>
 <div class="codewrapper sourceCode" id="cb27">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -3784,7 +3784,7 @@ any links that you are not going to use.
  -->
 </section></section><section id="aio-create-forecast"><p>Content from <a href="create-forecast.html">Create a short-term forecast</a></p>
 <hr>
-<p>Last updated on 2024-07-02 |
+<p>Last updated on 2024-09-24 |
 
         <a href="https://github.com/epiverse-trace/tutorials/edit/main/episodes/create-forecast.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <p>Estimated time: <i aria-hidden="true" data-feather="clock"></i> 60 minutes</p>
@@ -3873,11 +3873,14 @@ tutorial we can extract the short-term forecast using:</p>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code>WARN [2024-07-02 02:08:31] epinow: There were 7 divergent transitions after warmup. See
+<pre class="output" tabindex="0"><code>WARN [2024-09-24 02:14:50] epinow: There were 6 divergent transitions after warmup. See
 https://mc-stan.org/misc/warnings.html#divergent-transitions-after-warmup
 to find out why this is a problem and how to eliminate them. -
-WARN [2024-07-02 02:08:31] epinow: Examine the pairs() plot to diagnose sampling problems
- - </code></pre>
+WARN [2024-09-24 02:14:50] epinow: Examine the pairs() plot to diagnose sampling problems
+ -
+WARN [2024-09-24 02:14:52] epinow: Bulk Effective Samples Size (ESS) is too low, indicating posterior means and medians may be unreliable.
+Running the chains for more iterations may help. See
+https://mc-stan.org/misc/warnings.html#bulk-ess - </code></pre>
 </div>
 <p>We can visualise the estimates of the effective reproduction number
 and the estimated number of cases using <code>plot()</code>. The
@@ -3973,10 +3976,10 @@ as follows:</p>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code>WARN [2024-07-02 02:15:47] epinow: There were 2 divergent transitions after warmup. See
+<pre class="output" tabindex="0"><code>WARN [2024-09-24 02:21:47] epinow: There were 4 divergent transitions after warmup. See
 https://mc-stan.org/misc/warnings.html#divergent-transitions-after-warmup
 to find out why this is a problem and how to eliminate them. -
-WARN [2024-07-02 02:15:47] epinow: Examine the pairs() plot to diagnose sampling problems
+WARN [2024-09-24 02:21:47] epinow: Examine the pairs() plot to diagnose sampling problems
  - </code></pre>
 </div>
 <div class="codewrapper sourceCode" id="cb8">
@@ -3990,11 +3993,11 @@ WARN [2024-07-02 02:15:47] epinow: Examine the pairs() plot to diagnose sampling
 </h3>
 <pre class="output" tabindex="0"><code>                                 measure                 estimate
                                   &lt;char&gt;                   &lt;char&gt;
-1: New confirmed cases by infection date    17817 (9909 -- 31327)
+1: New confirmed cases by infection date   18060 (10134 -- 32193)
 2:        Expected change in daily cases        Likely decreasing
-3:            Effective reproduction no.       0.88 (0.56 -- 1.3)
-4:                        Rate of growth -0.016 (-0.067 -- 0.038)
-5:          Doubling/halving time (days)          -42 (18 -- -10)</code></pre>
+3:            Effective reproduction no.        0.9 (0.57 -- 1.3)
+4:                        Rate of growth -0.014 (-0.065 -- 0.039)
+5:          Doubling/halving time (days)          -51 (18 -- -11)</code></pre>
 </div>
 <p>The estimates of transmission measures such as the effective
 reproduction number and rate of growth are similar (or the same in
@@ -4258,10 +4261,10 @@ days.</p>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code>WARN [2024-07-02 02:17:51] epinow: There were 24 divergent transitions after warmup. See
+<pre class="output" tabindex="0"><code>WARN [2024-09-24 02:23:54] epinow: There were 24 divergent transitions after warmup. See
 https://mc-stan.org/misc/warnings.html#divergent-transitions-after-warmup
 to find out why this is a problem and how to eliminate them. -
-WARN [2024-07-02 02:17:51] epinow: Examine the pairs() plot to diagnose sampling problems
+WARN [2024-09-24 02:23:54] epinow: Examine the pairs() plot to diagnose sampling problems
  - </code></pre>
 </div>
 <div class="codewrapper sourceCode" id="cb20">
@@ -4275,15 +4278,15 @@ WARN [2024-07-02 02:17:51] epinow: Examine the pairs() plot to diagnose sampling
 </h3>
 <pre class="output" tabindex="0"><code>                                 measure                estimate
                                   &lt;char&gt;                  &lt;char&gt;
-1: New confirmed cases by infection date         100 (46 -- 263)
+1: New confirmed cases by infection date         102 (47 -- 265)
 2:        Expected change in daily cases              Increasing
 3:            Effective reproduction no.        1.7 (1.1 -- 2.9)
-4:                        Rate of growth 0.042 (0.0039 -- 0.092)
-5:          Doubling/halving time (days)         17 (7.6 -- 180)</code></pre>
+4:                        Rate of growth 0.043 (0.0041 -- 0.091)
+5:          Doubling/halving time (days)         16 (7.6 -- 170)</code></pre>
 </div>
 <p>The effective reproduction number <span class="math inline">\(R_t\)</span> estimate (on the last date of the
 data) is 1.7 (1.1 – 2.9). The exponential growth rate of case numbers is
-0.042 (0.0039 – 0.092).</p>
+0.043 (0.0041 – 0.091).</p>
 <p>Visualize the estimates:</p>
 <div class="codewrapper sourceCode" id="cb22">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -4326,7 +4329,7 @@ any links that you are not going to use.
  -->
 </section></section><section id="aio-simulating-transmission"><p>Content from <a href="simulating-transmission.html">Simulating transmission</a></p>
 <hr>
-<p>Last updated on 2024-07-02 |
+<p>Last updated on 2024-09-24 |
 
         <a href="https://github.com/epiverse-trace/tutorials/edit/main/episodes/simulating-transmission.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <p>Estimated time: <i aria-hidden="true" data-feather="clock"></i> 75 minutes</p>
@@ -4399,7 +4402,7 @@ infectious individuals in different age categories over time.</p>
 <button class="accordion-button instructor-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseInstructor1" aria-expanded="false" aria-controls="collapseInstructor1">
   <h3 class="accordion-header" id="headingInstructor1">  <div class="note-square"><i aria-hidden="true" class="callout-icon" data-feather="edit-2"></i></div> Instructor Note </h3>
 </button>
-<div id="collapseInstructor1" class="accordion-collapse collapse" aria-labelledby="headingInstructor1" data-bs-parent="#accordionInstructor1">
+<div id="collapseInstructor1" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor1" aria-labelledby="headingInstructor1">
 <div class="accordion-body">
 <p>By the end of this tutorial, learners should be able to replicate the
 above image on their own computers.</p>
@@ -4552,7 +4555,7 @@ year age bins:</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Output </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -4981,7 +4984,7 @@ any links that you are not going to use.
  -->
 </section></section><section id="aio-model-choices"><p>Content from <a href="model-choices.html">Choosing an appropriate model</a></p>
 <hr>
-<p>Last updated on 2024-07-02 |
+<p>Last updated on 2024-09-24 |
 
         <a href="https://github.com/epiverse-trace/tutorials/edit/main/episodes/model-choices.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <p>Estimated time: <i aria-hidden="true" data-feather="clock"></i> 30 minutes</p>
@@ -5513,7 +5516,7 @@ any links that you are not going to use.
  -->
 </section></section><section id="aio-modelling-interventions"><p>Content from <a href="modelling-interventions.html">Modelling interventions</a></p>
 <hr>
-<p>Last updated on 2024-07-02 |
+<p>Last updated on 2024-09-24 |
 
         <a href="https://github.com/epiverse-trace/tutorials/edit/main/episodes/modelling-interventions.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <p>Estimated time: <i aria-hidden="true" data-feather="clock"></i> 75 minutes</p>
@@ -6097,7 +6100,7 @@ any links that you are not going to use.
  -->
 </section></section><section id="aio-compare-interventions"><p>Content from <a href="compare-interventions.html">Comparing public health outcomes of interventions</a></p>
 <hr>
-<p>Last updated on 2024-07-02 |
+<p>Last updated on 2024-09-24 |
 
         <a href="https://github.com/epiverse-trace/tutorials/edit/main/episodes/compare-interventions.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <p>Estimated time: <i aria-hidden="true" data-feather="clock"></i> 75 minutes</p>
@@ -6173,7 +6176,7 @@ outcome of interest can be:</p>
 <button class="accordion-button instructor-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseInstructor1" aria-expanded="false" aria-controls="collapseInstructor1">
   <h3 class="accordion-header" id="headingInstructor1">  <div class="note-square"><i aria-hidden="true" class="callout-icon" data-feather="edit-2"></i></div> Instructor Note </h3>
 </button>
-<div id="collapseInstructor1" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor1" aria-labelledby="headingInstructor1">
+<div id="collapseInstructor1" class="accordion-collapse collapse" aria-labelledby="headingInstructor1" data-bs-parent="#accordionInstructor1">
 <div class="accordion-body">
 <p>In this tutorial we introduce the concept of the counter factual and
 how to compare scenarios (counter factual versus intervention) against
@@ -6239,7 +6242,7 @@ start of the simulation</li>
 <button class="accordion-button hint-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseHint1" aria-expanded="false" aria-controls="collapseHint1">
   <h4 class="accordion-header" id="headingHint1"> Vaccination code </h4>
 </button>
-<div id="collapseHint1" class="accordion-collapse collapse" data-bs-parent="#accordionHint1" aria-labelledby="headingHint1">
+<div id="collapseHint1" class="accordion-collapse collapse" aria-labelledby="headingHint1" data-bs-parent="#accordionHint1">
 <div class="accordion-body">
 <p>To run the model with no vaccination in place we can <em>either</em>
 create two vaccination objects (one for each dose) using
@@ -6262,7 +6265,7 @@ set to 0.</p>
 <button class="accordion-button hint-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseHint2" aria-expanded="false" aria-controls="collapseHint2">
   <h4 class="accordion-header" id="headingHint2"> HINT : Running the model with default parameter values </h4>
 </button>
-<div id="collapseHint2" class="accordion-collapse collapse" data-bs-parent="#accordionHint2" aria-labelledby="headingHint2">
+<div id="collapseHint2" class="accordion-collapse collapse" aria-labelledby="headingHint2" data-bs-parent="#accordionHint2">
 <div class="accordion-body">
 <p>We can run the Vacamole model with <a href="https://epiverse-trace.github.io/epidemics/articles/vacamole.html#model-epidemic-using-vacamole" class="external-link">default
 parameter values</a> by just specifying the population object and number
@@ -6286,7 +6289,7 @@ of time steps to run the model for:</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> SOLUTION </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <ol style="list-style-type: decimal">
 <li>Run the model</li>
@@ -6496,8 +6499,8 @@ any links that you are not going to use.
   "url": "https://epiverse-trace.github.io/tutorials/instructor/aio.html",
   "identifier": "https://epiverse-trace.github.io/tutorials/instructor/aio.html",
   "dateCreated": "2024-02-06",
-  "dateModified": "2024-09-17",
-  "datePublished": "2024-09-17"
+  "dateModified": "2024-09-24",
+  "datePublished": "2024-09-24"
 }
 
   </script><script>
