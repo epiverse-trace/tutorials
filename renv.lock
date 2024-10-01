@@ -705,7 +705,6 @@
       "RemoteType": "github",
       "RemoteUsername": "epiverse-trace",
       "RemoteRepo": "epiparameter",
-      "RemoteRef": "HEAD",
       "RemoteSha": "7c5a0fb9c732fbfe45177ef055f66e75063e460a",
       "RemoteHost": "api.github.com",
       "Requirements": [
