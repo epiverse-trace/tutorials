@@ -8,7 +8,7 @@
 # lc: Library Carpentry
 # cp: Carpentries (to use for instructor training for instance)
 # incubator: The Carpentries Incubator
-carpentry: 'incubator'
+carpentry: 'epiverse-trace'
 
 # Overall title for pages.
 title: 'Outbreak analytics with R'
@@ -84,4 +84,4 @@ profiles:
 
 varnish: epiverse-trace/varnish@epiversetheme
 # this is carpentries/sandpaper#533 in our fork so we can keep it up to date with main
-sandpaper: epiverse-trace/sandpaper@patch-renv-github-bug 
+sandpaper: epiverse-trace/sandpaper@patch-renv-github-bug
