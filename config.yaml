@@ -59,8 +59,8 @@ contact: 'andree.valle-campos@lshtm.ac.uk'
 
 # Order of episodes in your lesson
 episodes:
-- template.Rmd
-#- introduction.Rmd
+# - template.Rmd
+- introduction.Rmd
 
 # Information for Learners
 learners:
