@@ -71,8 +71,7 @@ The relationship between the incubation period and the [serial interval](#serial
 
 [Infectious period]{#infectiousness}
 : Also known as Duration of infectiousness. Time period between the onset and end of infectious [viral shedding](#viralshedding). 
-Viral load and detection of infectious virus are the two key parameters for estimating infectiousness 
-([Puhach et al., 2022](https://www.nature.com/articles/s41579-022-00822-w) and [Hakki et al, 2022](https://www.thelancet.com/journals/lanres/article/PIIS2213-2600(22)00226-0/fulltext)).
+Viral load and detection of infectious virus are the two key parameters for estimating infectiousness ([Puhach et al., 2022](https://www.nature.com/articles/s41579-022-00822-w) and [Hakki et al, 2022](https://www.thelancet.com/journals/lanres/article/PIIS2213-2600(22)00226-0/fulltext)](fig/infectiousness-covid19.jpg)).
 
 <!-- ## J -->
 
@@ -90,19 +89,22 @@ This can be different to the [incubation period](#incubation) as shown in Figure
 
 
 ## N
+
+[Natural history of disease]{#naturalhistory} 
+: Refers to the development of disease from beginning to end without any treatment or intervention. In fact, given the harmfulness of an epidemic, treatment or intervention measures are inevitable. Therefore, it is difficult for the natural history of a disease to be unaffected by the various coupling factors. ([Xiang et al, 2021](https://www.sciencedirect.com/science/article/pii/S2468042721000038))
+
 [Non-pharmaceutical interventions]{#NPIs}
 : Non-pharmaceutical interventions (NPIs) are measures put in place to reduce transmission that do not include the administration of drugs or vaccinations. [More information on NPIs](https://www.gov.uk/government/publications/technical-report-on-the-covid-19-pandemic-in-the-uk/chapter-8-non-pharmaceutical-interventions).
 
 ## O
 [Ordinary differential equations]{#ordinary}
 : Ordinary differential equations (ODEs) can be used to represent the rate of change of one variable (e.g. number of infected individuals) with respect to another (e.g. time). Check out this introduction to [ODEs](https://mathinsight.org/ordinary_differential_equation_introduction). ODEs are widely used in infectious disease modelling to model the flow of individuals between different disease states. 
-[Natural history of disease]{#naturalhistory} 
-: Refers to the development of disease from beginning to end without any treatment or intervention. In fact, given the harmfulness of an epidemic, treatment or intervention measures are inevitable. Therefore, it is difficult for the natural history of a disease to be unaffected by the various coupling factors. ([Xiang et al, 2021](https://www.sciencedirect.com/science/article/pii/S2468042721000038))
-
-## O
 
 [Offspring distribution]{#offspringdist}
 : Distribution of the number of secondary cases caused by a particular infected individual. ([Lloyd-Smith et al., 2005](https://www.nature.com/articles/nature04153), [Endo et al., 2020](https://wellcomeopenresearch.org/articles/5-67/v3))
+
+[Outbreak analytics]{#outbreakanalytics}
+: A specialized field within data science that focuses on the technological and methodological aspects of the outbreak data pipeline. This includes the systematic collection, analysis, modeling, and reporting of data to inform outbreak response ([Polonsky et al., 2019](https://royalsocietypublishing.org/doi/full/10.1098/rstb.2018.0276)).
 
 ## P
 
@@ -117,6 +119,8 @@ It is a type of sampling bias. It affects backward-looking data and is related t
 [Reporting delay]{#reportingdelay}
 : Delay or lag between the time an event occurs (e.g. symptom onset) and the time it is reported ([Lawless, 1994](https://www.jstor.org/stable/3315820)). We can quantify it by comparing the linelist with successive versions of it or up-to-date reported aggregated case counts ([Cori et al. 2017](https://royalsocietypublishing.org/doi/10.1098/rstb.2016.0371)).
 
+[RDBMS]{#RDBMS}
+: Relational DataBase Management System.
 ## S
 
 [State variables]{#state}
