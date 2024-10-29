@@ -15,9 +15,15 @@ R and RStudio are two separate pieces of software:
 
 To install R and RStudio, follow these instructions <https://posit.co/download/rstudio-desktop/>.
 
-Already installed? **Hold on: This is a great time to make sure your R installation is current.**
+::::::::::::::::::::::::::::: callout
 
-This tutorial requires R version 4.0.0 or later. 
+### Already installed? 
+
+Hold on: This is a great time to make sure your R installation is current.
+
+This tutorial requires **R version 4.0.0 or later**. 
+
+:::::::::::::::::::::::::::::
 
 To check if your R version is up to date:
 
@@ -26,6 +32,7 @@ To check if your R version is up to date:
 - **To update R**, download and install the latest version from the [R project website](https://cran.rstudio.com/) for your operating system.
 
   - After installing a new version, you will have to reinstall all your packages with the new version. 
+
   - For Windows, the `{installr}` package can upgrade your R version and migrate your package library.
 
 - **To update RStudio**, open RStudio and click on 
@@ -33,6 +40,8 @@ To check if your R version is up to date:
 instructions on the screen.
 
 ::::::::::::::::::::::::::::: callout
+
+### Check for Updates regularly
 
 While this may sound scary, it is **far more common** to run into issues due to using out-of-date versions of R or R packages. Keeping up with the latest versions of R, RStudio, and any packages you regularly use is a good practice.
 

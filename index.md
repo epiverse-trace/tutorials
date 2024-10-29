@@ -19,6 +19,11 @@ Each task has its own tutorial website. Task topics consist of one or more episo
 
 ## Workshop overview
 
+| [Early task tutorials](https://epiverse-trace.github.io/tutorials-early/) | [Middle task tutorials](https://epiverse-trace.github.io/tutorials-middle) | [Late task tutorials](https://epiverse-trace.github.io/tutorials-late/) |
+|---|---|---|
+| Reading and cleaning case data | Real-time analysis and forecasting | Scenario modelling |
+| Read and clean linelist data, Access delay distributions, and Estimate transmission metrics. | Forecast cases, Estimate severity, and Estimate superspreading. | Simulate disease spread and Investigate interventions. |
+
 | Tutorial | Overview                                                                                                                                                         | 
 | ---------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------ |
 | [Reading and cleaning data for outbreak analytics with R](https://epiverse-trace.github.io/tutorials-early/)       | Read and clean linelist data, reuse delay distributions, and estimate transmission metrics. | 
