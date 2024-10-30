@@ -125,7 +125,7 @@ Open RStudio and **copy and paste** the following code chunk into the [console w
 if(!require("pak")) install.packages("pak")
 
 new_packages <- c(
-  # for episodes on read, clean, validate and visualize linelist
+  # for Early Task tutorials
   "cleanepi",
   "rio",
   "here",
@@ -137,18 +137,16 @@ new_packages <- c(
   "incidence2",
   "epiverse-trace/tracetheme",
   "tidyverse",
-  # for episodes on access delays and quantify transmission
+  # for Middle Task tutorials
   "EpiNow2",
   "epiverse-trace/epiparameter",
-  # for episodes on forecast and severity
   "cfr",
   "outbreaks",
-  # for episodes on superspreading and transmission chains
   "epicontacts",
   "fitdistrplus",
   "epiverse-trace/superspreading",
   "epichains",
-  # for episodes on simulating transmission scenarios
+  # for Late task tutorials
   "socialmixr",
   "epiverse-trace/epidemics",
   "scales"
@@ -259,7 +257,7 @@ You should update **all of the packages** required for the tutorial, even if you
 When the installation has finished, you can try to load the packages by pasting the following code into the console:
 
 ```r
-# for episodes on read, clean, validate and visualize linelist
+# for Early Task tutorials
 library(cleanepi)
 library(rio)
 library(here)
@@ -271,18 +269,16 @@ library(simulist)
 library(incidence2)
 library(tracetheme)
 library(tidyverse)
-# for episodes on access delays and quantify transmission
+# for Middle Task tutorials
 library(EpiNow2)
 library(epiparameter)
-# for episodes on forecast and severity
 library(cfr)
 library(outbreaks)
-# for episodes on superspreading and transmission chains
 library(epicontacts)
 library(fitdistrplus)
 library(superspreading)
 library(epichains)
-# for episodes on simulating transmission scenarios
+# for Late task tutorials
 library(socialmixr)
 library(epidemics)
 library(scales)
@@ -330,6 +326,45 @@ We can use [GitHub](https://github.com) as a collaboration platform to communica
 <!-- 4. Configure the Multi-factor Authentication (see below).-->
 
 :::::::::::::::::::::::::::::::::
+
+### 5. Watch and Read the pre-training material
+
+<!--
+One paper introduction to Outbreak analytics:
+
+- Polonsky JA, Baidjoe A, Kamvar ZN, Cori A, Durski K, Edmunds WJ, Eggo RM, 
+Funk S, Kaiser L, Keating P, de Waroux OLP, Marks M, Moraga P, Morgan O, 
+Nouvellet P, Ratnayake R, Roberts CH, Whitworth J, Jombart T. 
+**Outbreak analytics: a developing data science for informing the response to emerging pathogens.** 
+Philos Trans R Soc Lond B Biol Sci. 2019 Jul 8;374(1776):20180276. 
+doi: 10.1098/rstb.2018.0276. PMID: 31104603; PMCID: PMC6558557.
+-->
+
+Two 5-minute video refreshers on probability distributions:
+
+- StatQuest with Josh Starmer (2017) 
+**The Main Ideas behind Probability Distributions**, YouTube. 
+Available at: https://www.youtube.com/watch?v=oI3hZJqXJuc&t=248s 
+(Accessed: 30 October 2024). 
+
+- StatQuest with Josh Starmer (2018) 
+**Probability is not Likelihood. Find out why!!!**, YouTube. 
+Available at: https://www.youtube.com/watch?v=pYxNSUDSFH4 
+(Accessed: 30 October 2024). 
+
+A two-page paper introduction to Infectious Disease Modelling:
+
+- Bjørnstad ON, Shea K, Krzywinski M, Altman N. 
+**The SEIRS model for infectious disease dynamics.** 
+Nat Methods. 2020 Jun;17(6):557-558. doi: 10.1038/s41592-020-0856-2. 
+Erratum in: Nat Methods. 2021 Mar;18(3):321. PMID: 32499633.
+
+<!--
+- McVernon, J. et al. (2016) 
+**A user’s Guide to Infectious Disease Modelling**, Prism. 
+Available at: http://prism.edu.au/publications/prism-modeling-guideline/ 
+(Accessed: 14 March 2024).
+-->
 
 
 ## Data sets
