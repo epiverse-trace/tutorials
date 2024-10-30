@@ -472,7 +472,7 @@ window</a>, then press the <kbd>Enter</kbd> (Windows and Linux) or
 <code class="sourceCode R"><span><span class="kw">if</span><span class="op">(</span><span class="op">!</span><span class="kw">require</span><span class="op">(</span><span class="st">"pak"</span><span class="op">)</span><span class="op">)</span> <span class="fu">install.packages</span><span class="op">(</span><span class="st">"pak"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">new_packages</span> <span class="op">&lt;-</span> <span class="fu">c</span><span class="op">(</span></span>
-<span>  <span class="co"># for episodes on read, clean, validate and visualize linelist</span></span>
+<span>  <span class="co"># for Early Task tutorials</span></span>
 <span>  <span class="st">"cleanepi"</span>,</span>
 <span>  <span class="st">"rio"</span>,</span>
 <span>  <span class="st">"here"</span>,</span>
@@ -484,18 +484,16 @@ window</a>, then press the <kbd>Enter</kbd> (Windows and Linux) or
 <span>  <span class="st">"incidence2"</span>,</span>
 <span>  <span class="st">"epiverse-trace/tracetheme"</span>,</span>
 <span>  <span class="st">"tidyverse"</span>,</span>
-<span>  <span class="co"># for episodes on access delays and quantify transmission</span></span>
+<span>  <span class="co"># for Middle Task tutorials</span></span>
 <span>  <span class="st">"EpiNow2"</span>,</span>
 <span>  <span class="st">"epiverse-trace/epiparameter"</span>,</span>
-<span>  <span class="co"># for episodes on forecast and severity</span></span>
 <span>  <span class="st">"cfr"</span>,</span>
 <span>  <span class="st">"outbreaks"</span>,</span>
-<span>  <span class="co"># for episodes on superspreading and transmission chains</span></span>
 <span>  <span class="st">"epicontacts"</span>,</span>
 <span>  <span class="st">"fitdistrplus"</span>,</span>
 <span>  <span class="st">"epiverse-trace/superspreading"</span>,</span>
 <span>  <span class="st">"epichains"</span>,</span>
-<span>  <span class="co"># for episodes on simulating transmission scenarios</span></span>
+<span>  <span class="co"># for Late task tutorials</span></span>
 <span>  <span class="st">"socialmixr"</span>,</span>
 <span>  <span class="st">"epiverse-trace/epidemics"</span>,</span>
 <span>  <span class="st">"scales"</span></span>
@@ -657,7 +655,7 @@ by pasting the following code into the console:</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># for episodes on read, clean, validate and visualize linelist</span></span>
+<code class="sourceCode R"><span><span class="co"># for Early Task tutorials</span></span>
 <span><span class="kw">library</span><span class="op">(</span><span class="va">cleanepi</span><span class="op">)</span></span>
 <span><span class="kw">library</span><span class="op">(</span><span class="va">rio</span><span class="op">)</span></span>
 <span><span class="kw">library</span><span class="op">(</span><span class="va">here</span><span class="op">)</span></span>
@@ -669,18 +667,16 @@ by pasting the following code into the console:</p>
 <span><span class="kw">library</span><span class="op">(</span><span class="va">incidence2</span><span class="op">)</span></span>
 <span><span class="kw">library</span><span class="op">(</span><span class="va">tracetheme</span><span class="op">)</span></span>
 <span><span class="kw">library</span><span class="op">(</span><span class="va">tidyverse</span><span class="op">)</span></span>
-<span><span class="co"># for episodes on access delays and quantify transmission</span></span>
+<span><span class="co"># for Middle Task tutorials</span></span>
 <span><span class="kw">library</span><span class="op">(</span><span class="va">EpiNow2</span><span class="op">)</span></span>
 <span><span class="kw">library</span><span class="op">(</span><span class="va">epiparameter</span><span class="op">)</span></span>
-<span><span class="co"># for episodes on forecast and severity</span></span>
 <span><span class="kw">library</span><span class="op">(</span><span class="va">cfr</span><span class="op">)</span></span>
 <span><span class="kw">library</span><span class="op">(</span><span class="va">outbreaks</span><span class="op">)</span></span>
-<span><span class="co"># for episodes on superspreading and transmission chains</span></span>
 <span><span class="kw">library</span><span class="op">(</span><span class="va">epicontacts</span><span class="op">)</span></span>
 <span><span class="kw">library</span><span class="op">(</span><span class="va">fitdistrplus</span><span class="op">)</span></span>
 <span><span class="kw">library</span><span class="op">(</span><span class="va">superspreading</span><span class="op">)</span></span>
 <span><span class="kw">library</span><span class="op">(</span><span class="va">epichains</span><span class="op">)</span></span>
-<span><span class="co"># for episodes on simulating transmission scenarios</span></span>
+<span><span class="co"># for Late task tutorials</span></span>
 <span><span class="kw">library</span><span class="op">(</span><span class="va">socialmixr</span><span class="op">)</span></span>
 <span><span class="kw">library</span><span class="op">(</span><span class="va">epidemics</span><span class="op">)</span></span>
 <span><span class="kw">library</span><span class="op">(</span><span class="va">scales</span><span class="op">)</span></span></code></pre>
@@ -744,6 +740,53 @@ top-right of the window.</li>
 </div>
 </div>
 </div>
+<div class="section level3">
+<h3 id="watch-and-read-the-pre-training-material">5. Watch and Read the pre-training material<a class="anchor" aria-label="anchor" href="#watch-and-read-the-pre-training-material"></a></h3>
+<!--
+One paper introduction to Outbreak analytics:
+
+- Polonsky JA, Baidjoe A, Kamvar ZN, Cori A, Durski K, Edmunds WJ, Eggo RM,
+Funk S, Kaiser L, Keating P, de Waroux OLP, Marks M, Moraga P, Morgan O,
+Nouvellet P, Ratnayake R, Roberts CH, Whitworth J, Jombart T.
+**Outbreak analytics: a developing data science for informing the response to emerging pathogens.**
+Philos Trans R Soc Lond B Biol Sci. 2019 Jul 8;374(1776):20180276.
+doi: 10.1098/rstb.2018.0276. PMID: 31104603; PMCID: PMC6558557.
+-->
+<p>Watch three 5-minute video refreshers on statistical
+distributions:</p>
+<ul><li><p>StatQuest with Josh Starmer (2017) <strong>The Main Ideas behind
+Probability Distributions</strong>, YouTube. Available at: <a href="https://www.youtube.com/watch?v=oI3hZJqXJuc&amp;t=248s" class="external-link uri">https://www.youtube.com/watch?v=oI3hZJqXJuc&amp;t=248s</a>
+(Accessed: 30 October 2024).</p></li>
+<li><p>StatQuest with Josh Starmer (2018) <strong>Probability is not
+Likelihood. Find out why!!!</strong>, YouTube. Available at: <a href="https://www.youtube.com/watch?v=pYxNSUDSFH4" class="external-link uri">https://www.youtube.com/watch?v=pYxNSUDSFH4</a> (Accessed:
+30 October 2024).</p></li>
+<li><p>StatQuest with Josh Starmer (2017) <strong>Maximum Likelihood,
+clearly explained!!!</strong>, YouTube. Available at: <a href="https://www.youtube.com/watch?v=XepXtl9YKwc" class="external-link uri">https://www.youtube.com/watch?v=XepXtl9YKwc</a> (Accessed:
+30 October 2024).</p></li>
+</ul><!--
+- Weiss, J. (2012)
+**R probability functions for the normal distribution**,
+Lecture 13-Monday, October 8, 2012.
+Available at: <https://sakai.unc.edu/access/content/group/3d1eb92e-7848-4f55-90c3-7c72a54e7e43/public/docs/lectures/lecture13.htm#probfunc>
+(Accessed: 30 October 2024).
+--><p>Read a two-page paper introduction to Infectious Disease
+Modelling:</p>
+<ul><li>Bjørnstad ON, Shea K, Krzywinski M, Altman N. <strong>Modeling
+infectious epidemics.</strong> Nat Methods. 2020 May;17(5):455-456. doi:
+10.1038/s41592-020-0822-z. PMID: 32313223. <a href="https://www.nature.com/articles/s41592-020-0822-z" class="external-link uri">https://www.nature.com/articles/s41592-020-0822-z</a>
+</li>
+</ul><!--
+- Bjørnstad ON, Shea K, Krzywinski M, Altman N.
+**The SEIRS model for infectious disease dynamics.**
+Nat Methods. 2020 Jun;17(6):557-558. doi: 10.1038/s41592-020-0856-2.
+<https://www.nature.com/articles/s41592-020-0856-2>
+Erratum in: Nat Methods. 2021 Mar;18(3):321. PMID: 32499633.
+
+- McVernon, J. et al. (2016)
+**A user’s Guide to Infectious Disease Modelling**, Prism.
+Available at: http://prism.edu.au/publications/prism-modeling-guideline/
+(Accessed: 14 March 2024).
+--></div>
 </section><section><h2 class="section-heading" id="data-sets">Data sets<a class="anchor" aria-label="anchor" href="#data-sets"></a></h2>
 <hr class="half-width"><div class="section level3">
 <h3 id="download-the-data">Download the data<a class="anchor" aria-label="anchor" href="#download-the-data"></a></h3>
