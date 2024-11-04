@@ -430,25 +430,12 @@ minimal example. First, load the package:</p>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw">library</span><span class="op">(</span><span class="va">EpiNow2</span><span class="op">)</span></span></code></pre>
 </div>
-<div class="codewrapper">
-<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="output" tabindex="0"><code>
-Attaching package: 'EpiNow2'</code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="output" tabindex="0"><code>The following object is masked from 'package:stats':
-
-    Gamma</code></pre>
-</div>
 <div class="section level3">
 <h3 id="first-get-your-case-data">First, get your case data<a class="anchor" aria-label="anchor" href="#first-get-your-case-data"></a>
 </h3>
 <p>Case incidence data must be stored in a data frame with the observed
 number of cases per day. We can read an example from the package:</p>
-<div class="codewrapper sourceCode" id="cb4">
+<div class="codewrapper sourceCode" id="cb2">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -485,21 +472,26 @@ specify a generation time that follows a <em>Gamma</em> distribution
 with mean <span class="math inline">\(\mu = 4\)</span>, standard
 deviation <span class="math inline">\(\sigma^2 = 2\)</span>, and a
 maximum value of 20, we write:</p>
-<div class="codewrapper sourceCode" id="cb6">
+<div class="codewrapper sourceCode" id="cb4">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">generation_time</span> <span class="op">&lt;-</span> <span class="fu">dist_spec</span><span class="op">(</span></span>
+<code class="sourceCode R"><span><span class="va">generation_time</span> <span class="op">&lt;-</span> <span class="fu">EpiNow2</span><span class="fu">::</span><span class="fu">Gamma</span><span class="op">(</span></span>
 <span>  mean <span class="op">=</span> <span class="fl">4</span>,</span>
 <span>  sd <span class="op">=</span> <span class="fl">2</span>,</span>
-<span>  max <span class="op">=</span> <span class="fl">20</span>,</span>
-<span>  distribution <span class="op">=</span> <span class="st">"gamma"</span></span>
-<span><span class="op">)</span></span></code></pre>
+<span>  max <span class="op">=</span> <span class="fl">20</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">generation_time</span></span></code></pre>
 </div>
 <div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="error" tabindex="0"><code>Error in dist_spec(mean = 4, sd = 2, max = 20, distribution = "gamma"): could not find function "dist_spec"</code></pre>
+<pre class="output" tabindex="0"><code>- gamma distribution (max: 20):
+  shape:
+    4
+  rate:
+    1</code></pre>
 </div>
 
 </div>
@@ -514,13 +506,13 @@ elements:</p>
 <li>the computation <code>stan</code> parameters for this
 calculation:</li>
 </ul>
-<div class="codewrapper sourceCode" id="cb8">
+<div class="codewrapper sourceCode" id="cb6">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">epinow_estimates</span> <span class="op">&lt;-</span> <span class="fu">epinow</span><span class="op">(</span></span>
 <span>  <span class="co"># cases</span></span>
-<span>  reported_cases <span class="op">=</span> <span class="va">example_confirmed</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">60</span><span class="op">]</span>,</span>
+<span>  data <span class="op">=</span> <span class="va">example_confirmed</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">60</span><span class="op">]</span>,</span>
 <span>  <span class="co"># delays</span></span>
 <span>  generation_time <span class="op">=</span> <span class="fu">generation_time_opts</span><span class="op">(</span><span class="va">generation_time</span><span class="op">)</span>,</span>
 <span>  <span class="co"># computation</span></span>
@@ -528,27 +520,21 @@ calculation:</li>
 <span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="error" tabindex="0"><code>Error:
-! The `reported_cases` argument of `epinow()` was deprecated in EpiNow2
-  1.5.0 and is now defunct.
-ℹ Please use the `data` argument instead.</code></pre>
+<pre class="output" tabindex="0"><code>WARN [2024-11-04 16:24:38] epinow: Bulk Effective Samples Size (ESS) is too low, indicating posterior means and medians may be unreliable.
+Running the chains for more iterations may help. See
+https://mc-stan.org/misc/warnings.html#bulk-ess - </code></pre>
 </div>
 <p>As an output, we get the time-varying (or <a href="reference.html#effectiverepro">effective</a>) reproduction number,
 as well as the cases by date of report and date of infection:</p>
-<div class="codewrapper sourceCode" id="cb10">
+<div class="codewrapper sourceCode" id="cb8">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">base</span><span class="fu">::</span><span class="fu">plot</span><span class="op">(</span><span class="va">epinow_estimates</span><span class="op">)</span></span></code></pre>
 </div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'epinow_estimates' not found</code></pre>
-</div>
-<div id="is-this-rt-estimation-biased" class="callout">
+<figure><img src="fig/introduction-rendered-unnamed-chunk-5-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div id="is-this-rt-estimation-biased" class="callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
