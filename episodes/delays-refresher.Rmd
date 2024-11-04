@@ -1,0 +1,34 @@
+---
+title: 'delays-refresher'
+teaching: 10
+exercises: 2
+---
+
+:::::::::::::::::::::::::::::::::::::: questions 
+
+- How to start to analyse outbreak data?
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+::::::::::::::::::::::::::::::::::::: objectives
+
+- Calculate the naive CFR.
+- Interpret 95% Confidence Intervals.
+- Visualize the growth rate.
+- Describe the notification (reporting) delay
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+## Introduction
+
+...
+
+::::::::::::::::::::::::::::::::::::: keypoints 
+
+- Use `.md` files for episodes when you want static content
+- Use `.Rmd` files for episodes when you need to generate output
+- Run `sandpaper::check_lesson()` to identify any issues with your lesson
+- Run `sandpaper::build_lesson()` to preview your lesson locally
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
