@@ -72,14 +72,17 @@ We expect learners to have some exposure to basic Statistical, Mathematical and 
 
 ### R refresher
 
-If you need to refresh your R knowledge to fulfil the prerequisites, we recommend you solve these 
-**interactive self-paced tutorials** from Applied Epi 
-<https://appliedepi.org/tutorial/> on:
+If you need to refresh your R knowledge to fulfill the prerequisites,
+we recommend you solve these 
+**interactive online self-paced tutorials** from Applied Epi on:
 
 - R basics
 - Data cleaning
 - Data visualization
 - Data preparation
+
+Access these tutorials following instructions in 
+<https://appliedepi.org/tutorial/>!
 
 ::::::::::::::::::::::::::::
 
@@ -357,27 +360,27 @@ Philos Trans R Soc Lond B Biol Sci. 2019 Jul 8;374(1776):20180276.
 doi: 10.1098/rstb.2018.0276. PMID: 31104603; PMCID: PMC6558557.
 -->
 
-Watch four 5-minute video refreshers on statistical distributions:
+**Watch** four 5-minute video refreshers on statistical distributions:
 
 - StatQuest with Josh Starmer (2017) 
 **The Main Ideas behind Probability Distributions**, YouTube. 
 Available at: <https://www.youtube.com/watch?v=oI3hZJqXJuc&t> 
-(Accessed: 30 October 2024).
+<!--(Accessed: 30 October 2024).-->
 
 - StatQuest with Josh Starmer (2015)
 **Confidence Intervals, Clearly Explained!!!**, YouTube.
 Available at: <https://www.youtube.com/watch?v=TqOeMYtOc1w>
-(Accessed: 04 November 2024). 
+<!--(Accessed: 04 November 2024).-->
 
 - StatQuest with Josh Starmer (2018) 
 **Probability is not Likelihood. Find out why!!!**, YouTube. 
 Available at: <https://www.youtube.com/watch?v=pYxNSUDSFH4> 
-(Accessed: 30 October 2024). 
+<!--(Accessed: 30 October 2024).-->
 
 - StatQuest with Josh Starmer (2017) 
 **Maximum Likelihood, clearly explained!!!**, YouTube. 
 Available at: <https://www.youtube.com/watch?v=XepXtl9YKwc>
-(Accessed: 30 October 2024). 
+<!--(Accessed: 30 October 2024).-->
 
 <!--
 - Weiss, J. (2012) 
@@ -387,7 +390,7 @@ Available at: <https://sakai.unc.edu/access/content/group/3d1eb92e-7848-4f55-90c
 (Accessed: 30 October 2024). 
 -->
 
-Read a two-page paper introduction to Infectious Disease Modelling:
+**Read** a two-page paper introduction to Infectious Disease Modelling:
 
 - Bjørnstad ON, Shea K, Krzywinski M, Altman N. 
 **Modeling infectious epidemics.** 
