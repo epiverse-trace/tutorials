@@ -19,9 +19,223 @@ exercises: 2
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
+
+#### Basic concepts to be developed
+
+The following concepts will be developed in this practice:
+
+
+- Person-to-person transmission of infectious diseases 
+
+- Basic reproduction number 
+
+- Instantaneous reproduction number
+
+- Probability of death (IFR, CFR) 
+
+- Serial interval 
+
+- Growth rate 
+
+- Incidence
+
+:::::::::: prereq
+
+### Setup a project and folder
+
+- Create an RStudio project. If needed, follow this [how-to guide on "Hello RStudio Projects"](https://docs.posit.co/ide/user/ide/get-started/#hello-rstudio-projects) to create one.
+- Inside the RStudio project, create the `data/` folder.
+- Inside the `data/` folder, save the [linelist.rds](https://epiverse-trace.github.io/tutorials/data/linelist.rds) file.
+
+::::::::::
+
 ## Introduction
 
-...
+A new Ebola virus (EVD) outbreak in a fictitious West African country
+
+```{r}
+# new Ebola virus outbreak ------------------------------------------------
+
+#' what we know?
+#' - disease: Ebola
+#' - location: western Africa
+#' - data collection: cases are registered in the hospital
+
+```
+
+
+```{r,eval=TRUE,message=FALSE,warning=FALSE}
+# Load packages
+library(tidyverse) # for {dplyr} functions and the pipe %>%
+```
+
+## Data structure
+
+```{r,eval=FALSE,echo=TRUE,message=FALSE}
+# Read data
+# e.g.: if path to file is data/simulated_ebola_2.csv then:
+cases <- read_rds(
+  here::here("data", "linelist.rds")
+)
+```
+
+```{r,eval=TRUE,echo=FALSE,message=FALSE}
+# Read data
+cases <- read_rds(
+  file.path("data", "linelist.rds")
+)
+```
+
+```{r, message=FALSE}
+# Print data frame
+cases
+```
+
+```{r}
+# quality evaluation ------------------------------------------------------
+
+cases
+
+cases %>%
+  glimpse()
+
+cases %>%
+  cleanepi::scan_data()
+
+# why do we have missing on infection date or outcome? -------------------
+
+#' date of infection: unknown, contact tracing research, recall bias
+#' outcome: reporting delay
+
+cases %>%
+  visdat::vis_miss()
+
+# severity ----------------------------------------------------------------
+
+# case fatality ratio -----------------------------------------------------
+
+cases %>%
+  count(outcome)
+
+# should I consider missing outcomes for CFR? -----------------------------
+
+cases %>%
+  count(outcome) %>%
+  pivot_wider(names_from = outcome,values_from = n) %>%
+  cleanepi::standardize_column_names() %>%
+  mutate(cases_known_outcome = death + recover) %>%
+  mutate(cfr = death / cases_known_outcome)
+
+
+# how much time it take for us register those outcomes?  ------------------
+
+#' date of hospitalization means the date of report
+
+cases %>%
+  select(case_id, date_of_onset, date_of_hospitalisation) %>%
+  mutate(reporting_delay = date_of_hospitalisation - date_of_onset) %>%
+  ggplot(aes(x = reporting_delay)) +
+  geom_histogram(binwidth = 1)
+
+# demo code not to run by learner
+cases %>%
+  arrange(date_of_onset) %>%
+  mutate(case_id = fct_inorder(case_id)) %>%
+  slice(10:40) %>%
+  select(x = case_id, value1 = date_of_onset, value2 = date_of_hospitalisation) %>%
+  ggplot() +
+  geom_segment( aes(x=x, xend=x, y=value1, yend=value2), color="grey") +
+  geom_point( aes(x=x, y=value1), color=rgb(0.2,0.7,0.1,0.5), size=3 ) +
+  geom_point( aes(x=x, y=value2), color=rgb(0.7,0.2,0.1,0.5), size=3 ) +
+  coord_flip()
+
+# transmission ------------------------------------------------------------
+
+# incidence curve ---------------------------------------------------------
+
+cases %>%
+  ggplot(aes(x = date_of_onset)) +
+  geom_histogram()
+
+# what transmission indicator can we estimate from the incidence curve? ---
+
+#' the growth rate! by fitting a linear model
+#' more on that on DAY 3-4
+
+# what is the name of the delay from infection to symptom onset? ----------
+
+cases %>%
+  select(case_id, date_of_infection, date_of_onset) %>%
+  mutate(incubation_period = date_of_onset - date_of_infection) %>%
+  ggplot(aes(x = incubation_period)) +
+  geom_histogram(binwidth = 1)
+
+cases %>%
+  select(case_id, date_of_infection, date_of_onset) %>%
+  mutate(incubation_period = date_of_onset - date_of_infection) %>%
+  mutate(incubation_period_num = as.numeric(incubation_period)) %>%
+  filter(!is.na(incubation_period_num)) %>%
+  pull(incubation_period_num) %>%
+  fitdistrplus::fitdist(distr = "lnorm") %>%
+  # summary()
+  # plot()
+  identity()
+
+#' explore the
+#' https://ben18785.shinyapps.io/distribution-zoo/
+#' for gamma, weibull, lnorm parameters
+
+# why to fit a distribution to observed data? -----------------------------
+
+#' the time difference from date infection and date symptom onset
+#' give us the incubation period
+#'
+#' steps
+#' - calculate the time difference
+#' - plot
+#' - fit a distribution (obtain distribution parameters)
+#' - do inferences
+#'
+#' from the incubation period distribution
+#' we can infer the length of active monitoring or quarantine
+#' example
+#' within what time frame do 99% of individuals
+#' exhibiting Ebola symptoms exhibit them after infection?
+
+#' review probability functions
+#' https://sakai.unc.edu/access/content/group/3d1eb92e-7848-4f55-90c3-7c72a54e7e43/public/docs/lectures/lecture13.htm#probfunc
+qlnorm(p = 0.99, meanlog = 1.995979, sdlog = 0.776226)
+
+#' reference: https://pubmed.ncbi.nlm.nih.gov/32150748/
+#' Lauer, 2020
+#' The Incubation Period of Coronavirus Disease 2019 (COVID-19)
+#' From Publicly Reported Confirmed Cases: Estimation and Application
+
+
+# but this fitting step requires account for biases! ----------------------
+
+# what to do when we do not have all these dates or info on biases? -------
+
+#' we are going to clean and standardize data on
+#' DAY 2 afternoon
+#' validate, rearrange, visualize epicurve data on
+#' DAY 3 morning
+#' we can reuse data from past outbreaks!
+#' DAY 3 afternoon
+#' and took them to account for delays for transmission and severity
+#' DAY 4 morning and afternoon
+
+
+# challenge ----------------------------------------------------------------
+
+# use epidemiological times figure TRACE LAC ------------------------------
+
+#' PAHO figure
+#' if we have the serial interval
+#' we can make inferences about the window for contact tracing
+#' expand the number of pre-days to include more backward contacts
+```
+
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
