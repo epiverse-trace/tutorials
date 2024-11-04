@@ -57,7 +57,7 @@ Our strategy is to gradually incorporate specialised **R packages** into a tradi
 
 :::::::::::::::::::::::::::: prereq
 
-This content assumes intermediate R knowledge. This tutorials are for you if:
+This content assumes intermediate R knowledge. These tutorials are for you if:
 
 - You can read data into R, transform and reshape data, and make a wide variety of graphs
 - You are familiar with functions from `{dplyr}`, `{tidyr}`, and `{ggplot2}`
@@ -65,6 +65,21 @@ This content assumes intermediate R knowledge. This tutorials are for you if:
 
 
 We expect learners to have some exposure to basic Statistical, Mathematical and Epidemic theory concepts, but NOT intermediate or expert familiarity with modeling.
+
+::::::::::::::::::::::::::::
+
+:::::::::::::::::::::::::::: callout
+
+### R refresher
+
+If you need to refresh your R knowledge to fulfil the prerequisites, we recommend you solve these 
+**interactive self-paced tutorials** from Applied Epi 
+<https://appliedepi.org/tutorial/> on:
+
+- R basics
+- Data cleaning
+- Data visualization
+- Data preparation
 
 ::::::::::::::::::::::::::::
 
@@ -329,6 +344,8 @@ We can use [GitHub](https://github.com) as a collaboration platform to communica
 
 ### 5. Watch and Read the pre-training material
 
+:::::::::::::::::::::::::::: prereq
+
 <!--
 One paper introduction to Outbreak analytics:
 
@@ -340,12 +357,17 @@ Philos Trans R Soc Lond B Biol Sci. 2019 Jul 8;374(1776):20180276.
 doi: 10.1098/rstb.2018.0276. PMID: 31104603; PMCID: PMC6558557.
 -->
 
-Watch three 5-minute video refreshers on statistical distributions:
+Watch four 5-minute video refreshers on statistical distributions:
 
 - StatQuest with Josh Starmer (2017) 
 **The Main Ideas behind Probability Distributions**, YouTube. 
-Available at: <https://www.youtube.com/watch?v=oI3hZJqXJuc&t=248s> 
-(Accessed: 30 October 2024). 
+Available at: <https://www.youtube.com/watch?v=oI3hZJqXJuc&t> 
+(Accessed: 30 October 2024).
+
+- StatQuest with Josh Starmer (2015)
+**Confidence Intervals, Clearly Explained!!!**, YouTube.
+Available at: <https://www.youtube.com/watch?v=TqOeMYtOc1w>
+(Accessed: 04 November 2024). 
 
 - StatQuest with Josh Starmer (2018) 
 **Probability is not Likelihood. Find out why!!!**, YouTube. 
@@ -386,6 +408,7 @@ Available at: http://prism.edu.au/publications/prism-modeling-guideline/
 (Accessed: 14 March 2024).
 -->
 
+::::::::::::::::::::::::::
 
 ## Data sets
 
