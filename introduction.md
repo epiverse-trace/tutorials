@@ -72,17 +72,6 @@ The `{EpiNow2}` package provides a three-step solution to _quantify the transmis
 library(EpiNow2)
 ```
 
-``` output
-
-Attaching package: 'EpiNow2'
-```
-
-``` output
-The following object is masked from 'package:stats':
-
-    Gamma
-```
-
 ### First, get your case data
 
 Case incidence data must be stored in a data frame with the observed number of cases per day. We can read an example from the package:
@@ -116,16 +105,21 @@ For `{EpiNow2}`, we can specify it as a probability `distribution` adding its `m
 
 
 ``` r
-generation_time <- dist_spec(
+generation_time <- EpiNow2::Gamma(
   mean = 4,
   sd = 2,
-  max = 20,
-  distribution = "gamma"
+  max = 20
 )
+
+generation_time
 ```
 
-``` error
-Error in dist_spec(mean = 4, sd = 2, max = 20, distribution = "gamma"): could not find function "dist_spec"
+``` output
+- gamma distribution (max: 20):
+  shape:
+    4
+  rate:
+    1
 ```
 
 :::::::::::::::::::::::::::: instructor
@@ -154,7 +148,7 @@ In the `epinow()` function we can input these two elements:
 ``` r
 epinow_estimates <- epinow(
   # cases
-  reported_cases = example_confirmed[1:60],
+  data = example_confirmed[1:60],
   # delays
   generation_time = generation_time_opts(generation_time),
   # computation
@@ -162,11 +156,10 @@ epinow_estimates <- epinow(
 )
 ```
 
-``` error
-Error:
-! The `reported_cases` argument of `epinow()` was deprecated in EpiNow2
-  1.5.0 and is now defunct.
-ℹ Please use the `data` argument instead.
+``` output
+WARN [2024-11-04 16:24:38] epinow: Bulk Effective Samples Size (ESS) is too low, indicating posterior means and medians may be unreliable.
+Running the chains for more iterations may help. See
+https://mc-stan.org/misc/warnings.html#bulk-ess - 
 ```
 
 As an output, we get the time-varying (or [effective](../learners/reference.md#effectiverepro)) reproduction number, as well as the cases by date of report and date of infection:
@@ -176,9 +169,7 @@ As an output, we get the time-varying (or [effective](../learners/reference.md#e
 base::plot(epinow_estimates)
 ```
 
-``` error
-Error in eval(expr, envir, enclos): object 'epinow_estimates' not found
-```
+<img src="fig/introduction-rendered-unnamed-chunk-5-1.png" style="display: block; margin: auto;" />
 
 ::::::::::::::::: callout
 
