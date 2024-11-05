@@ -211,6 +211,38 @@ cases %>%
 ```
 
 
+::::::::::::::::: challenge
+
+Calculate the delay from onset to death.
+
+::::::::::::: hint
+
+We can keep the rows that match the following logical statement: `outcome == "Death"`.
+
+```{r,eval=FALSE,echo=TRUE}
+cases %>%
+  filter(outcome == "Death")
+```
+
+:::::::::::::
+
+::::::::::::: solution
+
+```{r}
+cases %>%
+  select(case_id, date_of_onset, date_of_outcome, outcome) %>%
+  filter(outcome == "Death") %>% 
+  mutate(delay_onset_death = date_of_outcome - date_of_onset) %>%
+  ggplot(aes(x = delay_onset_death)) +
+  geom_histogram(binwidth = 1)
+```
+
+Is is consistent to have negative delays from secondary observations?
+
+:::::::::::::
+
+:::::::::::::::::
+
 
 ## Visualize transmission
 
@@ -357,7 +389,9 @@ qlnorm(p = 0.99, meanlog = 1.995979, sdlog = 0.776226)
 #' From Publicly Reported Confirmed Cases: Estimation and Application
 ```
 
-## Why if we do not have enough data?
+::::::::::::::: testimonial
+
+### What to do if we do not have enough data?
 
 ```{r}
 # but this fitting step requires account for biases! ----------------------
@@ -373,6 +407,8 @@ qlnorm(p = 0.99, meanlog = 1.995979, sdlog = 0.776226)
 #' and took them to account for delays for transmission and severity
 #' DAY 4 morning and afternoon
 ```
+
+:::::::::::::::
 
 ```{r}
 # challenge ----------------------------------------------------------------
