@@ -6,16 +6,23 @@ exercises: 2
 
 :::::::::::::::::::::::::::::::::::::: questions 
 
-- How to start to analyse outbreak data?
+- How to calculate the naive case fatality risk (CFR)?
+- How to calculate delays using line list data?
+- How to visualize transmission patterns using line list data?
+- How to fit a statistical distribution to delay data?
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
 ::::::::::::::::::::::::::::::::::::: objectives
 
-- Calculate the naive CFR.
-- Interpret 95% Confidence Intervals.
-- Visualize the growth rate.
-- Describe the notification (reporting) delay
+- Use the pipe operator `%>%` to structure sequences of data operations left-to-right.
+- Count observations in each group using `count()`.
+- Pivot data from wide-to-long or long-to-wide using `pivot_*`.
+- Create new columns that are functions of existing variables using `mutate()`.
+- Keep or drop columns by their names using `select()`.
+- Keep rows that match a condition using `filter()`.
+- Extract a single column using `pull()`.
+- Create graphics declaratively using `{ggplot2}`.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -27,17 +34,9 @@ The following concepts will be developed in this practice:
 
 - Person-to-person transmission of infectious diseases 
 
-- Basic reproduction number 
 
-- Instantaneous reproduction number
 
-- Probability of death (IFR, CFR) 
-
-- Serial interval 
-
-- Growth rate 
-
-- Incidence
+- Incidence curve
 
 :::::::::: prereq
 
@@ -69,7 +68,7 @@ A new Ebola virus (EVD) outbreak in a fictitious West African country
 library(tidyverse) # for {dplyr} functions and the pipe %>%
 ```
 
-## Data structure
+## Explore data
 
 ```{r,eval=FALSE,echo=TRUE,message=FALSE}
 # Read data
@@ -87,7 +86,6 @@ cases <- read_rds(
 ```
 
 ```{r, message=FALSE}
-# Print data frame
 cases
 ```
 
@@ -109,10 +107,14 @@ cases %>%
 
 cases %>%
   visdat::vis_miss()
+```
 
+## Calculate severity
+
+```{r}
 # severity ----------------------------------------------------------------
 
-# case fatality ratio -----------------------------------------------------
+# case fatality risk -----------------------------------------------------
 
 cases %>%
   count(outcome)
@@ -121,14 +123,84 @@ cases %>%
 
 cases %>%
   count(outcome) %>%
-  pivot_wider(names_from = outcome,values_from = n) %>%
+  pivot_wider(names_from = outcome, values_from = n) %>%
+  cleanepi::standardize_column_names() %>%
+  mutate(cases_known_outcome = death + recover)
+```
+
+:::::::::::: challenge
+
+Calculate the CFR as the division of known deaths among known outcomes. Do this by adding one more pipe `%>%` in the last code chunk. Report:
+
+- What is the value of the naive CFR?
+
+:::::::::::: hint
+
+You can use the column names of the reminder data set to create a new column.
+
+```{r,eval=FALSE,echo=TRUE}
+cases %>%
+  count(outcome) %>%
+  pivot_wider(names_from = outcome, values_from = n) %>%
+  cleanepi::standardize_column_names() %>%
+  mutate(cases_known_outcome = death + recover) %>%
+  mutate(cfr = ... / ... ) # replace the ... spaces
+```
+
+::::::::::::
+
+:::::::::::: solution
+
+```{r}
+cases %>%
+  count(outcome) %>%
+  pivot_wider(names_from = outcome, values_from = n) %>%
   cleanepi::standardize_column_names() %>%
   mutate(cases_known_outcome = death + recover) %>%
   mutate(cfr = death / cases_known_outcome)
+```
 
+::::::::::::
 
-# how much time it take for us register those outcomes?  ------------------
+::::::::::::
 
+However, how much time it would take for us register those outcomes?
+
+```{r,echo=FALSE,eval=TRUE}
+# demo code not to run by learner
+cases %>%
+  slice_sample(n = 30) %>% 
+  arrange(date_of_onset) %>%
+  mutate(case_id = fct_inorder(case_id)) %>%
+  # slice(10:40) %>%
+  select(
+    x = case_id,
+    value1 = date_of_onset,
+    value2 = date_of_hospitalisation
+  ) %>%
+  ggplot() +
+  geom_segment(
+    aes(x = x, xend = x, y = value1, yend = value2),
+    color = "grey"
+  ) +
+  geom_point(
+    aes(x = x, y = value1),
+    color = "darkgreen",
+    size = 3,
+    alpha = 0.5
+  ) +
+  geom_point(
+    aes(x = x, y = value2),
+    color = "red",
+    size = 3,
+    alpha = 0.5
+  ) +
+  coord_flip()
+```
+
+## Calculate delays
+
+```{r}
 #' date of hospitalization means the date of report
 
 cases %>%
@@ -136,18 +208,15 @@ cases %>%
   mutate(reporting_delay = date_of_hospitalisation - date_of_onset) %>%
   ggplot(aes(x = reporting_delay)) +
   geom_histogram(binwidth = 1)
+```
 
-# demo code not to run by learner
-cases %>%
-  arrange(date_of_onset) %>%
-  mutate(case_id = fct_inorder(case_id)) %>%
-  slice(10:40) %>%
-  select(x = case_id, value1 = date_of_onset, value2 = date_of_hospitalisation) %>%
-  ggplot() +
-  geom_segment( aes(x=x, xend=x, y=value1, yend=value2), color="grey") +
-  geom_point( aes(x=x, y=value1), color=rgb(0.2,0.7,0.1,0.5), size=3 ) +
-  geom_point( aes(x=x, y=value2), color=rgb(0.7,0.2,0.1,0.5), size=3 ) +
-  coord_flip()
+
+
+## Visualize transmission
+
+aggregate the date by intervals of 7 days
+
+```{r}
 
 # transmission ------------------------------------------------------------
 
@@ -155,7 +224,7 @@ cases %>%
 
 cases %>%
   ggplot(aes(x = date_of_onset)) +
-  geom_histogram()
+  geom_histogram(binwidth = 7)
 
 # what transmission indicator can we estimate from the incidence curve? ---
 
@@ -163,28 +232,105 @@ cases %>%
 #' more on that on DAY 3-4
 
 # what is the name of the delay from infection to symptom onset? ----------
+```
 
+```{r,eval=TRUE,echo=FALSE}
+outbreaks::ebola_sim_clean$linelist %>%
+  as_tibble() %>%
+  arrange(date_of_infection) %>%
+  rownames_to_column() %>% 
+  mutate(rowname = as.numeric(rowname)) %>% 
+  # slice_sample(n = 166) %>%
+  # slice_head(n = 166) %>%
+  mutate(
+    looking = case_when(
+      rowname <= 166 ~ "now",
+      TRUE ~ "then"
+    )
+  ) %>% 
+  # count(looking)
+  slice_head(n = 100) %>%
+  select(case_id, date_of_infection, date_of_onset) %>% 
+  pivot_longer(cols = -case_id, names_to = "date_type", values_to = "date") %>% 
+  count(date, date_type) %>% 
+  group_by(date_type) %>% 
+  mutate(cumulative = cumsum(n)) %>% 
+  ungroup() %>% 
+  ggplot(aes(x = date, y = cumulative, color = date_type)) + 
+  geom_line()
+```
+
+
+## Fit a statistical distribution to delays
+
+```{r}
 cases %>%
   select(case_id, date_of_infection, date_of_onset) %>%
   mutate(incubation_period = date_of_onset - date_of_infection) %>%
   ggplot(aes(x = incubation_period)) +
   geom_histogram(binwidth = 1)
+```
 
+
+```{r}
 cases %>%
   select(case_id, date_of_infection, date_of_onset) %>%
   mutate(incubation_period = date_of_onset - date_of_infection) %>%
   mutate(incubation_period_num = as.numeric(incubation_period)) %>%
   filter(!is.na(incubation_period_num)) %>%
   pull(incubation_period_num) %>%
-  fitdistrplus::fitdist(distr = "lnorm") %>%
-  # summary()
-  # plot()
-  identity()
+  fitdistrplus::fitdist(distr = "lnorm") # try: summary and plot
 
 #' explore the
 #' https://ben18785.shinyapps.io/distribution-zoo/
 #' for gamma, weibull, lnorm parameters
+```
 
+::::::::::::::: callout
+
+### the dollar sign `$` can `pull()`
+
+```{r}
+cases_delay <- cases %>%
+  select(case_id, date_of_infection, date_of_onset) %>%
+  mutate(incubation_period = date_of_onset - date_of_infection) %>%
+  mutate(incubation_period_num = as.numeric(incubation_period)) %>%
+  filter(!is.na(incubation_period_num))
+
+cases_delay %>% pull(incubation_period_num)
+```
+
+```{r}
+cases_delay$incubation_period_num
+```
+
+:::::::::::::::
+
+::::::::::::::: callout
+
+### the dollar sign `$` can `pluck()`
+
+```{r}
+incubation_period_fit <- cases %>%
+  select(case_id, date_of_infection, date_of_onset) %>%
+  mutate(incubation_period = date_of_onset - date_of_infection) %>%
+  mutate(incubation_period_num = as.numeric(incubation_period)) %>%
+  filter(!is.na(incubation_period_num)) %>%
+  pull(incubation_period_num) %>%
+  fitdistrplus::fitdist(distr = "lnorm")
+
+incubation_period_fit %>% pluck("estimate")
+```
+
+```{r}
+incubation_period_fit$estimate
+```
+
+:::::::::::::::
+
+## Why to fit a distribution to data?
+
+```{r}
 # why to fit a distribution to observed data? -----------------------------
 
 #' the time difference from date infection and date symptom onset
@@ -203,15 +349,17 @@ cases %>%
 #' exhibiting Ebola symptoms exhibit them after infection?
 
 #' review probability functions
-#' https://sakai.unc.edu/access/content/group/3d1eb92e-7848-4f55-90c3-7c72a54e7e43/public/docs/lectures/lecture13.htm#probfunc
 qlnorm(p = 0.99, meanlog = 1.995979, sdlog = 0.776226)
 
 #' reference: https://pubmed.ncbi.nlm.nih.gov/32150748/
 #' Lauer, 2020
 #' The Incubation Period of Coronavirus Disease 2019 (COVID-19)
 #' From Publicly Reported Confirmed Cases: Estimation and Application
+```
 
+## Why if we do not have enough data?
 
+```{r}
 # but this fitting step requires account for biases! ----------------------
 
 # what to do when we do not have all these dates or info on biases? -------
@@ -224,8 +372,9 @@ qlnorm(p = 0.99, meanlog = 1.995979, sdlog = 0.776226)
 #' DAY 3 afternoon
 #' and took them to account for delays for transmission and severity
 #' DAY 4 morning and afternoon
+```
 
-
+```{r}
 # challenge ----------------------------------------------------------------
 
 # use epidemiological times figure TRACE LAC ------------------------------
@@ -239,10 +388,9 @@ qlnorm(p = 0.99, meanlog = 1.995979, sdlog = 0.776226)
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
-- Use `.md` files for episodes when you want static content
-- Use `.Rmd` files for episodes when you need to generate output
-- Run `sandpaper::check_lesson()` to identify any issues with your lesson
-- Run `sandpaper::build_lesson()` to preview your lesson locally
+- Use packages from the `tidyverse` like `{dplyr}`, `{tidyr}`, and `{ggplot}` for exploratory data analysis.
+- Epidemiological delays conditions the estimation of indicators for severity or transmission. 
+- Fit statistical distribution to delays to make inferences from them for decision making.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
