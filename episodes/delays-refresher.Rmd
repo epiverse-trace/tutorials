@@ -48,6 +48,14 @@ The following concepts will be developed in this practice:
 
 ::::::::::
 
+::::::::::::::: checklist
+
+<!-- let's create a Rmd or quarto file! -->
+
+<!-- https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1012018 -->
+
+:::::::::::::::
+
 ## Introduction
 
 A new Ebola virus (EVD) outbreak in a fictitious West African country
@@ -89,10 +97,23 @@ cases <- read_rds(
 cases
 ```
 
+:::::::::::::::::::: checklist
+
+### Why should we use the {here} package?
+
+The `{here}` package is designed to simplify file referencing in R projects by providing a reliable way to construct file paths relative to the project root. The main reason to use it is **Cross-Environment Compatibility**.
+
+It works across different operating systems (Windows, Mac, Linux) without needing to adjust file paths. 
+
+- On Windows, paths are written using backslashes ( `\` ) as the separator between folder names: `"data\raw-data\file.csv"` 
+- On Unix based operating system such as macOS or Linux the forward slash ( `/` ) is used as the path separator: `"data/raw-data/file.csv"`
+
+The `{here}` package is ideal for adding one more layer of reproducibility to your work. If you are interested in reproducibility, we invite you to [read this tutorial to increase the openess, sustainability, and reproducibility of your epidemic analysis with R](https://epiverse-trace.github.io/research-compendium/)
+
+::::::::::::::::::::
+
 ```{r}
 # quality evaluation ------------------------------------------------------
-
-cases
 
 cases %>%
   glimpse()
@@ -292,7 +313,7 @@ outbreaks::ebola_sim_clean$linelist %>%
 ```
 
 
-## Fit a statistical distribution to delays
+## Try to fit a statistical distribution to delays
 
 ```{r}
 cases %>%
@@ -428,6 +449,13 @@ qlnorm(p = 0.99, meanlog = 1.995979, sdlog = 0.776226)
 #' expand the number of pre-days to include more backward contacts
 ```
 
+::::::::::::::: checklist
+
+<!-- CHECKPOINT! let's create a reprex! -->
+
+<https://community.appliedepi.org/t/how-to-make-a-reproducible-r-code-example/167>
+
+:::::::::::::::
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
