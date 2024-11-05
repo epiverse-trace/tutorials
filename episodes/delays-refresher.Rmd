@@ -144,7 +144,7 @@ cases %>%
   pivot_wider(names_from = outcome, values_from = n) %>%
   cleanepi::standardize_column_names() %>%
   mutate(cases_known_outcome = death + recover) %>%
-  mutate(cfr = ... / ... ) # replace the ... spaces
+  mutate(cfr = ... / ...) # replace the ... spaces
 ```
 
 ::::::::::::
@@ -169,7 +169,7 @@ However, how much time it would take for us register those outcomes?
 ```{r,echo=FALSE,eval=TRUE}
 # demo code not to run by learner
 cases %>%
-  slice_sample(n = 30) %>% 
+  slice_sample(n = 30) %>%
   arrange(date_of_onset) %>%
   mutate(case_id = fct_inorder(case_id)) %>%
   # slice(10:40) %>%
@@ -231,7 +231,7 @@ cases %>%
 ```{r}
 cases %>%
   select(case_id, date_of_onset, date_of_outcome, outcome) %>%
-  filter(outcome == "Death") %>% 
+  filter(outcome == "Death") %>%
   mutate(delay_onset_death = date_of_outcome - date_of_onset) %>%
   ggplot(aes(x = delay_onset_death)) +
   geom_histogram(binwidth = 1)
@@ -270,8 +270,8 @@ cases %>%
 outbreaks::ebola_sim_clean$linelist %>%
   as_tibble() %>%
   arrange(date_of_infection) %>%
-  rownames_to_column() %>% 
-  mutate(rowname = as.numeric(rowname)) %>% 
+  rownames_to_column() %>%
+  mutate(rowname = as.numeric(rowname)) %>%
   # slice_sample(n = 166) %>%
   # slice_head(n = 166) %>%
   mutate(
@@ -279,16 +279,15 @@ outbreaks::ebola_sim_clean$linelist %>%
       rowname <= 166 ~ "now",
       TRUE ~ "then"
     )
-  ) %>% 
-  # count(looking)
+  ) %>%
   slice_head(n = 100) %>%
-  select(case_id, date_of_infection, date_of_onset) %>% 
-  pivot_longer(cols = -case_id, names_to = "date_type", values_to = "date") %>% 
-  count(date, date_type) %>% 
-  group_by(date_type) %>% 
-  mutate(cumulative = cumsum(n)) %>% 
-  ungroup() %>% 
-  ggplot(aes(x = date, y = cumulative, color = date_type)) + 
+  select(case_id, date_of_infection, date_of_onset) %>%
+  pivot_longer(cols = -case_id, names_to = "date_type", values_to = "date") %>%
+  count(date, date_type) %>%
+  group_by(date_type) %>%
+  mutate(cumulative = cumsum(n)) %>%
+  ungroup() %>%
+  ggplot(aes(x = date, y = cumulative, color = date_type)) +
   geom_line()
 ```
 
@@ -328,11 +327,15 @@ cases_delay <- cases %>%
   mutate(incubation_period = date_of_onset - date_of_infection) %>%
   mutate(incubation_period_num = as.numeric(incubation_period)) %>%
   filter(!is.na(incubation_period_num))
-
-cases_delay %>% pull(incubation_period_num)
 ```
 
 ```{r}
+cases_delay %>% pull(incubation_period_num)
+```
+
+Try this yourself:
+
+```{r,eval=FALSE,echo=TRUE}
 cases_delay$incubation_period_num
 ```
 
@@ -350,11 +353,15 @@ incubation_period_fit <- cases %>%
   filter(!is.na(incubation_period_num)) %>%
   pull(incubation_period_num) %>%
   fitdistrplus::fitdist(distr = "lnorm")
-
-incubation_period_fit %>% pluck("estimate")
 ```
 
 ```{r}
+incubation_period_fit %>% pluck("estimate")
+```
+
+Try this yourself:
+
+```{r,eval=FALSE,echo=TRUE}
 incubation_period_fit$estimate
 ```
 
