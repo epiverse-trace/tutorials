@@ -6,10 +6,10 @@ exercises: 2
 
 :::::::::::::::::::::::::::::::::::::: questions 
 
-- How to calculate the naive case fatality risk (CFR)?
-- How to calculate delays using line list data?
-- How to visualize transmission patterns using line list data?
-- How to fit a probability distribution to delay data?
+- How to calculate the _naive_ case fatality risk (CFR)?
+- How to visualize transmission from line list data?
+- How to calculate delays from line list data?
+- How to fit a probability distribution to delays?
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -38,9 +38,33 @@ exercises: 2
 
 ::::::::::::::: checklist
 
-let's create a Rmd or quarto file!
+### RStudio projects
 
-<https://quarto.org/docs/get-started/hello/rstudio.html>
+The directory of an RStudio Project named, for example `training`, should look like this:
+
+```
+training/
+|__ data/
+|__ training.Rproj
+```
+
+**RStudio Projects** allows you to use _relative file_ paths with respect to the `R` Project, 
+making your code more portable and less error-prone. 
+Avoids using `setwd()` with _absolute paths_ 
+like `"C:/Users/MyName/WeirdPath/training/data/file.csv"`.
+
+:::::::::::::::
+
+::::::::::::::: challenge
+
+Let's starts by creating `New Quarto Document`!
+
+1. In the RStudio IDE, go to: File > New File > Quarto Document
+2. Accept the default options
+3. Save the file with the name `01-report.qmd`
+4. Use the `Render` button to render the file and preview the output.
+
+To learn more about Quarto, follow their tutorial: <https://quarto.org/docs/get-started/hello/rstudio.html>
 
 <!-- https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1012018 -->
 
@@ -48,24 +72,14 @@ let's create a Rmd or quarto file!
 
 ## Introduction
 
-A new Ebola virus (EVD) outbreak in a fictitious West African country
+A new Ebola Virus Disease (EVD) outbreak has been notified in a fictional country in West Africa. The Ministry of Health is in charge of coordinating the outbreak response, and have contracted you as a consultant in epidemic analysis to inform the response in real time.
 
-- Person-to-person transmission of infectious diseases 
-
-```{r}
-# new Ebola virus outbreak ------------------------------------------------
-
-#' what we know?
-#' - disease: Ebola
-#' - location: western Africa
-#' - data collection: cases are registered in the hospital
-
-```
-
+Let's start by loading the package `{dplyr}` to manipulate data, `{tidyr}` to rearrange it, and `{here}` to write file paths within your RStudio project. We'll use the pipe `%>%` to connect some of their functions, including others from the package `{ggplot2}`, so let's also call to the package `{tidyverse}` that loads them all:
 
 ```{r,eval=TRUE,message=FALSE,warning=FALSE}
 # Load packages
-library(tidyverse) # for {dplyr} functions and the pipe %>%
+library(tidyverse) # loads dplyr, tidyr and ggplot2
+library(here)
 ```
 
 ## Explore data
@@ -108,7 +122,7 @@ The `{here}` package is ideal for adding one more layer of reproducibility to yo
 # quality evaluation ------------------------------------------------------
 
 cases %>%
-  glimpse()
+  dplyr::glimpse()
 
 cases %>%
   cleanepi::scan_data()
@@ -125,25 +139,28 @@ cases %>%
 ## Calculate severity
 
 ```{r}
-# severity ----------------------------------------------------------------
-
 # case fatality risk -----------------------------------------------------
 
 cases %>%
-  count(outcome)
+  dplyr::count(outcome)
+```
 
+```{r}
 # should I consider missing outcomes for CFR? -----------------------------
 
 cases %>%
-  count(outcome) %>%
-  pivot_wider(names_from = outcome, values_from = n) %>%
+  dplyr::count(outcome) %>%
+  tidyr::pivot_wider(names_from = outcome, values_from = n) %>%
   cleanepi::standardize_column_names() %>%
-  mutate(cases_known_outcome = death + recover)
+  dplyr::mutate(cases_known_outcome = death + recover)
 ```
+
 
 :::::::::::: challenge
 
-Calculate the CFR as the division of known deaths among known outcomes. Do this by adding one more pipe `%>%` in the last code chunk. Report:
+Calculate the CFR as the division of known deaths among known outcomes. Do this by adding one more pipe `%>%` in the last code chunk. 
+
+Report:
 
 - What is the value of the _naive_ CFR?
 
@@ -166,11 +183,11 @@ cases %>%
 
 ```{r}
 cases %>%
-  count(outcome) %>%
-  pivot_wider(names_from = outcome, values_from = n) %>%
+  dplyr::count(outcome) %>%
+  tidyr::pivot_wider(names_from = outcome, values_from = n) %>%
   cleanepi::standardize_column_names() %>%
-  mutate(cases_known_outcome = death + recover) %>%
-  mutate(cfr = death / cases_known_outcome)
+  dplyr::mutate(cases_known_outcome = death + recover) %>%
+  dplyr::mutate(cfr = death / cases_known_outcome)
 ```
 
 This calculation is _naive_ because it tends to yield a biased and mostly underestimated CFR due to the time-delay from onset to death, only stabilising at the later stages of the outbreak.
@@ -190,30 +207,34 @@ The time between sequence of dated events can vary between subjects.
 set.seed(99)
 
 cases_select <- cases %>%
-  slice_sample(n = 30) %>%
-  arrange(date_of_onset) %>%
-  mutate(case_id = fct_inorder(case_id)) %>%
+  dplyr::slice_sample(n = 30) %>%
+  dplyr::arrange(date_of_onset) %>%
+  dplyr::mutate(case_id = fct_inorder(case_id)) %>%
   # slice(10:40) %>%
-  select(
+  dplyr::select(
     case_id,
     date_of_onset,
     date_of_hospitalisation
   )
 
 cases_long <- cases_select %>%
-  pivot_longer(cols = -case_id,names_to = "date_type",values_to = "date") %>% 
-  mutate(date_type = fct_relevel(date_type, "date_of_onset")) 
+  tidyr::pivot_longer(
+    cols = -case_id,
+    names_to = "date_type",
+    values_to = "date"
+  ) %>%
+  dplyr::mutate(date_type = fct_relevel(date_type, "date_of_onset"))
 
 ggplot() +
   geom_segment(
     data = cases_select,
-    aes(x = date_of_onset, y = case_id, 
+    aes(x = date_of_onset, y = case_id,
         xend = date_of_hospitalisation, yend = case_id),
     color = "grey"
   ) +
   geom_point(
     data = cases_long,
-    aes(x = date,y = case_id, color = date_type),
+    aes(x = date, y = case_id, color = date_type),
     alpha = 0.5, size = 3
   ) +
   colorspace::scale_color_discrete_diverging(palette = "Blue-Red 2")
@@ -223,8 +244,8 @@ ggplot() +
 #' date of hospitalization means the date of report
 
 cases %>%
-  select(case_id, date_of_onset, date_of_hospitalisation) %>%
-  mutate(reporting_delay = date_of_hospitalisation - date_of_onset) %>%
+  dplyr::select(case_id, date_of_onset, date_of_hospitalisation) %>%
+  dplyr::mutate(reporting_delay = date_of_hospitalisation - date_of_onset) %>%
   ggplot(aes(x = reporting_delay)) +
   geom_histogram(binwidth = 1)
 ```
@@ -266,8 +287,8 @@ We can use `dplyr::filter()` again to identify the inconsistent observations:
 cases %>%
   dplyr::select(case_id, date_of_onset, date_of_outcome, outcome) %>%
   dplyr::filter(outcome == "Death") %>%
-  dplyr::mutate(delay_onset_death = date_of_outcome - date_of_onset) %>% 
-  dplyr::filter(delay_onset_death<1)
+  dplyr::mutate(delay_onset_death = date_of_outcome - date_of_onset) %>%
+  dplyr::filter(delay_onset_death < 1)
 ```
 
 
@@ -302,39 +323,43 @@ cases %>%
 
 However, as seen before, the date of onset of symptoms is a delayed measurement with respect to the date of infection.
 
+On the last date of hospitalisation, which is the date when the case is registered in the data collection system, the last date of onset of symptoms happened some days ago:
+
+```{r}
+cases %>%
+  dplyr::summarise(
+    max(date_of_onset),
+    max(date_of_hospitalisation)
+  )
+```
+
+
 There is an average time delay between the date of infection, date of onset, date of hospitalisation, and date of outcome.
 
 ```{r,eval=TRUE,echo=FALSE,warning=FALSE,message=FALSE}
-library(tidyverse)
-outbreaks::ebola_sim_clean$linelist %>%
-  # slice_sample(n = 166) %>%
-  dplyr::as_tibble() %>% 
-  incidence2::incidence(
-    date_index = c(
-      "date_of_infection",
-      "date_of_onset",
-      "date_of_outcome"
-    ),
-    interval = "week",
-    complete_dates = TRUE
-  ) %>% 
+cases %>%
   dplyr::mutate(
-    count_variable = fct_relevel(
-      count_variable,
-      "date_of_infection",
-      "date_of_onset",
-      "date_of_outcome"
+    delayed = dplyr::case_when(
+      # date_of_hospitalisation < max(date_of_hospitalisation)-(7 * 5) ~
+      #   "5 weeks before",
+      # date_of_hospitalisation < max(date_of_hospitalisation)-(7 * 4) ~
+      #   "4 weeks before",
+      date_of_hospitalisation < max(date_of_hospitalisation) - (7 * 2) ~
+        "2 week before",
+      TRUE ~ "Today"
     )
   ) %>%
-  plot(
-    # show_cases = TRUE, 
-    angle = 45,
-    n_breaks = 15
-  ) +
-  geom_vline(xintercept = grates::as_isoweek(ymd(20140825)), linetype = 3)
+  mutate(
+    delayed = forcats::fct_relevel(delayed, "Today")
+  ) %>%
+  ggplot(aes(date_of_onset, fill = delayed)) +
+  geom_histogram(binwidth = 7) +
+  labs(fill = "Observed cases")
 ```
 
 In order to account for these time delays when estimating indicators of severity or transmission, we need to input delays as **Probability Distributions**!
+
+## Fit a probability distribution to delays
 
 ::::::::::::::::::: prereq
 
@@ -347,12 +372,12 @@ Available at: <https://www.youtube.com/watch?v=oI3hZJqXJuc&t>
 
 :::::::::::::::::::
 
-## Try to fit a probability distribution to delays
+
 
 ```{r,warning=FALSE,message=FALSE}
 cases %>%
-  select(case_id, date_of_infection, date_of_onset) %>%
-  mutate(incubation_period = date_of_onset - date_of_infection) %>%
+  dplyr::select(case_id, date_of_infection, date_of_onset) %>%
+  dplyr::mutate(incubation_period = date_of_onset - date_of_infection) %>%
   ggplot(aes(x = incubation_period)) +
   geom_histogram(binwidth = 1)
 ```
@@ -360,11 +385,11 @@ cases %>%
 
 ```{r}
 cases %>%
-  select(case_id, date_of_infection, date_of_onset) %>%
-  mutate(incubation_period = date_of_onset - date_of_infection) %>%
-  mutate(incubation_period_num = as.numeric(incubation_period)) %>%
-  filter(!is.na(incubation_period_num)) %>%
-  pull(incubation_period_num) %>%
+  dplyr::select(case_id, date_of_infection, date_of_onset) %>%
+  dplyr::mutate(incubation_period = date_of_onset - date_of_infection) %>%
+  dplyr::mutate(incubation_period_num = as.numeric(incubation_period)) %>%
+  dplyr::filter(!is.na(incubation_period_num)) %>%
+  dplyr::pull(incubation_period_num) %>%
   fitdistrplus::fitdist(distr = "lnorm") # try: summary and plot
 
 #' explore the
@@ -378,14 +403,14 @@ cases %>%
 
 ```{r}
 cases_delay <- cases %>%
-  select(case_id, date_of_infection, date_of_onset) %>%
-  mutate(incubation_period = date_of_onset - date_of_infection) %>%
-  mutate(incubation_period_num = as.numeric(incubation_period)) %>%
-  filter(!is.na(incubation_period_num))
+  dplyr::select(case_id, date_of_infection, date_of_onset) %>%
+  dplyr::mutate(incubation_period = date_of_onset - date_of_infection) %>%
+  dplyr::mutate(incubation_period_num = as.numeric(incubation_period)) %>%
+  dplyr::filter(!is.na(incubation_period_num))
 ```
 
 ```{r}
-cases_delay %>% pull(incubation_period_num)
+cases_delay %>% dplyr::pull(incubation_period_num)
 ```
 
 Try this yourself:
@@ -402,16 +427,16 @@ cases_delay$incubation_period_num
 
 ```{r}
 incubation_period_fit <- cases %>%
-  select(case_id, date_of_infection, date_of_onset) %>%
-  mutate(incubation_period = date_of_onset - date_of_infection) %>%
-  mutate(incubation_period_num = as.numeric(incubation_period)) %>%
-  filter(!is.na(incubation_period_num)) %>%
-  pull(incubation_period_num) %>%
+  dplyr::select(case_id, date_of_infection, date_of_onset) %>%
+  dplyr::mutate(incubation_period = date_of_onset - date_of_infection) %>%
+  dplyr::mutate(incubation_period_num = as.numeric(incubation_period)) %>%
+  dplyr::filter(!is.na(incubation_period_num)) %>%
+  dplyr::pull(incubation_period_num) %>%
   fitdistrplus::fitdist(distr = "lnorm")
 ```
 
 ```{r}
-incubation_period_fit %>% pluck("estimate")
+incubation_period_fit %>% purrr::pluck("estimate")
 ```
 
 Try this yourself:
@@ -515,3 +540,6 @@ qlnorm(p = 0.99, meanlog = 1.995979, sdlog = 0.776226)
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
+### References
+
+- Cori, A. et al. (2019) Real-time outbreak analysis: Ebola as a case study - part 1 · Recon Learn, RECON learn. Available at: https://www.reconlearn.org/post/real-time-response-1 (Accessed: 06 November 2024). 
