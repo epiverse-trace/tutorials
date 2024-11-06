@@ -360,17 +360,19 @@ Philos Trans R Soc Lond B Biol Sci. 2019 Jul 8;374(1776):20180276.
 doi: 10.1098/rstb.2018.0276. PMID: 31104603; PMCID: PMC6558557.
 -->
 
-**Watch** four 5-minute video refreshers on statistical distributions:
+**Watch** three 5-minute video refreshers on statistical distributions:
 
 - StatQuest with Josh Starmer (2017) 
 **The Main Ideas behind Probability Distributions**, YouTube. 
 Available at: <https://www.youtube.com/watch?v=oI3hZJqXJuc&t> 
 <!--(Accessed: 30 October 2024).-->
 
+<!--
 - StatQuest with Josh Starmer (2015)
 **Confidence Intervals, Clearly Explained!!!**, YouTube.
 Available at: <https://www.youtube.com/watch?v=TqOeMYtOc1w>
-<!--(Accessed: 04 November 2024).-->
+(Accessed: 04 November 2024).
+-->
 
 - StatQuest with Josh Starmer (2018) 
 **Probability is not Likelihood. Find out why!!!**, YouTube. 
