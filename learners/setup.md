@@ -144,7 +144,7 @@ if(!require("pak")) install.packages("pak")
 
 new_packages <- c(
   # for Early Task tutorials
-  "cleanepi",
+  "epiverse-trace/cleanepi",
   "rio",
   "here",
   "DBI",
@@ -155,6 +155,8 @@ new_packages <- c(
   "incidence2",
   "epiverse-trace/tracetheme",
   "tidyverse",
+  "rmarkdown",
+  "quarto",
   # for Middle Task tutorials
   "EpiNow2",
   "epiverse-trace/epiparameter",
