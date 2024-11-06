@@ -9,7 +9,7 @@ exercises: 2
 - How to calculate the naive case fatality risk (CFR)?
 - How to calculate delays using line list data?
 - How to visualize transmission patterns using line list data?
-- How to fit a statistical distribution to delay data?
+- How to fit a probability distribution to delay data?
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -26,18 +26,6 @@ exercises: 2
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
-
-#### Basic concepts to be developed
-
-The following concepts will be developed in this practice:
-
-
-- Person-to-person transmission of infectious diseases 
-
-
-
-- Incidence curve
-
 :::::::::: prereq
 
 ### Setup a project and folder
@@ -50,7 +38,9 @@ The following concepts will be developed in this practice:
 
 ::::::::::::::: checklist
 
-<!-- let's create a Rmd or quarto file! -->
+let's create a Rmd or quarto file!
+
+<https://quarto.org/docs/get-started/hello/rstudio.html>
 
 <!-- https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1012018 -->
 
@@ -59,6 +49,8 @@ The following concepts will be developed in this practice:
 ## Introduction
 
 A new Ebola virus (EVD) outbreak in a fictitious West African country
+
+- Person-to-person transmission of infectious diseases 
 
 ```{r}
 # new Ebola virus outbreak ------------------------------------------------
@@ -153,7 +145,7 @@ cases %>%
 
 Calculate the CFR as the division of known deaths among known outcomes. Do this by adding one more pipe `%>%` in the last code chunk. Report:
 
-- What is the value of the naive CFR?
+- What is the value of the _naive_ CFR?
 
 :::::::::::: hint
 
@@ -181,47 +173,53 @@ cases %>%
   mutate(cfr = death / cases_known_outcome)
 ```
 
-::::::::::::
+This calculation is _naive_ because it tends to yield a biased and mostly underestimated CFR due to the time-delay from onset to death, only stabilising at the later stages of the outbreak.
 
 ::::::::::::
 
-However, how much time it would take for us register those outcomes?
+::::::::::::
+
+However, how much time it would take for us register those outcomes? For this we need to calculate delays!
+
+## Calculate delays
+
+The time between sequence of dated events can vary between subjects.
 
 ```{r,echo=FALSE,eval=TRUE}
 # demo code not to run by learner
-cases %>%
+set.seed(99)
+
+cases_select <- cases %>%
   slice_sample(n = 30) %>%
   arrange(date_of_onset) %>%
   mutate(case_id = fct_inorder(case_id)) %>%
   # slice(10:40) %>%
   select(
-    x = case_id,
-    value1 = date_of_onset,
-    value2 = date_of_hospitalisation
-  ) %>%
-  ggplot() +
+    case_id,
+    date_of_onset,
+    date_of_hospitalisation
+  )
+
+cases_long <- cases_select %>%
+  pivot_longer(cols = -case_id,names_to = "date_type",values_to = "date") %>% 
+  mutate(date_type = fct_relevel(date_type, "date_of_onset")) 
+
+ggplot() +
   geom_segment(
-    aes(x = x, xend = x, y = value1, yend = value2),
+    data = cases_select,
+    aes(x = date_of_onset, y = case_id, 
+        xend = date_of_hospitalisation, yend = case_id),
     color = "grey"
   ) +
   geom_point(
-    aes(x = x, y = value1),
-    color = "darkgreen",
-    size = 3,
-    alpha = 0.5
+    data = cases_long,
+    aes(x = date,y = case_id, color = date_type),
+    alpha = 0.5, size = 3
   ) +
-  geom_point(
-    aes(x = x, y = value2),
-    color = "red",
-    size = 3,
-    alpha = 0.5
-  ) +
-  coord_flip()
+  colorspace::scale_color_discrete_diverging(palette = "Blue-Red 2")
 ```
 
-## Calculate delays
-
-```{r}
+```{r,warning=FALSE,message=FALSE}
 #' date of hospitalization means the date of report
 
 cases %>%
@@ -238,27 +236,40 @@ Calculate the delay from onset to death.
 
 ::::::::::::: hint
 
-We can keep the rows that match the following logical statement: `outcome == "Death"`.
+We can keep the rows that match a given logical statement, like `outcome == "Death"`, using the function `dplyr::filter()`:
 
 ```{r,eval=FALSE,echo=TRUE}
 cases %>%
-  filter(outcome == "Death")
+  dplyr::filter(outcome == "Death")
 ```
 
 :::::::::::::
 
 ::::::::::::: solution
 
-```{r}
+```{r,warning=FALSE,message=FALSE}
 cases %>%
-  select(case_id, date_of_onset, date_of_outcome, outcome) %>%
-  filter(outcome == "Death") %>%
-  mutate(delay_onset_death = date_of_outcome - date_of_onset) %>%
+  dplyr::select(case_id, date_of_onset, date_of_outcome, outcome) %>%
+  dplyr::filter(outcome == "Death") %>%
+  dplyr::mutate(delay_onset_death = date_of_outcome - date_of_onset) %>%
   ggplot(aes(x = delay_onset_death)) +
   geom_histogram(binwidth = 1)
 ```
 
-Is is consistent to have negative delays from secondary observations?
+Wait! Is is consistent to have negative time delays from primary to secondary observations, like from date of onset to date of death?
+
+In the next episode we will learn how to check sequence of dated-events and more inconsistencies!
+
+We can use `dplyr::filter()` again to identify the inconsistent observations:
+
+```{r}
+cases %>%
+  dplyr::select(case_id, date_of_onset, date_of_outcome, outcome) %>%
+  dplyr::filter(outcome == "Death") %>%
+  dplyr::mutate(delay_onset_death = date_of_outcome - date_of_onset) %>% 
+  dplyr::filter(delay_onset_death<1)
+```
+
 
 :::::::::::::
 
@@ -266,6 +277,8 @@ Is is consistent to have negative delays from secondary observations?
 
 
 ## Visualize transmission
+
+- Incidence curve
 
 aggregate the date by intervals of 7 days
 
@@ -287,35 +300,56 @@ cases %>%
 # what is the name of the delay from infection to symptom onset? ----------
 ```
 
-```{r,eval=TRUE,echo=FALSE}
+However, as seen before, the date of onset of symptoms is a delayed measurement with respect to the date of infection.
+
+There is an average time delay between the date of infection, date of onset, date of hospitalisation, and date of outcome.
+
+```{r,eval=TRUE,echo=FALSE,warning=FALSE,message=FALSE}
+library(tidyverse)
 outbreaks::ebola_sim_clean$linelist %>%
-  as_tibble() %>%
-  arrange(date_of_infection) %>%
-  rownames_to_column() %>%
-  mutate(rowname = as.numeric(rowname)) %>%
   # slice_sample(n = 166) %>%
-  # slice_head(n = 166) %>%
-  mutate(
-    looking = case_when(
-      rowname <= 166 ~ "now",
-      TRUE ~ "then"
+  dplyr::as_tibble() %>% 
+  incidence2::incidence(
+    date_index = c(
+      "date_of_infection",
+      "date_of_onset",
+      "date_of_outcome"
+    ),
+    interval = "week",
+    complete_dates = TRUE
+  ) %>% 
+  dplyr::mutate(
+    count_variable = fct_relevel(
+      count_variable,
+      "date_of_infection",
+      "date_of_onset",
+      "date_of_outcome"
     )
   ) %>%
-  slice_head(n = 100) %>%
-  select(case_id, date_of_infection, date_of_onset) %>%
-  pivot_longer(cols = -case_id, names_to = "date_type", values_to = "date") %>%
-  count(date, date_type) %>%
-  group_by(date_type) %>%
-  mutate(cumulative = cumsum(n)) %>%
-  ungroup() %>%
-  ggplot(aes(x = date, y = cumulative, color = date_type)) +
-  geom_line()
+  plot(
+    # show_cases = TRUE, 
+    angle = 45,
+    n_breaks = 15
+  ) +
+  geom_vline(xintercept = grates::as_isoweek(ymd(20140825)), linetype = 3)
 ```
 
+In order to account for these time delays when estimating indicators of severity or transmission, we need to input delays as **Probability Distributions**!
 
-## Try to fit a statistical distribution to delays
+::::::::::::::::::: prereq
 
-```{r}
+**Watch** one 5-minute video refresher on probability distributions:
+
+- StatQuest with Josh Starmer (2017) 
+**The Main Ideas behind Probability Distributions**, YouTube. 
+Available at: <https://www.youtube.com/watch?v=oI3hZJqXJuc&t> 
+<!--(Accessed: 30 October 2024).-->
+
+:::::::::::::::::::
+
+## Try to fit a probability distribution to delays
+
+```{r,warning=FALSE,message=FALSE}
 cases %>%
   select(case_id, date_of_infection, date_of_onset) %>%
   mutate(incubation_period = date_of_onset - date_of_infection) %>%
@@ -386,9 +420,25 @@ Try this yourself:
 incubation_period_fit$estimate
 ```
 
+But, how do you access to the specific parameter?
+
 :::::::::::::::
 
-## Why to fit a distribution to data?
+:::::::::::::::::::::::::::::: testimonial
+
+### A code completion tip
+
+If we write the **square brackets** `[]` next to the object `incubation_period_fit$estimate[]`, within `[]` we can use the 
+Tab key <kbd>↹</kbd> 
+for [code completion feature](https://support.posit.co/hc/en-us/articles/205273297-Code-Completion-in-the-RStudio-IDE) 
+
+This gives quick access to `incubation_period_fit$estimate["meanlog"]` and `incubation_period_fit$estimate["sdlog"]`. 
+
+We invite you to try this out in code chunks and the R console!
+
+::::::::::::::::::::::::::::::
+
+## Why to fit a probability distribution to data?
 
 ```{r}
 # why to fit a distribution to observed data? -----------------------------
@@ -399,7 +449,7 @@ incubation_period_fit$estimate
 #' steps
 #' - calculate the time difference
 #' - plot
-#' - fit a distribution (obtain distribution parameters)
+#' - fit a probability distribution (obtain distribution parameters)
 #' - do inferences
 #'
 #' from the incubation period distribution
@@ -461,7 +511,7 @@ qlnorm(p = 0.99, meanlog = 1.995979, sdlog = 0.776226)
 
 - Use packages from the `tidyverse` like `{dplyr}`, `{tidyr}`, and `{ggplot}` for exploratory data analysis.
 - Epidemiological delays conditions the estimation of indicators for severity or transmission. 
-- Fit statistical distribution to delays to make inferences from them for decision making.
+- Fit probability distribution to delays to make inferences from them for decision making.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
