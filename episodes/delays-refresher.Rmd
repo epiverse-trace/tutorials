@@ -166,12 +166,25 @@ Useful data are:
 
 You may notice that there are **missing** entries.
 
+<!--
 An important step in analysis is to identify any mistakes in data entry. The package `{cleanepi}` includes one function called `scan_data()` to get the percentage of missing observations per variable:
 
 ```{r}
 cases %>%
   cleanepi::scan_data()
 ```
+-->
+
+::::::::::::: spoiler
+
+We can also explore missing data with summary a visualization:
+
+```{r}
+cases %>%
+  visdat::vis_miss()
+```
+
+:::::::::::::
 
 :::::::::::: discussion
 
@@ -183,17 +196,6 @@ Why do we have more missings on date of infection or date of outcome?
 
 - date of infection: mostly unknown, depended on limited coverage of contact tracing or outbreak research, and sensitive to recall bias from subjects.
 - date of outcome: reporting delay
-
-:::::::::::::
-
-::::::::::::: spoiler
-
-We can also explore missing data with summary a visualization:
-
-```{r}
-cases %>%
-  visdat::vis_miss()
-```
 
 :::::::::::::
 
@@ -315,13 +317,13 @@ cases %>%
   dplyr::mutate(cfr = death / (death + recover + na))
 ```
 
-Considering unknown outcomes underestimates the _naive_ CFR calculation.
+Due to **right-censoring bias**, if we include observations with unknown final status we can underestimate the true CFR.
 
 ::::::::::::
 
 ::::::::::::
 
-However, in average, how much time it would take to know the outcomes of those cases? For this we can calculate **delays**!
+Data today will not include outcomes from patients that are still hospitalised. Then, one relevant question to ask is: In average, how much time it would take to know the outcomes of those cases? For this we can calculate **delays**!
 
 ## Calculate delays
 
