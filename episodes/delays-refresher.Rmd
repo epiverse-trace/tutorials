@@ -626,18 +626,6 @@ Available at: <https://www.youtube.com/watch?v=oI3hZJqXJuc&t>
 
 :::::::::::::::::::
 
-:::::::::::: checklist
-
-**Functions for the Normal distribution**
-
-If you need it, read in detail about the [R probability functions for the normal distribution](https://sakai.unc.edu/access/content/group/3d1eb92e-7848-4f55-90c3-7c72a54e7e43/public/docs/lectures/lecture13.htm#probfunc), each of its definitions and identify in which part of a distribution they are located!
-
-![The four probability functions for the normal distribution ([Jack Weiss, 2012](https://sakai.unc.edu/access/content/group/3d1eb92e-7848-4f55-90c3-7c72a54e7e43/public/docs/lectures/lecture13.htm#probfunc))](fig/fig5a-normaldistribution.png)
-
-If you look at `?stats::Distributions`, each type of distribution has a unique set of functions and different parameters. To relate Distribution functions and its parameters we suggest to explore a shinyapp called **The Distribution Zoo**: <https://ben18785.shinyapps.io/distribution-zoo/>
-
-::::::::::::::::::::
-
 We fit a probability distribution to data (like delays) to make inferences about it. These inferences can be useful for Public health interventions and decision making. 
 
 For example, from the [incubation period](reference.md#incubation) distribution we can inform the length of active monitoring or quarantine by inferring the time by which 99% of infected individuals are expected to show symptoms [Lauer et al., 2020](https://pubmed.ncbi.nlm.nih.gov/32150748/).
@@ -660,6 +648,24 @@ cases %>%
 ```
 
 Use `summary()` to find goodness-of-fit statistics from the Maximum likelihood. Use `plot()` to visualize the fitted density function and other quality control plots.
+
+Now we can do inferences from the reporting delay distribution! For example, assuming that the this delay follows a Log Normal distribution, we can use `plnorm()` to calculate the probability of observing a reporting delay of 14 days or less:
+
+```{r}
+plnorm(q = 14, meanlog = 1.0488098, sdlog = 0.8465102)
+```
+
+:::::::::::: checklist
+
+**Functions for the Normal distribution**
+
+If you need it, read in detail about the [R probability functions for the normal distribution](https://sakai.unc.edu/access/content/group/3d1eb92e-7848-4f55-90c3-7c72a54e7e43/public/docs/lectures/lecture13.htm#probfunc), each of its definitions and identify in which part of a distribution they are located!
+
+![The four probability functions for the normal distribution ([Jack Weiss, 2012](https://sakai.unc.edu/access/content/group/3d1eb92e-7848-4f55-90c3-7c72a54e7e43/public/docs/lectures/lecture13.htm#probfunc))](fig/fig5a-normaldistribution.png)
+
+If you look at `?stats::Distributions`, each type of distribution has a unique set of functions and different parameters. To relate Distribution functions and its parameters we suggest to explore a shinyapp called **The Distribution Zoo**: <https://ben18785.shinyapps.io/distribution-zoo/>
+
+::::::::::::::::::::
 
 ::::::::::::::: testimonial
 
@@ -694,32 +700,6 @@ We need to add two more to the list:
 :::::::::::::
 
 ::::::::::::::: tab
-
-### The dollar sign `$` can `pull()`
-
-Let's assign to `cases_delay` the filtered data frame with positive values for the observed reporting delays.
-
-```{r}
-cases_delay <- cases %>%
-  dplyr::select(case_id, date_of_onset, date_of_hospitalisation) %>%
-  dplyr::mutate(reporting_delay = date_of_hospitalisation - date_of_onset) %>%
-  dplyr::mutate(reporting_delay_num = as.numeric(reporting_delay)) %>%
-  dplyr::filter(reporting_delay_num > 0)
-```
-
-We can use `dplyr::pull()` to extract a single column:
-
-```{r}
-cases_delay %>%
-  dplyr::pull(reporting_delay_num)
-```
-
-The code below provides an equivalent result. Try this yourself:
-
-```{r,eval=FALSE,echo=TRUE}
-cases_delay$reporting_delay_num
-```
-
 
 ### The dollar sign `$` can `pluck()`
 
@@ -756,6 +736,31 @@ reporting_delay_fit$estimate
 ```
 
 But, how do you access to one specific parameter?
+
+### The dollar sign `$` can `pull()`
+
+Let's assign to `cases_delay` the filtered data frame with positive values for the observed reporting delays.
+
+```{r}
+cases_delay <- cases %>%
+  dplyr::select(case_id, date_of_onset, date_of_hospitalisation) %>%
+  dplyr::mutate(reporting_delay = date_of_hospitalisation - date_of_onset) %>%
+  dplyr::mutate(reporting_delay_num = as.numeric(reporting_delay)) %>%
+  dplyr::filter(reporting_delay_num > 0)
+```
+
+We can use `dplyr::pull()` to extract a single column:
+
+```{r}
+cases_delay %>%
+  dplyr::pull(reporting_delay_num)
+```
+
+The code below provides an equivalent result. Try this yourself:
+
+```{r,eval=FALSE,echo=TRUE}
+cases_delay$reporting_delay_num
+```
 
 :::::::::::::::
 
