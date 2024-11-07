@@ -26,6 +26,16 @@ exercises: 2
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
+:::::::::: instructor
+
+Useful concepts maps to teach this episode are
+
+- <https://github.com/rstudio/concept-maps?tab=readme-ov-file#dplyr>
+- <https://github.com/rstudio/concept-maps?tab=readme-ov-file#pipe-operator>
+- <https://github.com/rstudio/concept-maps?tab=readme-ov-file#pivoting>
+
+::::::::::
+
 :::::::::: prereq
 
 **Setup an RStudio project and folder**
@@ -341,21 +351,29 @@ cases_long <- cases_select %>%
   dplyr::mutate(date_type = fct_relevel(date_type, "date_of_onset"))
 
 ggplot() +
+  geom_point(
+    data = cases_long,
+    aes(x = date, y = case_id, color = date_type),
+    alpha = 0.5, size = 3
+  ) +
   geom_segment(
     data = cases_select,
     aes(x = date_of_onset, y = case_id,
         xend = date_of_hospitalisation, yend = case_id),
     color = "grey"
   ) +
-  geom_point(
-    data = cases_long,
-    aes(x = date, y = case_id, color = date_type),
-    alpha = 0.5, size = 3
-  ) +
   colorspace::scale_color_discrete_diverging(palette = "Blue-Red 2")
 ```
 
-Given that the date of hospitalization means the date of report
+Given that the date of hospitalization means the date of report, we can calculate the **reporting delay** from this line list data.
+
+From the `cases` object we will use:
+
+- `dplyr::select()` to keep columns using their names,
+- `dplyr::mutate()` to create one new column `reporting_delay` as a function of existing variables `date_of_hospitalisation` and `date_of_onset`,
+- `ggplot()` to declare the input data frame for a graphic,
+- `aes()` to describe how variables in the data are mapped to visual properties (aesthetics) of `geoms`,
+- `geom_histogram()` to visualise the distribution of a single continuous variable by dividing the x axis into `bins` and counting the number of observations in each `bin`.
 
 ```{r,warning=FALSE,message=FALSE}
 cases %>%
@@ -368,7 +386,11 @@ cases %>%
 
 ::::::::::::::::: challenge
 
-Calculate the delay from onset to death.
+To calculate a _delay-adjusted_ CFR, we need to assume a known the delay from onset to death.
+
+Using the `cases` object:
+
+- Calculate and visualize the delay from onset to death.
 
 ::::::::::::: hint
 
@@ -392,9 +414,15 @@ cases %>%
   geom_histogram(binwidth = 1)
 ```
 
-Wait! Is is consistent to have negative time delays from primary to secondary observations, like from date of onset to date of death?
+Wait! Is is consistent to have negative time delays from primary to secondary observations, i.e., from date of onset to date of death?
 
 In the next episode we will learn how to check sequence of dated-events and more inconsistencies!
+
+But, how would you keep the rows with negative delay values? Try this out.
+
+:::::::::::::
+
+:::::::::::: solution
 
 We can use `dplyr::filter()` again to identify the inconsistent observations:
 
@@ -406,8 +434,7 @@ cases %>%
   dplyr::filter(delay_onset_death < 1)
 ```
 
-
-:::::::::::::
+::::::::::::
 
 :::::::::::::::::
 
