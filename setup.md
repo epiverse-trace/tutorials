@@ -154,6 +154,7 @@ new_packages <- c(
   "epiverse-trace/simulist",
   "incidence2",
   "epiverse-trace/tracetheme",
+  "visdat",
   "tidyverse",
   "rmarkdown",
   "quarto",
@@ -288,7 +289,10 @@ library(linelist)
 library(simulist)
 library(incidence2)
 library(tracetheme)
+library(visdat)
 library(tidyverse)
+library(rmarkdown)
+library(quarto)
 # for Middle Task tutorials
 library(EpiNow2)
 library(epiparameter)
