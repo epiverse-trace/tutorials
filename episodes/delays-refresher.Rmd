@@ -668,8 +668,8 @@ Create a `reprex` with your answer:
 - What is the value of the CFR from the data set in the chuck below?
 
 ```{r}
-outbreaks::ebola_sim_clean %>% 
-  pluck("linelist") %>% 
+outbreaks::ebola_sim_clean %>%
+  pluck("linelist") %>%
   as_tibble()
 ```
 
