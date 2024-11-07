@@ -374,8 +374,8 @@ From the `cases` object we will use:
 - `dplyr::select()` to keep columns using their names,
 - `dplyr::mutate()` to create one new column `reporting_delay` as a function of existing variables `date_of_hospitalisation` and `date_of_onset`,
 - `ggplot()` to declare the input data frame for a graphic,
-- `aes()` to describe how variables in the data are mapped to visual properties (aesthetics) of `geoms`,
-- `geom_histogram()` to visualise the distribution of a single continuous variable by dividing the x axis into `bins` and counting the number of observations in each `bin`.
+- `aes()` to describe how the variable `reporting_delay` will be mapped to visual properties (aesthetics) of `geoms`,
+- `geom_histogram()` to visualise the distribution of a single continuous variable `reporting_delay` by dividing the x axis into `bins` and counting the number of observations in each `bin`, with `binwidth` equal to 1 day.
 
 ```{r,warning=FALSE,message=FALSE}
 cases %>%
@@ -436,6 +436,8 @@ cases %>%
   dplyr::filter(delay_onset_death < 1)
 ```
 
+More on estimating a _delay-adjusted_ CFR on the episode about Estimating outbreak severity.
+
 ::::::::::::
 
 :::::::::::::::::
@@ -443,42 +445,69 @@ cases %>%
 
 ## Visualize transmission
 
-- Incidence curve
+The first question we want to know is simply: how bad is it?. The first step of the analysis is descriptive - we want to draw an epidemic curve or epicurve. This visualises the incidence over time by date of symptom onset.
 
-aggregate the date by intervals of 7 days
+From the `cases` object we will use:
+
+- `ggplot()` to declare the input data frame,
+- `aes()` for the variable `date_of_onset` to map to `geoms`,
+- `geom_histogram()` to visualise the distribution of a single continuous variable with a `binwidth` equal to 7 days.
 
 ```{r}
-
-# transmission ------------------------------------------------------------
-
-# incidence curve ---------------------------------------------------------
-
+# incidence curve
 cases %>%
   ggplot(aes(x = date_of_onset)) +
   geom_histogram(binwidth = 7)
-
-# what transmission indicator can we estimate from the incidence curve? ---
-
-#' the growth rate! by fitting a linear model
-#' more on that on DAY 3-4
-
-# what is the name of the delay from infection to symptom onset? ----------
 ```
 
-However, as seen before, the date of onset of symptoms is a delayed measurement with respect to the date of infection.
+:::::::::::: discussion
 
-On the last date of hospitalisation, which is the date when the case is registered in the data collection system, the last date of onset of symptoms happened some days ago:
+The early phase of an outbreak usually growths exponentially.
+
+- Why exponential growth may not be observed in the most recent weeks?
+
+::::::::::::
+
+::::::::::: instructor
+
+Close inspection of the line list shows that the last date of any entry (by date of hospitalization) is a bit later than the last date of symptom onset.
+
+From the `cases` object we can use:
+
+- `dplyr::summarise()` to summarise each group down to one row,
+- `base::max` to calculate the maximum dates of onset and hospitalisation.
 
 ```{r}
 cases %>%
   dplyr::summarise(
-    max(date_of_onset),
-    max(date_of_hospitalisation)
+    max_onset = max(date_of_onset),
+    max_hospital = max(date_of_hospitalisation)
   )
 ```
 
+:::::::::::
 
-There is an average time delay between the date of infection, date of onset, date of hospitalisation, and date of outcome.
+You may want to examine how long after onset of symptoms cases are hospitalised; this may inform the threshold date you choose, as follows:
+
+```{r}
+cases %>%
+  dplyr::select(case_id, date_of_infection, date_of_onset) %>%
+  dplyr::mutate(incubation_period = date_of_onset - date_of_infection) %>% 
+  dplyr::mutate(incubation_period_num = as.numeric(incubation_period)) %>% 
+  skimr::skim(incubation_period_num)
+```
+
+
+```{r,warning=FALSE,message=FALSE}
+cases %>%
+  dplyr::select(case_id, date_of_infection, date_of_onset) %>%
+  dplyr::mutate(incubation_period = date_of_onset - date_of_infection) %>%
+  ggplot(aes(x = incubation_period)) +
+  geom_histogram(binwidth = 1)
+```
+
+
+
 
 ```{r,eval=TRUE,echo=FALSE,warning=FALSE,message=FALSE}
 cases %>%
@@ -501,7 +530,82 @@ cases %>%
   labs(fill = "Observed cases")
 ```
 
-In order to account for these time delays when estimating indicators of severity or transmission, we need to input delays as **Probability Distributions**!
+:::::::::::::: challenge
+
+Report:
+
+- What transmission indicator can we estimate from the incidence curve?
+
+::::::::: solution
+
+- The growth rate! by fitting a linear model.
+- Th Rt
+
+More on that on episodes about quantifying transmission.
+
+```{r,eval=TRUE,echo=FALSE}
+dat <- cases %>%
+  incidence2::incidence(
+    date_index = "date_of_onset",
+    interval = "week",
+    complete_dates = TRUE
+  )
+
+fitted <- dat %>%
+  # truncate curve to fit withou delays
+  filter(date_index<grates::as_isoweek(ymd(20140625))) %>% 
+  nest() %>%
+  mutate(
+    model  = lapply(
+      data,
+      function(x) glm(count ~ date_index, data = x, family = poisson)
+    )
+  )
+
+intervals <-
+  fitted %>%
+  mutate(result = Map(
+    function(data, model) {
+      data %>%
+        ciTools::add_ci(
+          model,
+          alpha = 0.05,
+          names = c("lower_ci", "upper_ci")
+        ) %>%
+        as_tibble()
+    },
+    data,
+    model
+  )) %>%
+  unnest(result)
+
+plot(dat, angle = 45) +
+  ggplot2::geom_line(
+    ggplot2::aes(date_index, y = pred),
+    data = intervals,
+    inherit.aes = FALSE
+  ) +
+  ggplot2::geom_ribbon(
+    ggplot2::aes(date_index, ymin = lower_ci, ymax = upper_ci),
+    alpha = 0.2,
+    data = intervals,
+    inherit.aes = FALSE,
+    fill = "#BBB67E"
+  )
+```
+
+
+:::::::::
+
+::::::::::::::
+
+In order to account for these time delays when estimating indicators of severity or transmission, in our analysis we need to input delays as **Probability Distributions**!
+
+::::::::::: challenge
+
+- What is the name of the delay from infection to symptom onset?
+
+:::::::::::
 
 ## Fit a probability distribution to delays
 
@@ -518,15 +622,6 @@ Available at: <https://www.youtube.com/watch?v=oI3hZJqXJuc&t>
 
 
 
-```{r,warning=FALSE,message=FALSE}
-cases %>%
-  dplyr::select(case_id, date_of_infection, date_of_onset) %>%
-  dplyr::mutate(incubation_period = date_of_onset - date_of_infection) %>%
-  ggplot(aes(x = incubation_period)) +
-  geom_histogram(binwidth = 1)
-```
-
-
 ```{r}
 cases %>%
   dplyr::select(case_id, date_of_infection, date_of_onset) %>%
@@ -541,17 +636,21 @@ cases %>%
 #' for gamma, weibull, lnorm parameters
 ```
 
+::::::::::::: checklist
+
 Let's review some operators used until now:
 
-- double colon `::`
-- assignment `<-`
-- pipe `%>%` 
-- negation `!`
+- Assignment `<-` assigns a value to a variable from right to left.
+- Double colon `::` to call a function from a specific package.
+- Pipe `%>%` to structure sequences of data operations left-to-right
+- Logical negation `!` to indicate a logical negation (NOT).
+
+:::::::::::::
 
 We need to add two more to the list: 
 
-- dollar sign `$`
-- square brackets `[]`
+- Dollar sign `$`
+- Square brackets `[]`
 
 ::::::::::::::: tab
 
