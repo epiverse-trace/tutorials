@@ -6,10 +6,9 @@ exercises: 2
 
 :::::::::::::::::::::::::::::::::::::: questions 
 
-- How to calculate the _naive_ case fatality risk (CFR)?
-- How to visualize transmission from line list data?
 - How to calculate delays from line list data?
 - How to fit a probability distribution to delays?
+- Why to account for delays in outbreak analytics?
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
