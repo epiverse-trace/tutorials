@@ -338,7 +338,7 @@ set.seed(99)
 cases_select <- cases %>%
   dplyr::slice_sample(n = 30) %>%
   dplyr::arrange(date_of_onset) %>%
-  dplyr::mutate(case_id = fct_inorder(case_id)) %>% 
+  dplyr::mutate(case_id = fct_inorder(case_id)) %>%
   dplyr::mutate(outcome_delay = date_of_outcome - date_of_hospitalisation) %>%
   dplyr::filter(outcome_delay > 0) %>%
   dplyr::select(
@@ -389,7 +389,7 @@ cases %>%
 
 ::::::::::::::::: callout
 
-**Consistency among sequence of dated-events**
+**Inconsistencies among sequence of dated-events?**
 
 Wait! Is is consistent to have negative time delays from primary to secondary observations, i.e., from hospitalisation to death?
 
@@ -454,7 +454,7 @@ More on estimating a _delay-adjusted_ CFR on the episode about Estimating outbre
 
 ## Visualize transmission
 
-The first question we want to know is simply: how bad is it?. The first step of the analysis is descriptive - we want to draw an epidemic curve or epicurve. This visualises the incidence over time by date of symptom onset.
+The first question we want to know is simply: how bad is it? The first step of the analysis is descriptive - we want to draw an epidemic curve or epicurve. This visualises the incidence over time by date of symptom onset.
 
 From the `cases` object we will use:
 
@@ -496,21 +496,7 @@ cases %>%
 
 :::::::::::
 
-You may want to examine how long after onset of symptoms cases are hospitalised; this may inform the threshold date you choose, as follows:
-
-```{r}
-cases %>%
-  dplyr::select(case_id, date_of_onset, date_of_hospitalisation) %>%
-  dplyr::mutate(reporting_delay = date_of_hospitalisation - date_of_onset) %>% 
-  dplyr::mutate(reporting_delay_num = as.numeric(reporting_delay)) %>% 
-  skimr::skim(reporting_delay_num)
-```
-
-
-
-
-
-Given that the date of hospitalization means the date of report, we can calculate the **reporting delay** from this line list data.
+You may want to examine how long after onset of symptoms cases are hospitalised; this may inform the **reporting delay** from this line list data:
 
 From the `cases` object we will use:
 
@@ -528,29 +514,19 @@ cases %>%
   geom_histogram(binwidth = 1)
 ```
 
-
-
-
-
+<!--
 ```{r}
 cases %>%
-  dplyr::select(case_id, date_of_infection, date_of_onset) %>%
-  dplyr::mutate(incubation_period = date_of_onset - date_of_infection) %>% 
-  dplyr::mutate(incubation_period_num = as.numeric(incubation_period)) %>% 
-  skimr::skim(incubation_period_num)
+  dplyr::select(case_id, date_of_onset, date_of_hospitalisation) %>%
+  dplyr::mutate(reporting_delay = date_of_hospitalisation - date_of_onset) %>%
+  dplyr::mutate(reporting_delay_num = as.numeric(reporting_delay)) %>%
+  skimr::skim(reporting_delay_num)
 ```
+-->
 
+The distribution of the reporting delay in day units is heavily skewed. Symptomatic cases can take almost **two weeks** to be reported.
 
-```{r,warning=FALSE,message=FALSE}
-cases %>%
-  dplyr::select(case_id, date_of_infection, date_of_onset) %>%
-  dplyr::mutate(incubation_period = date_of_onset - date_of_infection) %>%
-  ggplot(aes(x = incubation_period)) +
-  geom_histogram(binwidth = 1)
-```
-
-
-
+From cases reported today, we completed the exponential growth trend of incidence cases within the last two weeks:
 
 ```{r,eval=TRUE,echo=FALSE,warning=FALSE,message=FALSE}
 cases %>%
@@ -558,7 +534,7 @@ cases %>%
     delayed = dplyr::case_when(
       # date_of_hospitalisation < max(date_of_hospitalisation)-(7 * 5) ~
       #   "5 weeks before",
-      # date_of_hospitalisation < max(date_of_hospitalisation)-(7 * 4) ~
+      # date_of_hospitalisation < max(date_of_hospitalisation)-(7 * 3) ~
       #   "4 weeks before",
       date_of_hospitalisation < max(date_of_hospitalisation) - (7 * 2) ~
         "2 week before",
@@ -570,21 +546,21 @@ cases %>%
   ) %>%
   ggplot(aes(date_of_onset, fill = delayed)) +
   geom_histogram(binwidth = 7) +
-  labs(fill = "Observed cases")
+  labs(fill = "Reported cases")
 ```
 
 :::::::::::::: challenge
 
 Report:
 
-- What transmission indicator can we estimate from the incidence curve?
+- What indicator can we use to estimate transmission from the incidence curve?
 
 ::::::::: solution
 
 - The growth rate! by fitting a linear model.
-- The reproduction number
+- The reproduction number accounting for delays from secondary observations to infection.
 
-More on that on episodes about quantifying transmission.
+More on this topic on episodes about **Aggregate and visualize** and **Quantifying transmission**.
 
 ```{r,eval=TRUE,echo=FALSE}
 dat <- cases %>%
@@ -596,7 +572,7 @@ dat <- cases %>%
 
 fitted <- dat %>%
   # truncate curve to fit withou delays
-  filter(date_index<grates::as_isoweek(ymd(20140625))) %>% 
+  filter(date_index < grates::as_isoweek(ymd(20140625))) %>%
   nest() %>%
   mutate(
     model  = lapply(
@@ -622,7 +598,7 @@ intervals <-
   )) %>%
   unnest(result)
 
-plot(dat, angle = 45) +
+plot(dat) +
   ggplot2::geom_line(
     ggplot2::aes(date_index, y = pred),
     data = intervals,
@@ -637,18 +613,19 @@ plot(dat, angle = 45) +
   )
 ```
 
+```{r,eval=TRUE,echo=FALSE}
+fitted %>%
+  mutate(fit_tidy = map(.x = model, .f = broom::tidy)) %>%
+  unnest(fit_tidy) %>%
+  select(-data, -model)
+```
+
 
 :::::::::
 
 ::::::::::::::
 
-In order to account for these time delays when estimating indicators of severity or transmission, in our analysis we need to input delays as **Probability Distributions**!
-
-::::::::::: challenge
-
-- What is the name of the delay from infection to symptom onset?
-
-:::::::::::
+Lastly, in order to account for these time delays when estimating indicators of severity or transmission, in our analysis we need to input delays as **Probability Distributions**!
 
 ## Fit a probability distribution to delays
 
@@ -813,6 +790,45 @@ In the next tutorial episodes, we will:
 #' we can make inferences about the window for contact tracing
 #' expand the number of pre-days to include more backward contacts
 ```
+
+:::::::::::::::::::::::: challenge
+
+<!-- summative assessment -->
+
+**Relevant delays when estimating transmission**
+
+- Review the definition of the [incubation period](reference.md#incubation) in our glossary page.
+
+- Calculate the summary statistics of the incubation period distribution observed in the line list data.
+
+- Visualize the distribution of the incubation period distribution observed in the line list data.
+
+::::::::::::: solution
+
+Calculate the summary statistics:
+
+```{r}
+cases %>%
+  dplyr::select(case_id, date_of_infection, date_of_onset) %>%
+  dplyr::mutate(incubation_period = date_of_onset - date_of_infection) %>%
+  skimr::skim(incubation_period)
+```
+
+If you want to get the interquartile range (IQR) you can transform the time to numeric adding one step to the pipeline: `dplyr::mutate(incubation_period_num = as.numeric(incubation_period))`
+
+Visualize the distribution:
+
+```{r,warning=FALSE,message=FALSE}
+cases %>%
+  dplyr::select(case_id, date_of_infection, date_of_onset) %>%
+  dplyr::mutate(incubation_period = date_of_onset - date_of_infection) %>%
+  ggplot(aes(x = incubation_period)) +
+  geom_histogram(binwidth = 1)
+```
+
+:::::::::::::
+
+::::::::::::::::::::::::::
 
 ::::::::::::::: challenge
 
