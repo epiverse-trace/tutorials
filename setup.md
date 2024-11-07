@@ -143,10 +143,16 @@ Open RStudio and **copy and paste** the following code chunk into the [console w
 if(!require("pak")) install.packages("pak")
 
 new_packages <- c(
+  # for Introduction tutorial
+  "here",
+  "tidyverse",
+  "visdat",
+  "skimr",
+  "rmarkdown",
+  "quarto",
   # for Early Task tutorials
   "epiverse-trace/cleanepi",
   "rio",
-  "here",
   "DBI",
   "RSQLite",
   "dbplyr",
@@ -154,10 +160,6 @@ new_packages <- c(
   "epiverse-trace/simulist",
   "incidence2",
   "epiverse-trace/tracetheme",
-  "visdat",
-  "tidyverse",
-  "rmarkdown",
-  "quarto",
   # for Middle Task tutorials
   "EpiNow2",
   "epiverse-trace/epiparameter",
@@ -278,10 +280,16 @@ You should update **all of the packages** required for the tutorial, even if you
 When the installation has finished, you can try to load the packages by pasting the following code into the console:
 
 ```r
+# for Introduction tutorial
+library(here)
+library(tidyverse)
+library(visdat)
+library(skimr)
+library(rmarkdown)
+library(quarto)
 # for Early Task tutorials
 library(cleanepi)
 library(rio)
-library(here)
 library(DBI)
 library(RSQLite)
 library(dbplyr)
@@ -289,10 +297,6 @@ library(linelist)
 library(simulist)
 library(incidence2)
 library(tracetheme)
-library(visdat)
-library(tidyverse)
-library(rmarkdown)
-library(quarto)
 # for Middle Task tutorials
 library(EpiNow2)
 library(epiparameter)
