@@ -1,5 +1,5 @@
 ---
-title: 'delays-refresher'
+title: 'Introduction to outbreak analytics using R'
 teaching: 10
 exercises: 2
 ---
