@@ -84,9 +84,11 @@ library(here)
 
 ## Explore data
 
+For the purpose of this episode, we will read a pre-cleaned line list data. Following episodes will tackle how to solve cleaning tasks.
+
 ```{r,eval=FALSE,echo=TRUE,message=FALSE}
 # Read data
-# e.g.: if path to file is data/simulated_ebola_2.csv then:
+# e.g.: if path to file is data/linelist.rds then:
 cases <- read_rds(
   here::here("data", "linelist.rds")
 )
@@ -97,10 +99,6 @@ cases <- read_rds(
 cases <- read_rds(
   file.path("data", "linelist.rds")
 )
-```
-
-```{r, message=FALSE}
-cases
 ```
 
 :::::::::::::::::::: checklist
@@ -118,23 +116,79 @@ The `{here}` package is ideal for adding one more layer of reproducibility to yo
 
 ::::::::::::::::::::
 
+```{r, message=FALSE}
+# Print line list data
+cases
+```
+
+:::::::::::::: discussion
+
+Take some time to look at the data and structure here.
+
+- Are the data and format similar to line lists that you have seen in the past?
+- If you were part of the outbreak investigation team, what other information might you want to collect?
+
+::::::::::::::
+
+:::::::::::: instructor
+
+The information to collect will depend on the questions we need to give a response.
+
+At the beginning of an outbreak, we need data to give a response to questions like:
+
+- How fast does an epidemic grow?
+- What is the risk of death?
+- How many cases can I expect in the coming days?
+
+Informative indicators are:
+
+- growth rate, reproduction number.
+- case fatality risk, hospitalization fatality risk.
+- projection or forecast of cases.
+
+Useful data are:
+
+- date of onset, date of death.
+- delays from infection to onset, from onset to death.
+- percentage of observations detected by surveillance system.
+- subject characteristics to stratify the analysis by person, place, time.
+
+::::::::::::
+
+You may notice that there are missing entries.  
+An important step in analysis is to identify any mistakes in data entry.
+Although it can be difficult to assess errors in hospital names, we
+would expect the date of infection to always be before the date of
+symptom onset.
+
 ```{r}
-# quality evaluation ------------------------------------------------------
-
-cases %>%
-  dplyr::glimpse()
-
 cases %>%
   cleanepi::scan_data()
+```
 
-# why do we have missing on infection date or outcome? -------------------
+:::::::::::: discussion
 
-#' date of infection: unknown, contact tracing research, recall bias
-#' outcome: reporting delay
+Why do we have more missings on date of infection or date of outcome?
 
+::::::::::::
+
+::::::::::::: instructor
+
+- date of infection: mostly unknown, depended on limited coverage of contact tracing or outbreak research, and sensitive to recall bias from subjects.
+- date of outcome: reporting delay
+
+:::::::::::::
+
+::::::::::::: spoiler
+
+We can also explore missing data with summary visualizations:
+
+```{r}
 cases %>%
   visdat::vis_miss()
 ```
+
+:::::::::::::
 
 ## Calculate severity
 
