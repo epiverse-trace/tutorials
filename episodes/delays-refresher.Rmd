@@ -323,7 +323,7 @@ Due to **right-censoring bias**, if we include observations with unknown final s
 
 ::::::::::::
 
-Data today will not include outcomes from patients that are still hospitalised. Then, one relevant question to ask is: In average, how much time it would take to know the outcomes of those cases? For this we can calculate **delays**!
+Data today will not include outcomes from patients that are still hospitalised. Then, one relevant question to ask is: In average, how much time it would take to know the outcomes of hospitalised cases? For this we can calculate **delays**!
 
 ## Calculate delays
 
@@ -380,6 +380,7 @@ From the `cases` object we will use:
 - `skimr::skim()` to get useful summary statistics
 
 ```{r}
+# delay from report to outcome
 cases %>%
   dplyr::select(case_id, date_of_hospitalisation, date_of_outcome) %>%
   dplyr::mutate(outcome_delay = date_of_outcome - date_of_hospitalisation) %>%
@@ -391,15 +392,15 @@ cases %>%
 
 **Inconsistencies among sequence of dated-events?**
 
-Wait! Is is consistent to have negative time delays from primary to secondary observations, i.e., from hospitalisation to death?
+Wait! Is it consistent to have negative time delays from primary to secondary observations, i.e., from hospitalisation to death?
 
-In the next episode called **Clean data** we will learn how to check sequence of dated-events and more inconsistencies!
+In the next episode called **Clean data** we will learn how to check sequence of dated-events and other frequent and challenging inconsistencies!
 
 :::::::::::::::::
 
 ::::::::::::::::: challenge
 
-To calculate a _delay-adjusted_ CFR, we need to assume a known the delay from onset to death.
+To calculate a _delay-adjusted_ CFR, we need to assume a known delay from onset to death.
 
 Using the `cases` object:
 
@@ -410,8 +411,10 @@ Using the `cases` object:
 Keep the rows that match a condition like `outcome == "Death"`:
 
 ```{r,eval=FALSE,echo=TRUE}
+# delay from onset to death
 cases %>%
-  dplyr::filter(outcome == "Death")
+  dplyr::filter(outcome == "Death") %>%
+  ...() # replace ... with downstream code
 ```
 
 Is it consistent to have negative delays from onset of symptoms to death?
@@ -421,6 +424,7 @@ Is it consistent to have negative delays from onset of symptoms to death?
 ::::::::::::: solution
 
 ```{r,warning=FALSE,message=FALSE}
+# delay from onset to death
 cases %>%
   dplyr::select(case_id, date_of_onset, date_of_outcome, outcome) %>%
   dplyr::filter(outcome == "Death") %>%
@@ -429,7 +433,7 @@ cases %>%
   skimr::skim(delay_onset_death)
 ```
 
-Now, let's say you want to keep the rows with negative delay values to inspect wherethe source of the inconsistency. How would you do it?
+Where is the source of the inconsistency? Let's say you want to keep the rows with negative delay values to investigate them. How would you do it?
 
 :::::::::::::
 
@@ -438,6 +442,7 @@ Now, let's say you want to keep the rows with negative delay values to inspect w
 We can use `dplyr::filter()` again to identify the inconsistent observations:
 
 ```{r}
+# keep negative delays
 cases %>%
   dplyr::select(case_id, date_of_onset, date_of_outcome, outcome) %>%
   dplyr::filter(outcome == "Death") %>%
@@ -445,7 +450,7 @@ cases %>%
   dplyr::filter(delay_onset_death < 0)
 ```
 
-More on estimating a _delay-adjusted_ CFR on the episode about Estimating outbreak severity.
+More on estimating a _delay-adjusted_ CFR on the episode about **Estimating outbreak severity**!
 
 ::::::::::::
 
@@ -454,7 +459,7 @@ More on estimating a _delay-adjusted_ CFR on the episode about Estimating outbre
 
 ## Visualize transmission
 
-The first question we want to know is simply: how bad is it? The first step of the analysis is descriptive - we want to draw an epidemic curve or epicurve. This visualises the incidence over time by date of symptom onset.
+The first question we want to know is simply: how bad is it? The first step of the analysis is descriptive. We want to draw an epidemic curve or epicurve. This visualises the incidence over time by date of symptom onset.
 
 From the `cases` object we will use:
 
@@ -498,15 +503,8 @@ cases %>%
 
 You may want to examine how long after onset of symptoms cases are hospitalised; this may inform the **reporting delay** from this line list data:
 
-From the `cases` object we will use:
-
-- `dplyr::select()` to keep columns using their names,
-- `dplyr::mutate()` to create one new column `reporting_delay` as a function of existing variables `date_of_hospitalisation` and `date_of_onset`,
-- `ggplot()` to declare the input data frame for a graphic,
-- `aes()` to describe how the variable `reporting_delay` will be mapped to visual properties (aesthetics) of `geoms`,
-- `geom_histogram()` to visualise the distribution of a single continuous variable `reporting_delay` by dividing the x axis into `bins` and counting the number of observations in each `bin`, with `binwidth` equal to 1 day.
-
 ```{r,warning=FALSE,message=FALSE}
+# reporting delay
 cases %>%
   dplyr::select(case_id, date_of_onset, date_of_hospitalisation) %>%
   dplyr::mutate(reporting_delay = date_of_hospitalisation - date_of_onset) %>%
@@ -514,31 +512,17 @@ cases %>%
   geom_histogram(binwidth = 1)
 ```
 
-<!--
-```{r}
-cases %>%
-  dplyr::select(case_id, date_of_onset, date_of_hospitalisation) %>%
-  dplyr::mutate(reporting_delay = date_of_hospitalisation - date_of_onset) %>%
-  dplyr::mutate(reporting_delay_num = as.numeric(reporting_delay)) %>%
-  skimr::skim(reporting_delay_num)
-```
--->
+The distribution of the reporting delay in day units is heavily skewed. Symptomatic cases may take up to **two weeks** to be reported.
 
-The distribution of the reporting delay in day units is heavily skewed. Symptomatic cases can take almost **two weeks** to be reported.
-
-From cases reported today, we completed the exponential growth trend of incidence cases within the last two weeks:
+From reports (hospitalisations) in the most recent two weeks, we completed the exponential growth trend of incidence cases within the last four weeks:
 
 ```{r,eval=TRUE,echo=FALSE,warning=FALSE,message=FALSE}
 cases %>%
   dplyr::mutate(
     delayed = dplyr::case_when(
-      # date_of_hospitalisation < max(date_of_hospitalisation)-(7 * 5) ~
-      #   "5 weeks before",
-      # date_of_hospitalisation < max(date_of_hospitalisation)-(7 * 3) ~
-      #   "4 weeks before",
       date_of_hospitalisation < max(date_of_hospitalisation) - (7 * 2) ~
-        "2 week before",
-      TRUE ~ "Today"
+        "Two weeks ago",
+      TRUE ~ "Most recent two weeks"
     )
   ) %>%
   mutate(
@@ -548,6 +532,8 @@ cases %>%
   geom_histogram(binwidth = 7) +
   labs(fill = "Reported cases")
 ```
+
+Given to reporting delays during this outbreak, two weeks ago it seemed that we had a three-week decay of cases. We needed to wait a couple of weeks to complete the incidence of cases on each week.
 
 :::::::::::::: challenge
 
@@ -625,7 +611,7 @@ fitted %>%
 
 ::::::::::::::
 
-Lastly, in order to account for these time delays when estimating indicators of severity or transmission, in our analysis we need to input delays as **Probability Distributions**!
+Lastly, in order to account for these _epidemiological delays_ when estimating indicators of severity or transmission, in our analysis we need to input delays as **Probability Distributions**!
 
 ## Fit a probability distribution to delays
 
@@ -640,21 +626,54 @@ Available at: <https://www.youtube.com/watch?v=oI3hZJqXJuc&t>
 
 :::::::::::::::::::
 
+We fit a probability distribution to data (like delays) to make inferences about it. These inferences can be useful for Public health interventions and decision making. For example, from the [incubation period](reference.md#incubation) distribution we can inform the length of active monitoring or quarantine by inferring the time by which 99% of infected individuals are expected to show symptoms.
 
+:::::::::::: checklist
+
+### Functions for the Normal distribution
+
+If you need it, read in detail about the [R probability functions for the normal distribution](https://sakai.unc.edu/access/content/group/3d1eb92e-7848-4f55-90c3-7c72a54e7e43/public/docs/lectures/lecture13.htm#probfunc), each of its definitions and identify in which part of a distribution they are located!
+
+![The four probability functions for the normal distribution ([Jack Weiss, 2012](https://sakai.unc.edu/access/content/group/3d1eb92e-7848-4f55-90c3-7c72a54e7e43/public/docs/lectures/lecture13.htm#probfunc))](fig/fig5a-normaldistribution.png)
+
+::::::::::::::::::::
+
+If you look at `?stats::Distributions`, each type of distribution has a unique set of functions and different parameters. To relate Distribution functions and its parameters we suggest to explore a shinyapp called **The Distribution Zoo**: <https://ben18785.shinyapps.io/distribution-zoo/>
+
+From the `cases` object we can use:
+
+- `dplyr::mutate()` to transform the `reporting_delay` class object from `<time>` to `<numeric>`,
+- `dplyr::filter()` to keep the positive values,
+- `dplyr::pull()` to extract a single column,
+- `fitdistrplus::fitdist()` to fit a probability distribution using Maximum Likelihood. We can test distributions like the Log Normal (`lnorm`), Gamma, and Weibull.
 
 ```{r}
 cases %>%
-  dplyr::select(case_id, date_of_infection, date_of_onset) %>%
-  dplyr::mutate(incubation_period = date_of_onset - date_of_infection) %>%
-  dplyr::mutate(incubation_period_num = as.numeric(incubation_period)) %>%
-  dplyr::filter(!is.na(incubation_period_num)) %>%
-  dplyr::pull(incubation_period_num) %>%
-  fitdistrplus::fitdist(distr = "lnorm") # try: summary and plot
-
-#' explore the
-#' https://ben18785.shinyapps.io/distribution-zoo/
-#' for gamma, weibull, lnorm parameters
+  dplyr::select(case_id, date_of_onset, date_of_hospitalisation) %>%
+  dplyr::mutate(reporting_delay = date_of_hospitalisation - date_of_onset) %>%
+  dplyr::mutate(reporting_delay_num = as.numeric(reporting_delay)) %>%
+  dplyr::filter(reporting_delay_num > 0) %>%
+  dplyr::pull(reporting_delay_num) %>%
+  fitdistrplus::fitdist(distr = "lnorm")
 ```
+
+Use `summary()` to find goodness-of-fit statistics from the Maximum likelihood. Use `plot()` to visualize the fitted density function and other quality control plots.
+
+::::::::::::::: testimonial
+
+**Estimating epidemiological delays is CHALLENGING!**
+
+Epidemiological delays need to account for biases like censoring, right truncation, or epidemic phase ([Charniga et al., 2024](https://arxiv.org/abs/2405.08841)). 
+ 
+Additionally, at the beginning of an outbreak, limited data or resources exist to perform this during a real-time analysis. Until we have more appropriate data for the specific disease and region of the ongoing outbreak, we can reuse delays from past outbreaks from the same pathogens or close in its phylogeny, independent of the area of origin.
+
+In the following tutorial episodes, we will:
+
+- Access to _epidemiological delays_ and its probability distribution parameters from open-source literature search databases using `{epiparameter}`.
+- Estimate the reproduction number _adjusting for_ incubation period and reporting delays using `{EpiNow2}`.
+- Estimate the case fatality risk (CFR) _adjusting for_ delays between onset of symptoms and disease outcome using `{cfr}`.
+
+:::::::::::::::
 
 ::::::::::::: checklist
 
@@ -663,14 +682,14 @@ Let's review some operators used until now:
 - Assignment `<-` assigns a value to a variable from right to left.
 - Double colon `::` to call a function from a specific package.
 - Pipe `%>%` to structure sequences of data operations left-to-right
-- Logical negation `!` to indicate a logical negation (NOT).
-
-:::::::::::::
+<!-- - Logical negation `!` to indicate a logical negation (NOT). -->
 
 We need to add two more to the list: 
 
 - Dollar sign `$`
 - Square brackets `[]`
+
+:::::::::::::
 
 ::::::::::::::: tab
 
@@ -678,45 +697,45 @@ We need to add two more to the list:
 
 ```{r}
 cases_delay <- cases %>%
-  dplyr::select(case_id, date_of_infection, date_of_onset) %>%
-  dplyr::mutate(incubation_period = date_of_onset - date_of_infection) %>%
-  dplyr::mutate(incubation_period_num = as.numeric(incubation_period)) %>%
-  dplyr::filter(!is.na(incubation_period_num))
+  dplyr::select(case_id, date_of_onset, date_of_hospitalisation) %>%
+  dplyr::mutate(reporting_delay = date_of_hospitalisation - date_of_onset) %>%
+  dplyr::mutate(reporting_delay_num = as.numeric(reporting_delay)) %>%
+  dplyr::filter(reporting_delay_num > 0)
 ```
 
 ```{r}
 cases_delay %>%
-  dplyr::pull(incubation_period_num)
+  dplyr::pull(reporting_delay_num)
 ```
 
 Try this yourself:
 
 ```{r,eval=FALSE,echo=TRUE}
-cases_delay$incubation_period_num
+cases_delay$reporting_delay_num
 ```
 
 
 ### The dollar sign `$` can `pluck()`
 
 ```{r}
-incubation_period_fit <- cases %>%
-  dplyr::select(case_id, date_of_infection, date_of_onset) %>%
-  dplyr::mutate(incubation_period = date_of_onset - date_of_infection) %>%
-  dplyr::mutate(incubation_period_num = as.numeric(incubation_period)) %>%
-  dplyr::filter(!is.na(incubation_period_num)) %>%
-  dplyr::pull(incubation_period_num) %>%
+reporting_delay_fit <- cases %>%
+  dplyr::select(case_id, date_of_onset, date_of_hospitalisation) %>%
+  dplyr::mutate(reporting_delay = date_of_hospitalisation - date_of_onset) %>%
+  dplyr::mutate(reporting_delay_num = as.numeric(reporting_delay)) %>%
+  dplyr::filter(reporting_delay_num > 0) %>%
+  dplyr::pull(reporting_delay_num) %>%
   fitdistrplus::fitdist(distr = "lnorm")
 ```
 
 ```{r}
-incubation_period_fit %>%
+reporting_delay_fit %>%
   purrr::pluck("estimate")
 ```
 
 Try this yourself:
 
 ```{r,eval=FALSE,echo=TRUE}
-incubation_period_fit$estimate
+reporting_delay_fit$estimate
 ```
 
 But, how do you access to the specific parameter?
@@ -727,69 +746,17 @@ But, how do you access to the specific parameter?
 
 **A code completion tip**
 
-If we write the **square brackets** `[]` next to the object `incubation_period_fit$estimate[]`, within `[]` we can use the 
+If we write the **square brackets** `[]` next to the object `reporting_delay_fit$estimate[]`, within `[]` we can use the 
 Tab key <kbd>↹</kbd> 
 for [code completion feature](https://support.posit.co/hc/en-us/articles/205273297-Code-Completion-in-the-RStudio-IDE) 
 
-This gives quick access to `incubation_period_fit$estimate["meanlog"]` and `incubation_period_fit$estimate["sdlog"]`. 
+This gives quick access to `reporting_delay_fit$estimate["meanlog"]` and `reporting_delay_fit$estimate["sdlog"]`. 
 
 We invite you to try this out in code chunks and the R console!
 
 ::::::::::::::::::::::::::::::
 
-## Why to fit a probability distribution to data?
-
-```{r}
-# why to fit a distribution to observed data? -----------------------------
-
-#' the time difference from date infection and date symptom onset
-#' give us the incubation period
-#'
-#' steps
-#' - calculate the time difference
-#' - plot
-#' - fit a probability distribution (obtain distribution parameters)
-#' - do inferences
-#'
-#' from the incubation period distribution
-#' we can infer the length of active monitoring or quarantine
-#' example
-#' within what time frame do 99% of individuals
-#' exhibiting Ebola symptoms exhibit them after infection?
-
-#' review probability functions
-qlnorm(p = 0.99, meanlog = 1.995979, sdlog = 0.776226)
-
-#' reference: https://pubmed.ncbi.nlm.nih.gov/32150748/
-#' Lauer, 2020
-#' The Incubation Period of Coronavirus Disease 2019 (COVID-19)
-#' From Publicly Reported Confirmed Cases: Estimation and Application
-```
-
-::::::::::::::: testimonial
-
-**What to do if we do not have enough data?**
-
-At the beginning of an outbreak, limited data or resources exist to estimate delays accounting for its biases. Until we have more appropriate data for the specific disease and region for the ongoing outbreak, we can reuse delays from past outbreaks from the same pathogens or close in its phylogeny, independent of the area of origin.
-
-In the next tutorial episodes, we will:
-
-- Access and analyse common epidemiological parameters from open-source literature search databases.
-- Estimate key transmission metrics, such as the reproduction number, from case or death data, adjusting for incubation period and reporting delays.
-- Estimate the case fatality risk (CFR) from individual-level and aggregated incidence case and death data, adjusting for delays between onset of symptoms and disease outcome.
-
-:::::::::::::::
-
-```{r}
-# challenge ----------------------------------------------------------------
-
-# use epidemiological times figure TRACE LAC ------------------------------
-
-#' PAHO figure
-#' if we have the serial interval
-#' we can make inferences about the window for contact tracing
-#' expand the number of pre-days to include more backward contacts
-```
+## Challenges
 
 :::::::::::::::::::::::: challenge
 
@@ -799,9 +766,13 @@ In the next tutorial episodes, we will:
 
 - Review the definition of the [incubation period](reference.md#incubation) in our glossary page.
 
-- Calculate the summary statistics of the incubation period distribution observed in the line list data.
+- Calculate the summary statistics of the incubation period distribution observed in the line list.
 
-- Visualize the distribution of the incubation period distribution observed in the line list data.
+- Visualize the distribution of the incubation period from the line list.
+
+- Fit a log-normal distribution to get the probability distribution parameters of the the observed incubation period.
+
+- Infer the time by which 99% of infected individuals are expected to show symptoms.
 
 ::::::::::::: solution
 
@@ -814,8 +785,6 @@ cases %>%
   skimr::skim(incubation_period)
 ```
 
-If you want to get the interquartile range (IQR) you can transform the time to numeric adding one step to the pipeline: `dplyr::mutate(incubation_period_num = as.numeric(incubation_period))`
-
 Visualize the distribution:
 
 ```{r,warning=FALSE,message=FALSE}
@@ -825,6 +794,27 @@ cases %>%
   ggplot(aes(x = incubation_period)) +
   geom_histogram(binwidth = 1)
 ```
+
+Fit a log-normal distribution:
+
+```{r}
+cases %>%
+  dplyr::select(case_id, date_of_infection, date_of_onset) %>%
+  dplyr::mutate(incubation_period = date_of_onset - date_of_infection) %>%
+  mutate(incubation_period_num = as.numeric(incubation_period)) %>%
+  filter(!is.na(incubation_period_num)) %>%
+  pull(incubation_period_num) %>%
+  fitdistrplus::fitdist(distr = "lnorm")
+```
+
+Infer the time by which 99% of infected individuals are expected to show symptoms:
+
+```{r}
+qlnorm(p = 0.99, meanlog = 1.995979, sdlog = 0.776226)
+```
+
+With the distribution parameters of the incubation period we can infer the length of active monitoring or quarantine. 
+[Lauer et al., 2020](https://pubmed.ncbi.nlm.nih.gov/32150748/) estimated the incubation period of Coronavirus Disease 2019 (COVID-19) from publicly reported confirmed cases.
 
 :::::::::::::
 
@@ -857,3 +847,5 @@ outbreaks::ebola_sim_clean %>%
 ### References
 
 - Cori, A. et al. (2019) Real-time outbreak analysis: Ebola as a case study - part 1 · Recon Learn, RECON learn. Available at: https://www.reconlearn.org/post/real-time-response-1 (Accessed: 06 November 2024).
+
+- Cori, A. et al. (2019) Real-time outbreak analysis: Ebola as a case study - part 2 · Recon Learn, RECON learn. Available at: https://www.reconlearn.org/post/real-time-response-2 (Accessed: 07 November 2024).
