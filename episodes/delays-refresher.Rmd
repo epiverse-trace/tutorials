@@ -79,7 +79,6 @@ Let's start by loading the package `{dplyr}` to manipulate data, `{tidyr}` to re
 ```{r,eval=TRUE,message=FALSE,warning=FALSE}
 # Load packages
 library(tidyverse) # loads dplyr, tidyr and ggplot2
-library(here)
 ```
 
 ## Explore data
