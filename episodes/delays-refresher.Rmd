@@ -28,7 +28,7 @@ exercises: 2
 
 :::::::::: prereq
 
-### Setup a project and folder
+**Setup an RStudio project and folder**
 
 - Create an RStudio project. If needed, follow this [how-to guide on "Hello RStudio Projects"](https://docs.posit.co/ide/user/ide/get-started/#hello-rstudio-projects) to create one.
 - Inside the RStudio project, create the `data/` folder.
@@ -38,7 +38,7 @@ exercises: 2
 
 ::::::::::::::: checklist
 
-### RStudio projects
+**RStudio projects**
 
 The directory of an RStudio Project named, for example `training`, should look like this:
 
@@ -63,8 +63,6 @@ Let's starts by creating `New Quarto Document`!
 2. Accept the default options
 3. Save the file with the name `01-report.qmd`
 4. Use the `Render` button to render the file and preview the output.
-
-To learn more about Quarto, follow their tutorial: <https://quarto.org/docs/get-started/hello/rstudio.html>
 
 <!-- https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1012018 -->
 
@@ -102,7 +100,7 @@ cases <- read_rds(
 
 :::::::::::::::::::: checklist
 
-### Why should we use the {here} package?
+**Why should we use the {here} package?**
 
 The `{here}` package is designed to simplify file referencing in R projects by providing a reliable way to construct file paths relative to the project root. The main reason to use it is **Cross-Environment Compatibility**.
 
@@ -244,6 +242,22 @@ cases %>%
 ```
 
 This calculation is _naive_ because it tends to yield a biased and mostly underestimated CFR due to the time-delay from onset to death, only stabilising at the later stages of the outbreak.
+
+Now, as a comparison, how much a CFR estimate changes if we include unknown outcomes in the denominator?
+
+::::::::::::
+
+:::::::::::: solution
+
+```{r}
+cases %>%
+  dplyr::count(outcome) %>%
+  tidyr::pivot_wider(names_from = outcome, values_from = n) %>%
+  cleanepi::standardize_column_names() %>%
+  dplyr::mutate(cfr = death / (death + recover + na))
+```
+
+Considering unknown outcomes underestimates the CFR calculation.
 
 ::::::::::::
 
@@ -452,7 +466,7 @@ cases %>%
 
 ::::::::::::::: callout
 
-### the dollar sign `$` can `pull()`
+**The dollar sign `$` can `pull()`**
 
 ```{r}
 cases_delay <- cases %>%
@@ -476,7 +490,7 @@ cases_delay$incubation_period_num
 
 ::::::::::::::: callout
 
-### the dollar sign `$` can `pluck()`
+**The dollar sign `$` can `pluck()`**
 
 ```{r}
 incubation_period_fit <- cases %>%
@@ -504,7 +518,7 @@ But, how do you access to the specific parameter?
 
 :::::::::::::::::::::::::::::: testimonial
 
-### A code completion tip
+**A code completion tip**
 
 If we write the **square brackets** `[]` next to the object `incubation_period_fit$estimate[]`, within `[]` we can use the 
 Tab key <kbd>↹</kbd> 
@@ -547,22 +561,15 @@ qlnorm(p = 0.99, meanlog = 1.995979, sdlog = 0.776226)
 
 ::::::::::::::: testimonial
 
-### What to do if we do not have enough data?
+**What to do if we do not have enough data?**
 
-```{r}
-# but this fitting step requires account for biases! ----------------------
+At the beginning of an outbreak, limited data or resources exist to estimate delays accounting for its biases. Until we have more appropriate data for the specific disease and region for the ongoing outbreak, we can reuse delays from past outbreaks from the same pathogens or close in its phylogeny, independent of the area of origin.
 
-# what to do when we do not have all these dates or info on biases? -------
+In the next tutorial episodes, we will:
 
-#' we are going to clean and standardize data on
-#' DAY 2 afternoon
-#' validate, rearrange, visualize epicurve data on
-#' DAY 3 morning
-#' we can reuse data from past outbreaks!
-#' DAY 3 afternoon
-#' and took them to account for delays for transmission and severity
-#' DAY 4 morning and afternoon
-```
+- Access and analyse common epidemiological parameters from open-source literature search databases.
+- Estimate key transmission metrics, such as the reproduction number, from case or death data, adjusting for incubation period and reporting delays.
+- Estimate the case fatality risk (CFR) from individual-level and aggregated incidence case and death data, adjusting for delays between onset of symptoms and disease outcome.
 
 :::::::::::::::
 
@@ -579,9 +586,11 @@ qlnorm(p = 0.99, meanlog = 1.995979, sdlog = 0.776226)
 
 ::::::::::::::: checklist
 
-<!-- CHECKPOINT! let's create a reprex! -->
+We invite you to:
 
-<https://community.appliedepi.org/t/how-to-make-a-reproducible-r-code-example/167>
+- Create **reproducible examples (reprex)**. A reprex help us to communicate our coding problems with software developers. Explore this Applied Epi entry: <https://community.appliedepi.org/t/how-to-make-a-reproducible-r-code-example/167>
+
+- Keep using **Quarto**. Follow their Get Started tutorial: <https://quarto.org/docs/get-started/hello/rstudio.html>
 
 :::::::::::::::
 
@@ -595,4 +604,4 @@ qlnorm(p = 0.99, meanlog = 1.995979, sdlog = 0.776226)
 
 ### References
 
-- Cori, A. et al. (2019) Real-time outbreak analysis: Ebola as a case study - part 1 · Recon Learn, RECON learn. Available at: https://www.reconlearn.org/post/real-time-response-1 (Accessed: 06 November 2024). 
+- Cori, A. et al. (2019) Real-time outbreak analysis: Ebola as a case study - part 1 · Recon Learn, RECON learn. Available at: https://www.reconlearn.org/post/real-time-response-1 (Accessed: 06 November 2024).
