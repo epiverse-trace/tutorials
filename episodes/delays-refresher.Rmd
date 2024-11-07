@@ -718,7 +718,7 @@ reporting_delay_fit <- cases %>%
 Usually, statistical outputs in R are stored as `List` class objects. Run the chunk below to explore it:
 
 ```{r,eval=FALSE,echo=TRUE}
-reporting_delay_fit %>% 
+reporting_delay_fit %>%
   str()
 ```
 
