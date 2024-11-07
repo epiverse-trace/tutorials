@@ -329,6 +329,8 @@ Data today will not include outcomes from patients that are still hospitalised. 
 
 The time between sequence of dated events can vary between subjects. For example, we would expect the date of infection to always be before the date of symptom onset, and the later always before the date of hospitalization.
 
+In a random sample of 30 observations from the `cases` data frame we observe variability between the date of hospitalization and date of outcome: 
+
 ```{r,echo=FALSE,eval=TRUE}
 # demo code not to run by learner
 set.seed(99)
@@ -336,12 +338,13 @@ set.seed(99)
 cases_select <- cases %>%
   dplyr::slice_sample(n = 30) %>%
   dplyr::arrange(date_of_onset) %>%
-  dplyr::mutate(case_id = fct_inorder(case_id)) %>%
-  # slice(10:40) %>%
+  dplyr::mutate(case_id = fct_inorder(case_id)) %>% 
+  dplyr::mutate(outcome_delay = date_of_outcome - date_of_hospitalisation) %>%
+  dplyr::filter(outcome_delay > 0) %>%
   dplyr::select(
     case_id,
-    date_of_onset,
-    date_of_hospitalisation
+    date_of_hospitalisation,
+    date_of_outcome
   )
 
 cases_long <- cases_select %>%
@@ -350,7 +353,7 @@ cases_long <- cases_select %>%
     names_to = "date_type",
     values_to = "date"
   ) %>%
-  dplyr::mutate(date_type = fct_relevel(date_type, "date_of_onset"))
+  dplyr::mutate(date_type = fct_relevel(date_type, "date_of_hospitalisation"))
 
 ggplot() +
   geom_point(
@@ -360,31 +363,39 @@ ggplot() +
   ) +
   geom_segment(
     data = cases_select,
-    aes(x = date_of_onset, y = case_id,
-        xend = date_of_hospitalisation, yend = case_id),
+    aes(x = date_of_hospitalisation, y = case_id,
+        xend = date_of_outcome, yend = case_id),
     color = "grey"
   ) +
   colorspace::scale_color_discrete_diverging(palette = "Blue-Red 2")
 ```
 
-Given that the date of hospitalization means the date of report, we can calculate the **reporting delay** from this line list data.
+We can calculate the average time from hospitalisation to outcome from the line list.
 
 From the `cases` object we will use:
 
 - `dplyr::select()` to keep columns using their names,
-- `dplyr::mutate()` to create one new column `reporting_delay` as a function of existing variables `date_of_hospitalisation` and `date_of_onset`,
-- `ggplot()` to declare the input data frame for a graphic,
-- `aes()` to describe how the variable `reporting_delay` will be mapped to visual properties (aesthetics) of `geoms`,
-- `geom_histogram()` to visualise the distribution of a single continuous variable `reporting_delay` by dividing the x axis into `bins` and counting the number of observations in each `bin`, with `binwidth` equal to 1 day.
+- `dplyr::mutate()` to create one new column `outcome_delay` as a function of existing variables `date_of_outcome` and `date_of_hospitalisation`,
+- `dplyr::filter()` to keep the rows that match a condition like `outcome_delay > 0`,
+- `skimr::skim()` to get useful summary statistics
 
-```{r,warning=FALSE,message=FALSE}
+```{r}
 cases %>%
-  dplyr::select(case_id, date_of_onset, date_of_hospitalisation) %>%
-  dplyr::mutate(reporting_delay = date_of_hospitalisation - date_of_onset) %>%
-  ggplot(aes(x = reporting_delay)) +
-  geom_histogram(binwidth = 1)
+  dplyr::select(case_id, date_of_hospitalisation, date_of_outcome) %>%
+  dplyr::mutate(outcome_delay = date_of_outcome - date_of_hospitalisation) %>%
+  dplyr::filter(outcome_delay > 0) %>%
+  skimr::skim(outcome_delay)
 ```
 
+::::::::::::::::: callout
+
+**Consistency among sequence of dated-events**
+
+Wait! Is is consistent to have negative time delays from primary to secondary observations, i.e., from hospitalisation to death?
+
+In the next episode called **Clean data** we will learn how to check sequence of dated-events and more inconsistencies!
+
+:::::::::::::::::
 
 ::::::::::::::::: challenge
 
@@ -392,16 +403,18 @@ To calculate a _delay-adjusted_ CFR, we need to assume a known the delay from on
 
 Using the `cases` object:
 
-- Calculate and visualize the delay from onset to death.
+- Calculate the summary statistics of the delay from onset to death.
 
 ::::::::::::: hint
 
-We can keep the rows that match a given logical statement, like `outcome == "Death"`, using the function `dplyr::filter()`:
+Keep the rows that match a condition like `outcome == "Death"`:
 
 ```{r,eval=FALSE,echo=TRUE}
 cases %>%
   dplyr::filter(outcome == "Death")
 ```
+
+Is it consistent to have negative delays from onset of symptoms to death?
 
 :::::::::::::
 
@@ -412,15 +425,11 @@ cases %>%
   dplyr::select(case_id, date_of_onset, date_of_outcome, outcome) %>%
   dplyr::filter(outcome == "Death") %>%
   dplyr::mutate(delay_onset_death = date_of_outcome - date_of_onset) %>%
-  ggplot(aes(x = delay_onset_death)) +
-  geom_histogram(binwidth = 1)
+  dplyr::filter(delay_onset_death > 0) %>%
+  skimr::skim(delay_onset_death)
 ```
 
-Wait! Is is consistent to have negative time delays from primary to secondary observations, i.e., from date of onset to date of death?
-
-In the next episode we will learn how to check sequence of dated-events and more inconsistencies!
-
-But, how would you keep the rows with negative delay values? Try this out.
+Now, let's say you want to keep the rows with negative delay values to inspect wherethe source of the inconsistency. How would you do it?
 
 :::::::::::::
 
@@ -433,7 +442,7 @@ cases %>%
   dplyr::select(case_id, date_of_onset, date_of_outcome, outcome) %>%
   dplyr::filter(outcome == "Death") %>%
   dplyr::mutate(delay_onset_death = date_of_outcome - date_of_onset) %>%
-  dplyr::filter(delay_onset_death < 1)
+  dplyr::filter(delay_onset_death < 0)
 ```
 
 More on estimating a _delay-adjusted_ CFR on the episode about Estimating outbreak severity.
@@ -491,6 +500,40 @@ You may want to examine how long after onset of symptoms cases are hospitalised;
 
 ```{r}
 cases %>%
+  dplyr::select(case_id, date_of_onset, date_of_hospitalisation) %>%
+  dplyr::mutate(reporting_delay = date_of_hospitalisation - date_of_onset) %>% 
+  dplyr::mutate(reporting_delay_num = as.numeric(reporting_delay)) %>% 
+  skimr::skim(reporting_delay_num)
+```
+
+
+
+
+
+Given that the date of hospitalization means the date of report, we can calculate the **reporting delay** from this line list data.
+
+From the `cases` object we will use:
+
+- `dplyr::select()` to keep columns using their names,
+- `dplyr::mutate()` to create one new column `reporting_delay` as a function of existing variables `date_of_hospitalisation` and `date_of_onset`,
+- `ggplot()` to declare the input data frame for a graphic,
+- `aes()` to describe how the variable `reporting_delay` will be mapped to visual properties (aesthetics) of `geoms`,
+- `geom_histogram()` to visualise the distribution of a single continuous variable `reporting_delay` by dividing the x axis into `bins` and counting the number of observations in each `bin`, with `binwidth` equal to 1 day.
+
+```{r,warning=FALSE,message=FALSE}
+cases %>%
+  dplyr::select(case_id, date_of_onset, date_of_hospitalisation) %>%
+  dplyr::mutate(reporting_delay = date_of_hospitalisation - date_of_onset) %>%
+  ggplot(aes(x = reporting_delay)) +
+  geom_histogram(binwidth = 1)
+```
+
+
+
+
+
+```{r}
+cases %>%
   dplyr::select(case_id, date_of_infection, date_of_onset) %>%
   dplyr::mutate(incubation_period = date_of_onset - date_of_infection) %>% 
   dplyr::mutate(incubation_period_num = as.numeric(incubation_period)) %>% 
@@ -539,7 +582,7 @@ Report:
 ::::::::: solution
 
 - The growth rate! by fitting a linear model.
-- Th Rt
+- The reproduction number
 
 More on that on episodes about quantifying transmission.
 
