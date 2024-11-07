@@ -1,5 +1,5 @@
 ---
-title: 'Introduction to outbreak analytics using R'
+title: 'Introduction to outbreak analytics'
 teaching: 10
 exercises: 2
 ---
@@ -64,15 +64,17 @@ Let's starts by creating `New Quarto Document`!
 3. Save the file with the name `01-report.qmd`
 4. Use the `Render` button to render the file and preview the output.
 
+<!-- - Keep using **Quarto**. Follow their Get Started tutorial: <https://quarto.org/docs/get-started/hello/rstudio.html> -->
+
 <!-- https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1012018 -->
 
 :::::::::::::::
 
 ## Introduction
 
-A new Ebola Virus Disease (EVD) outbreak has been notified in a fictional country in West Africa. The Ministry of Health is in charge of coordinating the outbreak response, and have contracted you as a consultant in epidemic analysis to inform the response in real time.
+A new Ebola Virus Disease (EVD) outbreak has been notified in a fictional country in West Africa. The Ministry of Health is coordinating the outbreak response and has contracted you as a consultant in epidemic analysis to inform the response in real-time. The available report of cases is coming from hospital admissions.
 
-Let's start by loading the package `{dplyr}` to manipulate data, `{tidyr}` to rearrange it, and `{here}` to write file paths within your RStudio project. We'll use the pipe `%>%` to connect some of their functions, including others from the package `{ggplot2}`, so let's also call to the package `{tidyverse}` that loads them all:
+Let's start by loading the package `{dplyr}` to manipulate data, `{tidyr}` to rearrange it, and `{here}` to write file paths within your RStudio project. We'll use the pipe `%>%` to connect some of their functions, including others from the package `{ggplot2}`, so let's call to the package `{tidyverse}` that loads them all:
 
 ```{r,eval=TRUE,message=FALSE,warning=FALSE}
 # Load packages
@@ -152,11 +154,9 @@ Useful data are:
 
 ::::::::::::
 
-You may notice that there are missing entries.  
-An important step in analysis is to identify any mistakes in data entry.
-Although it can be difficult to assess errors in hospital names, we
-would expect the date of infection to always be before the date of
-symptom onset.
+You may notice that there are **missing** entries.
+
+An important step in analysis is to identify any mistakes in data entry. The package `{cleanepi}` includes one function called `scan_data()` to get the percentage of missing observations per variable:
 
 ```{r}
 cases %>%
@@ -178,7 +178,7 @@ Why do we have more missings on date of infection or date of outcome?
 
 ::::::::::::: spoiler
 
-We can also explore missing data with summary visualizations:
+We can also explore missing data with summary a visualization:
 
 ```{r}
 cases %>%
@@ -187,18 +187,62 @@ cases %>%
 
 :::::::::::::
 
+::::::::::::::::::: checklist
+
+**The double-colon**
+
+The double-colon `::` in R let you call a specific function from a package without loading the entire package into the current environment. 
+
+For example, `dplyr::filter(data, condition)` uses `filter()` from the `{dplyr}` package.
+
+This help us remember package functions and avoid namespace conflicts.
+
+:::::::::::::::::::
+
 ## Calculate severity
 
-```{r}
-# case fatality risk -----------------------------------------------------
+A frequent indicator for severity is the case fatality risk (CFR). 
 
+CFR is defined as the conditional probability of death given confirmed diagnosis, calculated as the cumulative number of deaths from an infectious disease over the number of confirmed diagnosed cases.
+
+We can use the function `dplyr::count()` to count the observations in each group of the variable `outcome`:
+
+```{r}
 cases %>%
   dplyr::count(outcome)
 ```
 
-```{r}
-# should I consider missing outcomes for CFR? -----------------------------
+:::::::::::: discussion
 
+Report:
+
+- What to do with cases whose outcome is `NA`?
+
+- Should we consider missing outcomes to calculate the CFR?
+
+::::::::::::
+
+:::::::::::: instructor
+
+CFR estimation is sensitive to:
+
+- **Right-censoring bias**. If we include observations with unknown final status we can underestimate the true CFR.
+
+- **Selection bias**. At the beginning of an outbreak, given that health systems collect most clinically severe cases, an early estimate of the CFR can overestimate the true CFR. 
+
+::::::::::::
+
+To calculate the CFR we can add more functions using the pipe `%>%` and structure sequences of data operations left-to-right.
+
+From the `cases` object we will use:
+
+- `dplyr::count()` to count the observations in each group of the variable `outcome`,
+- `tidyr::pivot_wider()` to pivot the data long-to-wide with names from `outcome` and values from `n` columns,
+- `cleanepi::standardize_column_names()` to standardize column names,
+- `dplyr::mutate()` to create one new column `cases_known_outcome` as a function of existing variables `death` and `recover`.
+
+```{r}
+# calculate the number of cases with known outcome
 cases %>%
   dplyr::count(outcome) %>%
   tidyr::pivot_wider(names_from = outcome, values_from = n) %>%
@@ -206,20 +250,22 @@ cases %>%
   dplyr::mutate(cases_known_outcome = death + recover)
 ```
 
+This way of writing almost look like writing a recipe!
 
 :::::::::::: challenge
 
-Calculate the CFR as the division of known deaths among known outcomes. Do this by adding one more pipe `%>%` in the last code chunk. 
+Calculate the CFR as the division of the number of **deaths** among **known outcomes**. Do this by adding one more pipe `%>%` in the last code chunk. 
 
 Report:
 
-- What is the value of the _naive_ CFR?
+- What is the value of the CFR?
 
 :::::::::::: hint
 
-You can use the column names of the reminder data set to create a new column.
+You can use the column names of variables to create one more column:
 
 ```{r,eval=FALSE,echo=TRUE}
+# calculate the naive CFR
 cases %>%
   count(outcome) %>%
   pivot_wider(names_from = outcome, values_from = n) %>%
@@ -233,6 +279,7 @@ cases %>%
 :::::::::::: solution
 
 ```{r}
+# calculate the naive CFR
 cases %>%
   dplyr::count(outcome) %>%
   tidyr::pivot_wider(names_from = outcome, values_from = n) %>%
@@ -250,6 +297,7 @@ Now, as a comparison, how much a CFR estimate changes if we include unknown outc
 :::::::::::: solution
 
 ```{r}
+# underestimate the naive CFR
 cases %>%
   dplyr::count(outcome) %>%
   tidyr::pivot_wider(names_from = outcome, values_from = n) %>%
@@ -257,17 +305,17 @@ cases %>%
   dplyr::mutate(cfr = death / (death + recover + na))
 ```
 
-Considering unknown outcomes underestimates the CFR calculation.
+Considering unknown outcomes underestimates the _naive_ CFR calculation.
 
 ::::::::::::
 
 ::::::::::::
 
-However, how much time it would take for us register those outcomes? For this we need to calculate delays!
+However, in average, how much time it would take to know the outcomes of those cases? For this we can calculate **delays**!
 
 ## Calculate delays
 
-The time between sequence of dated events can vary between subjects.
+The time between sequence of dated events can vary between subjects. For example, we would expect the date of infection to always be before the date of symptom onset, and the later always before the date of hospitalization.
 
 ```{r,echo=FALSE,eval=TRUE}
 # demo code not to run by learner
@@ -307,9 +355,9 @@ ggplot() +
   colorspace::scale_color_discrete_diverging(palette = "Blue-Red 2")
 ```
 
-```{r,warning=FALSE,message=FALSE}
-#' date of hospitalization means the date of report
+Given that the date of hospitalization means the date of report
 
+```{r,warning=FALSE,message=FALSE}
 cases %>%
   dplyr::select(case_id, date_of_onset, date_of_hospitalisation) %>%
   dplyr::mutate(reporting_delay = date_of_hospitalisation - date_of_onset) %>%
@@ -584,19 +632,25 @@ In the next tutorial episodes, we will:
 #' expand the number of pre-days to include more backward contacts
 ```
 
-::::::::::::::: checklist
+::::::::::::::: challenge
 
-We invite you to:
+Let's create **reproducible examples (`reprex`)**. A reprex help us to communicate our coding problems with software developers. Explore this Applied Epi entry: <https://community.appliedepi.org/t/how-to-make-a-reproducible-r-code-example/167>
 
-- Create **reproducible examples (reprex)**. A reprex help us to communicate our coding problems with software developers. Explore this Applied Epi entry: <https://community.appliedepi.org/t/how-to-make-a-reproducible-r-code-example/167>
+Create a `reprex` with your answer:
 
-- Keep using **Quarto**. Follow their Get Started tutorial: <https://quarto.org/docs/get-started/hello/rstudio.html>
+- What is the value of the CFR from the data set in the chuck below?
+
+```{r}
+outbreaks::ebola_sim_clean %>% 
+  pluck("linelist") %>% 
+  as_tibble()
+```
 
 :::::::::::::::
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
-- Use packages from the `tidyverse` like `{dplyr}`, `{tidyr}`, and `{ggplot}` for exploratory data analysis.
+- Use packages from the `tidyverse` like `{dplyr}`, `{tidyr}`, and `{ggplot2}` for exploratory data analysis.
 - Epidemiological delays conditions the estimation of indicators for severity or transmission. 
 - Fit probability distribution to delays to make inferences from them for decision making.
 
