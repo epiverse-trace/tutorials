@@ -626,19 +626,21 @@ Available at: <https://www.youtube.com/watch?v=oI3hZJqXJuc&t>
 
 :::::::::::::::::::
 
-We fit a probability distribution to data (like delays) to make inferences about it. These inferences can be useful for Public health interventions and decision making. For example, from the [incubation period](reference.md#incubation) distribution we can inform the length of active monitoring or quarantine by inferring the time by which 99% of infected individuals are expected to show symptoms.
-
 :::::::::::: checklist
 
-### Functions for the Normal distribution
+**Functions for the Normal distribution**
 
 If you need it, read in detail about the [R probability functions for the normal distribution](https://sakai.unc.edu/access/content/group/3d1eb92e-7848-4f55-90c3-7c72a54e7e43/public/docs/lectures/lecture13.htm#probfunc), each of its definitions and identify in which part of a distribution they are located!
 
 ![The four probability functions for the normal distribution ([Jack Weiss, 2012](https://sakai.unc.edu/access/content/group/3d1eb92e-7848-4f55-90c3-7c72a54e7e43/public/docs/lectures/lecture13.htm#probfunc))](fig/fig5a-normaldistribution.png)
 
+If you look at `?stats::Distributions`, each type of distribution has a unique set of functions and different parameters. To relate Distribution functions and its parameters we suggest to explore a shinyapp called **The Distribution Zoo**: <https://ben18785.shinyapps.io/distribution-zoo/>
+
 ::::::::::::::::::::
 
-If you look at `?stats::Distributions`, each type of distribution has a unique set of functions and different parameters. To relate Distribution functions and its parameters we suggest to explore a shinyapp called **The Distribution Zoo**: <https://ben18785.shinyapps.io/distribution-zoo/>
+We fit a probability distribution to data (like delays) to make inferences about it. These inferences can be useful for Public health interventions and decision making. 
+
+For example, from the [incubation period](reference.md#incubation) distribution we can inform the length of active monitoring or quarantine by inferring the time by which 99% of infected individuals are expected to show symptoms [Lauer et al., 2020](https://pubmed.ncbi.nlm.nih.gov/32150748/).
 
 From the `cases` object we can use:
 
@@ -695,6 +697,8 @@ We need to add two more to the list:
 
 ### The dollar sign `$` can `pull()`
 
+Let's assign to `cases_delay` the filtered data frame with positive values for the observed reporting delays.
+
 ```{r}
 cases_delay <- cases %>%
   dplyr::select(case_id, date_of_onset, date_of_hospitalisation) %>%
@@ -703,12 +707,14 @@ cases_delay <- cases %>%
   dplyr::filter(reporting_delay_num > 0)
 ```
 
+We can use `dplyr::pull()` to extract a single column:
+
 ```{r}
 cases_delay %>%
   dplyr::pull(reporting_delay_num)
 ```
 
-Try this yourself:
+The code below provides an equivalent result. Try this yourself:
 
 ```{r,eval=FALSE,echo=TRUE}
 cases_delay$reporting_delay_num
@@ -716,6 +722,8 @@ cases_delay$reporting_delay_num
 
 
 ### The dollar sign `$` can `pluck()`
+
+Let's assign to `reporting_delay_fit` the output of an statistical model fitting a distribution to data.
 
 ```{r}
 reporting_delay_fit <- cases %>%
@@ -727,18 +735,27 @@ reporting_delay_fit <- cases %>%
   fitdistrplus::fitdist(distr = "lnorm")
 ```
 
+Usually, statistical outputs in R are stored as `List` class objects. Run the chunk below to explore it:
+
+```{r,eval=FALSE,echo=TRUE}
+reporting_delay_fit %>% 
+  str()
+```
+
+You can use `purrr::pluck()` to safely get an element deep within a nested data structure.
+
 ```{r}
 reporting_delay_fit %>%
   purrr::pluck("estimate")
 ```
 
-Try this yourself:
+The code below provides an equivalent result. Try this yourself:
 
 ```{r,eval=FALSE,echo=TRUE}
 reporting_delay_fit$estimate
 ```
 
-But, how do you access to the specific parameter?
+But, how do you access to one specific parameter?
 
 :::::::::::::::
 
@@ -810,7 +827,7 @@ cases %>%
 Infer the time by which 99% of infected individuals are expected to show symptoms:
 
 ```{r}
-qlnorm(p = 0.99, meanlog = 1.995979, sdlog = 0.776226)
+qlnorm(p = 0.99, meanlog = 1.8037993, sdlog = 0.7563633)
 ```
 
 With the distribution parameters of the incubation period we can infer the length of active monitoring or quarantine. 
@@ -831,7 +848,8 @@ Create a `reprex` with your answer:
 ```{r,eval=FALSE,echo=TRUE}
 outbreaks::ebola_sim_clean %>%
   pluck("linelist") %>%
-  as_tibble()
+  as_tibble() %>%
+  ...() # replace ... with downstream code
 ```
 
 :::::::::::::::
