@@ -541,9 +541,21 @@ cases %>%
 #' for gamma, weibull, lnorm parameters
 ```
 
-::::::::::::::: callout
+Let's review some operators used until now:
 
-**The dollar sign `$` can `pull()`**
+- double colon `::`
+- assignment `<-`
+- pipe `%>%` 
+- negation `!`
+
+We need to add two more to the list: 
+
+- dollar sign `$`
+- square brackets `[]`
+
+::::::::::::::: tab
+
+### The dollar sign `$` can `pull()`
 
 ```{r}
 cases_delay <- cases %>%
@@ -554,7 +566,8 @@ cases_delay <- cases %>%
 ```
 
 ```{r}
-cases_delay %>% dplyr::pull(incubation_period_num)
+cases_delay %>%
+  dplyr::pull(incubation_period_num)
 ```
 
 Try this yourself:
@@ -563,11 +576,8 @@ Try this yourself:
 cases_delay$incubation_period_num
 ```
 
-:::::::::::::::
 
-::::::::::::::: callout
-
-**The dollar sign `$` can `pluck()`**
+### The dollar sign `$` can `pluck()`
 
 ```{r}
 incubation_period_fit <- cases %>%
@@ -580,7 +590,8 @@ incubation_period_fit <- cases %>%
 ```
 
 ```{r}
-incubation_period_fit %>% purrr::pluck("estimate")
+incubation_period_fit %>%
+  purrr::pluck("estimate")
 ```
 
 Try this yourself:
@@ -669,7 +680,7 @@ Create a `reprex` with your answer:
 
 - What is the value of the CFR from the data set in the chuck below?
 
-```{r}
+```{r,eval=FALSE,echo=TRUE}
 outbreaks::ebola_sim_clean %>%
   pluck("linelist") %>%
   as_tibble()
