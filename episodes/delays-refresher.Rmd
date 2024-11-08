@@ -81,13 +81,14 @@ Let's starts by creating `New Quarto Document`!
 
 ## Introduction
 
-A new Ebola Virus Disease (EVD) outbreak has been notified in a fictional country in West Africa. The Ministry of Health is coordinating the outbreak response and has contracted you as a consultant in epidemic analysis to inform the response in real-time. The available report of cases is coming from hospital admissions.
+A new Ebola Virus Disease (EVD) outbreak has been notified in a country in West Africa. The Ministry of Health is coordinating the outbreak response and has contracted you as a consultant in epidemic analysis to inform the response in real-time. The available report of cases is coming from hospital admissions.
 
 Let's start by loading the package `{dplyr}` to manipulate data, `{tidyr}` to rearrange it, and `{here}` to write file paths within your RStudio project. We'll use the pipe `%>%` to connect some of their functions, including others from the package `{ggplot2}`, so let's call to the package `{tidyverse}` that loads them all:
 
 ```{r,eval=TRUE,message=FALSE,warning=FALSE}
 # Load packages
 library(tidyverse) # loads dplyr, tidyr and ggplot2
+library(readxl)
 ```
 
 ## Explore data
@@ -97,8 +98,8 @@ For the purpose of this episode, we will read a pre-cleaned line list data. Foll
 ```{r,eval=FALSE,echo=TRUE,message=FALSE}
 # Read data
 # e.g.: if path to file is data/linelist.rds then:
-cases <- read_rds(
-  here::here("data", "linelist.rds")
+cases <-  readxl::read_excel(
+  here::here("data", "linelist.")
 )
 ```
 
