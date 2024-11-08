@@ -148,7 +148,7 @@ cases
 Take a moment to review the data and its structure..
 
 - Do the data and format resemble line lists you’ve encountered before?
-- If you were part of the outbreak investigation team, what addition information might you want to collect?
+- If you were part of the outbreak investigation team, what additional information might you want to collect?
 
 ::::::::::::::
 
@@ -215,7 +215,7 @@ Why do we have more missings on date of infection or date of outcome?
 
 ## Calculate severity
 
-A frequent indicator for severity is the case fatality risk (CFR). 
+A frequent indicator for measuring severity is the case fatality risk (CFR). 
 
 CFR is defined as the conditional probability of death given confirmed diagnosis, calculated as the cumulative number of deaths from an infectious disease over the number of confirmed diagnosed cases.
 
@@ -325,7 +325,7 @@ Due to **right-censoring bias**, if we include observations with unknown final s
 
 ::::::::::::
 
-Data today will not include outcomes from patients that are still hospitalised. Then, one relevant question to ask is: In average, how much time it would take to know the outcomes of hospitalised cases? For this we can calculate **delays**!
+Data of today will not include outcomes from patients that are still hospitalised. Then, one relevant question to ask is: In average, how much time it would take to know the outcomes of hospitalised cases? For this we can calculate **delays**!
 
 ## Calculate delays
 
