@@ -459,7 +459,7 @@ More on estimating a _delay-adjusted_ CFR on the episode about **Estimating outb
 :::::::::::::::::
 
 
-## Visualize transmission
+## Epidemic curve
 
 The first question we want to know is simply: how bad is it? The first step of the analysis is descriptive. We want to draw an epidemic curve or epicurve. This visualises the incidence over time by date of symptom onset.
 
