@@ -79,6 +79,20 @@ Let's starts by creating `New Quarto Document`!
 
 :::::::::::::::
 
+
+
+::::::::::::::::::: checklist
+
+**The double-colon**
+
+The double-colon `::` in R let you call a specific function from a package without loading the entire package into the current environment. 
+
+For example, `dplyr::filter(data, condition)` uses `filter()` from the `{dplyr}` package.
+
+This helps us remember package functions and avoid namespace conflicts.
+
+:::::::::::::::::::
+
 ## Introduction
 
 A new Ebola Virus Disease (EVD) outbreak has been notified in a country in West Africa. The Ministry of Health is coordinating the outbreak response and has contracted you as a consultant in epidemic analysis to inform the response in real-time. The available report of cases is coming from hospital admissions.
@@ -97,7 +111,7 @@ For the purpose of this episode, we will read a pre-cleaned line list data. Foll
 ```{r,eval=FALSE,echo=TRUE,message=FALSE}
 # Read data
 # e.g.: if path to file is data/linelist.rds then:
-cases <-  readxl::read_excel(
+cases <-  readxl::read_xlsx(
   here::here("data", "linelist.xlsx")
 )
 ```
@@ -198,17 +212,6 @@ Why do we have more missings on date of infection or date of outcome?
 
 :::::::::::::
 
-::::::::::::::::::: checklist
-
-**The double-colon**
-
-The double-colon `::` in R let you call a specific function from a package without loading the entire package into the current environment. 
-
-For example, `dplyr::filter(data, condition)` uses `filter()` from the `{dplyr}` package.
-
-This help us remember package functions and avoid namespace conflicts.
-
-:::::::::::::::::::
 
 ## Calculate severity
 
