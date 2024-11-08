@@ -88,7 +88,6 @@ Let's start by loading the package `{dplyr}` to manipulate data, `{tidyr}` to re
 ```{r,eval=TRUE,message=FALSE,warning=FALSE}
 # Load packages
 library(tidyverse) # loads dplyr, tidyr and ggplot2
-library(readxl)
 ```
 
 ## Explore data
@@ -99,14 +98,14 @@ For the purpose of this episode, we will read a pre-cleaned line list data. Foll
 # Read data
 # e.g.: if path to file is data/linelist.rds then:
 cases <-  readxl::read_excel(
-  here::here("data", "linelist.")
+  here::here("data", "linelist.xlsx")
 )
 ```
 
 ```{r,eval=TRUE,echo=FALSE,message=FALSE}
 # Read data
-cases <- read_rds(
-  file.path("data", "linelist.rds")
+cases <- readxl::read_xlsx(
+  file.path("data", "linelist.xlsx")
 )
 ```
 
@@ -132,10 +131,10 @@ cases
 
 :::::::::::::: discussion
 
-Take some time to look at the data and structure here.
+Take a moment to review the data and its structure..
 
-- Are the data and format similar to line lists that you have seen in the past?
-- If you were part of the outbreak investigation team, what other information might you want to collect?
+- Do the data and format resemble line lists you’ve encountered before?
+- If you were part of the outbreak investigation team, what addition information might you want to collect?
 
 ::::::::::::::
 
