@@ -7,17 +7,17 @@ exercises: 2
 :::::::::::::::::::::::::::::::::::::: questions 
 
 - How to calculate delays from line list data?
-- How to fit a probability distribution to delays?
-- Why to account for delays in outbreak analytics?
+- How to fit a probability distribution to delay data?
+- Why it is important to account for delays in outbreak analytics?
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
 ::::::::::::::::::::::::::::::::::::: objectives
 
-- Use the pipe operator `%>%` to structure sequences of data operations left-to-right.
-- Count observations in each group using `count()`.
-- Pivot data from wide-to-long or long-to-wide using `pivot_*`.
-- Create new columns that are functions of existing variables using `mutate()`.
+- Use the pipe operator `%>%` to structure sequences of data operations.
+- Count observations in each group using `count()` function.
+- Pivot data from wide-to-long or long-to-wide using family of `pivot_*()` functions.
+- Create new columns from existing columns using `mutate()` function.
 - Keep or drop columns by their names using `select()`.
 - Keep rows that match a condition using `filter()`.
 - Extract a single column using `pull()`.

@@ -1,6 +1,6 @@
 {
   "R": {
-    "Version": "4.4.0",
+    "Version": "4.4.1",
     "Repositories": [
       {
         "Name": "CRAN",
@@ -20,7 +20,7 @@
       "Package": "DBI",
       "Version": "1.2.3",
       "Source": "Repository",
-      "Repository": "CRAN",
+      "Repository": "https://packagemanager.posit.co/all/__linux__/jammy/latest",
       "Requirements": [
         "R",
         "methods"
@@ -105,7 +105,7 @@
       "Package": "R.methodsS3",
       "Version": "1.8.2",
       "Source": "Repository",
-      "Repository": "CRAN",
+      "Repository": "https://packagemanager.posit.co/all/__linux__/jammy/latest",
       "Requirements": [
         "R",
         "utils"
@@ -116,7 +116,7 @@
       "Package": "R.oo",
       "Version": "1.26.0",
       "Source": "Repository",
-      "Repository": "CRAN",
+      "Repository": "https://packagemanager.posit.co/all/__linux__/jammy/latest",
       "Requirements": [
         "R",
         "R.methodsS3",
@@ -129,7 +129,7 @@
       "Package": "R.utils",
       "Version": "2.12.3",
       "Source": "Repository",
-      "Repository": "CRAN",
+      "Repository": "https://packagemanager.posit.co/all/__linux__/jammy/latest",
       "Requirements": [
         "R",
         "R.methodsS3",
@@ -144,7 +144,7 @@
       "Package": "R6",
       "Version": "2.5.1",
       "Source": "Repository",
-      "Repository": "RSPM",
+      "Repository": "https://packagemanager.posit.co/all/__linux__/jammy/latest",
       "Requirements": [
         "R"
       ],
@@ -154,7 +154,7 @@
       "Package": "RColorBrewer",
       "Version": "1.1-3",
       "Source": "Repository",
-      "Repository": "CRAN",
+      "Repository": "https://packagemanager.posit.co/all/__linux__/jammy/latest",
       "Requirements": [
         "R"
       ],
@@ -218,6 +218,27 @@
       ],
       "Hash": "2288423bb0f20a457800d7fc47f6aa54"
     },
+    "arm": {
+      "Package": "arm",
+      "Version": "1.14-4",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Requirements": [
+        "MASS",
+        "Matrix",
+        "R",
+        "abind",
+        "coda",
+        "grDevices",
+        "graphics",
+        "lme4",
+        "methods",
+        "nlme",
+        "stats",
+        "utils"
+      ],
+      "Hash": "4f37635d4d4315785c975b0d89fb8a39"
+    },
     "arsenal": {
       "Package": "arsenal",
       "Version": "3.6.3",
@@ -235,7 +256,7 @@
       "Package": "askpass",
       "Version": "1.2.0",
       "Source": "Repository",
-      "Repository": "CRAN",
+      "Repository": "https://packagemanager.posit.co/all/__linux__/jammy/latest",
       "Requirements": [
         "sys"
       ],
@@ -245,7 +266,7 @@
       "Package": "backports",
       "Version": "1.5.0",
       "Source": "Repository",
-      "Repository": "CRAN",
+      "Repository": "https://packagemanager.posit.co/all/__linux__/jammy/latest",
       "Requirements": [
         "R"
       ],
@@ -255,7 +276,7 @@
       "Package": "base64enc",
       "Version": "0.1-3",
       "Source": "Repository",
-      "Repository": "RSPM",
+      "Repository": "https://packagemanager.posit.co/all/__linux__/jammy/latest",
       "Requirements": [
         "R"
       ],
@@ -289,13 +310,25 @@
       "Package": "blob",
       "Version": "1.2.4",
       "Source": "Repository",
-      "Repository": "CRAN",
+      "Repository": "https://packagemanager.posit.co/all/__linux__/jammy/latest",
       "Requirements": [
         "methods",
         "rlang",
         "vctrs"
       ],
       "Hash": "40415719b5a479b87949f3aa0aee737c"
+    },
+    "boot": {
+      "Package": "boot",
+      "Version": "1.3-31",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Requirements": [
+        "R",
+        "graphics",
+        "stats"
+      ],
+      "Hash": "de2a4646c18661d6a0a08ec67f40b7ed"
     },
     "broom": {
       "Package": "broom",
@@ -343,7 +376,7 @@
       "Package": "cachem",
       "Version": "1.1.0",
       "Source": "Repository",
-      "Repository": "CRAN",
+      "Repository": "https://packagemanager.posit.co/all/__linux__/jammy/latest",
       "Requirements": [
         "fastmap",
         "rlang"
@@ -354,7 +387,7 @@
       "Package": "callr",
       "Version": "3.7.6",
       "Source": "Repository",
-      "Repository": "CRAN",
+      "Repository": "https://packagemanager.posit.co/all/__linux__/jammy/latest",
       "Requirements": [
         "R",
         "R6",
@@ -367,7 +400,7 @@
       "Package": "cellranger",
       "Version": "1.1.0",
       "Source": "Repository",
-      "Repository": "CRAN",
+      "Repository": "https://packagemanager.posit.co/all/__linux__/jammy/latest",
       "Requirements": [
         "R",
         "rematch",
@@ -386,6 +419,25 @@
         "utils"
       ],
       "Hash": "0e14e01ce07e7c88fd25de6d4260d26b"
+    },
+    "ciTools": {
+      "Package": "ciTools",
+      "Version": "0.6.1",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Requirements": [
+        "MASS",
+        "R",
+        "arm",
+        "boot",
+        "dplyr",
+        "lme4",
+        "methods",
+        "stats",
+        "survival",
+        "utils"
+      ],
+      "Hash": "b4acc5f619ee2f36d6611a0a3ad5c40e"
     },
     "cleanepi": {
       "Package": "cleanepi",
@@ -426,11 +478,22 @@
       "Package": "clipr",
       "Version": "0.8.0",
       "Source": "Repository",
-      "Repository": "CRAN",
+      "Repository": "https://packagemanager.posit.co/all/__linux__/jammy/latest",
       "Requirements": [
         "utils"
       ],
       "Hash": "3f038e5ac7f41d4ac41ce658c85e3042"
+    },
+    "coda": {
+      "Package": "coda",
+      "Version": "0.19-4.1",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Requirements": [
+        "R",
+        "lattice"
+      ],
+      "Hash": "af436915c590afc6fffc3ce3a5be1569"
     },
     "colorspace": {
       "Package": "colorspace",
@@ -450,7 +513,7 @@
       "Package": "conflicted",
       "Version": "1.2.0",
       "Source": "Repository",
-      "Repository": "CRAN",
+      "Repository": "https://packagemanager.posit.co/all/__linux__/jammy/latest",
       "Requirements": [
         "R",
         "cli",
@@ -516,7 +579,7 @@
       "Package": "dbplyr",
       "Version": "2.5.0",
       "Source": "Repository",
-      "Repository": "CRAN",
+      "Repository": "https://packagemanager.posit.co/all/__linux__/jammy/latest",
       "Requirements": [
         "DBI",
         "R",
@@ -564,13 +627,6 @@
       ],
       "Hash": "698ece7ba5a4fa4559e3d537e7ec3d31"
     },
-    "distcrete": {
-      "Package": "distcrete",
-      "Version": "1.0.3",
-      "Source": "Repository",
-      "Repository": "CRAN",
-      "Hash": "5ad4e98af2a8e4c63b9b394ec05c91e1"
-    },
     "distributional": {
       "Package": "distributional",
       "Version": "0.5.0",
@@ -602,7 +658,7 @@
       "Package": "dplyr",
       "Version": "1.1.4",
       "Source": "Repository",
-      "Repository": "CRAN",
+      "Repository": "https://packagemanager.posit.co/all/__linux__/jammy/latest",
       "Requirements": [
         "R",
         "R6",
@@ -625,7 +681,7 @@
       "Package": "dtplyr",
       "Version": "1.3.1",
       "Source": "Repository",
-      "Repository": "CRAN",
+      "Repository": "https://packagemanager.posit.co/all/__linux__/jammy/latest",
       "Requirements": [
         "R",
         "cli",
@@ -639,32 +695,6 @@
         "vctrs"
       ],
       "Hash": "54ed3ea01b11e81a86544faaecfef8e2"
-    },
-    "epiparameter": {
-      "Package": "epiparameter",
-      "Version": "0.2.0.9000",
-      "Source": "GitHub",
-      "RemoteType": "github",
-      "RemoteHost": "api.github.com",
-      "RemoteRepo": "epiparameter",
-      "RemoteUsername": "epiverse-trace",
-      "RemotePkgRef": "epiverse-trace/epiparameter",
-      "RemoteRef": "HEAD",
-      "RemoteSha": "54b7bf17cb5ce042801e5e3aeed8e8de7a11d5d3",
-      "Requirements": [
-        "R",
-        "checkmate",
-        "cli",
-        "distcrete",
-        "distributional",
-        "graphics",
-        "lifecycle",
-        "pillar",
-        "rlang",
-        "stats",
-        "utils"
-      ],
-      "Hash": "6a21a52ab0e43556e354beeee47c3c1c"
     },
     "evaluate": {
       "Package": "evaluate",
@@ -681,7 +711,7 @@
       "Package": "fansi",
       "Version": "1.0.6",
       "Source": "Repository",
-      "Repository": "RSPM",
+      "Repository": "https://packagemanager.posit.co/all/__linux__/jammy/latest",
       "Requirements": [
         "R",
         "grDevices",
@@ -693,14 +723,14 @@
       "Package": "farver",
       "Version": "2.1.2",
       "Source": "Repository",
-      "Repository": "CRAN",
+      "Repository": "https://packagemanager.posit.co/all/__linux__/jammy/latest",
       "Hash": "680887028577f3fa2a81e410ed0d6e42"
     },
     "fastmap": {
       "Package": "fastmap",
       "Version": "1.2.0",
       "Source": "Repository",
-      "Repository": "CRAN",
+      "Repository": "https://packagemanager.posit.co/all/__linux__/jammy/latest",
       "Hash": "aa5e1cd11c2d15497494c5292d7ffcc8"
     },
     "fields": {
@@ -736,7 +766,7 @@
       "Package": "fontawesome",
       "Version": "0.5.2",
       "Source": "Repository",
-      "Repository": "CRAN",
+      "Repository": "https://packagemanager.posit.co/all/__linux__/jammy/latest",
       "Requirements": [
         "R",
         "htmltools",
@@ -748,7 +778,7 @@
       "Package": "forcats",
       "Version": "1.0.0",
       "Source": "Repository",
-      "Repository": "CRAN",
+      "Repository": "https://packagemanager.posit.co/all/__linux__/jammy/latest",
       "Requirements": [
         "R",
         "cli",
@@ -774,7 +804,7 @@
       "Package": "fs",
       "Version": "1.6.4",
       "Source": "Repository",
-      "Repository": "CRAN",
+      "Repository": "https://packagemanager.posit.co/all/__linux__/jammy/latest",
       "Requirements": [
         "R",
         "methods"
@@ -808,7 +838,7 @@
       "Package": "gargle",
       "Version": "1.5.2",
       "Source": "Repository",
-      "Repository": "CRAN",
+      "Repository": "https://packagemanager.posit.co/all/__linux__/jammy/latest",
       "Requirements": [
         "R",
         "cli",
@@ -830,7 +860,7 @@
       "Package": "generics",
       "Version": "0.1.3",
       "Source": "Repository",
-      "Repository": "CRAN",
+      "Repository": "https://packagemanager.posit.co/all/__linux__/jammy/latest",
       "Requirements": [
         "R",
         "methods"
@@ -841,7 +871,7 @@
       "Package": "ggplot2",
       "Version": "3.5.1",
       "Source": "Repository",
-      "Repository": "CRAN",
+      "Repository": "https://packagemanager.posit.co/all/__linux__/jammy/latest",
       "Requirements": [
         "MASS",
         "R",
@@ -877,7 +907,7 @@
       "Package": "googledrive",
       "Version": "2.1.1",
       "Source": "Repository",
-      "Repository": "CRAN",
+      "Repository": "https://packagemanager.posit.co/all/__linux__/jammy/latest",
       "Requirements": [
         "R",
         "cli",
@@ -902,7 +932,7 @@
       "Package": "googlesheets4",
       "Version": "1.1.1",
       "Source": "Repository",
-      "Repository": "CRAN",
+      "Repository": "https://packagemanager.posit.co/all/__linux__/jammy/latest",
       "Requirements": [
         "R",
         "cellranger",
@@ -926,6 +956,17 @@
       ],
       "Hash": "d6db1667059d027da730decdc214b959"
     },
+    "grates": {
+      "Package": "grates",
+      "Version": "1.2.2",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Requirements": [
+        "R",
+        "utils"
+      ],
+      "Hash": "098bc41b22afc018b65aff10cddf7813"
+    },
     "gridExtra": {
       "Package": "gridExtra",
       "Version": "2.3",
@@ -944,7 +985,7 @@
       "Package": "gtable",
       "Version": "0.3.5",
       "Source": "Repository",
-      "Repository": "CRAN",
+      "Repository": "https://packagemanager.posit.co/all/__linux__/jammy/latest",
       "Requirements": [
         "R",
         "cli",
@@ -959,7 +1000,7 @@
       "Package": "haven",
       "Version": "2.5.4",
       "Source": "Repository",
-      "Repository": "CRAN",
+      "Repository": "https://packagemanager.posit.co/all/__linux__/jammy/latest",
       "Requirements": [
         "R",
         "cli",
@@ -976,21 +1017,11 @@
       ],
       "Hash": "9171f898db9d9c4c1b2c745adc2c1ef1"
     },
-    "here": {
-      "Package": "here",
-      "Version": "1.0.1",
-      "Source": "Repository",
-      "Repository": "CRAN",
-      "Requirements": [
-        "rprojroot"
-      ],
-      "Hash": "24b224366f9c2e7534d2344d10d59211"
-    },
     "highr": {
       "Package": "highr",
       "Version": "0.11",
       "Source": "Repository",
-      "Repository": "CRAN",
+      "Repository": "https://packagemanager.posit.co/all/__linux__/jammy/latest",
       "Requirements": [
         "R",
         "xfun"
@@ -1001,7 +1032,7 @@
       "Package": "hms",
       "Version": "1.1.3",
       "Source": "Repository",
-      "Repository": "CRAN",
+      "Repository": "https://packagemanager.posit.co/all/__linux__/jammy/latest",
       "Requirements": [
         "lifecycle",
         "methods",
@@ -1031,7 +1062,7 @@
       "Package": "httr",
       "Version": "1.4.7",
       "Source": "Repository",
-      "Repository": "CRAN",
+      "Repository": "https://packagemanager.posit.co/all/__linux__/jammy/latest",
       "Requirements": [
         "R",
         "R6",
@@ -1046,12 +1077,35 @@
       "Package": "ids",
       "Version": "1.0.1",
       "Source": "Repository",
-      "Repository": "CRAN",
+      "Repository": "https://packagemanager.posit.co/all/__linux__/jammy/latest",
       "Requirements": [
         "openssl",
         "uuid"
       ],
       "Hash": "99df65cfef20e525ed38c3d2577f7190"
+    },
+    "incidence2": {
+      "Package": "incidence2",
+      "Version": "2.4.0",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Requirements": [
+        "R",
+        "data.table",
+        "dplyr",
+        "grDevices",
+        "grates",
+        "pillar",
+        "rlang",
+        "stats",
+        "tibble",
+        "tidyr",
+        "tidyselect",
+        "utils",
+        "vctrs",
+        "ympes"
+      ],
+      "Hash": "eff24a3a4d275dd0f4060b1aadb4dbef"
     },
     "inline": {
       "Package": "inline",
@@ -1067,7 +1121,7 @@
       "Package": "isoband",
       "Version": "0.2.7",
       "Source": "Repository",
-      "Repository": "CRAN",
+      "Repository": "https://packagemanager.posit.co/all/__linux__/jammy/latest",
       "Requirements": [
         "grid",
         "utils"
@@ -1100,7 +1154,7 @@
       "Package": "jquerylib",
       "Version": "0.1.4",
       "Source": "Repository",
-      "Repository": "RSPM",
+      "Repository": "https://packagemanager.posit.co/all/__linux__/jammy/latest",
       "Requirements": [
         "htmltools"
       ],
@@ -1136,7 +1190,7 @@
       "Package": "labeling",
       "Version": "0.4.3",
       "Source": "Repository",
-      "Repository": "CRAN",
+      "Repository": "https://packagemanager.posit.co/all/__linux__/jammy/latest",
       "Requirements": [
         "graphics",
         "stats"
@@ -1173,7 +1227,7 @@
       "Package": "lifecycle",
       "Version": "1.0.4",
       "Source": "Repository",
-      "Repository": "CRAN",
+      "Repository": "https://packagemanager.posit.co/all/__linux__/jammy/latest",
       "Requirements": [
         "R",
         "cli",
@@ -1197,6 +1251,32 @@
       ],
       "Hash": "742c211230f8ebc3a9c543263097dddf"
     },
+    "lme4": {
+      "Package": "lme4",
+      "Version": "1.1-35.5",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Requirements": [
+        "MASS",
+        "Matrix",
+        "R",
+        "Rcpp",
+        "RcppEigen",
+        "boot",
+        "graphics",
+        "grid",
+        "lattice",
+        "methods",
+        "minqa",
+        "nlme",
+        "nloptr",
+        "parallel",
+        "splines",
+        "stats",
+        "utils"
+      ],
+      "Hash": "16a08fc75007da0d08e0c0388c7c33e6"
+    },
     "loo": {
       "Package": "loo",
       "Version": "2.8.0",
@@ -1216,7 +1296,7 @@
       "Package": "lubridate",
       "Version": "1.9.3",
       "Source": "Repository",
-      "Repository": "CRAN",
+      "Repository": "https://packagemanager.posit.co/all/__linux__/jammy/latest",
       "Requirements": [
         "R",
         "generics",
@@ -1229,7 +1309,7 @@
       "Package": "magrittr",
       "Version": "2.0.3",
       "Source": "Repository",
-      "Repository": "RSPM",
+      "Repository": "https://packagemanager.posit.co/all/__linux__/jammy/latest",
       "Requirements": [
         "R"
       ],
@@ -1273,7 +1353,7 @@
       "Package": "memoise",
       "Version": "2.0.1",
       "Source": "Repository",
-      "Repository": "RSPM",
+      "Repository": "https://packagemanager.posit.co/all/__linux__/jammy/latest",
       "Requirements": [
         "cachem",
         "rlang"
@@ -1301,17 +1381,27 @@
       "Package": "mime",
       "Version": "0.12",
       "Source": "Repository",
-      "Repository": "RSPM",
+      "Repository": "https://packagemanager.posit.co/all/__linux__/jammy/latest",
       "Requirements": [
         "tools"
       ],
       "Hash": "18e9c28c1d3ca1560ce30658b22ce104"
     },
+    "minqa": {
+      "Package": "minqa",
+      "Version": "1.2.8",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Requirements": [
+        "Rcpp"
+      ],
+      "Hash": "785ef8e22389d4a7634c6c944f2dc07d"
+    },
     "modelr": {
       "Package": "modelr",
       "Version": "0.1.11",
       "Source": "Repository",
-      "Repository": "CRAN",
+      "Repository": "https://packagemanager.posit.co/all/__linux__/jammy/latest",
       "Requirements": [
         "R",
         "broom",
@@ -1329,7 +1419,7 @@
       "Package": "munsell",
       "Version": "0.5.1",
       "Source": "Repository",
-      "Repository": "CRAN",
+      "Repository": "https://packagemanager.posit.co/all/__linux__/jammy/latest",
       "Requirements": [
         "colorspace",
         "methods"
@@ -1349,6 +1439,13 @@
         "utils"
       ],
       "Hash": "a623a2239e642806158bc4dc3f51565d"
+    },
+    "nloptr": {
+      "Package": "nloptr",
+      "Version": "2.1.1",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "27550641889a3abf3aec4d91186311ec"
     },
     "numDeriv": {
       "Package": "numDeriv",
@@ -1394,28 +1491,6 @@
       ],
       "Hash": "2bcca3848e4734eb3b16103bc9aa4b8e"
     },
-    "outbreaks": {
-      "Package": "outbreaks",
-      "Version": "1.9.0",
-      "Source": "Repository",
-      "Repository": "CRAN",
-      "Requirements": [
-        "R"
-      ],
-      "Hash": "a62a28f56f51694490827b57ee78f970"
-    },
-    "pak": {
-      "Package": "pak",
-      "Version": "0.7.2",
-      "Source": "Repository",
-      "Repository": "CRAN",
-      "Requirements": [
-        "R",
-        "tools",
-        "utils"
-      ],
-      "Hash": "93288e19455e09f590b56db4d50248fe"
-    },
     "patchwork": {
       "Package": "patchwork",
       "Version": "1.3.0",
@@ -1439,7 +1514,7 @@
       "Package": "pillar",
       "Version": "1.9.0",
       "Source": "Repository",
-      "Repository": "CRAN",
+      "Repository": "https://packagemanager.posit.co/all/__linux__/jammy/latest",
       "Requirements": [
         "cli",
         "fansi",
@@ -1471,7 +1546,7 @@
       "Package": "pkgconfig",
       "Version": "2.0.3",
       "Source": "Repository",
-      "Repository": "CRAN",
+      "Repository": "https://packagemanager.posit.co/all/__linux__/jammy/latest",
       "Requirements": [
         "utils"
       ],
@@ -1524,7 +1599,7 @@
       "Package": "processx",
       "Version": "3.8.4",
       "Source": "Repository",
-      "Repository": "CRAN",
+      "Repository": "https://packagemanager.posit.co/all/__linux__/jammy/latest",
       "Requirements": [
         "R",
         "R6",
@@ -1562,7 +1637,7 @@
       "Package": "purrr",
       "Version": "1.0.2",
       "Source": "Repository",
-      "Repository": "CRAN",
+      "Repository": "https://packagemanager.posit.co/all/__linux__/jammy/latest",
       "Requirements": [
         "R",
         "cli",
@@ -1588,7 +1663,7 @@
       "Package": "rappdirs",
       "Version": "0.3.3",
       "Source": "Repository",
-      "Repository": "RSPM",
+      "Repository": "https://packagemanager.posit.co/all/__linux__/jammy/latest",
       "Requirements": [
         "R"
       ],
@@ -1598,7 +1673,7 @@
       "Package": "readr",
       "Version": "2.1.5",
       "Source": "Repository",
-      "Repository": "CRAN",
+      "Repository": "https://packagemanager.posit.co/all/__linux__/jammy/latest",
       "Requirements": [
         "R",
         "R6",
@@ -1621,7 +1696,7 @@
       "Package": "readxl",
       "Version": "1.4.3",
       "Source": "Repository",
-      "Repository": "CRAN",
+      "Repository": "https://packagemanager.posit.co/all/__linux__/jammy/latest",
       "Requirements": [
         "R",
         "cellranger",
@@ -1636,14 +1711,14 @@
       "Package": "rematch",
       "Version": "2.0.0",
       "Source": "Repository",
-      "Repository": "CRAN",
+      "Repository": "https://packagemanager.posit.co/all/__linux__/jammy/latest",
       "Hash": "cbff1b666c6fa6d21202f07e2318d4f1"
     },
     "rematch2": {
       "Package": "rematch2",
       "Version": "2.1.2",
       "Source": "Repository",
-      "Repository": "CRAN",
+      "Repository": "https://packagemanager.posit.co/all/__linux__/jammy/latest",
       "Requirements": [
         "tibble"
       ],
@@ -1658,6 +1733,22 @@
         "utils"
       ],
       "Hash": "397b7b2a265bc5a7a06852524dabae20"
+    },
+    "repr": {
+      "Package": "repr",
+      "Version": "1.1.7",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Requirements": [
+        "R",
+        "base64enc",
+        "grDevices",
+        "htmltools",
+        "jsonlite",
+        "pillar",
+        "utils"
+      ],
+      "Hash": "1393acc49816f4fe143d87fb33e75631"
     },
     "reprex": {
       "Package": "reprex",
@@ -1685,7 +1776,7 @@
       "Package": "rlang",
       "Version": "1.1.4",
       "Source": "Repository",
-      "Repository": "CRAN",
+      "Repository": "https://packagemanager.posit.co/all/__linux__/jammy/latest",
       "Requirements": [
         "R",
         "utils"
@@ -1714,16 +1805,6 @@
         "yaml"
       ],
       "Hash": "062470668513dcda416927085ee9bdc7"
-    },
-    "rprojroot": {
-      "Package": "rprojroot",
-      "Version": "2.0.4",
-      "Source": "Repository",
-      "Repository": "CRAN",
-      "Requirements": [
-        "R"
-      ],
-      "Hash": "4c8415e0ec1e29f3f4f6fc108bef0144"
     },
     "rstan": {
       "Package": "rstan",
@@ -1766,7 +1847,7 @@
       "Package": "rstudioapi",
       "Version": "0.16.0",
       "Source": "Repository",
-      "Repository": "CRAN",
+      "Repository": "https://packagemanager.posit.co/all/__linux__/jammy/latest",
       "Hash": "96710351d642b70e8f02ddeb237c46a7"
     },
     "runner": {
@@ -1786,7 +1867,7 @@
       "Package": "rvest",
       "Version": "1.0.4",
       "Source": "Repository",
-      "Repository": "CRAN",
+      "Repository": "https://packagemanager.posit.co/all/__linux__/jammy/latest",
       "Requirements": [
         "R",
         "cli",
@@ -1819,7 +1900,7 @@
       "Package": "scales",
       "Version": "1.3.0",
       "Source": "Repository",
-      "Repository": "CRAN",
+      "Repository": "https://packagemanager.posit.co/all/__linux__/jammy/latest",
       "Requirements": [
         "R",
         "R6",
@@ -1839,7 +1920,7 @@
       "Package": "selectr",
       "Version": "0.4-2",
       "Source": "Repository",
-      "Repository": "CRAN",
+      "Repository": "https://packagemanager.posit.co/all/__linux__/jammy/latest",
       "Requirements": [
         "R",
         "R6",
@@ -1847,6 +1928,34 @@
         "stringr"
       ],
       "Hash": "3838071b66e0c566d55cc26bd6e27bf4"
+    },
+    "skimr": {
+      "Package": "skimr",
+      "Version": "2.1.5",
+      "Source": "GitHub",
+      "RemoteType": "github",
+      "RemoteHost": "api.github.com",
+      "RemoteRepo": "skimr",
+      "RemoteUsername": "ropensci",
+      "RemoteSha": "d5126aa020e703f37740af7ee56a4acb5830fd08",
+      "Requirements": [
+        "R",
+        "cli",
+        "dplyr",
+        "knitr",
+        "magrittr",
+        "pillar",
+        "purrr",
+        "repr",
+        "rlang",
+        "stats",
+        "stringr",
+        "tibble",
+        "tidyr",
+        "tidyselect",
+        "vctrs"
+      ],
+      "Hash": "39bfab19f7c0e0907cca1b81e26eab5a"
     },
     "snakecase": {
       "Package": "snakecase",
@@ -1900,7 +2009,7 @@
       "Package": "stringi",
       "Version": "1.8.4",
       "Source": "Repository",
-      "Repository": "CRAN",
+      "Repository": "https://packagemanager.posit.co/all/__linux__/jammy/latest",
       "Requirements": [
         "R",
         "stats",
@@ -1913,7 +2022,7 @@
       "Package": "stringr",
       "Version": "1.5.1",
       "Source": "Repository",
-      "Repository": "CRAN",
+      "Repository": "https://packagemanager.posit.co/all/__linux__/jammy/latest",
       "Requirements": [
         "R",
         "cli",
@@ -1946,14 +2055,17 @@
       "Package": "sys",
       "Version": "3.4.2",
       "Source": "Repository",
-      "Repository": "CRAN",
+      "Repository": "https://packagemanager.posit.co/all/__linux__/jammy/latest",
       "Hash": "3a1be13d68d47a8cd0bfd74739ca1555"
     },
     "systemfonts": {
       "Package": "systemfonts",
       "Version": "1.1.0",
       "Source": "Repository",
-      "Repository": "CRAN",
+      "Repository": "https://carpentries.r-universe.dev",
+      "RemoteUrl": "https://github.com/r-lib/systemfonts",
+      "RemoteRef": "v1.1.0",
+      "RemoteSha": "78df90ca6d869feeb6a40c88f72269093505aa22",
       "Requirements": [
         "R",
         "cpp11",
@@ -1976,7 +2088,10 @@
       "Package": "textshaping",
       "Version": "0.4.0",
       "Source": "Repository",
-      "Repository": "CRAN",
+      "Repository": "https://carpentries.r-universe.dev",
+      "RemoteUrl": "https://github.com/r-lib/textshaping",
+      "RemoteRef": "v0.4.0",
+      "RemoteSha": "76682df21dce8ef29e905a90dd05732a58b1249f",
       "Requirements": [
         "R",
         "cpp11",
@@ -1989,7 +2104,7 @@
       "Package": "tibble",
       "Version": "3.2.1",
       "Source": "Repository",
-      "Repository": "CRAN",
+      "Repository": "https://packagemanager.posit.co/all/__linux__/jammy/latest",
       "Requirements": [
         "R",
         "fansi",
@@ -2008,7 +2123,7 @@
       "Package": "tidyr",
       "Version": "1.3.1",
       "Source": "Repository",
-      "Repository": "CRAN",
+      "Repository": "https://packagemanager.posit.co/all/__linux__/jammy/latest",
       "Requirements": [
         "R",
         "cli",
@@ -2031,7 +2146,7 @@
       "Package": "tidyselect",
       "Version": "1.2.1",
       "Source": "Repository",
-      "Repository": "CRAN",
+      "Repository": "https://packagemanager.posit.co/all/__linux__/jammy/latest",
       "Requirements": [
         "R",
         "cli",
@@ -2047,7 +2162,7 @@
       "Package": "tidyverse",
       "Version": "2.0.0",
       "Source": "Repository",
-      "Repository": "CRAN",
+      "Repository": "https://packagemanager.posit.co/all/__linux__/jammy/latest",
       "Requirements": [
         "R",
         "broom",
@@ -2087,7 +2202,7 @@
       "Package": "timechange",
       "Version": "0.3.0",
       "Source": "Repository",
-      "Repository": "CRAN",
+      "Repository": "https://packagemanager.posit.co/all/__linux__/jammy/latest",
       "Requirements": [
         "R",
         "cpp11"
@@ -2118,7 +2233,7 @@
       "Package": "tzdb",
       "Version": "0.4.0",
       "Source": "Repository",
-      "Repository": "CRAN",
+      "Repository": "https://packagemanager.posit.co/all/__linux__/jammy/latest",
       "Requirements": [
         "R",
         "cpp11"
@@ -2129,7 +2244,7 @@
       "Package": "utf8",
       "Version": "1.2.4",
       "Source": "Repository",
-      "Repository": "CRAN",
+      "Repository": "https://packagemanager.posit.co/all/__linux__/jammy/latest",
       "Requirements": [
         "R"
       ],
@@ -2149,7 +2264,7 @@
       "Package": "vctrs",
       "Version": "0.6.5",
       "Source": "Repository",
-      "Repository": "CRAN",
+      "Repository": "https://packagemanager.posit.co/all/__linux__/jammy/latest",
       "Requirements": [
         "R",
         "cli",
@@ -2163,7 +2278,7 @@
       "Package": "viridisLite",
       "Version": "0.4.2",
       "Source": "Repository",
-      "Repository": "CRAN",
+      "Repository": "https://packagemanager.posit.co/all/__linux__/jammy/latest",
       "Requirements": [
         "R"
       ],
@@ -2195,7 +2310,7 @@
       "Package": "vroom",
       "Version": "1.6.5",
       "Source": "Repository",
-      "Repository": "CRAN",
+      "Repository": "https://packagemanager.posit.co/all/__linux__/jammy/latest",
       "Requirements": [
         "R",
         "bit64",
@@ -2256,7 +2371,7 @@
       "Package": "xml2",
       "Version": "1.3.6",
       "Source": "Repository",
-      "Repository": "RSPM",
+      "Repository": "https://packagemanager.posit.co/all/__linux__/jammy/latest",
       "Requirements": [
         "R",
         "cli",
@@ -2271,6 +2386,20 @@
       "Source": "Repository",
       "Repository": "RSPM",
       "Hash": "29240487a071f535f5e5d5a323b7afbd"
+    },
+    "ympes": {
+      "Package": "ympes",
+      "Version": "1.5.0",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Requirements": [
+        "R",
+        "grDevices",
+        "graphics",
+        "methods",
+        "utils"
+      ],
+      "Hash": "236c49dba11b870ec92cbf3b50526df8"
     }
   }
 }
