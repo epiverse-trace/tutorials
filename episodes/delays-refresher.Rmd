@@ -621,16 +621,55 @@ Available at: <https://www.youtube.com/watch?v=oI3hZJqXJuc&t>
 
 :::::::::::::::::::
 
-We fit a probability distribution to data (like delays) to make inferences about it. These inferences can be useful for Public health interventions and decision making. 
+We fit a probability distribution to data (like delays) to make inferences about it. These inferences can be useful for Public health interventions and decision making. For example:
 
-For example, from the [incubation period](reference.md#incubation) distribution we can inform the length of active monitoring or quarantine by inferring the time by which 99% of infected individuals are expected to show symptoms [Lauer et al., 2020](https://pubmed.ncbi.nlm.nih.gov/32150748/).
+- From the [incubation period](reference.md#incubation) distribution we can inform the length of active monitoring or quarantine. We can infer the time by which 99% of infected individuals are expected to show symptoms ([Lauer et al., 2020](https://pubmed.ncbi.nlm.nih.gov/32150748/)).
+
+- From the [serial interval](reference.md#serialinterval) distribution we can optimize contact tracing. We can evaluate the need to expand the number of days pre-onset to consider in the contact tracing to include more backwards contacts ([Claire Blackmore, 2021](https://www.paho.org/sites/default/files/backward_contact_tracing_v3_0.pdf); [Davis et al., 2020](https://assets.publishing.service.gov.uk/media/61e9ab3f8fa8f50597fb3078/S0523_Oxford_-_Backwards_contact_tracing.pdf)).
+
+![A schematic of the relationship of different time periods of transmission between a primary case and a secondary case in a transmission pair. Adapted from [Zhao et al, 2021](https://www.sciencedirect.com/science/article/pii/S1755436521000359#fig0005)](fig/delays-adapted.png)
+
+::::::::::::::::: callout
+
+**From time periods to probability distributions**
+
+When we calculate the *serial interval*, we see that not all case pairs have the same time length. We will observe this variability for any case pair and individual time period.
+
+![Serial intervals of possible case pairs in (a) COVID-19 and (b) MERS-CoV. Pairs represent a presumed infector and their presumed infectee plotted by date of symptom onset ([Althobaity et al., 2022](https://www.sciencedirect.com/science/article/pii/S2468042722000537#fig6)).](fig/serial-interval-pairs.jpg)
+
+To summarise these data from individual and pair time periods, we can find the **statistical distributions** that best fit the data ([McFarland et al., 2023](https://www.eurosurveillance.org/content/10.2807/1560-7917.ES.2023.28.27.2200806)).
+
+<!-- add a reference about good practices to estimate distributions -->
+
+![Fitted serial interval distribution for (a) COVID-19 and (b) MERS-CoV based on reported transmission pairs in Saudi Arabia. We fitted three commonly used distributions, Log normal, Gamma, and Weibull distributions, respectively ([Althobaity et al., 2022](https://www.sciencedirect.com/science/article/pii/S2468042722000537#fig5)).](fig/seria-interval-fitted-distributions.jpg)
+
+Statistical distributions are summarised in terms of their **summary statistics** like the *location* (mean and percentiles) and *spread* (variance or standard deviation) of the distribution, or with their **distribution parameters** that inform about the *form* (shape and rate/scale) of the distribution. These estimated values can be reported with their **uncertainty** (95% confidence intervals).
+
+| Gamma | mean | shape | rate/scale |
+|:--------------|:--------------|:--------------|:--------------|
+| MERS-CoV | 14.13(13.9–14.7) | 6.31(4.88–8.52) | 0.43(0.33–0.60) |
+| COVID-19 | 5.1(5.0–5.5) | 2.77(2.09–3.88) | 0.53(0.38–0.76) |
+
+| Weibull | mean | shape | rate/scale |
+|:--------------|:--------------|:--------------|:--------------|
+| MERS-CoV | 14.2(13.3–15.2) | 3.07(2.64–3.63) | 16.1(15.0–17.1) |
+| COVID-19 | 5.2(4.6–5.9) | 1.74(1.46–2.11) | 5.83(5.08–6.67) |
+
+| Log normal | mean | mean-log | sd-log |
+|:--------------|:--------------|:--------------|:--------------|
+| MERS-CoV | 14.08(13.1–15.2) | 2.58(2.50–2.68) | 0.44(0.39–0.5) |
+| COVID-19 | 5.2(4.2–6.5) | 1.45(1.31–1.61) | 0.63(0.54–0.74) |
+
+Table: Serial interval estimates using Gamma, Weibull, and Log Normal distributions. 95% confidence intervals for the shape and scale (logmean and sd for Log Normal) parameters are shown in brackets ([Althobaity et al., 2022](https://www.sciencedirect.com/science/article/pii/S2468042722000537#tbl3)).
+
+:::::::::::::::::::::::::
 
 From the `cases` object we can use:
 
 - `dplyr::mutate()` to transform the `reporting_delay` class object from `<time>` to `<numeric>`,
 - `dplyr::filter()` to keep the positive values,
 - `dplyr::pull()` to extract a single column,
-- `fitdistrplus::fitdist()` to fit a probability distribution using Maximum Likelihood. We can test distributions like the Log Normal (`lnorm`), Gamma, and Weibull.
+- `fitdistrplus::fitdist()` to fit a probability distribution using Maximum Likelihood. We can test distributions like the Log Normal (`"lnorm"`), `"gamma"`, or `"weibull"`.
 
 ```{r}
 cases %>%
@@ -644,39 +683,31 @@ cases %>%
 
 Use `summary()` to find goodness-of-fit statistics from the Maximum likelihood. Use `plot()` to visualize the fitted density function and other quality control plots.
 
-Now we can do inferences from the reporting delay distribution! For example, assuming that the this delay follows a Log Normal distribution, we can use `plnorm()` to calculate the probability of observing a reporting delay of 14 days or less:
+Now we can do inferences from the probability distribution fitted to the epidemiological delay! Want to learn how? Read the spoiler :)
+
+:::::::::::::::: spoiler
+
+**Making inferences from probability distributions**
+
+If you need it, read in detail about the [R probability functions for the normal distribution](https://sakai.unc.edu/access/content/group/3d1eb92e-7848-4f55-90c3-7c72a54e7e43/public/docs/lectures/lecture13.htm#probfunc), each of its definitions and identify in which part of a distribution they are located!
+
+Each probability distribution has a unique set of **parameters** and **probability functions**. Read the [Distributions in the stats package](https://stat.ethz.ch/R-manual/R-devel/library/stats/html/Distributions.html) or `?stats::Distributions` to find the ones available in R.
+
+For example, assuming that the reporting delay follows a **Log Normal** distribution, we can use `plnorm()` to calculate the probability of observing a reporting delay of 14 days or less:
 
 ```{r}
 plnorm(q = 14, meanlog = 1.0488098, sdlog = 0.8465102)
 ```
 
-:::::::::::: checklist
+Or the amount of time by which 99% of symptomatic individuals are expected to be reported in the hospitalization record:
 
-**Functions for the Normal distribution**
+```{r}
+qlnorm(p = 0.99, meanlog = 1.0488098, sdlog = 0.8465102)
+```
 
-If you need it, read in detail about the [R probability functions for the normal distribution](https://sakai.unc.edu/access/content/group/3d1eb92e-7848-4f55-90c3-7c72a54e7e43/public/docs/lectures/lecture13.htm#probfunc), each of its definitions and identify in which part of a distribution they are located!
-
-![The four probability functions for the normal distribution ([Jack Weiss, 2012](https://sakai.unc.edu/access/content/group/3d1eb92e-7848-4f55-90c3-7c72a54e7e43/public/docs/lectures/lecture13.htm#probfunc))](fig/fig5a-normaldistribution.png)
-
-If you look at `?stats::Distributions`, each type of distribution has a unique set of functions and different parameters. To relate Distribution functions and its parameters we suggest to explore a shinyapp called **The Distribution Zoo**: <https://ben18785.shinyapps.io/distribution-zoo/>
+To interactively explore probability distributions, their parameters and access to their distribution functions, we suggest to explore a shinyapp called **The Distribution Zoo**: <https://ben18785.shinyapps.io/distribution-zoo/>
 
 ::::::::::::::::::::
-
-::::::::::::::: testimonial
-
-**Estimating epidemiological delays is CHALLENGING!**
-
-Epidemiological delays need to account for biases like censoring, right truncation, or epidemic phase ([Charniga et al., 2024](https://arxiv.org/abs/2405.08841)). 
- 
-Additionally, at the beginning of an outbreak, limited data or resources exist to perform this during a real-time analysis. Until we have more appropriate data for the specific disease and region of the ongoing outbreak, we can reuse delays from past outbreaks from the same pathogens or close in its phylogeny, independent of the area of origin.
-
-In the following tutorial episodes, we will:
-
-- Access to _epidemiological delays_ and its probability distribution parameters from open-source literature search databases using `{epiparameter}`.
-- Estimate the reproduction number _adjusting for_ incubation period and reporting delays using `{EpiNow2}`.
-- Estimate the case fatality risk (CFR) _adjusting for_ delays between onset of symptoms and disease outcome using `{cfr}`.
-
-:::::::::::::::
 
 ::::::::::::: checklist
 
