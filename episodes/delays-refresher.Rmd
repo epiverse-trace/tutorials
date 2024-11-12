@@ -125,9 +125,7 @@ cases <- readr::read_csv(
 
 **Why should we use the {here} package?**
 
-The package `{here}` simplifies file referencing in R projects. It reliably construct file paths relative to the project root. 
-
-It works across different operating systems (Windows, Mac, Linux) without needing to adjust file paths. This property is known as **cross-Environment Compatibility**. For example:
+The package `{here}` simplifies file referencing in R projects. It allows them to work across different operating systems (Windows, Mac, Linux). This feature, called **cross-environment compatibility**,  eliminates the need to adjust file paths. For example:
 
 - On Windows, paths are written using backslashes ( `\` ) as the separator between folder names: `"data\raw-data\file.csv"` 
 - On Unix based operating system such as macOS or Linux the forward slash ( `/` ) is used as the path separator: `"data/raw-data/file.csv"`
