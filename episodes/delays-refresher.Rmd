@@ -802,11 +802,35 @@ If we write the **square brackets** `[]` next to the object `reporting_delay_fit
 Tab key <kbd>↹</kbd> 
 for [code completion feature](https://support.posit.co/hc/en-us/articles/205273297-Code-Completion-in-the-RStudio-IDE) 
 
-This gives quick access to `reporting_delay_fit$estimate["meanlog"]` and `reporting_delay_fit$estimate["sdlog"]`. 
+This gives quick access to `"meanlog"` and `"sdlog"`. We invite you to try this out in code chunks and the R console!
 
-We invite you to try this out in code chunks and the R console!
+```{r,eval=FALSE,echo=TRUE}
+# 1. Place the cursor within the square brackets
+# 2. Use the Tab key
+# 3. Explore the completion list
+# 4. Select for "meanlog" or "sdlog"
+reporting_delay_fit$estimate[]
+```
 
 ::::::::::::::::::::::::::::::
+
+
+::::::::::::::: callout
+
+**Estimating epidemiological delays is CHALLENGING!**
+
+Epidemiological delays need to account for biases like censoring, right truncation, or epidemic phase ([Charniga et al., 2024](https://arxiv.org/abs/2405.08841)). 
+ 
+Additionally, at the beginning of an outbreak, limited data or resources exist to perform this during a real-time analysis. Until we have more appropriate data for the specific disease and region of the ongoing outbreak, we can **reuse delays from past outbreaks** from the same pathogens or close in its phylogeny, independent of the area of origin.
+
+In the following tutorial episodes, we will:
+
+- Access to _epidemiological delays_ and its probability distribution parameters from open-source literature search databases using `{epiparameter}`.
+- Estimate the reproduction number _adjusting for_ incubation period and reporting delays using `{EpiNow2}`.
+- Estimate the case fatality risk (CFR) _adjusting for_ delays between onset of symptoms and disease outcome using `{cfr}`.
+
+:::::::::::::::
+
 
 ## Challenges
 
@@ -824,7 +848,7 @@ We invite you to try this out in code chunks and the R console!
 
 - Fit a log-normal distribution to get the probability distribution parameters of the the observed incubation period.
 
-- Infer the time by which 99% of infected individuals are expected to show symptoms.
+- (Optional) Infer the time by which 99% of infected individuals are expected to show symptoms.
 
 ::::::::::::: solution
 
@@ -850,19 +874,25 @@ cases %>%
 Fit a log-normal distribution:
 
 ```{r}
-cases %>%
+incubation_period_dist <- cases %>%
   dplyr::select(case_id, date_of_infection, date_of_onset) %>%
   dplyr::mutate(incubation_period = date_of_onset - date_of_infection) %>%
   mutate(incubation_period_num = as.numeric(incubation_period)) %>%
   filter(!is.na(incubation_period_num)) %>%
   pull(incubation_period_num) %>%
   fitdistrplus::fitdist(distr = "lnorm")
+
+incubation_period_dist
 ```
 
-Infer the time by which 99% of infected individuals are expected to show symptoms:
+(Optional) Infer the time by which 99% of infected individuals are expected to show symptoms:
 
 ```{r}
-qlnorm(p = 0.99, meanlog = 1.8037993, sdlog = 0.7563633)
+qlnorm(
+  p = 0.99,
+  meanlog = incubation_period_dist$estimate["meanlog"],
+  sdlog = incubation_period_dist$estimate["sdlog"]
+)
 ```
 
 With the distribution parameters of the incubation period we can infer the length of active monitoring or quarantine. 
