@@ -250,7 +250,7 @@
 <div class="accordion accordion-flush" id="accordionFlush2">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading2">
-        <a href="introduction.html">1. Outbreak analytics pipelines</a>
+        <a href="delays-refresher.html">1. Introduction to outbreak analytics</a>
     </div>
 <!--/div.accordion-header-->
 
@@ -322,23 +322,106 @@ any links that you are not going to use.
  -->
 
 
-      <section id="aggregate-instructor-notes"><section id="introduction"><h2 class="section-heading"><a href="introduction.html">Outbreak analytics pipelines</a></h2>
+      <section id="aggregate-instructor-notes"><section id="delays-refresher"><h2 class="section-heading"><a href="delays-refresher.html">Introduction to outbreak analytics</a></h2>
 <hr class="half-width">
-<h3 id="introduction-headingInstructor1">
-<a href="introduction.html#headingInstructor1">Instructor Note</a><a class="anchor" aria-label="anchor" href="#introduction-headingInstructor1"></a>
+<h3 id="delays-refresher-headingInstructor1">
+<a href="delays-refresher.html#headingInstructor1">Instructor Note</a><a class="anchor" aria-label="anchor" href="#delays-refresher-headingInstructor1"></a>
 </h3>
-<p>As an example, we can show a generation time distribution from <a href="https://www.thelancet.com/journals/lanepe/article/PIIS2666-7762%2822%2900140-5/fulltext#gr2" class="external-link">Manica
-et al., 2022</a></p>
-<figure><img src="../fig/generation-time-gr2_lrg.jpg" alt="Manica et al. (2022) estimated a mean intrinsic generation time of 6.84 days (95% credible intervals, CrI, 5.72–8.60), and a mean realized household generation time of 3.59 days (95%CrI: 3.55–3.60)" class="figure mx-auto d-block"><div class="figcaption">Manica et al. (2022) estimated a mean intrinsic
-generation time of 6.84 days (95% credible intervals, CrI, 5.72–8.60),
-and a mean realized household generation time of 3.59 days (95%CrI:
-3.55–3.60)</div>
-</figure><p>We can show the a figure from the <a href="https://ben18785.shinyapps.io/distribution-zoo/" class="external-link">Distribution
-Zoo</a>.</p>
-<p>A <em>Gamma</em> distribution with summary statistics of mean <span class="math inline">\(\mu = 4\)</span> and standard deviation <span class="math inline">\(\sigma^2 = 2\)</span>, is equivalent to the
-distribution parameters of <span class="math inline">\(shape =
-4\)</span> and <span class="math inline">\(scale = 1\)</span> (<span class="math inline">\(rate = 1/shape\)</span>).</p>
-<figure><img src="../fig/distribution-zoo.png" class="figure mx-auto d-block"></figure><hr>
+<p>Useful concepts maps to teach this episode are</p>
+<ul>
+<li><a href="https://github.com/rstudio/concept-maps?tab=readme-ov-file#dplyr" class="external-link uri">https://github.com/rstudio/concept-maps?tab=readme-ov-file#dplyr</a></li>
+<li><a href="https://github.com/rstudio/concept-maps?tab=readme-ov-file#pipe-operator" class="external-link uri">https://github.com/rstudio/concept-maps?tab=readme-ov-file#pipe-operator</a></li>
+<li><a href="https://github.com/rstudio/concept-maps?tab=readme-ov-file#pivoting" class="external-link uri">https://github.com/rstudio/concept-maps?tab=readme-ov-file#pivoting</a></li>
+</ul>
+<hr>
+<br><h3 id="delays-refresher-headingInstructor2">
+<a href="delays-refresher.html#headingInstructor2">Instructor Note</a><a class="anchor" aria-label="anchor" href="#delays-refresher-headingInstructor2"></a>
+</h3>
+<p>The information to collect will depend on the questions we need to
+give a response.</p>
+<p>At the beginning of an outbreak, we need data to give a response to
+questions like:</p>
+<ul>
+<li>How fast does an epidemic grow?</li>
+<li>What is the risk of death?</li>
+<li>How many cases can I expect in the coming days?</li>
+</ul>
+<p>Informative indicators are:</p>
+<ul>
+<li>growth rate, reproduction number.</li>
+<li>case fatality risk, hospitalization fatality risk.</li>
+<li>projection or forecast of cases.</li>
+</ul>
+<p>Useful data are:</p>
+<ul>
+<li>date of onset, date of death.</li>
+<li>delays from infection to onset, from onset to death.</li>
+<li>percentage of observations detected by surveillance system.</li>
+<li>subject characteristics to stratify the analysis by person, place,
+time.</li>
+</ul>
+<hr>
+<br><h3 id="delays-refresher-headingInstructor3">
+<a href="delays-refresher.html#headingInstructor3">Instructor Note</a><a class="anchor" aria-label="anchor" href="#delays-refresher-headingInstructor3"></a>
+</h3>
+<ul>
+<li>date of infection: mostly unknown, depended on limited coverage of
+contact tracing or outbreak research, and sensitive to recall bias from
+subjects.</li>
+<li>date of outcome: reporting delay</li>
+</ul>
+<hr>
+<br><h3 id="delays-refresher-headingInstructor4">
+<a href="delays-refresher.html#headingInstructor4">Instructor Note</a><a class="anchor" aria-label="anchor" href="#delays-refresher-headingInstructor4"></a>
+</h3>
+<p>Keeping cases with missing outcome is useful to track the incidence
+of number of new cases, useful to assess transmission.</p>
+<p>However, when assessing severity, CFR estimation is sensitive to:</p>
+<ul>
+<li><p><strong>Right-censoring bias</strong>. If we include observations
+with unknown final status we can underestimate the true CFR.</p></li>
+<li><p><strong>Selection bias</strong>. At the beginning of an outbreak,
+given that health systems collect most clinically severe cases, an early
+estimate of the CFR can overestimate the true CFR.</p></li>
+</ul>
+<hr>
+<br><h3 id="delays-refresher-headingInstructor5">
+<a href="delays-refresher.html#headingInstructor5">Instructor Note</a><a class="anchor" aria-label="anchor" href="#delays-refresher-headingInstructor5"></a>
+</h3>
+<p>Close inspection of the line list shows that the last date of any
+entry (by date of hospitalization) is a bit later than the last date of
+symptom onset.</p>
+<p>From the <code>cases</code> object we can use:</p>
+<ul>
+<li>
+<code>dplyr::summarise()</code> to summarise each group down to one
+row,</li>
+<li>
+<code>base::max</code> to calculate the maximum dates of onset and
+hospitalisation.</li>
+</ul>
+<p>When showcasing this to learners in a live coding session, you can
+also use <code>cases %&gt;% view()</code> to rearrange by date
+columns.</p>
+<div class="codewrapper sourceCode" id="cb23">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">cases</span> <span class="op">%&gt;%</span></span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu">summarise</span><span class="op">(</span></span>
+<span>    max_onset <span class="op">=</span> <span class="fu">max</span><span class="op">(</span><span class="va">date_of_onset</span><span class="op">)</span>,</span>
+<span>    max_hospital <span class="op">=</span> <span class="fu">max</span><span class="op">(</span><span class="va">date_of_hospitalisation</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code># A tibble: 1 × 2
+  max_onset  max_hospital
+  &lt;date&gt;     &lt;date&gt;
+1 2014-06-27 2014-07-07  </code></pre>
+</div>
+<hr>
 <br></section></section>
 </div>
     </main>
@@ -386,7 +469,7 @@ distribution parameters of <span class="math inline">\(shape =
   "creativeWorkStatus": "active",
   "url": "https://epiverse-trace.github.io/tutorials/instructor/instructor-notes.html",
   "identifier": "https://epiverse-trace.github.io/tutorials/instructor/instructor-notes.html",
-  "dateCreated": "2024-11-10",
+  "dateCreated": "2024-11-12",
   "dateModified": "2024-11-12",
   "datePublished": "2024-11-12"
 }
