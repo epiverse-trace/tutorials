@@ -79,7 +79,16 @@ Let's starts by creating `New Quarto Document`!
 
 :::::::::::::::
 
+## Introduction
 
+A new Ebola Virus Disease (EVD) outbreak has been notified in a country in West Africa. The Ministry of Health is coordinating the outbreak response and has contracted you as a consultant in epidemic analysis to inform the response in real-time. The available report of cases is coming from hospital admissions.
+
+Let's start by loading the package `{readr}` to read `.csv` data, `{dplyr}` to manipulate data, `{tidyr}` to rearrange it, and `{here}` to write file paths within your RStudio project. We'll use the pipe `%>%` to connect some of their functions, including others from the package `{ggplot2}`, so let's call to the package `{tidyverse}` that loads them all:
+
+```{r,eval=TRUE,message=FALSE,warning=FALSE}
+# Load packages
+library(tidyverse) # loads readr, dplyr, tidyr and ggplot2
+```
 
 ::::::::::::::::::: checklist
 
@@ -93,17 +102,6 @@ This helps us remember package functions and avoid namespace conflicts.
 
 :::::::::::::::::::
 
-## Introduction
-
-A new Ebola Virus Disease (EVD) outbreak has been notified in a country in West Africa. The Ministry of Health is coordinating the outbreak response and has contracted you as a consultant in epidemic analysis to inform the response in real-time. The available report of cases is coming from hospital admissions.
-
-Let's start by loading the package `{dplyr}` to manipulate data, `{tidyr}` to rearrange it, and `{here}` to write file paths within your RStudio project. We'll use the pipe `%>%` to connect some of their functions, including others from the package `{ggplot2}`, so let's call to the package `{tidyverse}` that loads them all:
-
-```{r,eval=TRUE,message=FALSE,warning=FALSE}
-# Load packages
-library(tidyverse) # loads dplyr, tidyr and ggplot2
-```
-
 ## Explore data
 
 For the purpose of this episode, we will read a pre-cleaned line list data. Following episodes will tackle how to solve cleaning tasks.
@@ -111,14 +109,14 @@ For the purpose of this episode, we will read a pre-cleaned line list data. Foll
 ```{r,eval=FALSE,echo=TRUE,message=FALSE}
 # Read data
 # e.g.: if path to file is data/linelist.rds then:
-cases <-  read_csv(
+cases <- readr::read_csv(
   here::here("data", "linelist.csv")
 )
 ```
 
 ```{r,eval=TRUE,echo=FALSE,message=FALSE}
 # Read data
-cases <- read_csv(
+cases <- readr::read_csv(
   file.path("data", "linelist.csv")
 )
 ```
@@ -127,14 +125,14 @@ cases <- read_csv(
 
 **Why should we use the {here} package?**
 
-The `{here}` package is designed to simplify file referencing in R projects by providing a reliable way to construct file paths relative to the project root. The main reason to use it is **Cross-Environment Compatibility**.
+The package `{here}` simplifies file referencing in R projects. It reliably construct file paths relative to the project root. 
 
-It works across different operating systems (Windows, Mac, Linux) without needing to adjust file paths. 
+It works across different operating systems (Windows, Mac, Linux) without needing to adjust file paths. This property is known as **cross-Environment Compatibility**. For example:
 
 - On Windows, paths are written using backslashes ( `\` ) as the separator between folder names: `"data\raw-data\file.csv"` 
 - On Unix based operating system such as macOS or Linux the forward slash ( `/` ) is used as the path separator: `"data/raw-data/file.csv"`
 
-The `{here}` package is ideal for adding one more layer of reproducibility to your work. If you are interested in reproducibility, we invite you to [read this tutorial to increase the openess, sustainability, and reproducibility of your epidemic analysis with R](https://epiverse-trace.github.io/research-compendium/)
+The `{here}` package adds one more layer of reproducibility to your work. For more, read this tutorial about [open, sustainable, and reproducible epidemic analysis with R](https://epiverse-trace.github.io/research-compendium/)
 
 ::::::::::::::::::::
 
