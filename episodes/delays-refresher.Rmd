@@ -177,15 +177,6 @@ Useful data are:
 
 You may notice that there are **missing** entries.
 
-<!--
-An important step in analysis is to identify any mistakes in data entry. The package `{cleanepi}` includes one function called `scan_data()` to get the percentage of missing observations per variable:
-
-```{r}
-cases %>%
-  cleanepi::scan_data()
-```
--->
-
 ::::::::::::: spoiler
 
 We can also explore missing data with summary a visualization:
