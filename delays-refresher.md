@@ -41,7 +41,7 @@ Useful concepts maps to teach this episode are
 
 - Create an RStudio project. If needed, follow this [how-to guide on "Hello RStudio Projects"](https://docs.posit.co/ide/user/ide/get-started/#hello-rstudio-projects) to create one.
 - Inside the RStudio project, create the `data/` folder.
-- Inside the `data/` folder, save the [linelist.rds](https://epiverse-trace.github.io/tutorials/data/linelist.rds) file.
+- Inside the `data/` folder, save the [linelist.csv](https://epiverse-trace.github.io/tutorials/data/linelist.csv) file.
 
 ::::::::::
 
@@ -123,7 +123,7 @@ For the purpose of this episode, we will read a pre-cleaned line list data. Foll
 
 ``` r
 # Read data
-# e.g.: if path to file is data/linelist.rds then:
+# e.g.: if path to file is data/linelist.csv then:
 cases <- readr::read_csv(
   here::here("data", "linelist.csv")
 )
@@ -650,14 +650,9 @@ Lastly, in order to account for these _epidemiological delays_ when estimating i
 
 ## Fit a probability distribution to delays
 
-::::::::::::::::::: prereq
+::::::::::::::::::: instructor
 
-**Watch** one 5-minute video refresher on probability distributions:
-
-- StatQuest with Josh Starmer (2017) 
-**The Main Ideas behind Probability Distributions**, YouTube. 
-Available at: <https://www.youtube.com/watch?v=oI3hZJqXJuc&t> 
-<!--(Accessed: 30 October 2024).-->
+Assess learners based on video refreshers on distributions, likelihood, and maximum likelihood from setup instructions.
 
 :::::::::::::::::::
 
