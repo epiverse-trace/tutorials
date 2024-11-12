@@ -552,7 +552,8 @@ dat <- cases %>%
   )
 
 fitted <- dat %>%
-  # truncate curve to fit withou delays
+  # truncate curve to fit model due to reporting delay
+  # drop the rows grater than 2014-06-25
   filter(date_index < grates::as_isoweek(ymd(20140625))) %>%
   nest() %>%
   mutate(
@@ -601,6 +602,7 @@ fitted %>%
   select(-data, -model)
 ```
 
+Note: Due to the diagnosed reporting delay, We conveniently truncated the epidemic curve one week before to fit the model! This improves the fitted model to data when quantifying the growth rate during the exponential phase.
 
 :::::::::
 
