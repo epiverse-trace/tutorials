@@ -683,7 +683,7 @@ cases %>%
 
 Use `summary()` to find goodness-of-fit statistics from the Maximum likelihood. Use `plot()` to visualize the fitted density function and other quality control plots.
 
-Now we can do inferences from the probability distribution fitted to the epidemiological delay! Want to learn how? Read the spoiler :)
+Now we can do inferences from the probability distribution fitted to the epidemiological delay! Want to learn how? Read the "Show details" :)
 
 :::::::::::::::: spoiler
 
