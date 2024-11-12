@@ -219,7 +219,7 @@ cases %>%
 
 Report:
 
-- What to do with cases whose outcome is `NA`?
+- What to do with cases whose outcome is `<NA>`?
 
 - Should we consider missing outcomes to calculate the CFR?
 
@@ -227,7 +227,9 @@ Report:
 
 :::::::::::: instructor
 
-CFR estimation is sensitive to:
+Keeping cases with missing outcome is useful to track the incidence of number of new cases, useful to assess transmission.
+
+However, when assessing severity, CFR estimation is sensitive to:
 
 - **Right-censoring bias**. If we include observations with unknown final status we can underestimate the true CFR.
 
