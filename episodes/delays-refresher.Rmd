@@ -332,7 +332,7 @@ cases_select <- cases %>%
   dplyr::slice_sample(n = 30) %>%
   dplyr::arrange(date_of_onset) %>%
   dplyr::mutate(case_id = fct_inorder(case_id)) %>%
-  dplyr::mutate(outcome_delay = as.Date(date_of_outcome) - as.Date(date_of_hospitalisation)) %>%
+  dplyr::mutate(outcome_delay = date_of_outcome - date_of_hospitalisation) %>%
   dplyr::filter(outcome_delay > 0) %>%
   dplyr::select(
     case_id,
