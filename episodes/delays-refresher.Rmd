@@ -610,14 +610,9 @@ Lastly, in order to account for these _epidemiological delays_ when estimating i
 
 ## Fit a probability distribution to delays
 
-::::::::::::::::::: prereq
+::::::::::::::::::: instructor
 
-**Watch** one 5-minute video refresher on probability distributions:
-
-- StatQuest with Josh Starmer (2017) 
-**The Main Ideas behind Probability Distributions**, YouTube. 
-Available at: <https://www.youtube.com/watch?v=oI3hZJqXJuc&t> 
-<!--(Accessed: 30 October 2024).-->
+Assess learners based on video refreshers on distributions, likelihood, and maximum likelihood from setup instructions.
 
 :::::::::::::::::::
 
