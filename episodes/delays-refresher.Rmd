@@ -526,7 +526,7 @@ cases %>%
   labs(fill = "Reported cases")
 ```
 
-Given to reporting delays during this outbreak, two weeks ago it seemed that we had a three-week decay of cases. We needed to wait a couple of weeks to complete the incidence of cases on each week.
+Given to reporting delays during this outbreak, it seemed that two weeks ago we had a decay of cases during the last three weeks. We needed to wait a couple of weeks to complete the incidence of cases on each week.
 
 :::::::::::::: challenge
 
@@ -694,9 +694,11 @@ We need to add two more to the list:
 
 :::::::::::::
 
+Last step is to access to this parameters. Most modeling outputs from R functions will be stored as `list` class objects. In R, the dollar sign operator `$` is used to access elements (like columns) within a data frame or list by name, allowing for easy retrieval of specific components.
+
 ::::::::::::::: tab
 
-### The dollar sign `$` can `pluck()`
+### Get elements from list
 
 Let's assign to `reporting_delay_fit` the output of an statistical model fitting a distribution to data.
 
@@ -732,7 +734,9 @@ reporting_delay_fit$estimate
 
 But, how do you access to one specific parameter?
 
-### The dollar sign `$` can `pull()`
+### Get elements from column
+
+<!-- this usage is secondary in tutorials -->
 
 Let's assign to `cases_delay` the filtered data frame with positive values for the observed reporting delays.
 
@@ -857,8 +861,8 @@ outbreaks::ebola_sim_clean %>%
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
 - Use packages from the `tidyverse` like `{dplyr}`, `{tidyr}`, and `{ggplot2}` for exploratory data analysis.
-- Epidemiological delays conditions the estimation of indicators for severity or transmission. 
-- Fit probability distribution to delays to make inferences from them for decision making.
+- Epidemiological delays condition the estimation of indicators for severity or transmission. 
+- Fit probability distribution to delays to make inferences from them for decision-making.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
