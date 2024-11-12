@@ -85,7 +85,7 @@ A new Ebola Virus Disease (EVD) outbreak has been notified in a country in West 
 
 Let's start by loading the package `{readr}` to read `.csv` data, `{dplyr}` to manipulate data, `{tidyr}` to rearrange it, and `{here}` to write file paths within your RStudio project. We'll use the pipe `%>%` to connect some of their functions, including others from the package `{ggplot2}`, so let's call to the package `{tidyverse}` that loads them all:
 
-```{r,eval=TRUE,message=FALSE,warning=FALSE}
+```{r}
 # Load packages
 library(tidyverse) # loads readr, dplyr, tidyr and ggplot2
 ```
