@@ -484,6 +484,8 @@ From the `cases` object we can use:
 - `dplyr::summarise()` to summarise each group down to one row,
 - `base::max` to calculate the maximum dates of onset and hospitalisation.
 
+When showcasing this to learners in a live coding session, you can also use `cases %>% view()` to rearrange by date columns.
+
 ```{r}
 cases %>%
   dplyr::summarise(
