@@ -825,9 +825,9 @@ Additionally, at the beginning of an outbreak, limited data or resources exist t
 
 In the following tutorial episodes, we will:
 
-- Access to _epidemiological delays_ and its probability distribution parameters from open-source literature search databases using `{epiparameter}`.
-- Estimate the reproduction number _adjusting for_ incubation period and reporting delays using `{EpiNow2}`.
-- Estimate the case fatality risk (CFR) _adjusting for_ delays between onset of symptoms and disease outcome using `{cfr}`.
+- Efficiently clean and produce epidemic curves to explore patterns of disease spread by difference group and time aggregates. Find more in [Tutorials Early](https://epiverse-trace.github.io/tutorials-early/)!
+- Extract and apply epidemiological parameter distributions to estimate key transmission and severity metrics (e.g. reproduction number and case fatality risk) adjusted by their corresponding delays. Find more in [Tutorials Middle](https://epiverse-trace.github.io/tutorials-middle/)!
+- Use parameters like the basic reproduction number, the latent period and infectious period to simulate transmission trajectories and intervention scenarios. Find more in [Tutorials Late](https://epiverse-trace.github.io/tutorials-late/)!
 
 :::::::::::::::
 
