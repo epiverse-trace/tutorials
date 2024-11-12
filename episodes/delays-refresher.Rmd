@@ -350,7 +350,7 @@ ggplot() +
   geom_point(
     data = cases_long,
     aes(x = date, y = case_id, color = date_type),
-    alpha = 0.5, size = 3
+    alpha = 0.75, size = 3
   ) +
   geom_segment(
     data = cases_select,
