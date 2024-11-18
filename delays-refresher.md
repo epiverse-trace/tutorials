@@ -896,7 +896,7 @@ reporting_delay_fit$estimate[]
 
 **Estimating epidemiological delays is CHALLENGING!**
 
-Epidemiological delays need to account for biases like censoring, right truncation, or epidemic phase ([Charniga et al., 2024](https://arxiv.org/abs/2405.08841)). 
+Epidemiological delays need to account for biases like censoring, right truncation, or epidemic phase ([Charniga et al., 2024](https://doi.org/10.1371/journal.pcbi.1012520)). 
  
 Additionally, at the beginning of an outbreak, limited data or resources exist to perform this during a real-time analysis. Until we have more appropriate data for the specific disease and region of the ongoing outbreak, we can **reuse delays from past outbreaks** from the same pathogens or close in its phylogeny, independent of the area of origin.
 
