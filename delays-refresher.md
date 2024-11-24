@@ -900,14 +900,13 @@ Epidemiological delays need to account for biases like censoring, right truncati
  
 Additionally, at the beginning of an outbreak, limited data or resources exist to perform this during a real-time analysis. Until we have more appropriate data for the specific disease and region of the ongoing outbreak, we can **reuse delays from past outbreaks** from the same pathogens or close in its phylogeny, independent of the area of origin.
 
-In the following tutorial episodes, we will:
-
-- Efficiently clean and produce epidemic curves to explore patterns of disease spread by difference group and time aggregates. Find more in [Tutorials Early](https://epiverse-trace.github.io/tutorials-early/)!
-- Extract and apply epidemiological parameter distributions to estimate key transmission and severity metrics (e.g. reproduction number and case fatality risk) adjusted by their corresponding delays. Find more in [Tutorials Middle](https://epiverse-trace.github.io/tutorials-middle/)!
-- Use parameters like the basic reproduction number, the latent period and infectious period to simulate transmission trajectories and intervention scenarios. Find more in [Tutorials Late](https://epiverse-trace.github.io/tutorials-late/)!
-
 :::::::::::::::
 
+In the following tutorial episodes, we will:
+
+- Efficiently clean and produce **epidemic curves** to explore patterns of disease spread by difference group and time aggregates. Find more in [Tutorials Early](https://epiverse-trace.github.io/tutorials-early/)!
+- Access to epidemiological **delay distributions** to estimate delay-adjusted transmission and severity metrics (e.g. reproduction number and case fatality risk). Find more in [Tutorials Middle](https://epiverse-trace.github.io/tutorials-middle/)!
+- Use parameter values like the basic reproduction number, and **delays** like the [latent period](reference.md#latent) and [infectious period](reference.md#infectiousness) to simulate transmission trajectories and intervention scenarios. Find more in [Tutorials Late](https://epiverse-trace.github.io/tutorials-late/)!
 
 ## Challenges
 
