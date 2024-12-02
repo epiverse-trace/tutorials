@@ -4,7 +4,7 @@ teaching: 10
 exercises: 2
 ---
 
-:::::::::::::::::::::::::::::::::::::: questions 
+:::::::::::::::::::::::::::::::::::::: questions
 
 - How to calculate delays from line list data?
 - How to fit a probability distribution to delay data?
@@ -57,10 +57,8 @@ training/
 |__ training.Rproj
 ```
 
-**RStudio Projects** allows you to use _relative file_ paths with respect to the `R` Project, 
-making your code more portable and less error-prone. 
-Avoids using `setwd()` with _absolute paths_ 
-like `"C:/Users/MyName/WeirdPath/training/data/file.csv"`.
+**RStudio Projects** allows you to use *relative file* paths with respect to the `R` Project, making your code more portable and less error-prone.
+Avoids using `setwd()` with *absolute paths* like `"C:/Users/MyName/WeirdPath/training/data/file.csv"`.
 
 :::::::::::::::
 
@@ -81,9 +79,12 @@ Let's starts by creating `New Quarto Document`!
 
 ## Introduction
 
-A new Ebola Virus Disease (EVD) outbreak has been notified in a country in West Africa. The Ministry of Health is coordinating the outbreak response and has contracted you as a consultant in epidemic analysis to inform the response in real-time. The available report of cases is coming from hospital admissions.
+A new Ebola Virus Disease (EVD) outbreak has been notified in a country in West Africa.
+The Ministry of Health is coordinating the outbreak response and has contracted you as a consultant in epidemic analysis to inform the response in real-time.
+The available report of cases is coming from hospital admissions.
 
-Let's start by loading the package `{readr}` to read `.csv` data, `{dplyr}` to manipulate data, `{tidyr}` to rearrange it, and `{here}` to write file paths within your RStudio project. We'll use the pipe `%>%` to connect some of their functions, including others from the package `{ggplot2}`, so let's call to the package `{tidyverse}` that loads them all:
+Let's start by loading the package `{readr}` to read `.csv` data, `{dplyr}` to manipulate data, `{tidyr}` to rearrange it, and `{here}` to write file paths within your RStudio project.
+We'll use the pipe `%>%` to connect some of their functions, including others from the package `{ggplot2}`, so let's call to the package `{tidyverse}` that loads them all:
 
 
 ``` r
@@ -108,7 +109,7 @@ library(tidyverse) # loads readr, dplyr, tidyr and ggplot2
 
 **The double-colon**
 
-The double-colon `::` in R let you call a specific function from a package without loading the entire package into the current environment. 
+The double-colon `::` in R let you call a specific function from a package without loading the entire package into the current environment.
 
 For example, `dplyr::filter(data, condition)` uses `filter()` from the `{dplyr}` package.
 
@@ -118,7 +119,8 @@ This helps us remember package functions and avoid namespace conflicts.
 
 ## Explore data
 
-For the purpose of this episode, we will read a pre-cleaned line list data. Following episodes will tackle how to solve cleaning tasks.
+For the purpose of this episode, we will read a pre-cleaned line list data.
+Following episodes will tackle how to solve cleaning tasks.
 
 
 ``` r
@@ -133,14 +135,19 @@ cases <- readr::read_csv(
 
 :::::::::::::::::::: checklist
 
-**Why should we use the {here} package?**
+\*\*Why should we use the {here} package?
+\*\*
 
-The package `{here}` simplifies file referencing in R projects. It allows them to work across different operating systems (Windows, Mac, Linux). This feature, called **cross-environment compatibility**,  eliminates the need to adjust file paths. For example:
+The package `{here}` simplifies file referencing in R projects.
+It allows them to work across different operating systems (Windows, Mac, Linux).
+This feature, called **cross-environment compatibility**,  eliminates the need to adjust file paths.
+For example:
 
-- On Windows, paths are written using backslashes ( `\` ) as the separator between folder names: `"data\raw-data\file.csv"` 
+- On Windows, paths are written using backslashes ( `\` ) as the separator between folder names: `"data\raw-data\file.csv"`
 - On Unix based operating system such as macOS or Linux the forward slash ( `/` ) is used as the path separator: `"data/raw-data/file.csv"`
 
-The `{here}` package adds one more layer of reproducibility to your work. For more, read this tutorial about [open, sustainable, and reproducible epidemic analysis with R](https://epiverse-trace.github.io/research-compendium/)
+The `{here}` package adds one more layer of reproducibility to your work.
+For more, read this tutorial about [open, sustainable, and reproducible epidemic analysis with R](https://epiverse-trace.github.io/research-compendium/)
 
 ::::::::::::::::::::
 
@@ -173,7 +180,7 @@ cases
 
 Take a moment to review the data and its structure..
 
-- Do the data and format resemble line lists you’ve encountered before?
+- Do the data and format resemble line lists you've encountered before?
 - If you were part of the outbreak investigation team, what additional information might you want to collect?
 
 ::::::::::::::
@@ -232,10 +239,9 @@ Why do we have more missings on date of infection or date of outcome?
 
 :::::::::::::
 
-
 ## Calculate severity
 
-A frequent indicator for measuring severity is the case fatality risk (CFR). 
+A frequent indicator for measuring severity is the case fatality risk (CFR).
 
 CFR is defined as the conditional probability of death given confirmed diagnosis, calculated as the cumulative number of deaths from an infectious disease over the number of confirmed diagnosed cases.
 
@@ -274,7 +280,7 @@ However, when assessing severity, CFR estimation is sensitive to:
 
 - **Right-censoring bias**. If we include observations with unknown final status we can underestimate the true CFR.
 
-- **Selection bias**. At the beginning of an outbreak, given that health systems collect most clinically severe cases, an early estimate of the CFR can overestimate the true CFR. 
+- **Selection bias**. At the beginning of an outbreak, given that health systems collect most clinically severe cases, an early estimate of the CFR can overestimate the true CFR.
 
 ::::::::::::
 
@@ -308,7 +314,8 @@ This way of writing almost look like writing a recipe!
 
 :::::::::::: challenge
 
-Calculate the CFR as the division of the number of **deaths** among **known outcomes**. Do this by adding one more pipe `%>%` in the last code chunk. 
+Calculate the CFR as the division of the number of **deaths** among **known outcomes**.
+Do this by adding one more pipe `%>%` in the last code chunk.
 
 Report:
 
@@ -351,7 +358,7 @@ cases %>%
 1    65      59    42                 124 0.524
 ```
 
-This calculation is _naive_ because it tends to yield a biased and mostly underestimated CFR due to the time-delay from onset to death, only stabilising at the later stages of the outbreak.
+This calculation is *naive* because it tends to yield a biased and mostly underestimated CFR due to the time-delay from onset to death, only stabilising at the later stages of the outbreak.
 
 Now, as a comparison, how much a CFR estimate changes if we include unknown outcomes in the denominator?
 
@@ -382,13 +389,16 @@ Due to **right-censoring bias**, if we include observations with unknown final s
 
 ::::::::::::
 
-Data of today will not include outcomes from patients that are still hospitalised. Then, one relevant question to ask is: In average, how much time it would take to know the outcomes of hospitalised cases? For this we can calculate **delays**!
+Data of today will not include outcomes from patients that are still hospitalised.
+Then, one relevant question to ask is: In average, how much time it would take to know the outcomes of hospitalised cases?
+For this we can calculate **delays**!
 
 ## Calculate delays
 
-The time between sequence of dated events can vary between subjects. For example, we would expect the date of infection to always be before the date of symptom onset, and the later always before the date of hospitalization.
+The time between sequence of dated events can vary between subjects.
+For example, we would expect the date of infection to always be before the date of symptom onset, and the later always before the date of hospitalization.
 
-In a random sample of 30 observations from the `cases` data frame we observe variability between the date of hospitalization and date of outcome: 
+In a random sample of 30 observations from the `cases` data frame we observe variability between the date of hospitalization and date of outcome:
 
 <img src="fig/delays-refresher-rendered-unnamed-chunk-11-1.png" style="display: block; margin: auto;" />
 
@@ -434,9 +444,11 @@ Table: Data summary
 
 ::::::::::::::::: callout
 
-**Inconsistencies among sequence of dated-events?**
+\*\*Inconsistencies among sequence of dated-events?
+\*\*
 
-Wait! Is it consistent to have negative time delays from primary to secondary observations, i.e., from hospitalisation to death?
+Wait!
+Is it consistent to have negative time delays from primary to secondary observations, i.e., from hospitalisation to death?
 
 In the next episode called **Clean data** we will learn how to check sequence of dated-events and other frequent and challenging inconsistencies!
 
@@ -444,7 +456,7 @@ In the next episode called **Clean data** we will learn how to check sequence of
 
 ::::::::::::::::: challenge
 
-To calculate a _delay-adjusted_ CFR, we need to assume a known delay from onset to death.
+To calculate a *delay-adjusted* CFR, we need to assume a known delay from onset to death.
 
 Using the `cases` object:
 
@@ -500,7 +512,9 @@ Table: Data summary
 |:-----------------|---------:|-------------:|:------|:-------|:------|--------:|
 |delay_onset_death |         0|             1|2 days |17 days |7 days |       15|
 
-Where is the source of the inconsistency? Let's say you want to keep the rows with negative delay values to investigate them. How would you do it?
+Where is the source of the inconsistency?
+Let's say you want to keep the rows with negative delay values to investigate them.
+How would you do it?
 
 :::::::::::::
 
@@ -530,16 +544,18 @@ cases %>%
 6 a48f5d  2014-06-15    2014-06-10      Death    -5 days         
 ```
 
-More on estimating a _delay-adjusted_ CFR on the episode about **Estimating outbreak severity**!
+More on estimating a *delay-adjusted* CFR on the episode about **Estimating outbreak severity**!
 
 ::::::::::::
 
 :::::::::::::::::
 
-
 ## Epidemic curve
 
-The first question we want to know is simply: how bad is it? The first step of the analysis is descriptive. We want to draw an epidemic curve or epicurve. This visualises the incidence over time by date of symptom onset.
+The first question we want to know is simply: how bad is it?
+The first step of the analysis is descriptive.
+We want to draw an epidemic curve or epicurve.
+This visualises the incidence over time by date of symptom onset.
 
 From the `cases` object we will use:
 
@@ -608,13 +624,15 @@ cases %>%
 
 <img src="fig/delays-refresher-rendered-unnamed-chunk-18-1.png" style="display: block; margin: auto;" />
 
-The distribution of the reporting delay in day units is heavily skewed. Symptomatic cases may take up to **two weeks** to be reported.
+The distribution of the reporting delay in day units is heavily skewed.
+Symptomatic cases may take up to **two weeks** to be reported.
 
 From reports (hospitalisations) in the most recent two weeks, we completed the exponential growth trend of incidence cases within the last four weeks:
 
 <img src="fig/delays-refresher-rendered-unnamed-chunk-19-1.png" style="display: block; margin: auto;" />
 
-Given to reporting delays during this outbreak, it seemed that two weeks ago we had a decay of cases during the last three weeks. We needed to wait a couple of weeks to complete the incidence of cases on each week.
+Given to reporting delays during this outbreak, it seemed that two weeks ago we had a decay of cases during the last three weeks.
+We needed to wait a couple of weeks to complete the incidence of cases on each week.
 
 :::::::::::::: challenge
 
@@ -640,13 +658,14 @@ More on this topic on episodes about **Aggregate and visualize** and **Quantifyi
 2 date_of_onset  date_index     0.233    0.0302      7.71 1.29e-14
 ```
 
-Note: Due to the diagnosed reporting delay, We conveniently truncated the epidemic curve one week before to fit the model! This improves the fitted model to data when quantifying the growth rate during the exponential phase.
+Note: Due to the diagnosed reporting delay, We conveniently truncated the epidemic curve one week before to fit the model!
+This improves the fitted model to data when quantifying the growth rate during the exponential phase.
 
 :::::::::
 
 ::::::::::::::
 
-Lastly, in order to account for these _epidemiological delays_ when estimating indicators of severity or transmission, in our analysis we need to input delays as **Probability Distributions**!
+Lastly, in order to account for these *epidemiological delays* when estimating indicators of severity or transmission, in our analysis we need to input delays as **Probability Distributions**!
 
 ## Fit a probability distribution to delays
 
@@ -656,44 +675,55 @@ Assess learners based on video refreshers on distributions, likelihood, and maxi
 
 :::::::::::::::::::
 
-We fit a probability distribution to data (like delays) to make inferences about it. These inferences can be useful for Public health interventions and decision making. For example:
+We fit a probability distribution to data (like delays) to make inferences about it.
+These inferences can be useful for Public health interventions and decision making.
+For example:
 
 - From the [incubation period](reference.md#incubation) distribution we can inform the length of active monitoring or quarantine. We can infer the time by which 99% of infected individuals are expected to show symptoms ([Lauer et al., 2020](https://pubmed.ncbi.nlm.nih.gov/32150748/)).
 
 - From the [serial interval](reference.md#serialinterval) distribution we can optimize contact tracing. We can evaluate the need to expand the number of days pre-onset to consider in the contact tracing to include more backwards contacts ([Claire Blackmore, 2021](https://www.paho.org/sites/default/files/backward_contact_tracing_v3_0.pdf); [Davis et al., 2020](https://assets.publishing.service.gov.uk/media/61e9ab3f8fa8f50597fb3078/S0523_Oxford_-_Backwards_contact_tracing.pdf)).
 
-![A schematic of the relationship of different time periods of transmission between a primary case and a secondary case in a transmission pair. Adapted from [Zhao et al, 2021](https://www.sciencedirect.com/science/article/pii/S1755436521000359#fig0005)](fig/delays-adapted.png)
+![
+A schematic of the relationship of different time periods of transmission between a primary case and a secondary case in a transmission pair.
+Adapted from [Zhao et al, 2021](https://www.sciencedirect.com/science/article/pii/S1755436521000359#fig0005)](fig/delays-adapted.png)
 
 ::::::::::::::::: callout
 
 **From time periods to probability distributions**
 
-When we calculate the *serial interval*, we see that not all case pairs have the same time length. We will observe this variability for any case pair and individual time period.
+When we calculate the *serial interval*, we see that not all case pairs have the same time length.
+We will observe this variability for any case pair and individual time period.
 
-![Serial intervals of possible case pairs in (a) COVID-19 and (b) MERS-CoV. Pairs represent a presumed infector and their presumed infectee plotted by date of symptom onset ([Althobaity et al., 2022](https://www.sciencedirect.com/science/article/pii/S2468042722000537#fig6)).](fig/serial-interval-pairs.jpg)
+![
+Serial intervals of possible case pairs in (a) COVID-19 and (b) MERS-CoV.
+Pairs represent a presumed infector and their presumed infectee plotted by date of symptom onset ([Althobaity et al., 2022](https://www.sciencedirect.com/science/article/pii/S2468042722000537#fig6)).](fig/serial-interval-pairs.jpg)
 
-To summarise these data from individual and pair time periods, we can find the **statistical distributions** that best fit the data ([McFarland et al., 2023](https://www.eurosurveillance.org/content/10.2807/1560-7917.ES.2023.28.27.2200806)).
+To summarise these data from individual and pair time periods, we can find the **statistical distributions** that best fit the data (\[McFarland et al., 2023\](https://www.eurosurveillance.org/content/10.2807/1560-7917.
+ES.2023.28.27.2200806)).
 
 <!-- add a reference about good practices to estimate distributions -->
 
-![Fitted serial interval distribution for (a) COVID-19 and (b) MERS-CoV based on reported transmission pairs in Saudi Arabia. We fitted three commonly used distributions, Log normal, Gamma, and Weibull distributions, respectively ([Althobaity et al., 2022](https://www.sciencedirect.com/science/article/pii/S2468042722000537#fig5)).](fig/seria-interval-fitted-distributions.jpg)
+![
+Fitted serial interval distribution for (a) COVID-19 and (b) MERS-CoV based on reported transmission pairs in Saudi Arabia.
+We fitted three commonly used distributions, Log normal, Gamma, and Weibull distributions, respectively ([Althobaity et al., 2022](https://www.sciencedirect.com/science/article/pii/S2468042722000537#fig5)).](fig/seria-interval-fitted-distributions.jpg)
 
-Statistical distributions are summarised in terms of their **summary statistics** like the *location* (mean and percentiles) and *spread* (variance or standard deviation) of the distribution, or with their **distribution parameters** that inform about the *form* (shape and rate/scale) of the distribution. These estimated values can be reported with their **uncertainty** (95% confidence intervals).
+Statistical distributions are summarised in terms of their **summary statistics** like the *location* (mean and percentiles) and *spread* (variance or standard deviation) of the distribution, or with their **distribution parameters** that inform about the *form* (shape and rate/scale) of the distribution.
+These estimated values can be reported with their **uncertainty** (95% confidence intervals).
 
-| Gamma | mean | shape | rate/scale |
-|:--------------|:--------------|:--------------|:--------------|
-| MERS-CoV | 14.13(13.9–14.7) | 6.31(4.88–8.52) | 0.43(0.33–0.60) |
-| COVID-19 | 5.1(5.0–5.5) | 2.77(2.09–3.88) | 0.53(0.38–0.76) |
+| Gamma      | mean             | shape           | rate/scale      | 
+| :--------- | :--------------- | :-------------- | :-------------- |
+| MERS-CoV   | 14\.13(13.9–14.7) | 6\.31(4.88–8.52) | 0\.43(0.33–0.60) | 
+| COVID-19   | 5\.1(5.0–5.5)     | 2\.77(2.09–3.88) | 0\.53(0.38–0.76) | 
 
-| Weibull | mean | shape | rate/scale |
-|:--------------|:--------------|:--------------|:--------------|
-| MERS-CoV | 14.2(13.3–15.2) | 3.07(2.64–3.63) | 16.1(15.0–17.1) |
-| COVID-19 | 5.2(4.6–5.9) | 1.74(1.46–2.11) | 5.83(5.08–6.67) |
+| Weibull    | mean             | shape           | rate/scale      | 
+| :--------- | :--------------- | :-------------- | :-------------- |
+| MERS-CoV   | 14\.2(13.3–15.2)  | 3\.07(2.64–3.63) | 16\.1(15.0–17.1) | 
+| COVID-19   | 5\.2(4.6–5.9)     | 1\.74(1.46–2.11) | 5\.83(5.08–6.67) | 
 
-| Log normal | mean | mean-log | sd-log |
-|:--------------|:--------------|:--------------|:--------------|
-| MERS-CoV | 14.08(13.1–15.2) | 2.58(2.50–2.68) | 0.44(0.39–0.5) |
-| COVID-19 | 5.2(4.2–6.5) | 1.45(1.31–1.61) | 0.63(0.54–0.74) |
+| Log normal | mean             | mean-log        | sd-log          | 
+| :--------- | :--------------- | :-------------- | :-------------- |
+| MERS-CoV   | 14\.08(13.1–15.2) | 2\.58(2.50–2.68) | 0\.44(0.39–0.5)  | 
+| COVID-19   | 5\.2(4.2–6.5)     | 1\.45(1.31–1.61) | 0\.63(0.54–0.74) | 
 
 Table: Serial interval estimates using Gamma, Weibull, and Log Normal distributions. 95% confidence intervals for the shape and scale (logmean and sd for Log Normal) parameters are shown in brackets ([Althobaity et al., 2022](https://www.sciencedirect.com/science/article/pii/S2468042722000537#tbl3)).
 
@@ -725,9 +755,12 @@ meanlog 1.0488098 0.06866105
 sdlog   0.8465102 0.04855039
 ```
 
-Use `summary()` to find goodness-of-fit statistics from the Maximum likelihood. Use `plot()` to visualize the fitted density function and other quality control plots.
+Use `summary()` to find goodness-of-fit statistics from the Maximum likelihood.
+Use `plot()` to visualize the fitted density function and other quality control plots.
 
-Now we can do inferences from the probability distribution fitted to the epidemiological delay! Want to learn how? Read the "Show details" :)
+Now we can do inferences from the probability distribution fitted to the epidemiological delay!
+Want to learn how?
+Read the "Show details" :)
 
 :::::::::::::::: spoiler
 
@@ -735,7 +768,8 @@ Now we can do inferences from the probability distribution fitted to the epidemi
 
 If you need it, read in detail about the [R probability functions for the normal distribution](https://sakai.unc.edu/access/content/group/3d1eb92e-7848-4f55-90c3-7c72a54e7e43/public/docs/lectures/lecture13.htm#probfunc), each of its definitions and identify in which part of a distribution they are located!
 
-Each probability distribution has a unique set of **parameters** and **probability functions**. Read the [Distributions in the stats package](https://stat.ethz.ch/R-manual/R-devel/library/stats/html/Distributions.html) or `?stats::Distributions` to find the ones available in R.
+Each probability distribution has a unique set of **parameters** and **probability functions**.
+Read the [Distributions in the stats package](https://stat.ethz.ch/R-manual/R-devel/library/stats/html/Distributions.html) or `? stats::Distributions` to find the ones available in R.
 
 For example, assuming that the reporting delay follows a **Log Normal** distribution, we can use `plnorm()` to calculate the probability of observing a reporting delay of 14 days or less:
 
@@ -770,16 +804,19 @@ Let's review some operators used until now:
 - Assignment `<-` assigns a value to a variable from right to left.
 - Double colon `::` to call a function from a specific package.
 - Pipe `%>%` to structure sequences of data operations left-to-right
+
 <!-- - Logical negation `!` to indicate a logical negation (NOT). -->
 
-We need to add two more to the list: 
+We need to add two more to the list:
 
 - Dollar sign `$`
 - Square brackets `[]`
 
 :::::::::::::
 
-Last step is to access to this parameters. Most modeling outputs from R functions will be stored as `list` class objects. In R, the dollar sign operator `$` is used to access elements (like columns) within a data frame or list by name, allowing for easy retrieval of specific components.
+Last step is to access to this parameters.
+Most modeling outputs from R functions will be stored as `list` class objects.
+In R, the dollar sign operator `$` is used to access elements (like columns) within a data frame or list by name, allowing for easy retrieval of specific components.
 
 ::::::::::::::: tab
 
@@ -798,7 +835,8 @@ reporting_delay_fit <- cases %>%
   fitdistrplus::fitdist(distr = "lnorm")
 ```
 
-Usually, statistical outputs in R are stored as `List` class objects. Run the chunk below to explore it:
+Usually, statistical outputs in R are stored as `List` class objects.
+Run the chunk below to explore it:
 
 
 ``` r
@@ -819,7 +857,8 @@ reporting_delay_fit %>%
 1.0488098 0.8465102 
 ```
 
-The code below provides an equivalent result. Try this yourself:
+The code below provides an equivalent result.
+Try this yourself:
 
 
 ``` r
@@ -861,7 +900,8 @@ cases_delay %>%
 [151]  2  3
 ```
 
-The code below provides an equivalent result. Try this yourself:
+The code below provides an equivalent result.
+Try this yourself:
 
 
 ``` r
@@ -874,11 +914,10 @@ cases_delay$reporting_delay_num
 
 **A code completion tip**
 
-If we write the **square brackets** `[]` next to the object `reporting_delay_fit$estimate[]`, within `[]` we can use the 
-Tab key <kbd>↹</kbd> 
-for [code completion feature](https://support.posit.co/hc/en-us/articles/205273297-Code-Completion-in-the-RStudio-IDE) 
+If we write the **square brackets** `[]` next to the object `reporting_delay_fit$estimate[]`, within `[]` we can use the Tab key <kbd>↹</kbd> for [code completion feature](https://support.posit.co/hc/en-us/articles/205273297-Code-Completion-in-the-RStudio-IDE)
 
-This gives quick access to `"meanlog"` and `"sdlog"`. We invite you to try this out in code chunks and the R console!
+This gives quick access to `"meanlog"` and `"sdlog"`.
+We invite you to try this out in code chunks and the R console!
 
 
 ``` r
@@ -891,14 +930,15 @@ reporting_delay_fit$estimate[]
 
 ::::::::::::::::::::::::::::::
 
-
 ::::::::::::::: callout
 
-**Estimating epidemiological delays is CHALLENGING!**
+\*\*Estimating epidemiological delays is CHALLENGING!
+\*\*
 
-Epidemiological delays need to account for biases like censoring, right truncation, or epidemic phase ([Charniga et al., 2024](https://doi.org/10.1371/journal.pcbi.1012520)). 
- 
-Additionally, at the beginning of an outbreak, limited data or resources exist to perform this during a real-time analysis. Until we have more appropriate data for the specific disease and region of the ongoing outbreak, we can **reuse delays from past outbreaks** from the same pathogens or close in its phylogeny, independent of the area of origin.
+Epidemiological delays need to account for biases like censoring, right truncation, or epidemic phase ([Charniga et al., 2024](https://doi.org/10.1371/journal.pcbi.1012520)).
+
+Additionally, at the beginning of an outbreak, limited data or resources exist to perform this during a real-time analysis.
+Until we have more appropriate data for the specific disease and region of the ongoing outbreak, we can **reuse delays from past outbreaks** from the same pathogens or close in its phylogeny, independent of the area of origin.
 
 :::::::::::::::
 
@@ -1010,7 +1050,7 @@ qlnorm(
 [1] 35.28167
 ```
 
-With the distribution parameters of the incubation period we can infer the length of active monitoring or quarantine. 
+With the distribution parameters of the incubation period we can infer the length of active monitoring or quarantine.
 [Lauer et al., 2020](https://pubmed.ncbi.nlm.nih.gov/32150748/) estimated the incubation period of Coronavirus Disease 2019 (COVID-19) from publicly reported confirmed cases.
 
 :::::::::::::
@@ -1019,7 +1059,9 @@ With the distribution parameters of the incubation period we can infer the lengt
 
 ::::::::::::::: challenge
 
-Let's create **reproducible examples (`reprex`)**. A reprex help us to communicate our coding problems with software developers. Explore this Applied Epi entry: <https://community.appliedepi.org/t/how-to-make-a-reproducible-r-code-example/167>
+Let's create **reproducible examples (`reprex`)**.
+A reprex help us to communicate our coding problems with software developers.
+Explore this Applied Epi entry: <https://community.appliedepi.org/t/how-to-make-a-reproducible-r-code-example/167>
 
 Create a `reprex` with your answer:
 
@@ -1035,16 +1077,18 @@ outbreaks::ebola_sim_clean %>%
 
 :::::::::::::::
 
-::::::::::::::::::::::::::::::::::::: keypoints 
+::::::::::::::::::::::::::::::::::::: keypoints
 
 - Use packages from the `tidyverse` like `{dplyr}`, `{tidyr}`, and `{ggplot2}` for exploratory data analysis.
-- Epidemiological delays condition the estimation of indicators for severity or transmission. 
+- Epidemiological delays condition the estimation of indicators for severity or transmission.
 - Fit probability distribution to delays to make inferences from them for decision-making.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
 ### References
 
-- Cori, A. et al. (2019) Real-time outbreak analysis: Ebola as a case study - part 1 · Recon Learn, RECON learn. Available at: https://www.reconlearn.org/post/real-time-response-1 (Accessed: 06 November 2024).
+- Cori, A. et al. (2019) Real-time outbreak analysis: Ebola as a case study - part 1 · Recon Learn, RECON learn. Available at: <https://www.reconlearn.org/post/real-time-response-1> (Accessed: 06 November 2024).
 
-- Cori, A. et al. (2019) Real-time outbreak analysis: Ebola as a case study - part 2 · Recon Learn, RECON learn. Available at: https://www.reconlearn.org/post/real-time-response-2 (Accessed: 07 November 2024).
+- Cori, A. et al. (2019) Real-time outbreak analysis: Ebola as a case study - part 2 · Recon Learn, RECON learn. Available at: <https://www.reconlearn.org/post/real-time-response-2> (Accessed: 07 November 2024).
+
+
