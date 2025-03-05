@@ -456,7 +456,7 @@
       "Repository": "RSPM",
       "Requirements": [
         "R"
-      ],
+      ]
     },
     "Rdpack": {
       "Package": "Rdpack",
