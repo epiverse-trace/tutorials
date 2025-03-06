@@ -171,6 +171,7 @@ new_packages <- c(
   "epichains",
   # for Late task tutorials
   "socialmixr",
+  "finalsize",
   "epiverse-trace/epidemics",
   "scales"
 )
@@ -308,6 +309,7 @@ library(superspreading)
 library(epichains)
 # for Late task tutorials
 library(socialmixr)
+library(finalsize)
 library(epidemics)
 library(scales)
 ```
