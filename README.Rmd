@@ -53,6 +53,16 @@ Former maintainers:
 
 <!--## Acknowledgements-->
 
+## Related documentation
+
++ [How-to guides](https://epiverse-trace.github.io/howto/): Reproducible recipes with concrete steps to solve specific Outbreak Analysis questions using multiple packages.
++ [Reference manuals and vignettes](https://epiverse-trace.github.io/getting-started.html#epiverse-trace-packages): Package-specific usage guides and function examples, along with explanatory articles.
+
+## Related learning materials
+
++ [Introductory R tutorials](https://appliedepi.org/resources/tutorials.html): Refresh your R knowledge with interactive online self-paced tutorials from the Applied Epi organization.
++ [The Epidemiologist R Handbook](https://www.epirhandbook.com/en/index.html): Online book on basics, data management, epidemiological analysis, visualization, and reporting from the Applied Epi organization.
+
 ## Citation
 
 See [CITATION.cff](CITATION.cff) for citation information, including a list of authors.
