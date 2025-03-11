@@ -82,7 +82,7 @@ we recommend you solve these
 - Data preparation
 
 Access these tutorials following instructions in 
-<https://appliedepi.org/tutorial/>!
+<https://appliedepi.org/resources/tutorials.html>!
 
 ::::::::::::::::::::::::::::
 
