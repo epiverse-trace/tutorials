@@ -43,7 +43,7 @@ Lesson content is published with a [CC-BY license](LICENSE.md).
 Current maintainers of this tutorials are:
 
 - [Andree Valle-Campos](https://github.com/avallecam/) (Content)
-- [Hugo Gruson](https://github.com/Bisaloo/) (Infraestructure)
+- [Hugo Gruson](https://github.com/Bisaloo/) (Infrastructure)
 
 <!--
 Former maintainers:
@@ -59,20 +59,20 @@ use it](https://citation-file-format.github.io/).)
 
 To cite these tutorials in publications use:
 
-    #> Valle Campos A, Minter A, Degoot A (2025). "Epiverse TRACE tutorials."
-    #> <https://epiverse-trace.github.io/tutorials/>.
+    Valle Campos A, Minter A, Degoot A (2025). "Epiverse TRACE tutorials."
+    <https://epiverse-trace.github.io/tutorials/>.
 
 A BibTeX entry for LaTeX users is:
 
-    #> @Misc{vallecampos_etall:2025,
-    #>   title = {Epiverse TRACE tutorials},
-    #>   author = {Andree Adolfo {Valle Campos} and Amanda Minter and Abdoelnaser Degoot},
-    #>   year = {2025},
-    #>   url = {https://epiverse-trace.github.io/tutorials/},
-    #>   abstract = {The Epiverse-TRACE initiative aims to provide a software ecosystem for outbreak analytics with integrated, generalisable and scalable community-driven software. We support the development of R packages, make the existing ones interoperable for the user experience, and stimulate a community of practice. In the outbreak analytics curriculum, we built three tutorials around an outbreak analysis pipeline split into three stages: Early, Middle, and Late tasks. Early tasks include reading and cleaning case data and accessing delay distributions to estimate transmission metrics. Middle tasks include estimating forecasting, severity and superspreading from case data and simulating transmission chains. Late tasks include scenario modelling to simulate disease spread and investigate interventions.},
-    #>   keywords = {outbreak analytics,epidemic modelling,carpentries,rstats,english-language},
-    #>   version = {v2025-03-11},
-    #> }
+    @Misc{vallecampos_etall:2025,
+      title = {Epiverse TRACE tutorials},
+      author = {Andree Adolfo {Valle Campos} and Amanda Minter and Abdoelnaser Degoot},
+      year = {2025},
+      url = {https://epiverse-trace.github.io/tutorials/},
+      abstract = {The Epiverse-TRACE initiative aims to provide a software ecosystem for outbreak analytics with integrated, generalisable and scalable community-driven software. We support the development of R packages, make the existing ones interoperable for the user experience, and stimulate a community of practice. In the outbreak analytics curriculum, we built three tutorials around an outbreak analysis pipeline split into three stages: Early, Middle, and Late tasks. Early tasks include reading and cleaning case data and accessing delay distributions to estimate transmission metrics. Middle tasks include estimating forecasting, severity and superspreading from case data and simulating transmission chains. Late tasks include scenario modelling to simulate disease spread and investigate interventions.},
+      keywords = {outbreak analytics,epidemic modelling,carpentries,rstats,english-language},
+      version = {v2025-03-11},
+    }
 
 ## Contact
 
