@@ -10,8 +10,8 @@ message: >-
   training material.
 type: dataset
 authors:
-  - given-names: Andree Adolfo
-    family-names: Valle Campos
+  - given-names: Andree
+    family-names: Valle-Campos
     email: andree.valle-campos@lshtm.ac.uk
     orcid: 'https://orcid.org/0000-0002-7779-481X'
   - given-names: Amanda
