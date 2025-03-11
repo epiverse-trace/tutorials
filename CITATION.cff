@@ -4,9 +4,10 @@
 cff-version: 1.2.0
 title: Epiverse TRACE tutorials
 message: >-
-  Please cite this tutorial using the information in this
-  file if you publish a tutorial after using this tutorial
-  or attending a training where it was taught.
+  Please cite this lesson using the information in this file
+  when you refer to it in publications, and/or if you
+  re-use, adapt, or expand on the content in your own
+  training material.
 type: dataset
 authors:
   - given-names: Andree Adolfo
