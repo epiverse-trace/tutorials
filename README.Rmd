@@ -18,13 +18,15 @@ knitr::opts_chunk$set(
 [![Project Status: WIP - Initial development is in progress, but there has not yet been a stable, usable release suitable for the public.](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostatus.org/#wip)
 <!-- badges: end -->
 
-Tutorials on outbreak analytics and applied modelling with R developed by the Epiverse-TRACE initiative. The tutorials are visible at: <https://epiverse-trace.github.io/tutorials/>. More information about Epiverse-TRACE learning material is available at: <https://epiverse-trace.github.io/learn.html>
+Tutorials on outbreak analytics and applied modelling with R developed by the Epiverse-TRACE initiative. These tutorials are visible at: <https://epiverse-trace.github.io/tutorials/>. 
+
+More information about Epiverse-TRACE learning material is available at: <https://epiverse-trace.github.io/learn.html>
 
 ## Contributing
 
 Please see the [CONTRIBUTING.md](CONTRIBUTING.md) for contributing guidelines and details on how to get involved with this project. Please adhere to this project's [Code of Conduct](CODE_OF_CONDUCT.md).
 
-Also see the current list of [issues](https://github.com/epiverse-trace/tutorials/issues) for ideas for contributing to this training curriculum.
+Also see the current list of [issues](https://github.com/epiverse-trace/tutorials/issues) for ideas on how to contribute to this training curriculum.
 
 To learn more about how this lesson site is built and how you can edit the pages, see the [Introduction to The Carpentries Workbench](https://carpentries.github.io/sandpaper-docs/).
 
@@ -37,7 +39,7 @@ Lesson content is published with a [CC-BY license](LICENSE.md).
 
 ## Maintainer(s)
 
-Current maintainers of this tutorials are:
+Current maintainers of these tutorials are:
 
 - [Andree Valle-Campos](https://github.com/avallecam/) (Content)
 - [Hugo Gruson](https://github.com/Bisaloo/) (Infrastructure)
@@ -69,4 +71,4 @@ utils::toBibtex(cffr::as_bibentry(x = "CITATION.cff"))
 ```
 
 ## Contact
-Please get in touch with [Andree Valle-Campos](mailto:andree.valle-campos@lshtm.ac.uk) with any questions about this tutorial.
+Please contact [Andree Valle-Campos](mailto:andree.valle-campos@lshtm.ac.uk) with any questions about this tutorial.
