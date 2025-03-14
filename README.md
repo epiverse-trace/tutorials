@@ -52,7 +52,9 @@ Former maintainers:
 &#10;-->
 <!--## Acknowledgements-->
 
-## Related documentation
+## Related
+
+Epiverse-TRACE documentation:
 
 - [How-to guides](https://epiverse-trace.github.io/howto/): Reproducible
   recipes with concrete steps to solve specific Outbreak Analysis
@@ -62,7 +64,7 @@ Former maintainers:
   Package-specific usage guides and function examples, along with
   explanatory articles.
 
-## Related learning materials
+Preliminary learning materials:
 
 - [Introductory R
   tutorials](https://appliedepi.org/resources/tutorials.html): Refresh
