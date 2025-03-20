@@ -18,7 +18,6 @@ exercises: 2
 - Create new columns from existing columns using `mutate()` function.
 - Keep or drop columns by their names using `select()`.
 - Keep rows that match a condition using `filter()`.
-- Extract a single column using `pull()`.
 - Create graphics declaratively using `{ggplot2}`.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
