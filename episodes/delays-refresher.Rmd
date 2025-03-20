@@ -7,7 +7,6 @@ exercises: 2
 :::::::::::::::::::::::::::::::::::::: questions 
 
 - How to calculate delays from line list data?
-- How to fit a probability distribution to delay data?
 - Why it is important to account for delays in outbreak analytics?
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
@@ -562,7 +561,7 @@ cases %>%
   geom_histogram(binwidth = 1)
 ```
 
-In coming episode we will learn how to fit statistical _distribution paramaters_ to a distribution.
+In coming episode we will learn how to fit statistical _distribution paramaters_ to a distribution, or access to the most appropriate estimates.
 
 With the distribution parameters of the incubation period we can infer the length of active monitoring or quarantine. 
 [Lauer et al., 2020](https://pubmed.ncbi.nlm.nih.gov/32150748/) estimated the incubation period of Coronavirus Disease 2019 (COVID-19) from publicly reported confirmed cases.
@@ -575,8 +574,7 @@ With the distribution parameters of the incubation period we can infer the lengt
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
 - Use packages from the `tidyverse` like `{dplyr}`, `{tidyr}`, and `{ggplot2}` for exploratory data analysis.
-- Epidemiological delays condition the estimation of indicators for severity or transmission. 
-- Fit probability distribution to delays to make inferences from them for decision-making.
+- Epidemiological delays condition the estimation of indicators for severity or transmission.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
