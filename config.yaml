@@ -60,7 +60,7 @@ contact: 'andree.valle-campos@lshtm.ac.uk'
 # Order of episodes in your lesson
 episodes:
 #- introduction.Rmd
-- delays-refresher.Rmd
+- delays-introduction.Rmd
 
 # Information for Learners
 learners:
