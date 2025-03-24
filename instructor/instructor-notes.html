@@ -250,7 +250,7 @@
 <div class="accordion accordion-flush" id="accordionFlush2">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading2">
-        <a href="delays-refresher.html">1. Introduction to outbreak analytics</a>
+        <a href="delays-introduction.html">1. Introduction to outbreak analytics</a>
     </div>
 <!--/div.accordion-header-->
 
@@ -322,20 +322,19 @@ any links that you are not going to use.
  -->
 
 
-      <section id="aggregate-instructor-notes"><section id="delays-refresher"><h2 class="section-heading"><a href="delays-refresher.html">Introduction to outbreak analytics</a></h2>
+      <section id="aggregate-instructor-notes"><section id="delays-introduction"><h2 class="section-heading"><a href="delays-introduction.html">Introduction to outbreak analytics</a></h2>
 <hr class="half-width">
-<h3 id="delays-refresher-headingInstructor1">
-<a href="delays-refresher.html#headingInstructor1">Instructor Note</a><a class="anchor" aria-label="anchor" href="#delays-refresher-headingInstructor1"></a>
+<h3 id="delays-introduction-headingInstructor1">
+<a href="delays-introduction.html#headingInstructor1">Instructor Note</a><a class="anchor" aria-label="anchor" href="#delays-introduction-headingInstructor1"></a>
 </h3>
 <p>Useful concepts maps to teach this episode are</p>
 <ul>
 <li><a href="https://github.com/rstudio/concept-maps?tab=readme-ov-file#dplyr" class="external-link uri">https://github.com/rstudio/concept-maps?tab=readme-ov-file#dplyr</a></li>
 <li><a href="https://github.com/rstudio/concept-maps?tab=readme-ov-file#pipe-operator" class="external-link uri">https://github.com/rstudio/concept-maps?tab=readme-ov-file#pipe-operator</a></li>
-<li><a href="https://github.com/rstudio/concept-maps?tab=readme-ov-file#pivoting" class="external-link uri">https://github.com/rstudio/concept-maps?tab=readme-ov-file#pivoting</a></li>
 </ul>
 <hr>
-<br><h3 id="delays-refresher-headingInstructor2">
-<a href="delays-refresher.html#headingInstructor2">Instructor Note</a><a class="anchor" aria-label="anchor" href="#delays-refresher-headingInstructor2"></a>
+<br><h3 id="delays-introduction-headingInstructor2">
+<a href="delays-introduction.html#headingInstructor2">Instructor Note</a><a class="anchor" aria-label="anchor" href="#delays-introduction-headingInstructor2"></a>
 </h3>
 <p>The information to collect will depend on the questions we need to
 give a response.</p>
@@ -361,8 +360,8 @@ questions like:</p>
 time.</li>
 </ul>
 <hr>
-<br><h3 id="delays-refresher-headingInstructor3">
-<a href="delays-refresher.html#headingInstructor3">Instructor Note</a><a class="anchor" aria-label="anchor" href="#delays-refresher-headingInstructor3"></a>
+<br><h3 id="delays-introduction-headingInstructor3">
+<a href="delays-introduction.html#headingInstructor3">Instructor Note</a><a class="anchor" aria-label="anchor" href="#delays-introduction-headingInstructor3"></a>
 </h3>
 <ul>
 <li>date of infection: mostly unknown, depended on limited coverage of
@@ -371,8 +370,8 @@ subjects.</li>
 <li>date of outcome: reporting delay</li>
 </ul>
 <hr>
-<br><h3 id="delays-refresher-headingInstructor4">
-<a href="delays-refresher.html#headingInstructor4">Instructor Note</a><a class="anchor" aria-label="anchor" href="#delays-refresher-headingInstructor4"></a>
+<br><h3 id="delays-introduction-headingInstructor4">
+<a href="delays-introduction.html#headingInstructor4">Instructor Note</a><a class="anchor" aria-label="anchor" href="#delays-introduction-headingInstructor4"></a>
 </h3>
 <p>Keeping cases with missing outcome is useful to track the incidence
 of number of new cases, useful to assess transmission.</p>
@@ -385,8 +384,8 @@ given that health systems collect most clinically severe cases, an early
 estimate of the CFR can overestimate the true CFR.</p></li>
 </ul>
 <hr>
-<br><h3 id="delays-refresher-headingInstructor5">
-<a href="delays-refresher.html#headingInstructor5">Instructor Note</a><a class="anchor" aria-label="anchor" href="#delays-refresher-headingInstructor5"></a>
+<br><h3 id="delays-introduction-headingInstructor5">
+<a href="delays-introduction.html#headingInstructor5">Instructor Note</a><a class="anchor" aria-label="anchor" href="#delays-introduction-headingInstructor5"></a>
 </h3>
 <p>Close inspection of the line list shows that the last date of any
 entry (by date of hospitalization) is a bit later than the last date of
@@ -403,7 +402,7 @@ hospitalisation.</li>
 <p>When showcasing this to learners in a live coding session, you can
 also use <code>cases %&gt;% view()</code> to rearrange by date
 columns.</p>
-<div class="codewrapper sourceCode" id="cb23">
+<div class="codewrapper sourceCode" id="cb16">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -421,12 +420,6 @@ columns.</p>
   &lt;date&gt;     &lt;date&gt;
 1 2014-06-27 2014-07-07  </code></pre>
 </div>
-<hr>
-<br><h3 id="delays-refresher-headingInstructor6">
-<a href="delays-refresher.html#headingInstructor6">Instructor Note</a><a class="anchor" aria-label="anchor" href="#delays-refresher-headingInstructor6"></a>
-</h3>
-<p>Assess learners based on video refreshers on distributions,
-likelihood, and maximum likelihood from setup instructions.</p>
 <hr>
 <br></section></section>
 </div>
@@ -475,9 +468,9 @@ likelihood, and maximum likelihood from setup instructions.</p>
   "creativeWorkStatus": "active",
   "url": "https://epiverse-trace.github.io/tutorials/instructor/instructor-notes.html",
   "identifier": "https://epiverse-trace.github.io/tutorials/instructor/instructor-notes.html",
-  "dateCreated": "2025-03-11",
-  "dateModified": "2025-03-18",
-  "datePublished": "2025-03-18"
+  "dateCreated": "2025-03-24",
+  "dateModified": "2025-03-24",
+  "datePublished": "2025-03-24"
 }
 
   </script><script>
