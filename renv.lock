@@ -1,6 +1,6 @@
 {
   "R": {
-    "Version": "4.4.2",
+    "Version": "4.4.3",
     "Repositories": [
       {
         "Name": "CRAN",
@@ -278,8 +278,7 @@
       "URL": "https://github.com/HenrikBengtsson/R.methodsS3",
       "BugReports": "https://github.com/HenrikBengtsson/R.methodsS3/issues",
       "NeedsCompilation": "no",
-      "Repository": "RSPM",
-      "Encoding": "UTF-8"
+      "Repository": "CRAN"
     },
     "R.oo": {
       "Package": "R.oo",
@@ -379,8 +378,7 @@
       "Description": "Provides color schemes for maps (and other graphics) designed by Cynthia Brewer as described at http://colorbrewer2.org.",
       "License": "Apache License 2.0",
       "NeedsCompilation": "no",
-      "Repository": "RSPM",
-      "Encoding": "UTF-8"
+      "Repository": "CRAN"
     },
     "Rcpp": {
       "Package": "Rcpp",
@@ -602,50 +600,6 @@
       "NeedsCompilation": "no",
       "Repository": "CRAN"
     },
-    "arsenal": {
-      "Package": "arsenal",
-      "Version": "3.6.3",
-      "Source": "Repository",
-      "Title": "An Arsenal of 'R' Functions for Large-Scale Statistical Summaries",
-      "Date": "2021-06-04",
-      "Authors@R": "c( person(\"Ethan\", \"Heinzen\", email = \"heinzen.ethan@mayo.edu\", role = c(\"aut\", \"cre\")), person(\"Jason\", \"Sinnwell\", role=\"aut\"), person(\"Elizabeth\", \"Atkinson\", role=\"aut\"), person(\"Tina\", \"Gunderson\", role=\"aut\"), person(\"Gregory\", \"Dougherty\", role=\"aut\"), person(\"Patrick\", \"Votruba\", role=\"ctb\"), person(\"Ryan\", \"Lennon\", role=\"ctb\"), person(\"Andrew\", \"Hanson\", role=\"ctb\"), person(\"Krista\", \"Goergen\", role=\"ctb\"), person(\"Emily\", \"Lundt\", role=\"ctb\"), person(\"Brendan\", \"Broderick\", role=\"ctb\"), person(\"Maddie\", \"McCullough\", role=\"art\") )",
-      "Description": "An Arsenal of 'R' functions for large-scale statistical summaries, which are streamlined to work within the latest reporting tools in 'R' and 'RStudio' and which use formulas and versatile summary statistics for summary tables and models. The primary functions include tableby(), a Table-1-like summary of multiple variable types 'by' the levels of one or more categorical variables; paired(), a Table-1-like summary of multiple variable types paired across two time points; modelsum(), which performs simple model fits on one or more endpoints for many variables (univariate or adjusted for covariates); freqlist(), a powerful frequency table across many categorical variables; comparedf(), a function for comparing data.frames; and write2(), a function to output tables to a document.",
-      "Suggests": [
-        "broom (>= 0.7.1)",
-        "magrittr",
-        "rmarkdown",
-        "testthat",
-        "xtable",
-        "pander",
-        "survival (>= 2.43-1)",
-        "coin",
-        "pROC",
-        "MASS",
-        "splines",
-        "rpart",
-        "yaml",
-        "geepack"
-      ],
-      "Depends": [
-        "R (>= 3.4.0)",
-        "stats (>= 3.4.0)"
-      ],
-      "Imports": [
-        "knitr (>= 1.29)",
-        "utils (>= 3.4.0)"
-      ],
-      "URL": "https://github.com/mayoverse/arsenal, https://cran.r-project.org/package=arsenal, https://mayoverse.github.io/arsenal/",
-      "BugReports": "https://github.com/mayoverse/arsenal/issues",
-      "VignetteBuilder": "knitr",
-      "License": "GPL (>= 2)",
-      "RoxygenNote": "7.1.1",
-      "LazyData": "true",
-      "Encoding": "UTF-8",
-      "NeedsCompilation": "no",
-      "Author": "Ethan Heinzen [aut, cre], Jason Sinnwell [aut], Elizabeth Atkinson [aut], Tina Gunderson [aut], Gregory Dougherty [aut], Patrick Votruba [ctb], Ryan Lennon [ctb], Andrew Hanson [ctb], Krista Goergen [ctb], Emily Lundt [ctb], Brendan Broderick [ctb], Maddie McCullough [art]",
-      "Maintainer": "Ethan Heinzen <heinzen.ethan@mayo.edu>",
-      "Repository": "RSPM"
-    },
     "askpass": {
       "Package": "askpass",
       "Version": "1.2.1",
@@ -710,8 +664,7 @@
       "License": "GPL-2 | GPL-3",
       "URL": "http://www.rforge.net/base64enc",
       "NeedsCompilation": "yes",
-      "Repository": "RSPM",
-      "Encoding": "UTF-8"
+      "Repository": "CRAN"
     },
     "bit": {
       "Package": "bit",
@@ -1111,8 +1064,7 @@
       "NeedsCompilation": "no",
       "Author": "Jennifer Bryan [cre, aut], Hadley Wickham [ctb]",
       "Maintainer": "Jennifer Bryan <jenny@stat.ubc.ca>",
-      "Repository": "RSPM",
-      "Encoding": "UTF-8"
+      "Repository": "CRAN"
     },
     "checkmate": {
       "Package": "checkmate",
@@ -1196,58 +1148,6 @@
       "RoxygenNote": "7.1.1",
       "NeedsCompilation": "no",
       "Author": "John Haman [cre, aut], Matthew Avery [aut], Institute for Defense Analyses [cph]",
-      "Repository": "RSPM"
-    },
-    "cleanepi": {
-      "Package": "cleanepi",
-      "Version": "1.0.2",
-      "Source": "Repository",
-      "Title": "Clean and Standardize Epidemiological Data",
-      "Authors@R": "c( person(\"Karim\", \"Mané\", , \"karim.mane@lshtm.ac.uk\", role = c(\"aut\", \"cre\"), comment = c(ORCID = \"0000-0002-9892-2999\")), person(\"Thibaut\", \"Jombart\", , \"thibautjombart@gmail.com\", role = \"cph\", comment = \"Thibault is the owner of the code in guess_dates.R file.\"), person(\"Bubacarr\", \"Bah\", , \"Bubacarr.Bah1@lshtm.ac.uk\", role = \"aut\", comment = c(ORCID = \"0000-0003-3318-6668\")), person(\"Bankolé\", \"Ahadzie\", , \"Bankole.Ahadzie@lshtm.ac.uk\", role = \"aut\"), person(\"Nuredin\", \"Mohammed\", , \"Nuredin.Mohammed@lshtm.ac.uk\", role = \"aut\"), person(\"Abdoelnaser\", \"Degoot\", , \"abdoelnaser-mahmood.degoot@lshtm.ac.uk\", role = \"aut\", comment = c(ORCID = \"0000-0001-8788-2496\")), person(\"Hugo\", \"Gruson\", , \"hugo@data.org\", role = \"rev\", comment = c(ORCID = \"0000-0002-4094-1476\")), person(\"Pratik R.\", \"Gupte\", , \"pratik.gupte@lshtm.ac.uk\", role = \"rev\", comment = c(ORCID = \"0000-0001-5294-7819\")), person(\"James M.\", \"Azam\", , \"james.azam@lshtm.ac.uk\", role = \"rev\", comment = c(ORCID = \"0000-0001-5782-7330\")), person(\"Joshua W.\", \"Lambert\", , \"joshua.lambert@lshtm.ac.uk\", role = \"rev\", comment = c(ORCID = \"0000-0001-5218-3046\")), person(\"Chris\", \"Hartgerink\", , \"chris@data.org\", role = \"rev\", comment = c(ORCID = \"0000-0003-1050-6809\")), person(\"London School of Hygiene and Tropical Medicine, LSHTM\", role = \"cph\"), person(\"data.org\", role = \"fnd\") )",
-      "Description": "Cleaning and standardizing tabular data package, tailored specifically for curating epidemiological data. It streamlines various data cleaning tasks that are typically expected when working with datasets in epidemiology. It returns the processed data in the same format, ensuring seamless integration into existing workflows. Additionally, it generates a comprehensive report detailing the outcomes of each cleaning task.",
-      "License": "MIT + file LICENSE",
-      "URL": "https://epiverse-trace.github.io/cleanepi/, https://github.com/epiverse-trace/cleanepi",
-      "BugReports": "https://github.com/epiverse-trace/cleanepi/issues",
-      "Imports": [
-        "arsenal",
-        "checkmate",
-        "dplyr",
-        "janitor",
-        "linelist (>= 1.0.0)",
-        "lubridate",
-        "magrittr",
-        "matchmaker",
-        "numberize",
-        "readr",
-        "rlang",
-        "snakecase",
-        "utils",
-        "withr"
-      ],
-      "Suggests": [
-        "htmlwidgets",
-        "kableExtra",
-        "knitr",
-        "lintr",
-        "markdown",
-        "reactable",
-        "rmarkdown",
-        "spelling",
-        "testthat (>= 3.0.0)"
-      ],
-      "VignetteBuilder": "knitr",
-      "Config/Needs/website": "epiverse-trace/epiversetheme",
-      "Config/testthat/edition": "3",
-      "Encoding": "UTF-8",
-      "Language": "en-US",
-      "LazyData": "true",
-      "RoxygenNote": "7.3.1",
-      "NeedsCompilation": "no",
-      "Author": "Karim Mané [aut, cre] (<https://orcid.org/0000-0002-9892-2999>), Thibaut Jombart [cph] (Thibault is the owner of the code in guess_dates.R file.), Bubacarr Bah [aut] (<https://orcid.org/0000-0003-3318-6668>), Bankolé Ahadzie [aut], Nuredin Mohammed [aut], Abdoelnaser Degoot [aut] (<https://orcid.org/0000-0001-8788-2496>), Hugo Gruson [rev] (<https://orcid.org/0000-0002-4094-1476>), Pratik R. Gupte [rev] (<https://orcid.org/0000-0001-5294-7819>), James M. Azam [rev] (<https://orcid.org/0000-0001-5782-7330>), Joshua W. Lambert [rev] (<https://orcid.org/0000-0001-5218-3046>), Chris Hartgerink [rev] (<https://orcid.org/0000-0003-1050-6809>), London School of Hygiene and Tropical Medicine, LSHTM [cph], data.org [fnd]",
-      "Maintainer": "Karim Mané <karim.mane@lshtm.ac.uk>",
-      "Depends": [
-        "R (>= 3.5.0)"
-      ],
       "Repository": "RSPM"
     },
     "cli": {
@@ -1995,48 +1895,6 @@
       "Author": "Winston Chang [aut, cre], Posit Software, PBC [cph, fnd], Tessil [cph] (hopscotch_map library)",
       "Maintainer": "Winston Chang <winston@posit.co>",
       "Repository": "RSPM"
-    },
-    "fitdistrplus": {
-      "Package": "fitdistrplus",
-      "Version": "1.2-2",
-      "Source": "Repository",
-      "Title": "Help to Fit of a Parametric Distribution to Non-Censored or Censored Data",
-      "Authors@R": "c(person(\"Marie-Laure\", \"Delignette-Muller\", role = \"aut\", email = \"marielaure.delignettemuller@vetagro-sup.fr\", comment = c(ORCID = \"0000-0001-5453-3994\")), person(\"Christophe\", \"Dutang\", role = \"aut\", email = \"christophe.dutang@ensimag.fr\", comment = c(ORCID = \"0000-0001-6732-1501\")), person(\"Regis\", \"Pouillot\", role = \"ctb\"), person(\"Jean-Baptiste\", \"Denis\", role = \"ctb\"), person(\"Aurélie\", \"Siberchicot\", role = c(\"aut\", \"cre\"), email = \"aurelie.siberchicot@univ-lyon1.fr\", comment = c(ORCID = \"0000-0002-7638-8318\")))",
-      "Description": "Extends the fitdistr() function (of the MASS package) with several functions  to help the fit of a parametric distribution to non-censored or censored data.  Censored data may contain left censored, right censored and interval censored values,  with several lower and upper bounds. In addition to maximum likelihood estimation (MLE),  the package provides moment matching (MME), quantile matching (QME), maximum goodness-of-fit  estimation (MGE) and maximum spacing estimation (MSE) methods (available only for  non-censored data). Weighted versions of MLE, MME, QME and MSE are available. See e.g.  Casella & Berger (2002), Statistical inference, Pacific Grove, for a general introduction  to parametric estimation.",
-      "Depends": [
-        "R (>= 3.5.0)",
-        "MASS",
-        "grDevices",
-        "survival",
-        "methods"
-      ],
-      "Imports": [
-        "stats",
-        "rlang"
-      ],
-      "Suggests": [
-        "actuar",
-        "rgenoud",
-        "mc2d",
-        "gamlss.dist",
-        "knitr",
-        "ggplot2",
-        "GeneralizedHyperbolic",
-        "rmarkdown",
-        "Hmisc",
-        "bookdown"
-      ],
-      "VignetteBuilder": "knitr",
-      "BuildVignettes": "true",
-      "License": "GPL (>= 2)",
-      "Encoding": "UTF-8",
-      "URL": "https://lbbe-software.github.io/fitdistrplus/, https://lbbe.univ-lyon1.fr/fr/fitdistrplus, https://github.com/lbbe-software/fitdistrplus",
-      "BugReports": "https://github.com/lbbe-software/fitdistrplus/issues",
-      "Contact": "Marie-Laure Delignette-Muller <marielaure.delignettemuller@vetagro-sup.fr> or Christophe Dutang <christophe.dutang@ensimag.fr>",
-      "NeedsCompilation": "no",
-      "Author": "Marie-Laure Delignette-Muller [aut] (<https://orcid.org/0000-0001-5453-3994>), Christophe Dutang [aut] (<https://orcid.org/0000-0001-6732-1501>), Regis Pouillot [ctb], Jean-Baptiste Denis [ctb], Aurélie Siberchicot [aut, cre] (<https://orcid.org/0000-0002-7638-8318>)",
-      "Maintainer": "Aurélie Siberchicot <aurelie.siberchicot@univ-lyon1.fr>",
-      "Repository": "CRAN"
     },
     "fontawesome": {
       "Package": "fontawesome",
@@ -2850,8 +2708,7 @@
       "NeedsCompilation": "no",
       "Author": "Rich FitzJohn [aut, cre]",
       "Maintainer": "Rich FitzJohn <rich.fitzjohn@gmail.com>",
-      "Repository": "RSPM",
-      "Encoding": "UTF-8"
+      "Repository": "CRAN"
     },
     "incidence2": {
       "Package": "incidence2",
@@ -2962,52 +2819,6 @@
       "Author": "Hadley Wickham [aut, cre] (<https://orcid.org/0000-0003-4757-117X>), Claus O. Wilke [aut] (Original author, <https://orcid.org/0000-0002-7470-9261>), Thomas Lin Pedersen [aut] (<https://orcid.org/0000-0002-5147-4711>)",
       "Maintainer": "Hadley Wickham <hadley@posit.co>",
       "Repository": "RSPM"
-    },
-    "janitor": {
-      "Package": "janitor",
-      "Version": "2.2.1",
-      "Source": "Repository",
-      "Title": "Simple Tools for Examining and Cleaning Dirty Data",
-      "Authors@R": "c(person(\"Sam\", \"Firke\", email = \"samuel.firke@gmail.com\", role = c(\"aut\", \"cre\")), person(\"Bill\", \"Denney\", email = \"wdenney@humanpredictions.com\", role = \"ctb\"), person(\"Chris\", \"Haid\", email = \"chrishaid@gmail.com\", role = \"ctb\"), person(\"Ryan\", \"Knight\", email = \"ryangknight@gmail.com\", role = \"ctb\"), person(\"Malte\", \"Grosser\", email = \"malte.grosser@gmail.com\", role = \"ctb\"), person(\"Jonathan\", \"Zadra\", email = \"jonathan.zadra@sorensonimpact.com\", role = \"ctb\"))",
-      "Description": "The main janitor functions can: perfectly format data.frame column names; provide quick counts of variable combinations (i.e., frequency tables and crosstabs); and explore duplicate records. Other janitor functions nicely format the tabulation results. These tabulate-and-report functions approximate popular features of SPSS and Microsoft Excel. This package follows the principles of the \"tidyverse\" and works well with the pipe function %>%. janitor was built with beginning-to-intermediate R users in mind and is optimized for user-friendliness.",
-      "URL": "https://github.com/sfirke/janitor, https://sfirke.github.io/janitor/",
-      "BugReports": "https://github.com/sfirke/janitor/issues",
-      "Depends": [
-        "R (>= 3.1.2)"
-      ],
-      "Imports": [
-        "dplyr (>= 1.0.0)",
-        "hms",
-        "lifecycle",
-        "lubridate",
-        "magrittr",
-        "purrr",
-        "rlang",
-        "stringi",
-        "stringr",
-        "snakecase (>= 0.9.2)",
-        "tidyselect (>= 1.0.0)",
-        "tidyr (>= 0.7.0)"
-      ],
-      "License": "MIT + file LICENSE",
-      "RoxygenNote": "7.2.3",
-      "Suggests": [
-        "dbplyr",
-        "knitr",
-        "rmarkdown",
-        "RSQLite",
-        "sf",
-        "testthat (>= 3.0.0)",
-        "tibble",
-        "tidygraph"
-      ],
-      "VignetteBuilder": "knitr",
-      "Encoding": "UTF-8",
-      "Config/testthat/edition": "3",
-      "NeedsCompilation": "no",
-      "Author": "Sam Firke [aut, cre], Bill Denney [ctb], Chris Haid [ctb], Ryan Knight [ctb], Malte Grosser [ctb], Jonathan Zadra [ctb]",
-      "Maintainer": "Sam Firke <samuel.firke@gmail.com>",
-      "Repository": "CRAN"
     },
     "jquerylib": {
       "Package": "jquerylib",
@@ -3142,8 +2953,7 @@
         "stats",
         "graphics"
       ],
-      "Repository": "RSPM",
-      "Encoding": "UTF-8"
+      "Repository": "CRAN"
     },
     "lambda.r": {
       "Package": "lambda.r",
@@ -3247,49 +3057,6 @@
       "NeedsCompilation": "no",
       "Author": "Lionel Henry [aut, cre], Hadley Wickham [aut] (<https://orcid.org/0000-0003-4757-117X>), Posit Software, PBC [cph, fnd]",
       "Maintainer": "Lionel Henry <lionel@posit.co>",
-      "Repository": "RSPM"
-    },
-    "linelist": {
-      "Package": "linelist",
-      "Version": "1.1.4",
-      "Source": "Repository",
-      "Title": "Tagging and Validating Epidemiological Data",
-      "Authors@R": "c( person(given = \"Hugo\", family = \"Gruson\", role = c(\"aut\", \"cre\"), comment = c(ORCID = \"0000-0002-4094-1476\"), email = \"hugo@data.org\"), person(given = \"Thibaut\", family = \"Jombart\", role = c(\"aut\", \"ccp\")), person(given = \"Tim\", family = \"Taylor\", role = \"ctb\"), person(given = \"Chris\", family = \"Hartgerink\", role = \"rev\", comment = c(ORCID = \"0000-0003-1050-6809\")) )",
-      "Description": "Provides tools to help storing and handling case line list data. The 'linelist' class adds a tagging system to classical 'data.frame' objects to identify key epidemiological data such as dates of symptom onset, epidemiological case definition, age, gender or disease outcome. Once tagged, these variables can be seamlessly used in downstream analyses, making data pipelines more robust and reliable.",
-      "License": "MIT + file LICENSE",
-      "URL": "https://epiverse-trace.github.io/linelist/, https://github.com/epiverse-trace/linelist",
-      "BugReports": "https://github.com/epiverse-trace/linelist/issues",
-      "Encoding": "UTF-8",
-      "RoxygenNote": "7.3.1",
-      "Config/testthat/edition": "3",
-      "Config/testthat/parallel": "true",
-      "Config/Needs/README": "incidence2 (>= 2.1.1), ggplot2",
-      "Depends": [
-        "R (>= 3.1.0)"
-      ],
-      "Imports": [
-        "checkmate",
-        "dplyr",
-        "lifecycle",
-        "rlang",
-        "tidyselect"
-      ],
-      "Suggests": [
-        "callr",
-        "knitr",
-        "magrittr",
-        "outbreaks",
-        "rmarkdown",
-        "spelling",
-        "testthat",
-        "tibble"
-      ],
-      "Config/Needs/website": "r-lib/pkgdown, epiverse-trace/epiversetheme",
-      "VignetteBuilder": "knitr",
-      "Language": "en-GB",
-      "NeedsCompilation": "no",
-      "Author": "Hugo Gruson [aut, cre] (<https://orcid.org/0000-0002-4094-1476>), Thibaut Jombart [aut, ccp], Tim Taylor [ctb], Chris Hartgerink [rev] (<https://orcid.org/0000-0003-1050-6809>)",
-      "Maintainer": "Hugo Gruson <hugo@data.org>",
       "Repository": "RSPM"
     },
     "lme4": {
@@ -3476,35 +3243,6 @@
       "NeedsCompilation": "yes",
       "Author": "Stefan Milton Bache [aut, cph] (Original author and creator of magrittr), Hadley Wickham [aut], Lionel Henry [cre], RStudio [cph, fnd]",
       "Maintainer": "Lionel Henry <lionel@rstudio.com>",
-      "Repository": "RSPM"
-    },
-    "matchmaker": {
-      "Package": "matchmaker",
-      "Version": "0.1.1",
-      "Source": "Repository",
-      "Title": "Flexible Dictionary-Based Cleaning",
-      "Authors@R": "c( person(given = \"Zhian N.\", family = \"Kamvar\", role = c(\"aut\", \"cre\"), email = \"zkamvar@gmail.com\", comment = c(ORCID = \"0000-0003-1458-7108\")), person(given = \"Thibaut\",  family = \"Jombart\",  email = \"thibautjombart@gmail.com\",  role = c(\"ctb\")), person(given = \"Patrick\",  family = \"Barks\",  email = \"patrick.barks@epicentre.msf.org\",  role = c(\"ctb\")))",
-      "Description": "Provides flexible dictionary-based cleaning that allows users to specify implicit and explicit missing data, regular expressions for both data and columns, and global matches, while respecting ordering of factors. This package is part of the 'RECON' (<https://www.repidemicsconsortium.org/>) toolkit for outbreak analysis.",
-      "URL": "https://www.repidemicsconsortium.org/matchmaker, https://github.com/reconhub/matchmaker",
-      "License": "GPL-3",
-      "Suggests": [
-        "testthat (>= 2.1.0)",
-        "covr",
-        "knitr",
-        "rmarkdown"
-      ],
-      "Encoding": "UTF-8",
-      "LazyData": "true",
-      "RoxygenNote": "7.0.2",
-      "Imports": [
-        "rlang",
-        "forcats",
-        "cli"
-      ],
-      "VignetteBuilder": "knitr",
-      "NeedsCompilation": "no",
-      "Author": "Zhian N. Kamvar [aut, cre] (<https://orcid.org/0000-0003-1458-7108>), Thibaut Jombart [ctb], Patrick Barks [ctb]",
-      "Maintainer": "Zhian N. Kamvar <zkamvar@gmail.com>",
       "Repository": "RSPM"
     },
     "matrixStats": {
@@ -3786,37 +3524,6 @@
       "Maintainer": "Paul Gilbert <pgilbert.ttv9z@ncf.ca>",
       "URL": "http://optimizer.r-forge.r-project.org/",
       "NeedsCompilation": "no",
-      "Repository": "CRAN"
-    },
-    "numberize": {
-      "Package": "numberize",
-      "Version": "1.0.1",
-      "Source": "Repository",
-      "Title": "Convert Words to Numbers in Multiple Languages",
-      "Authors@R": "c( person(\"Chris\", \"Hartgerink\", , \"chris@libscie.org\", role = \"rev\", comment = c(ORCID = \"0000-0003-1050-6809\")), person(\"Joshua W.\", \"Lambert\", , \"joshua.lambert@lshtm.ac.uk\", role = \"ctb\", comment = c(ORCID = \"0000-0001-5218-3046\")), person(\"Karim\", \"Mané\", , \"karim.mane@lshtm.ac.uk\", role = \"ctb\", comment = c(ORCID = \"0000-0002-9892-2999\")), person(\"Hugo\", \"Gruson\", , \"hugo.gruson+R@normalesup.org\", role = \"aut\", comment = c(ORCID = \"0000-0002-4094-1476\")), person(\"Bankole\", \"Ahadzie\", , \"bankole.ahadzie@lshtm.ac.uk\", role = c(\"aut\", \"cre\", \"cph\")) )",
-      "Description": "Converts written out numbers into their equivalent numbers. Supports numbers written out in English, French, or Spanish.",
-      "License": "MIT + file LICENSE",
-      "URL": "https://github.com/epiverse-trace/numberize",
-      "BugReports": "https://github.com/epiverse-trace/numberize/issues",
-      "Depends": [
-        "R (>= 3.5.0)"
-      ],
-      "Suggests": [
-        "spelling",
-        "testthat (>= 3.0.0)"
-      ],
-      "Config/Department": "Centre for the Mathematical Modelling of Infectious Diseases",
-      "Config/DepartmentURL": "https://www.lshtm.ac.uk/research/centres/centre-mathematical-modelling-infectious-diseases",
-      "Config/Institution": "London School of Hygiene and Tropical Medicine",
-      "Config/Needs/website": "epiverse-trace/epiversetheme",
-      "Config/Recon": "stable",
-      "Config/testthat/edition": "3",
-      "Encoding": "UTF-8",
-      "Language": "en-US",
-      "RoxygenNote": "7.3.1",
-      "NeedsCompilation": "no",
-      "Author": "Chris Hartgerink [rev] (<https://orcid.org/0000-0003-1050-6809>), Joshua W. Lambert [ctb] (<https://orcid.org/0000-0001-5218-3046>), Karim Mané [ctb] (<https://orcid.org/0000-0002-9892-2999>), Hugo Gruson [aut] (<https://orcid.org/0000-0002-4094-1476>), Bankole Ahadzie [aut, cre, cph]",
-      "Maintainer": "Bankole Ahadzie <bankole.ahadzie@lshtm.ac.uk>",
       "Repository": "CRAN"
     },
     "oai": {
@@ -5149,8 +4856,7 @@
       "NeedsCompilation": "no",
       "Author": "Simon Potter [aut, trl, cre], Simon Sapin [aut], Ian Bicking [aut]",
       "Maintainer": "Simon Potter <simon@sjp.co.nz>",
-      "Repository": "RSPM",
-      "Encoding": "UTF-8"
+      "Repository": "CRAN"
     },
     "skimr": {
       "Package": "skimr",
@@ -5204,41 +4910,6 @@
       "RemoteRepo": "skimr",
       "RemoteSha": "c0018a7eae3a8858a873d85eeda55120489fb03f",
       "RemoteHost": "api.github.com"
-    },
-    "snakecase": {
-      "Package": "snakecase",
-      "Version": "0.11.1",
-      "Source": "Repository",
-      "Date": "2023-08-27",
-      "Title": "Convert Strings into any Case",
-      "Description": "A consistent, flexible and easy to use tool to parse and convert strings into cases like snake or camel among others.",
-      "Authors@R": "c( person(\"Malte\", \"Grosser\", , \"malte.grosser@gmail.com\", role = c(\"aut\", \"cre\")))",
-      "Maintainer": "Malte Grosser <malte.grosser@gmail.com>",
-      "Depends": [
-        "R (>= 3.2)"
-      ],
-      "Imports": [
-        "stringr",
-        "stringi"
-      ],
-      "Suggests": [
-        "testthat",
-        "covr",
-        "tibble",
-        "purrrlyr",
-        "knitr",
-        "rmarkdown",
-        "magrittr"
-      ],
-      "URL": "https://github.com/Tazinho/snakecase",
-      "BugReports": "https://github.com/Tazinho/snakecase/issues",
-      "Encoding": "UTF-8",
-      "License": "GPL-3",
-      "RoxygenNote": "6.1.1",
-      "VignetteBuilder": "knitr",
-      "NeedsCompilation": "no",
-      "Author": "Malte Grosser [aut, cre]",
-      "Repository": "RSPM"
     },
     "socialmixr": {
       "Package": "socialmixr",
