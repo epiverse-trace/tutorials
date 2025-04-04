@@ -27,7 +27,7 @@ In order to account for _epidemiological delays_ when estimating indicators of s
 
 Let's start by loading the package `{dplyr}` to manipulate data. We'll use the pipe `%>%` to connect some of their functions, including others from the package `{ggplot2}`, so let's call to the package `{tidyverse}` that loads them all. We will also use `{fitdistrplus}` to fit probability distributions to delays:
 
-```{r}
+```{r, message=FALSE, warning=FALSE}
 # Load packages
 library(tidyverse) # loads dplyr, the pipe, and ggplot2
 library(fitdistrplus)
@@ -143,7 +143,7 @@ Table: Serial interval estimates using Gamma, Weibull, and Log Normal distributi
 
 :::::::::::::::::::::::::
 
-Let's continue with the same line list from the previous episode:
+To illustrate this, let's continue with the same line list from the previous episode:
 
 ```{r,eval=FALSE,echo=TRUE,message=FALSE}
 # Read data
