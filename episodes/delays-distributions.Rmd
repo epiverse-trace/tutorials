@@ -143,15 +143,21 @@ Table: Serial interval estimates using Gamma, Weibull, and Log Normal distributi
 
 :::::::::::::::::::::::::
 
-Let's start by simulating a line list using `{simulist}`:
+Let's continue with the same line list from the previous episode:
 
-```{r}
-# Set seed for reproducibility
-set.seed(33)
-
+```{r,eval=FALSE,echo=TRUE,message=FALSE}
 # Read data
-cases <- simulist::sim_linelist(outbreak_size = c(1000, 1500)) %>%
-  as_tibble()
+# e.g.: if path to file is data/linelist.csv then:
+cases <- readr::read_csv(
+  here::here("data", "linelist.csv")
+)
+```
+
+```{r,eval=TRUE,echo=FALSE,message=FALSE}
+# Read data
+cases <- readr::read_csv(
+  file.path("data", "linelist.csv")
+)
 ```
 
 From the `cases` object we can use:
@@ -162,15 +168,13 @@ From the `cases` object we can use:
 - `fitdistrplus::fitdist()` to fit a probability distribution using Maximum Likelihood. We can test distributions like the Log Normal (`"lnorm"`), `"gamma"`, or `"weibull"`.
 
 ```{r}
-reporting_delay_fit <- cases %>%
-  dplyr::select(id, date_onset, date_admission) %>%
-  dplyr::mutate(reporting_delay = date_admission - date_onset) %>%
+cases %>%
+  dplyr::select(case_id, date_of_onset, date_of_hospitalisation) %>%
+  dplyr::mutate(reporting_delay = date_of_hospitalisation - date_of_onset) %>%
   dplyr::mutate(reporting_delay_num = as.numeric(reporting_delay)) %>%
   dplyr::filter(reporting_delay_num > 0) %>%
   dplyr::pull(reporting_delay_num) %>%
   fitdistrplus::fitdist(distr = "lnorm")
-
-reporting_delay_fit
 ```
 
 Use `summary()` to find goodness-of-fit statistics from the Maximum likelihood. Use `plot()` to visualize the fitted density function and other quality control plots. To compare multiple distributions you can use [`superspreading::ic_tbl()`](https://epiverse-trace.github.io/superspreading/reference/ic_tbl.html). We'll explore that package later!
@@ -233,8 +237,8 @@ Let's assign to `reporting_delay_fit` the output of an statistical model fitting
 
 ```{r}
 reporting_delay_fit <- cases %>%
-  dplyr::select(id, date_onset, date_admission) %>%
-  dplyr::mutate(reporting_delay = date_admission - date_onset) %>%
+  dplyr::select(case_id, date_of_onset, date_of_hospitalisation) %>%
+  dplyr::mutate(reporting_delay = date_of_hospitalisation - date_of_onset) %>%
   dplyr::mutate(reporting_delay_num = as.numeric(reporting_delay)) %>%
   dplyr::filter(reporting_delay_num > 0) %>%
   dplyr::pull(reporting_delay_num) %>%
@@ -271,8 +275,8 @@ Let's assign to `cases_delay` the filtered data frame with positive values for t
 
 ```{r}
 cases_delay <- cases %>%
-  dplyr::select(id, date_onset, date_admission) %>%
-  dplyr::mutate(reporting_delay = date_admission - date_onset) %>%
+  dplyr::select(case_id, date_of_onset, date_of_hospitalisation) %>%
+  dplyr::mutate(reporting_delay = date_of_hospitalisation - date_of_onset) %>%
   dplyr::mutate(reporting_delay_num = as.numeric(reporting_delay)) %>%
   dplyr::filter(reporting_delay_num > 0)
 ```
