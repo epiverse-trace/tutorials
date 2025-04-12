@@ -4,7 +4,7 @@
 <!-- practical-week.md is generated from practical-week.qmd. Please edit that file -->
 <!-- commit .md and .qmd files together -->
 <!-- does not work for instructors text messages -->
-<!-- works for text on PDF and MD only -->
+<!-- works for text on html and MD only -->
 
 This practical is based in the following tutorial episodes:
 
@@ -59,8 +59,13 @@ increase their fluency writing R by using:
   shortcuts](https://positron.posit.co/keyboard-shortcuts.html#r-shortcuts):
   - `Cmd/Ctrl`+`Shift`+`M` to Insert the pipe operator (`|>` or `%>%`)
   - `Alt`+`-` to Insert the assignment operator (`<-`)
-- The `help()` function or `?` operator to access function reference
-  manual.
+- [Execute one line of
+  code](https://docs.posit.co/ide/user/ide/guide/code/execution.html) by
+  placing the cursor in the code of interest and press the
+  `Ctrl`+`Enter`. This also works for multiple lines conected by the
+  pipe operator.
+- Get [help yourself with R](https://www.r-project.org/help.html) using
+  `help()` function or `?` operator to access function reference manual.
 
 ## Paste your !Error messages here
 
