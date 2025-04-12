@@ -1,0 +1,507 @@
+# Week 4: Simulate transmission and model interventions
+
+<!-- visible for instructors only -->
+<!-- practical-week.md is generated from practical-week.qmd. Please edit that file -->
+<!-- commit .md and .qmd files together -->
+<!-- does not work for instructors text messages -->
+<!-- works for text on html and MD only -->
+
+This practical is based in the following tutorial episodes:
+
+- <https://epiverse-trace.github.io/tutorials-late/simulating-transmission.html>
+- <https://epiverse-trace.github.io/tutorials-late/modelling-interventions.html>
+
+Welcome!
+
+- A reminder of our Code of Conduct:
+- <https://github.com/epiverse-trace/.github/blob/main/CODE_OF_CONDUCT.md>
+- If you experience or witness unacceptable behaviour, or have any other
+  concerns, please report by email or online form available at the “How
+  to report a violation” section.
+- To report an issue involving one of the organisers, please use the
+  LSHTM’s Report and Support tool, where your concern will be triaged by
+  a member of LSHTM’s Equity and Diversity Team.
+- <https://reportandsupport.lshtm.ac.uk/>
+
+Roll call:
+
+- Group 1: …, …
+- Group 2: …, …
+- Group 3: …, …
+- Group 4: …, …
+- Group 5: …, …
+- Group 6: …, …
+
+# Practical
+
+<!-- visible for learners and instructors at practical -->
+
+This practical has two activities.
+
+Before your start, as a group:
+
+- Create one copy of the Posit Cloud project `<paste link>`.
+- Solve each challenge using the `Code chunk` as a guide.
+- Paste your figure and table outputs.
+- Write your answer to the questions.
+- Choose one person from your group to share your results with everyone.
+
+During the practical, instead of copy-paste, we encourage learners to
+increase their fluency writing R by using:
+
+- Tab key <kbd>↹</kbd> for [code completion
+  feature](https://support.posit.co/hc/en-us/articles/205273297-Code-Completion-in-the-RStudio-IDE)
+  and [possible arguments
+  displayed](https://docs.posit.co/ide/user/ide/guide/code/console.html).
+- The double-colon notation, e.g. `package::function()`. This helps us
+  remember package functions and avoid namespace conflicts.
+- [R
+  shortcuts](https://positron.posit.co/keyboard-shortcuts.html#r-shortcuts):
+  - `Cmd/Ctrl`+`Shift`+`M` to Insert the pipe operator (`|>` or `%>%`)
+  - `Alt`+`-` to Insert the assignment operator (`<-`)
+- [Execute one line of
+  code](https://docs.posit.co/ide/user/ide/guide/code/execution.html) by
+  placing the cursor in the code of interest and press the
+  `Ctrl`+`Enter`. This also works for multiple lines conected by the
+  pipe operator.
+- Get [help yourself with R](https://www.r-project.org/help.html) using
+  `help()` function or `?` operator to access function reference manual.
+
+## Paste your !Error messages here
+
+
+
+
+
+
+## Activity 1: Generate disease trayectories of new infections
+
+Estimate … using the following available inputs:
+
+- input 1
+- input 2
+
+As a group, Write your answer to these questions:
+
+- compare the location and size of peak infection when different
+  parameters are used
+- … results expected?
+- Interpret: How would you communicate these results to a
+  decision-maker?
+- Compare: What differences you identify from other group outputs? (if
+  available)
+
+### Inputs
+
+| Group | Incidence     | Link                                                                      |
+|-------|---------------|---------------------------------------------------------------------------|
+| 1     | COVID 30 days | <https://epiverse-trace.github.io/tutorials-middle/data/covid_30days.rds> |
+| 2     | Ebola 35 days |                                                                           |
+| 3     | Ebola 60 days |                                                                           |
+| 4     | COVID 60 days |                                                                           |
+
+| Disease | params |
+|---------|--------|
+| Ebola   | …      |
+| COVID   | …      |
+
+### Solution
+
+<!-- visible for instructors and learners after practical (solutions) -->
+
+#### Code
+
+``` r
+library(socialmixr)
+library(epidemics)
+library(tidyverse)
+
+
+# Group parameters -------------------------------------------------------
+
+polymod_country <- "Italy"
+age_limits <- c(0, 20, 40)
+infectious_population <- 1/1e6 # 1 infectious out of 1,000,000
+basic_reproduction_number <- 1.46
+pre_infectious_period <- 3 # days
+infectious_period <- 7 # days
+
+school_begin_early <- 100
+school_begin_late <- 200
+mask_begin_early <- 100
+mask_begin_late <- 200
+vaccine_begin_early <- 100
+vaccine_begin_late <- 200
+
+# (1) contact matrix ------------------------------------------------------
+
+polymod <- socialmixr::polymod
+
+contact_data <- socialmixr::contact_matrix(
+  polymod,
+  countries = polymod_country,
+  age.limits = age_limits,
+  symmetric = TRUE
+)
+
+# prepare contact matrix
+contact_matrix <- t(contact_data$matrix)
+
+# (2) initial conditions --------------------------------------------------
+
+#' key:
+#' one set of initial conditions per age-group
+
+## infectious population ---------
+initial_i <- infectious_population
+
+initial_conditions_inf <- c(
+  S = 1 - initial_i, E = 0, I = initial_i, R = 0, V = 0
+)
+
+initial_conditions_inf
+
+## free of infection population ---------
+
+initial_conditions_free <- c(
+  S = 1, E = 0, I = 0, R = 0, V = 0
+)
+
+initial_conditions_free
+
+## combine initial conditions ------------
+
+# combine the initial conditions
+initial_conditions <- base::rbind(
+  initial_conditions_free, # age group 1
+  initial_conditions_inf, # age group 2
+  initial_conditions_free # age group 3
+)
+
+# use contact matrix to assign age group names
+rownames(initial_conditions) <- rownames(contact_matrix)
+
+initial_conditions
+
+# (3) population structure ------------------------------------------------
+
+# prepare the demography vector
+demography_vector <- contact_data$demography$population
+names(demography_vector) <- rownames(contact_matrix)
+
+# prepare the population to model as affected by the epidemic
+population_object <- epidemics::population(
+  name = polymod_country,
+  contact_matrix = contact_matrix,
+  demography_vector = demography_vector,
+  initial_conditions = initial_conditions
+)
+
+population_object
+
+# (4) model parameters ----------------------------------------------------
+
+# rates
+infectiousness_rate <- 1/pre_infectious_period # 1/pre-infectious period
+recovery_rate <- 1/infectious_period # 1/infectious period
+transmission_rate <-  basic_reproduction_number*recovery_rate
+
+
+# (5) run the model --------------------------------------------------------
+
+simulate_baseline <- epidemics::model_default(
+  # population
+  population = population_object,
+  # parameters
+  transmission_rate = transmission_rate,
+  infectiousness_rate = infectiousness_rate,
+  recovery_rate = recovery_rate,
+  # time setup
+  time_end = 600, increment = 1.0
+)
+
+simulate_baseline
+
+
+# Plot all compartments --------------------------------------------------
+
+simulate_baseline %>%
+  ggplot(aes(
+    x = time,
+    y = value,
+    color = compartment,
+    linetype = demography_group
+  )) +
+  geom_line() +
+  scale_y_continuous(labels = scales::comma)
+
+epidemics::epidemic_peak(data = simulate_baseline)
+epidemics::epidemic_size(data = simulate_baseline)
+
+
+# Non-pharmaceutical interventions ---------------------------------------
+
+# on contacts ------------------------------------------------------------
+
+# school closure ---------------------------------------------------------
+
+rownames(contact_matrix)
+
+close_schools <- epidemics::intervention(
+  name = "School closure",
+  type = "contacts",
+  time_begin = school_begin_late,
+  time_end = school_begin_late + 100,
+  reduction = matrix(c(0.5, 0.01, 0.01))
+)
+
+close_schools
+
+# run {epidemics} ---------------------------------------------------------
+
+simulate_school <- epidemics::model_default(
+  population = population_object,
+  transmission_rate = transmission_rate,
+  infectiousness_rate = infectiousness_rate,
+  recovery_rate = recovery_rate,
+  # intervention
+  intervention = list(contacts = close_schools),
+  time_end = 600, increment = 1.0
+)
+
+simulate_school
+
+# visualize effect --------------------------------------------------------
+
+infections_baseline <- epidemics::new_infections(
+  data = simulate_baseline,
+  by_group = FALSE
+)
+
+infections_school <- epidemics::new_infections(
+  data = simulate_school,
+  by_group = FALSE
+)
+
+# Assign scenario names
+infections_baseline$scenario <- "Baseline"
+infections_school$scenario <- "School closure"
+
+# Combine the data from both scenarios
+infections_baseline_school <- bind_rows(infections_baseline, infections_school)
+
+infections_baseline_school %>%
+  ggplot(aes(x = time, y = new_infections, colour = scenario)) +
+  geom_line() +
+  geom_vline(
+    xintercept = c(vaccinate$time_begin, vaccinate$time_end),
+    linetype = "dashed",
+    linewidth = 0.2
+  ) +
+  scale_y_continuous(labels = scales::comma)
+
+
+# on transmission --------------------------------------------------------
+
+# mask mandate -----------------------------------------------------------
+
+mask_mandate <- epidemics::intervention(
+  name = "mask mandate",
+  type = "rate",
+  time_begin = mask_begin_late,
+  time_end = mask_begin_late + 200,
+  reduction = 0.163
+)
+
+# run {epidemics} ---------------------------------------------------------
+
+simulate_mask <- epidemics::model_default(
+  population = population_object,
+  transmission_rate = transmission_rate,
+  infectiousness_rate = infectiousness_rate,
+  recovery_rate = recovery_rate,
+  # intervention
+  intervention = list(transmission_rate = mask_mandate),
+  time_end = 600, increment = 1.0
+)
+
+
+# visualize effect --------------------------------------------------------
+
+infections_baseline <- epidemics::new_infections(
+  data = simulate_baseline,
+  by_group = FALSE
+)
+
+infections_mask <- epidemics::new_infections(
+  data = simulate_mask,
+  by_group = FALSE
+)
+
+# Assign scenario names
+infections_baseline$scenario <- "Baseline"
+infections_mask$scenario <- "Mask mandate"
+
+# Combine the data from both scenarios
+infections_baseline_mask <- bind_rows(infections_baseline, infections_mask)
+
+infections_baseline_mask %>%
+  ggplot(aes(x = time, y = new_infections, colour = scenario)) +
+  geom_line() +
+  geom_vline(
+    xintercept = c(mask_mandate$time_begin, mask_mandate$time_end),
+    linetype = "dashed",
+    linewidth = 0.2
+  ) +
+  scale_y_continuous(labels = scales::comma)
+
+
+# Pharmaceutical intervention --------------------------------------------
+
+# Vaccination ------------------------------------------------------------
+
+# prepare a vaccination object
+vaccinate <- epidemics::vaccination(
+  name = "vaccinate all",
+  time_begin = matrix(vaccine_begin_early, nrow(contact_matrix)),
+  time_end = matrix(vaccine_begin_early + 150, nrow(contact_matrix)),
+  nu = matrix(c(0.001, 0.001, 0.001))
+)
+
+vaccinate
+
+# run {epidemics} ---------------------------------------------------------
+
+simulate_vaccinate <- epidemics::model_default(
+  population = population_object,
+  transmission_rate = transmission_rate,
+  infectiousness_rate = infectiousness_rate,
+  recovery_rate = recovery_rate,
+  # intervention
+  vaccination = vaccinate,
+  time_end = 600, increment = 1.0
+)
+
+# visualize effect --------------------------------------------------------
+
+infections_baseline <- epidemics::new_infections(
+  data = simulate_baseline,
+  compartments_from_susceptible = "vaccinated",
+  by_group = FALSE
+)
+
+infections_vaccinate <- epidemics::new_infections(
+  data = simulate_vaccinate,
+  compartments_from_susceptible = "vaccinated",
+  by_group = FALSE
+)
+
+# Assign scenario names
+infections_baseline$scenario <- "Baseline"
+infections_vaccinate$scenario <- "Vaccinate"
+
+# Combine the data from both scenarios
+infections_baseline_vaccinate <- bind_rows(infections_baseline, infections_vaccinate)
+
+infections_baseline_vaccinate %>%
+  ggplot(aes(x = time, y = new_infections, colour = scenario)) +
+  geom_line() +
+  geom_vline(
+    xintercept = c(vaccinate$time_begin, vaccinate$time_end),
+    linetype = "dashed",
+    linewidth = 0.2
+  ) +
+  scale_y_continuous(labels = scales::comma)
+
+
+
+# Combine interventions --------------------------------------------------
+
+
+simulate_mask_school <- epidemics::model_default(
+  population = population_object,
+  transmission_rate = transmission_rate,
+  infectiousness_rate = infectiousness_rate,
+  recovery_rate = recovery_rate,
+  # intervention
+  intervention = list(transmission_rate = mask_mandate, contacts = close_schools),
+  time_end = 600, increment = 1.0
+)
+
+
+# visualize effect --------------------------------------------------------
+
+infections_baseline <- epidemics::new_infections(
+  data = simulate_baseline,
+  by_group = FALSE
+)
+
+infections_mask_school <- epidemics::new_infections(
+  data = simulate_mask_school,
+  by_group = FALSE
+)
+
+# Assign scenario names
+infections_baseline$scenario <- "Baseline"
+infections_mask_school$scenario <- "Mask mandate + School closure"
+
+# Combine the data from both scenarios
+infections_baseline_maskschool <- bind_rows(infections_baseline, infections_mask_school)
+
+infections_baseline_maskschool %>%
+  ggplot(aes(x = time, y = new_infections, colour = scenario)) +
+  geom_line() +
+  scale_y_continuous(labels = scales::comma)
+
+
+
+# Compare interventions --------------------------------------------------
+
+compare_interventions <- bind_rows(
+  infections_baseline,
+  infections_baseline_school,
+  infections_baseline_mask,
+  infections_mask_school,
+  infections_vaccinate
+)
+
+compare_interventions %>%
+  ggplot(aes(x = time, y = new_infections, colour = scenario)) +
+  geom_line() +
+  scale_y_continuous(labels = scales::comma) +
+  labs(
+    x = "Simulation time (days)",
+    y = "New infections",
+    colour = "Scenario"
+  )
+```
+
+#### Outputs
+
+With reporting delay plus Incubation time:
+<img src="https://hackmd.io/_uploads/S1q6ItjvC.png" style="width:50.0%"
+alt="image" />
+
+With reporting delay plus Incubation time:
+
+    > summary(covid60_epinow_delays)
+
+#### Interpretation
+
+Interpretation template:
+
+- From …
+
+Interpretation Helpers:
+
+- About …
+
+# Continue your learning path
+
+<!-- Suggest learners to Epiverse-TRACE documentation or external resources --->
+
+Where
+
+- <link>
+
+# end
