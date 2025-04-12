@@ -1,7 +1,8 @@
 ---
 title: "Week 2: Access delays to estimate transmission and severity"
 format: 
-  pdf: default # learners solutions
+  html: # learners solutions
+    embed-resources: true
   docx: default # learners practical
   gfm: default # instructors
 keep-md: true
@@ -15,7 +16,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-::: {.content-hidden when-format="pdf"}
+::: {.content-hidden when-format="html"}
 
 <!-- visible for instructors only -->
 <!-- practical-week.md is generated from practical-week.qmd. Please edit that file -->
@@ -26,7 +27,7 @@ knitr::opts_chunk$set(
 
 ::: {.content-hidden when-format="docx"}
 
-<!-- works for text on PDF and MD only -->
+<!-- works for text on html and MD only -->
 
 This practical is based in the following tutorial episodes:
 
