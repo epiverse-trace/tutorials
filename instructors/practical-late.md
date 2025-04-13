@@ -86,16 +86,15 @@ using the following available inputs:
 
 As a group, Write your answer to these questions:
 
-- What is the epidemic peak for infectious subjects in each age group?
-- What is the size of the epidemic?
-- What is the number of new infections at the moment of the epidemic
-  peak?
+- What is the location (time) and size of epidemic peak for infectious
+  subjects in each age group?
+- What is the number of new infections at the epidemic peak?
 - Change the basic reproduction number to 1.1 and 3. Are the changes in
-  location (time) and size of peak of infectious as expected?
+  location (time) and size of the peak of new infections as expected?
 - Interpret: How would you communicate these results to a
   decision-maker?
-- Compare: What differences you identify from other group outputs? (if
-  available)
+- Compare: What differences do you identify from other group outputs?
+  (if available)
 
 ### Inputs
 
@@ -113,6 +112,49 @@ As a group, Write your answer to these questions:
 | Pre-infectious Period     | 3 days        | Incubation before becoming infectious      |
 | Infectious Period         | 7 days        | Duration of infectiousness                 |
 | Max Timesteps (days)      | 600           | Total simulation time                      |
+
+### Solution
+
+<!-- visible for instructors and learners after practical (solutions) -->
+
+#### Outputs
+
+| all compartments                                    | new infections                                      |
+|-----------------------------------------------------|-----------------------------------------------------|
+| ![image](https://hackmd.io/_uploads/r1o8OF_Rkx.png) | ![image](https://hackmd.io/_uploads/Syi1tY_R1x.png) |
+
+    # Get epidemic_peak
+    epidemics::epidemic_peak(data = simulate_baseline)
+    # Output:
+    #   demography_group compartment  time    value
+    #             <char>      <char> <num>    <num>
+    # 1:           [0,20)  infectious   320 513985.6
+    # 2:          [20,40)  infectious   328 560947.2
+    # 3:              40+  infectious   329 932989.6
+
+#### Interpretation
+
+Interpretation template:
+
+- In the population, the demographic group of `age from [0,20]` has a
+  peak of infectious subjects at day 320 with a size of `513,986`.
+
+Interpretation Helpers:
+
+| R = 1.1                                             | R = 3                                               |
+|-----------------------------------------------------|-----------------------------------------------------|
+| ![image](https://hackmd.io/_uploads/H1UupFOAyl.png) | ![image](https://hackmd.io/_uploads/ryVoat_R1l.png) |
+
+- An epidemic with R=1.1 has a delayed and smaller outbreak (day 1200,
+  9000 new infections), compared with R=3 with a earlier and higher peak
+  than R = 1.5 (day 100, 1,000,000 new infections).
+
+| Vietnam                                             | Zimbabwe                                            |
+|-----------------------------------------------------|-----------------------------------------------------|
+| ![image](https://hackmd.io/_uploads/BkZGRY_Rkx.png) | ![image](https://hackmd.io/_uploads/SJVlkcORkl.png) |
+
+- Population structure from Italy, Vietnam, and Zimbabwe influences the
+  progression of the transmission in each population.
 
 ## Activity 2: Compare interventions
 
@@ -142,6 +184,29 @@ As a group, Write your answer to these questions:
 | 2     | Mask         | 100         | 200        | 200             | In all age groups = 0.163           |
 | 3     | Vaccine      | 100         | 200        | 150             | Per age group = 0.001, 0.001, 0.001 |
 
+### Solution
+
+<!-- visible for instructors and learners after practical (solutions) -->
+
+#### Outputs
+
+| Intervention       | Early start                                         | Late start                                          |
+|--------------------|-----------------------------------------------------|-----------------------------------------------------|
+| **School Closure** | ![image](https://hackmd.io/_uploads/H1IKxq_A1e.png) | ![image](https://hackmd.io/_uploads/rJt8ttdA1e.png) |
+| **Mask Mandate**   | ![image](https://hackmd.io/_uploads/rkV2ttO0yx.png) | ![image](https://hackmd.io/_uploads/Bk8wKYOR1l.png) |
+| **Vaccination**    | ![image](https://hackmd.io/_uploads/rycdKYOA1e.png) | ![image](https://hackmd.io/_uploads/B1ff-9_Ckl.png) |
+
+#### Interpretation
+
+Interpretation Helpers:
+
+- School clousure with short duration can delay the peak of new
+  infections, but this will keep the same size.
+- Mask mandate of 200 days during the time of the epidemic peak can
+  delay and reduce the size of new infections.
+- Vaccinations earlier in time will have a higher impact in reducing the
+  size of the epidemic peak and extending its delay.
+
 ## Activity 3: Combine interventions
 
 Combine two intervention in the same simulation and compare the disease
@@ -166,6 +231,21 @@ As a group, Write your answer to these questions:
 ### Solution
 
 <!-- visible for instructors and learners after practical (solutions) -->
+
+#### Outputs
+
+| Combine interventions                               | Compare interventions                               |
+|-----------------------------------------------------|-----------------------------------------------------|
+| ![image](https://hackmd.io/_uploads/rk9cqK_CJe.png) | ![image](https://hackmd.io/_uploads/BJro5KuC1e.png) |
+
+#### Interpretation
+
+Interpretation Helpers:
+
+- The combination of school closure and mask mandate can delay the
+  epidemic peak, but will not reduce it size.
+- Vaccination can sustain a reduced epidemic peak compared with mask
+  mandate alone.
 
 #### Code
 
@@ -201,7 +281,7 @@ vaccine_begin_late <- 200
 
 # (1) contact matrix ------------------------------------------------------
 
-socialmixr::list_surveys()
+# socialmixr::list_surveys()
 
 socialsurvey <- socialmixr::get_survey(
   survey = socialsurvey_link
@@ -583,26 +663,13 @@ compare_interventions %>%
   )
 ```
 
-#### Outputs
-
-…
-
-#### Interpretation
-
-Interpretation template:
-
-- From …
-
-Interpretation Helpers:
-
-- About …
-
 # Continue your learning path
 
 <!-- Suggest learners to Epiverse-TRACE documentation or external resources --->
 
-Where
+{epidemics} vignette on seasonality and disease-specific model
+structures (compartments and parameters)
 
-- <link>
+- <https://epiverse-trace.github.io/epidemics/dev/articles/>
 
 # end
