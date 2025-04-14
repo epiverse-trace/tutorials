@@ -469,11 +469,11 @@ As a group, Write your answer to these questions:
 
 ### Inputs
 
-| Group | Data                      | Action                            | Link                                                                        |
-|-------|---------------------------|-----------------------------------|-----------------------------------------------------------------------------|
-| 1     | COVID-19 Diamond Princess | Filter before March 1st           | <https://epiverse-trace.github.io/tutorials-middle/data/diamond_70days.rds> |
-| 2     | COVID-19 Diamond Princess | Estimate from complete time serie | <https://epiverse-trace.github.io/tutorials-middle/data/diamond_70days.rds> |
-| 3     | MERS Korea 2015           | Adapt from incidence to {cfr}     | <https://epiverse-trace.github.io/tutorials-middle/data/mers_linelist.rds>  |
+| Group | Data                      | Action to data input               | Link                                                                        |
+|-------|---------------------------|------------------------------------|-----------------------------------------------------------------------------|
+| 1     | COVID-19 Diamond Princess | Keep dates before March 1st        | <https://epiverse-trace.github.io/tutorials-middle/data/diamond_70days.rds> |
+| 2     | COVID-19 Diamond Princess | Estimate from complete time series | <https://epiverse-trace.github.io/tutorials-middle/data/diamond_70days.rds> |
+| 3     | MERS Korea 2015           | Adapt from incidence to {cfr}      | <https://epiverse-trace.github.io/tutorials-middle/data/mers_linelist.rds>  |
 
 ### Solution
 
