@@ -832,7 +832,7 @@ Explore the downstream analysis you can do with {incidence2} outputs
 
 - <https://www.reconverse.org/incidence2/doc/incidence2.html#sec:building-on-incidence2> 
 
-You can use [{epikinetics}](https://seroanalytics.org/epikinetics/) to estimate Bayesian hierarchical modelling of antibody kinetics. Explore this sample code:
+You can use [{epikinetics}](https://seroanalytics.org/epikinetics/) to estimate antibody kinetics. Explore this sample code:
 
 - <https://epiverse-trace.github.io/tutorials-early/epikinetics-statistics.html>
 
