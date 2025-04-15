@@ -51,3 +51,9 @@ po/*~
 
 # renv detritus
 renv/sandbox/
+
+# extra
+instructors/*.docx
+instructors/*.html
+instructors/*.pdf
+instructors/*_files/*
