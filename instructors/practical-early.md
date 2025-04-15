@@ -123,20 +123,12 @@ library(tidyverse)
 # Adapt the data dictionary ----------------------------------------------
 # wait until have more information
 dat_dictionary <- tibble::tribble(
-  ~options,
-  ~values,
-  ~grp,
-  ~orders,
-  "1",
-  "male",
-  "sex_fem_2",
-  1L, # remove this line: how this affects the code downstream?
-  "2",
-  "female",
-  "sex_fem_2",
-  2L
+  ~options,  ~values,        ~grp, ~orders,
+       "1",   "male", "sex_fem_2",      1L,
+       "2", "female", "sex_fem_2",      2L
 )
 
+dat_dictionary
 
 # Read raw data ----------------------------------------------------------
 dat_raw <- readr::read_csv(
@@ -277,36 +269,16 @@ library(tidyverse)
 # Adapt the data dictionary ----------------------------------------------
 # wait until have more information
 dat_dictionary <- tibble::tribble(
-  ~options,
-  ~values,
-  ~grp,
-  ~orders,
-  "1",
-  "male",
-  "sex",
-  1L, # remove this line: how this affects the code downstream?
-  "2",
-  "female",
-  "sex",
-  2L,
-  "M",
-  "male",
-  "sex",
-  3L,
-  "F",
-  "female",
-  "sex",
-  4L,
-  "m",
-  "male",
-  "sex",
-  5L,
-  "f",
-  "female",
-  "sex",
-  6L
+  ~options,  ~values,  ~grp, ~orders,
+       "1",   "male", "sex",      1L,
+       "2", "female", "sex",      2L,
+       "M",   "male", "sex",      3L,
+       "F", "female", "sex",      4L,
+       "m",   "male", "sex",      5L,
+       "f", "female", "sex",      6L
 )
 
+dat_dictionary
 
 # Read raw data ----------------------------------------------------------
 dat_raw <- readr::read_csv(
