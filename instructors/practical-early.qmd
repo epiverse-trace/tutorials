@@ -1,0 +1,668 @@
+---
+title: "Week 2: Name"
+format: 
+  html: # learners solutions
+    embed-resources: true
+  docx: default # learners practical
+  gfm: default # instructors
+keep-md: true
+format-links: false
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+::: {.content-hidden when-format="html"}
+
+<!-- visible for instructors only -->
+<!-- practical-week.md is generated from practical-week.qmd. Please edit that file -->
+<!-- commit .md and .qmd files together -->
+
+<!-- does not work for instructors text messages -->
+
+:::
+
+::: {.content-hidden when-format="docx"}
+
+<!-- works for text on html and MD only -->
+
+This practical is based in the following tutorial episodes:
+
+- <link/episode>
+- <link/episode>
+
+
+:::
+
+
+{{< include _welcome.qmd >}}
+
+
+## Activity 1: Theme
+
+Estimate ... using the following available inputs:
+
+- input 1
+- input 2
+
+As a group, Write your answer to these questions:
+
+- ... phase?
+- ... results expected?
+- Interpret: How would you communicate these results to a decision-maker?
+- Compare: What differences you identify from other group outputs? (if available)
+
+### Inputs
+
+| Group | Incidence | Link |
+|---|---|---|
+| 1 | COVID 30 days | <https://epiverse-trace.github.io/tutorials-middle/data/covid_30days.rds> |
+| 2 | Ebola 35 days |  |
+| 3 | Ebola 60 days |  |
+| 4 | COVID 60 days |  |
+
+
+| Disease | params |
+|---|---|
+| Ebola | ... |
+| COVID | ... |
+
+: {tbl-colwidths="[15,85]"}
+
+::: {.content-visible when-format="docx"}
+
+### Code chunk
+
+```r
+# Load packages ----------------------------------------------------------
+library(cleanepi)
+library(linelist)
+library(incidence2)
+library(tidyverse)
+
+
+# Adapt the data dictionary ----------------------------------------------
+# wait until have more information
+dat_dictionary <- tibble::tribble(
+  ~options,  ~values,     ~grp, ~orders,
+       "1",   "male", "variable_name",      1L, #<FIX>
+       "2", "female", "variable_name",      2L,
+       "M",   "male", "variable_name",      3L,
+       "F", "female", "variable_name",      4L,
+       "m",   "male", "variable_name",      5L,
+       "f", "female", "variable_name",      6L
+)
+
+
+# Read raw data ----------------------------------------------------------
+dat_raw <- readr::read_csv(
+  #<COMPLETE>
+  )
+
+
+# Clean and standardize data ---------------------------------------------
+
+# how many cleanepi functions you used to get clean data?
+dat_clean <- dat_raw %>%
+  cleanepi::#<COMPLETE>
+
+
+# Create categorical variable --------------------------------------------
+
+# what time span unit better describe 'delay' from 'onset' to 'death'?
+dat_category <- dat_clean %>%
+  cleanepi::timespan(
+    #<COMPLETE>
+    #<COMPLETE>
+    #<COMPLETE>
+    span_column_name = "delay_onset_death",
+    span_remainder_unit = NULL
+  ) %>%
+  # skimr::skim(delay_onset_death)
+  # categorize the delay numerical variable
+  dplyr::mutate(
+    delay_category = base::cut(
+      x = delay_onset_death,
+      breaks = c(0, 10, 15, 40),
+      include.lowest = TRUE,
+      right = FALSE
+    )
+  )
+
+
+# Validate data ----------------------------------------------------------
+
+# activate Error message
+linelist::lost_tags_action(action = "error")
+# linelist::lost_tags_action(action = "warning")
+
+# print tags types, names, and data to guide make_linelist
+linelist::tags_types()
+linelist::tags_names()
+dat_category
+
+# does the age variable pass the validation step?
+dat_validate <- dat_category %>% 
+  # tag variables
+  linelist::make_linelist(
+    #<COMPLETE>
+    occupation = "age_category" # OR "delay_category" #<KEEP ONLY ONE>
+  ) %>% 
+  # validate linelist
+  linelist::#<COMPLETE> %>% 
+  # test safeguard
+  # dplyr::select(case_id, date_onset, sex)
+  # INSTEAD
+  linelist::tags_df()
+
+
+# Create incidence -------------------------------------------------------
+
+# what is the most appropriate time-aggregate (days, months) to plot?
+dat_incidence <- dat_validate %>%  
+  # transform from individual-level to time-aggregate
+  incidence2::incidence(
+    date_index = #<COMPLETE>,
+    groups = "occupation", #OR any categorical variable
+    interval = #<COMPLETE>,
+    complete_dates = TRUE
+  )
+
+
+# Plot epicurve ----------------------------------------------------------
+
+# does using arguments like 'fill', 'show_cases', 'angle', 'n_breaks' improves the plot?
+dat_incidence %>% 
+  plot(
+    fill = "occupation", #<KEEP OR DROP>
+    show_cases = TRUE, #<KEEP OR DROP>
+    angle = 45, #<KEEP OR DROP>
+    n_breaks = 5 #<KEEP OR DROP>
+  )
+
+# find plot() arguments at ?incidence2:::plot.incidence2()
+
+```
+
+### Your answers
+
+Group 1
+
+| output | paste here |
+|---|---|
+| figure |  |
+| table |  |
+
+Write your answer to the questions above:
+
+```
+
+
+
+
+
+
+
+```
+
+
+------------------------
+
+Group 2
+
+| output | paste here |
+|---|---|
+| figure |  |
+| table |  |
+
+Write your answer to the questions above:
+
+```
+
+
+
+
+
+
+
+```
+
+
+------------------------
+
+Group 3
+
+| output | paste here |
+|---|---|
+| figure |  |
+| table |  |
+
+Write your answer to the questions above:
+
+```
+
+
+
+
+
+
+
+```
+
+
+------------------------
+
+Group 4
+
+| output | paste here |
+|---|---|
+| figure |  |
+| table |  |
+
+Write your answer to the questions above:
+
+```
+
+
+
+
+
+
+
+```
+:::
+
+::: {.content-visible unless-format="docx"}
+
+### Solution
+
+<!-- visible for instructors and learners after practical (solutions) -->
+
+#### Code
+
+##### sample 1
+
+```{r}
+#| warning: false
+#| eval: false
+
+# Load packages ----------------------------------------------------------
+library(cleanepi)
+library(linelist)
+library(incidence2)
+library(tidyverse)
+
+
+# Adapt the data dictionary ----------------------------------------------
+# wait until have more information
+dat_dictionary <- tibble::tribble(
+  ~options,
+  ~values,
+  ~grp,
+  ~orders,
+  "1",
+  "male",
+  "sex_fem_2",
+  1L, # remove this line: how this affects the code downstream?
+  "2",
+  "female",
+  "sex_fem_2",
+  2L
+)
+
+
+# Read raw data ----------------------------------------------------------
+dat_raw <- readr::read_csv(
+  "https://epiverse-trace.github.io/tutorials-early/data/linelist-date_of_birth.csv"
+)
+
+
+# Clean and standardize data ---------------------------------------------
+
+# what steps you required to have clean data?
+dat_clean <- dat_raw %>%
+  # standardize column names and dates
+  cleanepi::standardize_column_names() %>%
+  cleanepi::standardize_dates(
+    target_columns = c(
+      "date_of_admission",
+      "date_of_birth",
+      "date_first_pcr_positive_test"
+    )
+  ) %>%
+  cleanepi::check_date_sequence(
+    target_columns = c(
+      "date_of_birth",
+      "date_first_pcr_positive_test",
+      "date_of_admission"
+    )
+  ) %>%
+  # using data_dictionary requires valid missing entries
+  cleanepi::replace_missing_values(
+    target_columns = "sex_fem_2",
+    na_strings = "-99"
+  ) %>%
+  cleanepi::clean_using_dictionary(dictionary = dat_dictionary) %>%
+  cleanepi::remove_constants() %>%
+  cleanepi::remove_duplicates(
+    target_columns = c("study_id", "date_of_birth")
+  )
+
+
+# Create categorical variable --------------------------------------------
+
+# what time span unit better describe age?
+dat_category <- dat_clean %>%
+  # calculate the age in 'years' and return the remainder in 'months'
+  cleanepi::timespan(
+    target_column = "date_of_birth",
+    end_date = Sys.Date(),
+    span_unit = "years",
+    span_column_name = "age_in_years",
+    span_remainder_unit = "months"
+  ) %>%
+  # skimr::skim(age_in_years)
+  # categorize the age numerical variable
+  dplyr::mutate(
+    age_category = base::cut(
+      x = age_in_years,
+      breaks = c(0, 20, 35, 60, 80), # replace with max value if known
+      include.lowest = TRUE,
+      right = FALSE
+    )
+    # age_category = Hmisc::cut2(x = age_in_years,cuts = c(20,35,60))
+  )
+
+
+# Validate data ----------------------------------------------------------
+
+# activate Error message
+linelist::lost_tags_action(action = "error")
+# linelist::lost_tags_action(action = "warning")
+
+# print tags types, names, and data to guide make_linelist
+linelist::tags_types()
+linelist::tags_names()
+dat_category
+
+# does the age variable pass the validation step?
+dat_validate <- dat_category %>%
+  # tag variables
+  linelist::make_linelist(
+    id = "study_id",
+    date_reporting = "date_first_pcr_positive_test",
+    gender = "sex_fem_2",
+    # age = "age_category", # does not pass validation
+    age = "age_in_years",
+    occupation = "age_category" # (downstream implications!)
+  ) %>%
+  # validate linelist
+  linelist::validate_linelist() %>%
+  # safeguard
+  # TRY using
+  # dplyr::select(study_id, sex_fem_2, age_category)
+  # CONSEQUENCE
+  # You get an ERROR notification due to loosing tags
+  # INSTEAD
+  # get a dataframe with all validated tags
+  linelist::tags_df()
+
+# relevant change: the variable names CHANGE to tag names!
+# (can simplify downstream analysis!)
+
+# Create incidence -------------------------------------------------------
+
+# what is the most appropriate time-aggregate (days, months) to plot?
+dat_incidence <- dat_validate %>%
+  # transform from individual-level to time-aggregate
+  incidence2::incidence(
+    date_index = "date_reporting", #"date_first_pcr_positive_test",
+    groups = "occupation", #"age_category", # change to sex, ...
+    interval = "month", # change to days, weeks, ...
+    complete_dates = TRUE # relevant to downstream analysis [time-series data]
+  )
+
+
+# Plot epicurve ----------------------------------------------------------
+
+# does using arguments like 'fill' or 'show_cases' improves the plot?
+dat_incidence %>%
+  plot(
+    fill = "occupation", # "age_category",
+    show_cases = TRUE,
+    angle = 45,
+    n_breaks = 5
+  )
+
+# find plot() arguments at ?incidence2:::plot.incidence2()
+```
+
+##### sample 2
+
+```{r}
+#| warning: false
+#| eval: false
+
+# Load packages ----------------------------------------------------------
+library(cleanepi)
+library(linelist)
+library(incidence2)
+library(tidyverse)
+
+
+# Adapt the data dictionary ----------------------------------------------
+# wait until have more information
+dat_dictionary <- tibble::tribble(
+  ~options,
+  ~values,
+  ~grp,
+  ~orders,
+  "1",
+  "male",
+  "sex",
+  1L, # remove this line: how this affects the code downstream?
+  "2",
+  "female",
+  "sex",
+  2L,
+  "M",
+  "male",
+  "sex",
+  3L,
+  "F",
+  "female",
+  "sex",
+  4L,
+  "m",
+  "male",
+  "sex",
+  5L,
+  "f",
+  "female",
+  "sex",
+  6L
+)
+
+
+# Read raw data ----------------------------------------------------------
+dat_raw <- readr::read_csv(
+  "https://epiverse-trace.github.io/tutorials-early/data/covid_simulated_data.csv"
+)
+
+
+# Clean and standardize data ---------------------------------------------
+
+# what steps you required to have clean data?
+dat_clean <- dat_raw %>%
+  cleanepi::standardize_column_names() %>%
+  cleanepi::standardize_dates(
+    target_columns = c(
+      "date_onset",
+      "date_admission",
+      "date_outcome",
+      "date_first_contact",
+      "date_last_contact"
+    )
+  ) %>%
+  cleanepi::check_date_sequence(
+    target_columns = c(
+      "date_first_contact",
+      "date_last_contact",
+      "date_onset",
+      "date_admission",
+      "date_outcome"
+    )
+  ) %>%
+  cleanepi::convert_to_numeric(target_columns = "age") %>%
+  # dplyr::count(sex)
+  # using data_dictionary requires valid missing entries
+  cleanepi::replace_missing_values(
+    target_columns = "sex",
+    na_strings = "-99"
+  ) %>%
+  cleanepi::clean_using_dictionary(dictionary = dat_dictionary) %>%
+  cleanepi::remove_constants() %>%
+  cleanepi::remove_duplicates(
+    target_columns = c("case_id", "case_name")
+  )
+
+
+# Create categorical variable --------------------------------------------
+
+# what time span unit better describe delay from onset to death?
+dat_category <- dat_clean %>%
+  # calculate the time delay from 'onset' to 'death' in 'days'
+  cleanepi::timespan(
+    target_column = "date_onset",
+    end_date = "date_outcome",
+    span_unit = "days",
+    span_column_name = "delay_onset_death",
+    span_remainder_unit = NULL
+  ) %>%
+  # skimr::skim(delay_onset_death)
+  # categorize the delay numerical variable
+  dplyr::mutate(
+    delay_category = base::cut(
+      x = delay_onset_death,
+      breaks = c(0, 10, 15, 40), # replace with max value if known
+      include.lowest = TRUE,
+      right = FALSE
+    )
+    # age_category = Hmisc::cut2(x = age_in_years,cuts = c(20,35,60))
+  )
+
+
+# Validate data ----------------------------------------------------------
+
+# activate Error message
+linelist::lost_tags_action(action = "error")
+# linelist::lost_tags_action(action = "warning")
+
+# print tags types, names, and data to guide make_linelist
+linelist::tags_types()
+linelist::tags_names()
+dat_category
+
+# does the age variable pass the validation step?
+dat_validate <- dat_category %>%
+  # tag variables
+  linelist::make_linelist(
+    id = "case_id",
+    date_onset = "date_onset",
+    gender = "sex",
+    age = "age",
+    outcome = "outcome",
+    occupation = "delay_category" # (downstream implications!)
+  ) %>%
+  # validate linelist
+  linelist::validate_linelist() %>%
+  # safeguard
+  # TRY using
+  # dplyr::select(case_id, date_onset, sex)
+  # CONSEQUENCE
+  # You get an ERROR notification due to loosing tags
+  # INSTEAD
+  # get a dataframe with all validated tags
+  linelist::tags_df()
+
+# relevant change: the variable names CHANGE to tag names!
+# (can simplify downstream analysis!)
+
+# Create incidence -------------------------------------------------------
+
+# what is the most appropriate time-aggregate (days, months) to plot?
+dat_incidence <- dat_validate %>%
+  # transform from individual-level to time-aggregate
+  incidence2::incidence(
+    date_index = "date_onset",
+    groups = "outcome", #"age_category", # change to sex, ...
+    interval = "day", # change to days, weeks, ...
+    complete_dates = TRUE # relevant to downstream analysis [time-series data]
+  )
+
+
+# Plot epicurve ----------------------------------------------------------
+
+# does using arguments like 'fill' or 'show_cases' improves the plot?
+dat_incidence %>%
+  plot(
+    angle = 45,
+    n_breaks = 5
+  )
+
+# find plot() arguments at ?incidence2:::plot.incidence2()
+
+```
+
+#### Outputs
+
+##### Group 4: COVID 60 days
+
+With reporting delay plus Incubation time:
+![image](https://hackmd.io/_uploads/S1q6ItjvC.png){width=50%}
+
+With reporting delay plus Incubation time:
+```
+> summary(covid60_epinow_delays)
+                            measure               estimate
+                             <char>                 <char>
+1:           New infections per day     1987 (760 -- 4566)
+2: Expected change in daily reports      Likely decreasing
+3:       Effective reproduction no.     0.81 (0.43 -- 1.3)
+4:                   Rate of growth -0.047 (-0.2 -- 0.092)
+5:     Doubling/halving time (days)      -15 (7.5 -- -3.5)
+```
+
+#### Interpretation
+
+Interpretation template:
+
++ From the summary of our analysis we see that the expected change in reports is 
+`Likely decreasing` with the estimated new infections, on average, of
+`1987` with 90% credible interval of `760` to `4566`.
+
++ ...
+
+Interpretation Helpers:
+
+- About the effective reproduction number:
+    - An Rt greater than 1 implies an increase in cases or an epidemic. 
+    - An Rt less than 1 implies a decrease in cases or extinction.
+- ...
+
+
+# Continue your learning path
+
+<!-- Suggest learners to Epiverse-TRACE documentation or external resources --->
+
+Where
+
+- <link> 
+
+:::
+
+# end
