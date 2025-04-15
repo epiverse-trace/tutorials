@@ -1,4 +1,4 @@
-# Week 2: Name
+# Week 1: Clean, validate linelist, and plot epicurves
 
 <!-- visible for instructors only -->
 <!-- practical-week.md is generated from practical-week.qmd. Please edit that file -->
@@ -8,8 +8,9 @@
 
 This practical is based in the following tutorial episodes:
 
-- <link/episode>
-- <link/episode>
+- <https://epiverse-trace.github.io/tutorials-early/clean-data.html>
+- <https://epiverse-trace.github.io/tutorials-early/validate.html>
+- <https://epiverse-trace.github.io/tutorials-early/describe-cases.html>
 
 Welcome!
 
@@ -74,17 +75,47 @@ increase their fluency writing R by using:
 
 
 
-## Activity 1: Theme
+## Activity 1: Clean and standardize raw data
 
-Estimate … using the following available inputs:
+Get a clean and standardized data frame using the following available
+inputs:
 
-- input 1
-- input 2
+- Raw messy data frame in CSV format
 
 As a group, Write your answer to these questions:
 
-- … phase?
-- … results expected?
+- Diagnose the raw data. Write down all the cleaning tasks you plan to
+  execute before writing the code.
+- What time unit better describe the corresponding time span to
+  calculate?
+- Print the report: How would you communicate these results to a
+  decision-maker?
+- Compare: What differences you identify from other group outputs? (if
+  available)
+
+### Inputs
+
+| Group | Data           | Link                                                                               | Calculate time span       | Categorize time span          |
+|-------|----------------|------------------------------------------------------------------------------------|---------------------------|-------------------------------|
+| 1     | Small linelist | <https://epiverse-trace.github.io/tutorials-early/data/linelist-date_of_birth.csv> | Age until today           | breaks = c(0, 20, 35, 60, 80) |
+| 2     | Large linelist | <https://epiverse-trace.github.io/tutorials-early/data/covid_simulated_data.csv>   | Delay from onset to death | breaks = c(0, 10, 15, 40)     |
+| 3     | Serology data  | <https://epiverse-trace.github.io/tutorials-early/data/delta_full-messy.csv>       | Time from last exposure   | breaks = c(0, 30, 100, 600)   |
+
+## Activity 2: Validate linelist and plot epicurve
+
+Get a validated linelinst and incidence plot using the following
+available inputs:
+
+- Clean data frame object
+
+As a group, Write your answer to these questions:
+
+- In the validation step, Do you need to allow for extra variables names
+  and types?
+- What is the most apprioriate time unit to aggregate the incidence
+  plot?
+- Does using arguments like `fill`, `show_cases`, `angle`, `n_breaks`
+  improves the incidence plot?
 - Interpret: How would you communicate these results to a
   decision-maker?
 - Compare: What differences you identify from other group outputs? (if
@@ -92,17 +123,11 @@ As a group, Write your answer to these questions:
 
 ### Inputs
 
-| Group | Incidence     | Link                                                                      |
-|-------|---------------|---------------------------------------------------------------------------|
-| 1     | COVID 30 days | <https://epiverse-trace.github.io/tutorials-middle/data/covid_30days.rds> |
-| 2     | Ebola 35 days |                                                                           |
-| 3     | Ebola 60 days |                                                                           |
-| 4     | COVID 60 days |                                                                           |
-
-| Disease | params |
-|---------|--------|
-| Ebola   | …      |
-| COVID   | …      |
+| Group | Data           | Link                                                                               | Calculate time span       | Categorize time span          |
+|-------|----------------|------------------------------------------------------------------------------------|---------------------------|-------------------------------|
+| 1     | Small linelist | <https://epiverse-trace.github.io/tutorials-early/data/linelist-date_of_birth.csv> | Age until today           | breaks = c(0, 20, 35, 60, 80) |
+| 2     | Large linelist | <https://epiverse-trace.github.io/tutorials-early/data/covid_simulated_data.csv>   | Delay from onset to death | breaks = c(0, 10, 15, 40)     |
+| 3     | Serology data  | <https://epiverse-trace.github.io/tutorials-early/data/delta_full-messy.csv>       | Time from last exposure   | breaks = c(0, 30, 100, 600)   |
 
 ### Solution
 
@@ -134,6 +159,8 @@ dat_dictionary
 dat_raw <- readr::read_csv(
   "https://epiverse-trace.github.io/tutorials-early/data/linelist-date_of_birth.csv"
 )
+
+dat_raw
 
 
 # Clean and standardize data ---------------------------------------------
@@ -167,11 +194,13 @@ dat_clean <- dat_raw %>%
     target_columns = c("study_id", "date_of_birth")
   )
 
+dat_clean
+
 
 # Create categorical variable --------------------------------------------
 
 # what time span unit better describe age?
-dat_category <- dat_clean %>%
+dat_timespan <- dat_clean %>%
   # calculate the age in 'years' and return the remainder in 'months'
   cleanepi::timespan(
     target_column = "date_of_birth",
@@ -185,15 +214,17 @@ dat_category <- dat_clean %>%
   dplyr::mutate(
     age_category = base::cut(
       x = age_in_years,
-      breaks = c(0, 20, 35, 60, 80), # replace with max value if known
+      breaks = c(0, 20, 35, 60, 80),
       include.lowest = TRUE,
       right = FALSE
     )
     # age_category = Hmisc::cut2(x = age_in_years,cuts = c(20,35,60))
   )
 
+dat_timespan
 
-# Validate data ----------------------------------------------------------
+
+# Validate linelist ------------------------------------------------------
 
 # activate Error message
 linelist::lost_tags_action(action = "error")
@@ -202,10 +233,10 @@ linelist::lost_tags_action(action = "error")
 # print tags types, names, and data to guide make_linelist
 linelist::tags_types()
 linelist::tags_names()
-dat_category
+dat_timespan
 
 # does the age variable pass the validation step?
-dat_validate <- dat_category %>%
+dat_validate <- dat_timespan %>%
   # tag variables
   linelist::make_linelist(
     id = "study_id",
@@ -228,6 +259,8 @@ dat_validate <- dat_category %>%
 
 # relevant change: the variable names CHANGE to tag names!
 # (can simplify downstream analysis!)
+dat_validate
+
 
 # Create incidence -------------------------------------------------------
 
@@ -240,6 +273,8 @@ dat_incidence <- dat_validate %>%
     interval = "month", # change to days, weeks, ...
     complete_dates = TRUE # relevant to downstream analysis [time-series data]
   )
+
+dat_incidence
 
 
 # Plot epicurve ----------------------------------------------------------
@@ -285,6 +320,8 @@ dat_raw <- readr::read_csv(
   "https://epiverse-trace.github.io/tutorials-early/data/covid_simulated_data.csv"
 )
 
+dat_raw
+
 
 # Clean and standardize data ---------------------------------------------
 
@@ -322,11 +359,13 @@ dat_clean <- dat_raw %>%
     target_columns = c("case_id", "case_name")
   )
 
+dat_clean
 
-# Create categorical variable --------------------------------------------
+
+# Create time span variable ----------------------------------------------
 
 # what time span unit better describe delay from onset to death?
-dat_category <- dat_clean %>%
+dat_timespan <- dat_clean %>%
   # calculate the time delay from 'onset' to 'death' in 'days'
   cleanepi::timespan(
     target_column = "date_onset",
@@ -340,15 +379,17 @@ dat_category <- dat_clean %>%
   dplyr::mutate(
     delay_category = base::cut(
       x = delay_onset_death,
-      breaks = c(0, 10, 15, 40), # replace with max value if known
+      breaks = c(0, 10, 15, 40),
       include.lowest = TRUE,
       right = FALSE
     )
     # age_category = Hmisc::cut2(x = age_in_years,cuts = c(20,35,60))
   )
 
+dat_timespan
 
-# Validate data ----------------------------------------------------------
+
+# Validate linelist ------------------------------------------------------
 
 # activate Error message
 linelist::lost_tags_action(action = "error")
@@ -357,10 +398,10 @@ linelist::lost_tags_action(action = "error")
 # print tags types, names, and data to guide make_linelist
 linelist::tags_types()
 linelist::tags_names()
-dat_category
+dat_timespan
 
 # does the age variable pass the validation step?
-dat_validate <- dat_category %>%
+dat_validate <- dat_timespan %>%
   # tag variables
   linelist::make_linelist(
     id = "case_id",
@@ -383,6 +424,8 @@ dat_validate <- dat_category %>%
 
 # relevant change: the variable names CHANGE to tag names!
 # (can simplify downstream analysis!)
+dat_validate
+
 
 # Create incidence -------------------------------------------------------
 
@@ -395,6 +438,8 @@ dat_incidence <- dat_validate %>%
     interval = "day", # change to days, weeks, ...
     complete_dates = TRUE # relevant to downstream analysis [time-series data]
   )
+
+dat_incidence
 
 
 # Plot epicurve ----------------------------------------------------------
@@ -409,48 +454,145 @@ dat_incidence %>%
 # find plot() arguments at ?incidence2:::plot.incidence2()
 ```
 
+##### sample 3
+
+> Group 3 should investigate about how the argument `allow_extra = TRUE`
+> us used in this howto entry
+> <https://epiverse-trace.github.io/howto/analyses/describe_cases/cleanepi-linelist-incidence2-stratified.html>
+
+``` r
+# Load packages ----------------------------------------------------------
+library(cleanepi)
+library(linelist)
+library(incidence2)
+library(tidyverse)
+
+
+# Read raw data ----------------------------------------------------------
+dat_raw <- readr::read_csv("https://epiverse-trace.github.io/tutorials-early/data/delta_full-messy.csv")
+
+dat_raw
+
+
+# Clean and standardize data ---------------------------------------------
+dat_clean <- dat_raw %>%
+  # cleanepi
+  cleanepi::standardize_column_names() %>%
+  cleanepi::standardize_dates(target_columns = "date") %>% #
+  cleanepi::convert_to_numeric(target_columns = "exp_num") %>%
+  cleanepi::check_date_sequence(
+    target_columns = c("last_exp_date", "date")
+  )
+
+dat_clean
+
+
+# Create time span variable ----------------------------------------------
+
+# what time span unit better describe 'time' from 'last exposure' to 'date'?
+dat_timespan <- dat_clean %>%
+  # cleanepi::print_report()
+  cleanepi::timespan(
+    target_column = "last_exp_date",
+    end_date = "date",
+    span_unit = "days",
+    span_column_name = "t_since_last_exp",
+    span_remainder_unit = NULL
+  ) %>%
+  # skimr::skim(t_since_last_exp)
+  # categorize the delay numerical variable
+  dplyr::mutate(
+    time_category = base::cut(
+      x = t_since_last_exp,
+      breaks = c(0, 30, 100, 600),
+      include.lowest = TRUE,
+      right = FALSE
+    )
+  )
+
+dat_timespan
+
+
+# Validate linelist ------------------------------------------------------
+
+dat_validate <- dat_timespan %>%
+  # tag with {linelist}
+  linelist::make_linelist(
+    id = "pid",
+    occupation = "time_category",
+    allow_extra = TRUE,
+    last_exp_date = "last_exp_date",
+    t_since_last_exp = "t_since_last_exp",
+    last_vax_type = "last_vax_type"
+  ) %>%
+  # validate
+  linelist::validate_linelist(
+    allow_extra = TRUE,
+    ref_types = linelist::tags_types(
+      last_exp_date = c("Date"),
+      t_since_last_exp = c("numeric"),
+      last_vax_type = c("character"),
+      allow_extra = TRUE
+    )
+  ) %>%
+  # keep tags data frame
+  linelist::tags_df()
+
+dat_validate
+
+
+# Create incidence -------------------------------------------------------
+
+dat_incidence <- dat_validate %>%
+    # aggregate
+    incidence2::incidence(
+      date_index = "last_exp_date",
+      groups = "last_vax_type", 
+      interval = "month", # change: "day" or "week" etc
+      complete_dates = TRUE # relevant to downstream analysis [time-series data]
+    )
+
+dat_incidence
+
+
+# Plot epicurve ----------------------------------------------------------
+
+dat_incidence %>%
+  # plot
+  plot(
+    fill = "last_vax_type" # change to groups variable
+  )
+
+# find plot() arguments at ?incidence2:::plot.incidence2()
+```
+
 #### Outputs
 
-##### Group 4: COVID 60 days
+figure
 
-With reporting delay plus Incubation time:
-<img src="https://hackmd.io/_uploads/S1q6ItjvC.png" style="width:50.0%"
-alt="image" />
-
-With reporting delay plus Incubation time:
-
-    > summary(covid60_epinow_delays)
-                                measure               estimate
-                                 <char>                 <char>
-    1:           New infections per day     1987 (760 -- 4566)
-    2: Expected change in daily reports      Likely decreasing
-    3:       Effective reproduction no.     0.81 (0.43 -- 1.3)
-    4:                   Rate of growth -0.047 (-0.2 -- 0.092)
-    5:     Doubling/halving time (days)      -15 (7.5 -- -3.5)
+table
 
 #### Interpretation
 
 Interpretation template:
 
-- From the summary of our analysis we see that the expected change in
-  reports is `Likely decreasing` with the estimated new infections, on
-  average, of `1987` with 90% credible interval of `760` to `4566`.
-
 - …
 
 Interpretation Helpers:
 
-- About the effective reproduction number:
-  - An Rt greater than 1 implies an increase in cases or an epidemic.
-  - An Rt less than 1 implies a decrease in cases or extinction.
 - …
 
 # Continue your learning path
 
 <!-- Suggest learners to Epiverse-TRACE documentation or external resources --->
 
-Where
+Explore the downstream analysis you can do with {incidence2} outputs
 
-- <link>
+- <https://www.reconverse.org/incidence2/doc/incidence2.html#sec:building-on-incidence2>
+
+You can use {epikinetics} to estimate Bayesian hierarchical modelling of
+antibody kinetics. Explore this sample code:
+
+- <https://epiverse-trace.github.io/tutorials-early/epikinetics-statistics.html>
 
 # end
