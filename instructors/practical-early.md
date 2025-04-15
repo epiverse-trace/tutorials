@@ -84,8 +84,8 @@ inputs:
 
 As a group, Write your answer to these questions:
 
-- Diagnose the raw data. Write down all the cleaning tasks you plan to
-  execute before writing the code.
+- Diagnose the raw data. What data cleaning operations need to be
+  performed on the dataset?. Write all of them before writing the code.
 - What time unit better describe the corresponding time span to
   calculate?
 - Print the report: How would you communicate these results to a
@@ -123,11 +123,7 @@ As a group, Write your answer to these questions:
 
 ### Inputs
 
-| Group | Data           | Link                                                                               | Calculate time span       | Categorize time span          |
-|-------|----------------|------------------------------------------------------------------------------------|---------------------------|-------------------------------|
-| 1     | Small linelist | <https://epiverse-trace.github.io/tutorials-early/data/linelist-date_of_birth.csv> | Age until today           | breaks = c(0, 20, 35, 60, 80) |
-| 2     | Large linelist | <https://epiverse-trace.github.io/tutorials-early/data/covid_simulated_data.csv>   | Delay from onset to death | breaks = c(0, 10, 15, 40)     |
-| 3     | Serology data  | <https://epiverse-trace.github.io/tutorials-early/data/delta_full-messy.csv>       | Time from last exposure   | breaks = c(0, 30, 100, 600)   |
+Use outputs from activity 1.
 
 ### Solution
 
@@ -135,7 +131,7 @@ As a group, Write your answer to these questions:
 
 #### Code
 
-##### sample 1
+##### Sample 1
 
 ``` r
 # Load packages ----------------------------------------------------------
@@ -291,7 +287,7 @@ dat_incidence %>%
 # find plot() arguments at ?incidence2:::plot.incidence2()
 ```
 
-##### sample 2
+##### Sample 2
 
 ``` r
 # Load packages ----------------------------------------------------------
@@ -454,7 +450,7 @@ dat_incidence %>%
 # find plot() arguments at ?incidence2:::plot.incidence2()
 ```
 
-##### sample 3
+##### Sample 3
 
 > Group 3 should investigate about how the argument `allow_extra = TRUE`
 > us used in this howto entry
@@ -568,19 +564,34 @@ dat_incidence %>%
 
 #### Outputs
 
-figure
-
-table
+| Group | Output                                              |
+|-------|-----------------------------------------------------|
+| 1     | ![image](https://hackmd.io/_uploads/ry5d6xnA1e.png) |
+| 2     | ![image](https://hackmd.io/_uploads/SJ2f0e2Cyx.png) |
+| 3     | ![image](https://hackmd.io/_uploads/H1-PRlhA1g.png) |
 
 #### Interpretation
 
-Interpretation template:
+Cleanining
 
-- …
+- In small data frames, we can diagnose cleanining operations easier
+  than large data frames.
+- For example, in the large data frame, before cleaninig the sex
+  variable with a data dictionary, we need to remove unconsistent
+  missing values. We can use `dplyr::count()` to find this issue.
 
-Interpretation Helpers:
+Validation
 
-- …
+- Using the `linelist::tags_df()` output can keep stable downstream
+  analysis. Jointly with `linelist::lost_tags_action(action = "error")`
+  we can improve the capacity to diagnose changes in the input data.
+  This can prevent getting misleading outputs from automatic daily code
+  runs or dashboards updates.
+
+Epicurve
+
+- The argument `show_cases` can improve the visibility of `fill`
+  categorical variables when the amount of observed cases is small.
 
 # Continue your learning path
 
@@ -590,8 +601,9 @@ Explore the downstream analysis you can do with {incidence2} outputs
 
 - <https://www.reconverse.org/incidence2/doc/incidence2.html#sec:building-on-incidence2>
 
-You can use {epikinetics} to estimate Bayesian hierarchical modelling of
-antibody kinetics. Explore this sample code:
+You can use [{epikinetics}](https://seroanalytics.org/epikinetics/) to
+estimate Bayesian hierarchical modelling of antibody kinetics. Explore
+this sample code:
 
 - <https://epiverse-trace.github.io/tutorials-early/epikinetics-statistics.html>
 
