@@ -57,3 +57,6 @@ instructors/*.docx
 instructors/*.html
 instructors/*.pdf
 instructors/*_files/*
+.DS_Store
+instructors/.DS_Store
+instructors/content_reviews/.DS_Store
