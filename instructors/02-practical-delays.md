@@ -40,23 +40,26 @@ Roll call:
 
 This practical has two activities.
 
-Before your start, as a group:
+Before you start, as a group:
 
-- Create one copy of the Posit Cloud project `<paste link>`.
+- Create one copy of the Posit Cloud project using the link provided:
+  `<paste link>`.
 - Solve each challenge using the `Code chunk` as a guide.
-- Paste your figure and table outputs.
+- Paste your figure and table outputs in the designated area.
 - Write your answer to the questions.
-- Choose one person from your group to share your results with everyone.
+- Choose one person from your group to share your group’s results with
+  the rest of the participants.
 
-During the practical, instead of copy-paste, we encourage learners to
-increase their fluency writing R by using:
+During the practical, instead of simply copying and pasting, we
+encourage learners to increase their fluency writing R by using:
 
 - Tab key <kbd>↹</kbd> for [code completion
   feature](https://support.posit.co/hc/en-us/articles/205273297-Code-Completion-in-the-RStudio-IDE)
   and [possible arguments
   displayed](https://docs.posit.co/ide/user/ide/guide/code/console.html).
-- The double-colon notation, e.g. `package::function()`. This helps us
-  remember package functions and avoid namespace conflicts.
+- The double-colon notation, e.g. `package::function()`. This notation
+  allows you to specify which package a function comes from, avoid
+  namespace conflicts, and find functions by using keywords.
 - [R
   shortcuts](https://positron.posit.co/keyboard-shortcuts.html#r-shortcuts):
   - `Cmd/Ctrl`+`Shift`+`M` to Insert the pipe operator (`|>` or `%>%`)
@@ -64,7 +67,7 @@ increase their fluency writing R by using:
 - [Execute one line of
   code](https://docs.posit.co/ide/user/ide/guide/code/execution.html) by
   placing the cursor in the code of interest and press the
-  `Ctrl`+`Enter`. This also works for multiple lines conected by the
+  `Ctrl`+`Enter`. This also works for multiple lines connected by the
   pipe operator.
 - Get [help yourself with R](https://www.r-project.org/help.html) using
   `help()` function or `?` operator to access function reference manual.
@@ -84,7 +87,7 @@ Estimate $R_{t}$, *new infections*, *new reports*, *growth rate*, and
 - Incidence of reported cases per day
 - Reporting delay
 
-As a group, Write your answer to these questions:
+As a group, Write your answers to these questions:
 
 - What phase of the epidemic are you observing? (Exponential growth
   phase, near peak, or decay end phase)
@@ -92,8 +95,8 @@ As a group, Write your answer to these questions:
   effective reproductive number, growth rate, and doubling time?
 - Interpret: How would you communicate these results to a
   decision-maker?
-- Compare: What differences you identify from other group outputs? (if
-  available)
+- Compare: What differences do you identify from other group outputs?
+  (if available)
 
 ### Inputs
 
@@ -104,10 +107,10 @@ As a group, Write your answer to these questions:
 | 3     | Ebola 60 days | <https://epiverse-trace.github.io/tutorials-middle/data/ebola_60days.rds> |
 | 4     | COVID 60 days | <https://epiverse-trace.github.io/tutorials-middle/data/covid_60days.rds> |
 
-| Disease | Reporting delays                                                                                                                                                                                                                                                                                            |
-|---------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Ebola   | The time difference between symptom onset and case report follows a Lognormal distribution with uncertainty. The **meanlog** follows a Normal distribution with mean = 1.4 and sd = 0.5. The **sdlog** follows a Normal distribution with mean = 0.25 and sd = 0.2. Bound the distribution with max = 5.    |
-| COVID   | The time difference between symptom onset and case report follows a Gamma distribution with uncertainty. The **mean** follows a Normal distribution with mean = 2 and sd = 0.5. The **standard deviation** follows a Normal distribution with mean = 1 and sd = 0.5. Bound the distribution with a max = 5. |
+| Disease | Reporting delays                                                                                                                                                                                                                                                                                                                        |
+|---------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Ebola   | The time difference between symptom onset and case report follows a Lognormal distribution with uncertainty. The **meanlog** follows a Normal distribution with mean = 1.4 days and sd = 0.5 days. The **sdlog** follows a Normal distribution with mean = 0.25 days and sd = 0.2 days. Bound the distribution with a maximum = 5 days. |
+| COVID   | The time difference between symptom onset and case report follows a Gamma distribution with uncertainty. The **mean** follows a Normal distribution with mean = 2 days and sd = 0.5 days. The **standard deviation** follows a Normal distribution with mean = 1 day and sd = 0.5 days. Bound the distribution with a maximum = 5 days. |
 
 ### Solution
 
@@ -187,7 +190,7 @@ ebola_incubationtime_max <- ebola_incubationtime %>%
   quantile(p = 0.99) %>%
   base::round()
 
-# incubation period: adapt to {EpiNow2} distribution interfase
+# incubation period: adapt to {EpiNow2} distribution interface
 ebola_incubationtime_epinow <- EpiNow2::Gamma(
   shape = ebola_incubationtime_params["shape"],
   scale = ebola_incubationtime_params["scale"],
@@ -291,7 +294,7 @@ ebola_incubationtime_max <- covid_incubationtime %>%
   quantile(p = 0.99) %>%
   base::round()
 
-# incubation period: adapt to {EpiNow2} distribution interfase
+# incubation period: adapt to {EpiNow2} distribution interface
 covid_incubationtime_epinow <- EpiNow2::LogNormal(
   meanlog = covid_incubationtime_params["meanlog"],
   sdlog = covid_incubationtime_params["sdlog"],
@@ -416,19 +419,20 @@ Interpretation Helpers:
 
 - About the effective reproduction number:
   - An Rt greater than 1 implies an increase in cases or an epidemic.
-  - An Rt less than 1 implies a decrease in cases or extinction.
+  - An Rt less than 1 implies a decrease in transmission, which could
+    lead to extinction if sustained.
 - An analysis closest to extinction has a central estimate of:
   - Rt less than 1
   - growth rate is negative
-  - doubling or halving time negative
+  - doubling or halving time negative, which indicate a decline in cases
 - However, given the uncertainty in all of these estimates, there is no
-  statistical evidence of extintion if the 90% credible intervals of:
+  statistical evidence of extinction if the 90% credible intervals of:
   - Rt include the value 1,
   - growth rate include the value 0,
   - doubling or halving time include the value 0.
 - From table:
-  - The results in the tables correspond to the latest available date
-    under analysis.
+  - The values from the `summary()` output correspond to the latest
+    available date under analysis.
   - The `Expected change in reports` categories (e.g., `Stable` or
     `Likely decreasing`) describe the expected change in daily cases
     based on the posterior probability that Rt \< 1. Find the tutorial
@@ -444,8 +448,8 @@ Interpretation Helpers:
     - New infections per day, uncertainty increases in an equivalent
       size to the delays
 - From comparing COVID and Ebola outputs:
-  - The finite maximum value of the generation time distribution defines
-    de range of the “estimate based on parial data”.
+  - The finite maximum value of the generation time distribution define
+    the range of the “estimate based on parial data”.
 
 ## Activity 2: Severity
 
@@ -455,17 +459,17 @@ the following inputs:
 - Reported cases (aggregate incidence by date of onset)
 - Onset to death delay
 
-As a group, Write your answer to these questions:
+As a group, Write your answers to these questions:
 
 - What phase of the epidemic are you observing? (Exponential growth
   phase, near peak, or decay end phase)
-- Does the time serie includes all the possible deaths to observe from
+- Does the time series include all the possible deaths to observe from
   known cases?
 - How much difference is there between the nCFR and aCFR estimates?
 - Interpret: How would you communicate these results to a
   decision-maker?
-- Compare: What differences you identify from other group outputs? (if
-  available)
+- Compare: What differences do you identify from other group outputs?
+  (if available)
 
 ### Inputs
 

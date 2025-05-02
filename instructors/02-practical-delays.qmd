@@ -48,12 +48,12 @@ Estimate $R_{t}$, _new infections_, _new reports_, _growth rate_, and _doubling/
 - Incidence of reported cases per day
 - Reporting delay
 
-As a group, Write your answer to these questions:
+As a group, Write your answers to these questions:
 
 - What phase of the epidemic are you observing? (Exponential growth phase, near peak, or decay end phase)
 - Is the expected change in daily reports consistent with the estimated effective reproductive number, growth rate, and doubling time?
 - Interpret: How would you communicate these results to a decision-maker?
-- Compare: What differences you identify from other group outputs? (if available)
+- Compare: What differences do you identify from other group outputs? (if available)
 
 ### Inputs
 
@@ -67,8 +67,8 @@ As a group, Write your answer to these questions:
 
 | Disease | Reporting delays |
 |---|---|
-| Ebola | The time difference between symptom onset and case report follows a Lognormal distribution with uncertainty. The **meanlog** follows a Normal distribution with mean = 1.4 and sd = 0.5. The **sdlog** follows a Normal distribution with mean = 0.25 and sd = 0.2. Bound the distribution with max = 5. |
-| COVID | The time difference between symptom onset and case report follows a Gamma distribution with uncertainty. The **mean** follows a Normal distribution with mean = 2 and sd = 0.5. The **standard deviation** follows a Normal distribution with mean = 1 and sd = 0.5. Bound the distribution with a max = 5. |
+| Ebola | The time difference between symptom onset and case report follows a Lognormal distribution with uncertainty. The **meanlog** follows a Normal distribution with mean = 1.4 days and sd = 0.5 days. The **sdlog** follows a Normal distribution with mean = 0.25 days and sd = 0.2 days. Bound the distribution with a maximum = 5 days. |
+| COVID | The time difference between symptom onset and case report follows a Gamma distribution with uncertainty. The **mean** follows a Normal distribution with mean = 2 days and sd = 0.5 days. The **standard deviation** follows a Normal distribution with mean = 1 day and sd = 0.5 days. Bound the distribution with a maximum = 5 days. |
 
 : {tbl-colwidths="[15,85]"}
 
@@ -97,34 +97,34 @@ dat <- read_rds("paste/link/url/here/ebola") %>%
 
 # access a serial interval
 ebola_serialint <- epiparameter::epiparameter_db(
-  # <COMPLETE>
+  #<COMPLETE>
 )
 
 # extract parameters from {epiparameter} object
-ebola_serialint_params <- epiparameter::# <COMPLETE>
+ebola_serialint_params <- epiparameter::#<COMPLETE>
 
 # adapt {epiparameter} to {EpiNow2} distribution inferfase
-ebola_generationtime <- EpiNow2::# <COMPLETE>
+ebola_generationtime <- EpiNow2::#<COMPLETE>
 
 
 # Define the delays from infection to case report for {EpiNow2} -----------
 
 # define delay from symptom onset to case report
-ebola_reportdelay <- EpiNow2::# <COMPLETE>
+ebola_reportdelay <- EpiNow2::#<COMPLETE>
 
 # define a delay from infection to symptom onset
 ebola_incubationtime <- epiparameter::epiparameter_db(
-  # <COMPLETE>
+  #<COMPLETE>
 )
 
 # incubation period: extract distribution parameters
-ebola_incubationtime_params <- epiparameter::# <COMPLETE>
+ebola_incubationtime_params <- epiparameter::#<COMPLETE>
 
 # incubation period: discretize and extract maximum value (p = 99%)
-ebola_incubationtime_max <- ebola_incubationtime %>% # <COMPLETE>
+ebola_incubationtime_max <- ebola_incubationtime %>% #<COMPLETE>
 
-# incubation period: adapt to {EpiNow2} distribution interfase
-ebola_incubationtime_epinow <- EpiNow2::# <COMPLETE>
+# incubation period: adapt to {EpiNow2} distribution interface
+ebola_incubationtime_epinow <- EpiNow2::#<COMPLETE>
 
 # print required input
 ebola_generationtime
@@ -140,7 +140,7 @@ withr::local_options(list(mc.cores = parallel::detectCores() - 1))
 # with EpiNow2::*_opts() functions for generation time, delays, and stan.
 estimates <- EpiNow2::epinow(
   data = dat,
-  # <COMPLETE>
+  #<COMPLETE>
   stan = EpiNow2::stan_opts(samples = 1000, chains = 3)
 )
 
@@ -161,7 +161,7 @@ Group 1
 | figure |  |
 | table |  |
 
-Write your answer to the questions above:
+Write your answers to the questions above:
 
 ```
 
@@ -183,7 +183,7 @@ Group 2
 | figure |  |
 | table |  |
 
-Write your answer to the questions above:
+Write your answers to the questions above:
 
 ```
 
@@ -205,7 +205,7 @@ Group 3
 | figure |  |
 | table |  |
 
-Write your answer to the questions above:
+Write your answers to the questions above:
 
 ```
 
@@ -227,7 +227,7 @@ Group 4
 | figure |  |
 | table |  |
 
-Write your answer to the questions above:
+Write your answers to the questions above:
 
 ```
 
@@ -323,7 +323,7 @@ ebola_incubationtime_max <- ebola_incubationtime %>%
   quantile(p = 0.99) %>%
   base::round()
 
-# incubation period: adapt to {EpiNow2} distribution interfase
+# incubation period: adapt to {EpiNow2} distribution interface
 ebola_incubationtime_epinow <- EpiNow2::Gamma(
   shape = ebola_incubationtime_params["shape"],
   scale = ebola_incubationtime_params["scale"],
@@ -430,7 +430,7 @@ ebola_incubationtime_max <- covid_incubationtime %>%
   quantile(p = 0.99) %>%
   base::round()
 
-# incubation period: adapt to {EpiNow2} distribution interfase
+# incubation period: adapt to {EpiNow2} distribution interface
 covid_incubationtime_epinow <- EpiNow2::LogNormal(
   meanlog = covid_incubationtime_params["meanlog"],
   sdlog = covid_incubationtime_params["sdlog"],
@@ -554,18 +554,18 @@ Interpretation Helpers:
 
 - About the effective reproduction number:
     - An Rt greater than 1 implies an increase in cases or an epidemic. 
-    - An Rt less than 1 implies a decrease in cases or extinction.
+    - An Rt less than 1 implies a decrease in transmission, which could lead to extinction if sustained.
 - An analysis closest to extinction has a central estimate of:
     - Rt less than 1
     - growth rate is negative
-    - doubling or halving time negative
+    - doubling or halving time negative, which indicate a decline in cases
 - However, given the uncertainty in all of these estimates,
-there is no statistical evidence of extintion if the 90% credible intervals of:
+there is no statistical evidence of extinction if the 90% credible intervals of:
     - Rt include the value 1,
     - growth rate include the value 0,
     - doubling or halving time include the value 0.
 - From table:
-    - The results in the tables correspond to the latest available date under analysis.
+    - The values from the `summary()` output correspond to the latest available date under analysis.
     - The `Expected change in reports` categories (e.g., `Stable` or `Likely decreasing`)
     describe the expected change in daily cases based on the posterior probability that Rt < 1.
     Find the tutorial table at:
@@ -578,7 +578,7 @@ there is no statistical evidence of extintion if the 90% credible intervals of:
         - In Reports, the forecast credible intervals increases.
         - New infections per day, uncertainty increases in an equivalent size to the delays
 - From comparing COVID and Ebola outputs:
-    - The finite maximum value of the generation time distribution defines de range of the “estimate based on parial data”.
+    - The finite maximum value of the generation time distribution define the range of the “estimate based on parial data”.
 
 :::
 
@@ -590,13 +590,13 @@ Estimate the _naive CFR (nCFR)_ and _delay-adjusted CFR (aCFR)_ using the follow
 - Reported cases (aggregate incidence by date of onset)
 - Onset to death delay
 
-As a group, Write your answer to these questions:
+As a group, Write your answers to these questions:
 
 - What phase of the epidemic are you observing? (Exponential growth phase, near peak, or decay end phase)
-- Does the time serie includes all the possible deaths to observe from known cases?
+- Does the time series include all the possible deaths to observe from known cases?
 - How much difference is there between the nCFR and aCFR estimates?
 - Interpret: How would you communicate these results to a decision-maker?
-- Compare: What differences you identify from other group outputs? (if available)
+- Compare: What differences do you identify from other group outputs? (if available)
 
 
 ### Inputs
@@ -682,7 +682,7 @@ Group 1
 | figure |  |
 | table |  |
 
-Write your answer to the questions above:
+Write your answers to the questions above:
 
 ```
 
@@ -704,7 +704,7 @@ Group 2
 | figure |  |
 | table |  |
 
-Write your answer to the questions above:
+Write your answers to the questions above:
 
 ```
 
@@ -726,7 +726,7 @@ Group 3
 | figure |  |
 | table |  |
 
-Write your answer to the questions above:
+Write your answers to the questions above:
 
 ```
 
@@ -748,7 +748,7 @@ Group 4
 | figure |  |
 | table |  |
 
-Write your answer to the questions above:
+Write your answers to the questions above:
 
 ```
 
