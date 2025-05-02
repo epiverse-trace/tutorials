@@ -1,7 +1,9 @@
-Activity 3
 
 ```{r}
 #| eval: false
+
+# Practical 4
+# Activity 3
 
 # Combine interventions --------------------------------------------------
 

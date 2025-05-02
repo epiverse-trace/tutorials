@@ -1,7 +1,9 @@
-Activity 2
 
 ```{r}
 #| eval: false
+
+# Practical 2
+# Activity 2
 
 # Load packages -----------------------------------------------------------
 library(cfr)
