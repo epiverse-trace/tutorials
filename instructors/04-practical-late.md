@@ -38,10 +38,10 @@ This practical has two activities.
 
 Before you start, as a group:
 
-- Create one copy of the [Posit Cloud RStudio
-  project](https://posit.cloud/spaces/609790/join?access_code=hPM1tIeKt5ax_Y-P0lMGVUGqzFPNH4wxkKSzXZYb).
-- Solve each activity in the corresponding `.R` file at the section
-  `Your Code`.
+<!-- - Create one copy of the [Posit Cloud RStudio project](https://posit.cloud/spaces/609790/join?access_code=hPM1tIeKt5ax_Y-P0lMGVUGqzFPNH4wxkKSzXZYb). -->
+
+- Solve each activity in the corresponding `.R` file. Find the download
+  link in the section `Your Code`.
 - Paste your figure and table outputs and write your answer to the
   questions in the section `Your Answers`.
 - Choose one person from your group to share your group’s results with
