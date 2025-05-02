@@ -79,129 +79,15 @@ As a group, Write your answers to these questions:
 
 ::: {.content-visible when-format="docx"}
 
-### Code chunk
+### Your Code
 
-```r
-# (1) contact matrix ------------------------------------------------------
+Use the file `04-practical-late-act1.Rmd`
 
-socialmixr::list_surveys()
-
-socialsurvey <- socialmixr::get_survey(
-  #<COMPLETE>
-)
-
-contact_data <- socialmixr::contact_matrix(
-  #<COMPLETE>
-)
-
-# prepare contact matrix
-socialcontact_matrix <- t(contact_data$matrix)
-
-# (2) initial conditions --------------------------------------------------
-
-## infectious population ---------
-initial_i <- #<COMPLETE>
-
-initial_conditions_inf <- c(
-  S = 1 - initial_i,
-  E = 0,
-  I = initial_i,
-  R = 0,
-  V = 0
-)
-
-initial_conditions_inf
-
-## free of infection population ---------
-
-initial_conditions_free <- c(
-  S = 1,
-  E = 0,
-  I = 0,
-  R = 0,
-  V = 0
-)
-
-initial_conditions_free
-
-## combine initial conditions ------------
-
-# combine the initial conditions
-initial_conditions <- base::rbind(
-  #<COMPLETE>
-)
-
-# use contact matrix to assign age group names
-rownames(initial_conditions) <- rownames(socialcontact_matrix)
-
-initial_conditions
-
-# (3) population structure ------------------------------------------------
-
-# prepare the demography vector
-demography_vector <- contact_data$demography$population
-names(demography_vector) <- rownames(socialcontact_matrix)
-
-# prepare the population to model as affected by the epidemic
-population_object <- epidemics::population(
-  #<COMPLETE>
-)
-
-population_object
-
-# (4) model parameters ----------------------------------------------------
-
-# rates
-infectiousness_rate <- 1 / #<COMPLETE> # 1/pre-infectious period
-recovery_rate <- 1 / #<COMPLETE> # 1/infectious period
-transmission_rate <- recovery_rate * #<COMPLETE> # recovery rate * R0
-
-
-# (5) run the model --------------------------------------------------------
-
-simulate_baseline <- epidemics::model_default(
-  #<COMPLETE>
-)
-
-simulate_baseline
-
-
-# Plot all compartments --------------------------------------------------
-
-simulate_baseline %>%
-  ggplot(aes(
-    x = time,
-    y = value,
-    color = compartment,
-    linetype = demography_group
-  )) +
-  geom_line() +
-  scale_y_continuous(
-    breaks = scales::breaks_pretty(n = 10),
-    labels = scales::comma
-  )
-
-epidemics::epidemic_peak(data = simulate_baseline)
-epidemics::epidemic_size(data = simulate_baseline)
-
-
-# Plot new infections ----------------------------------------------------
-
-# new infections
-newinfections_bygroup <- epidemics::new_infections(data = simulate_baseline)
-
-# visualise the spread of the epidemic in terms of new infections
-newinfections_bygroup %>%
-  ggplot(aes(time, new_infections, colour = demography_group)) +
-  geom_line() +
-  scale_y_continuous(
-    breaks = scales::breaks_pretty(n = 10),
-    labels = scales::comma
-  )
+```{r, child = "04-practical-late-act1.Rmd", echo = FALSE}
 
 ```
 
-### Your answers
+### Your Answers
 
 Group 1
 
@@ -345,68 +231,15 @@ As a group, write your answers to these questions:
 
 ::: {.content-visible when-format="docx"}
 
-### Code chunk
+### Your Code
 
-```r
-# intervention ---------------------------------------------------------
+Use the file `04-practical-late-act2.Rmd`
 
-rownames(socialcontact_matrix)
-
-test_intervention <- epidemics::intervention(
-  #<COMPLETE>
-)
-
-test_intervention
-
-# run {epidemics} ---------------------------------------------------------
-
-simulate_intervention <- epidemics::model_default(
-  population = population_object,
-  transmission_rate = transmission_rate,
-  infectiousness_rate = infectiousness_rate,
-  recovery_rate = recovery_rate,
-  # intervention
-  #<COMPLETE>,
-  time_end = 600,
-  increment = 1.0
-)
-
-simulate_intervention
-
-# visualize effect --------------------------------------------------------
-
-infections_baseline <- epidemics::new_infections(
-  data = simulate_baseline,
-  # compartments_from_susceptible = "vaccinated", # if vaccination
-  by_group = FALSE
-)
-
-infections_intervention <- epidemics::new_infections(
-  data = simulate_intervention,
-  # compartments_from_susceptible = "vaccinated", # if vaccination
-  by_group = FALSE
-)
-
-# Assign scenario names
-infections_baseline$scenario <- "Baseline"
-infections_intervention$scenario <- "ADD Intervention Name" #<COMPLETE>
-
-# Combine the data from both scenarios
-infections_baseline_intervention <- bind_rows(infections_baseline, infections_intervention)
-
-infections_baseline_intervention %>%
-  ggplot(aes(x = time, y = new_infections, colour = scenario)) +
-  geom_line() +
-  geom_vline(
-    xintercept = c(close_intervention$time_begin, close_intervention$time_end),
-    linetype = "dashed",
-    linewidth = 0.2
-  ) +
-  scale_y_continuous(labels = scales::comma)
+```{r, child = "04-practical-late-act2.Rmd", echo = FALSE}
 
 ```
 
-### Your answers
+### Your Answers
 
 Group 1
 
@@ -523,72 +356,15 @@ As a group, Write your answers to these questions:
 
 ::: {.content-visible when-format="docx"}
 
-### Code chunk
+### Your Code
 
-```r
-# Combine interventions --------------------------------------------------
+Use the file `04-practical-late-act3.Rmd`
 
-simulate_twointerventions <- epidemics::model_default(
-  population = population_object,
-  transmission_rate = transmission_rate,
-  infectiousness_rate = infectiousness_rate,
-  recovery_rate = recovery_rate,
-  # intervention
-  #<COMPLETE>
-  time_end = 600,
-  increment = 1.0
-)
-
-
-# visualize effect --------------------------------------------------------
-
-infections_baseline <- epidemics::new_infections(
-  data = simulate_baseline,
-  by_group = FALSE
-)
-
-infections_twointerventions <- epidemics::new_infections(
-  data = simulate_twointerventions,
-  by_group = FALSE
-)
-
-# Assign scenario names
-infections_baseline$scenario <- "Baseline"
-infections_twointerventions$scenario <- "ADD intervention 1 + ADD intervention 2" #<COMPLETE>
-
-# Combine the data from both scenarios
-infections_baseline_twointerventions <- bind_rows(
-  infections_baseline,
-  infections_twointerventions
-)
-
-infections_baseline_twointerventions %>%
-  ggplot(aes(x = time, y = new_infections, colour = scenario)) +
-  geom_line() +
-  scale_y_continuous(labels = scales::comma)
-
-
-# Compare interventions --------------------------------------------------
-
-compare_interventions <- bind_rows(
-  infections_baseline,
-  infections_baseline_internvetion,
-  infections_baseline_twointerventions
-)
-
-compare_interventions %>%
-  ggplot(aes(x = time, y = new_infections, colour = scenario)) +
-  geom_line() +
-  scale_y_continuous(labels = scales::comma) +
-  labs(
-    x = "Simulation time (days)",
-    y = "New infections",
-    colour = "Scenario"
-  )
+```{r, child = "04-practical-late-act3.Rmd", echo = FALSE}
 
 ```
 
-### Your answers
+### Your Answers
 
 Group 1
 
