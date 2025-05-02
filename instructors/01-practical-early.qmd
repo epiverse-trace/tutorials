@@ -51,7 +51,7 @@ Get a clean and standardized data frame using the following available inputs:
 
 As a group, Write your answers to these questions:
 
-- Diagnose the raw data. What data cleaning operations need to be performed on the dataset?. Write all of them before writing the code.
+- Diagnose the raw data. What data cleaning operations need to be performed on the dataset? Write all of them before writing the code.
 - What time unit best describes the time span to calculate?
 - Print the report: How would you communicate these results to a decision-maker?
 - Compare: What differences do you identify from other group outputs? (if available)
