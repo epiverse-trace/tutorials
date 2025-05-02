@@ -74,72 +74,16 @@ As a group, Write your answers to these questions:
 
 ::: {.content-visible when-format="docx"}
 
-### Code chunk
+### Your Code
 
-```r
-# Load packages -----------------------------------------------------------
-library(epicontacts)
-library(fitdistrplus)
-library(tidyverse)
+Use the file `03-practical-chains-act1.Rmd`
 
+```{r, child = "03-practical-chains-act1.Rmd", echo = FALSE}
 
-# Read linelist and contacts ----------------------------------------------
-dat_contacts <- readr::read_rds("link/to/contact/data/url")
-
-dat_linelist <- readr::read_rds("link/to/linelist/data/url")
-
-
-# Create an epicontacts object -------------------------------------------
-epi_contacts <- epicontacts::#<COMPLETE>
-
-# print output
-epi_contacts
-
-# visualize the contact network
-contact_network <- epicontacts::#<COMPLETE>
-
-# print output
-contact_network
-
-
-# Count secondary cases per subject in contacts and linelist --------
-secondary_cases <- epicontacts::#<COMPLETE>
-
-# plot the histogram of secondary cases
-individual_reproduction_num <- secondary_cases %>%
-  enframe() %>% 
-  ggplot(aes(value)) +
-  geom_histogram(binwidth = 1) +
-  labs(
-    x = "Number of secondary cases",
-    y = "Frequency"
-  )
-
-# print output
-individual_reproduction_num
-
-
-# Fit a negative binomial distribution -----------------------------------
-offspring_fit <- #<COMPLETE>
-
-# print output
-offspring_fit
-
-
-# Estimate proportion of new cases from a cluster of secondary cases -----
-
-# Set seed for random number generator
-set.seed(33)
-
-# Estimate the proportion of new cases originating from 
-# a transmission cluster of at least 5, 10, or 25 cases
-proportion_cases_by_cluster_size <- #<COMPLETE>
-
-# print output
-proportion_cases_by_cluster_size
 ```
 
-### Your answers
+
+### Your Answers
 
 Group 1
 
@@ -464,86 +408,15 @@ As a group, Write your answers to these questions:
 
 ::: {.content-visible when-format="docx"}
 
-### Code chunk
+### Your Code
 
-```r
-# Load packages -----------------------------------------------------------
-library(epiparameter)
-library(epichains)
-library(tidyverse)
+Use the file `03-practical-chains-act2.Rmd`
 
+```{r, child = "03-practical-chains-act2.Rmd", echo = FALSE}
 
-# Set input parameters ---------------------------------------------------
-known_basic_reproduction_number <- #<COMPLETE>
-known_dispersion <- #<COMPLETE>
-chain_to_observe <- #<COMPLETE>
-
-
-# Set iteration parameters -----------------------------------------------
-
-# Create generation time as <epiparameter> object
-generation_time <- epiparameter::epiparameter(
-  disease = "disease x",
-  epi_name = "generation time",
-  prob_distribution = "gamma",
-  summary_stats = list(mean = 3, sd = 1)
-)
-
-
-# Simulate multiple chains -----------------------------------------------
-# run set.seed() and epichains::simulate_chains() together, in the same run
-
-# Set seed for random number generator
-set.seed(33)
-
-multiple_chains <- epichains::simulate_chains(
-  # simulation controls
-  n_chains = #<COMPLETE>, # number of chains to simulate
-  statistic = "size",
-  stat_threshold = 500, # stopping criteria
-  # offspring
-  offspring_dist = rnbinom,
-  mu = #<COMPLETE>,
-  size = #<COMPLETE>,
-  # generation
-  generation_time = #<COMPLETE>
-)
-
-multiple_chains
-
-
-# Explore suggested chain ------------------------------------------------
-multiple_chains %>%
-  # use data.frame output from <epichains> object
-  as_tibble() %>%
-  filter(chain == chain_to_observe) %>%
-  print(n = Inf)
-
-
-# visualize ---------------------------------------------------------------
-
-# daily aggregate of cases
-aggregate_chains <- multiple_chains %>%
-  as_tibble() %>%
-  # count the daily number of cases in each chain
-  mutate(day = ceiling(time)) %>%
-  count(chain, day, name = "cases") %>%
-  # calculate the cumulative number of cases for each chain
-  group_by(chain) %>%
-  mutate(cumulative_cases = cumsum(cases)) %>%
-  ungroup()
-
-# Visualize transmission chains by cumulative cases
-aggregate_chains %>%
-  # create grouped chain trajectories
-  ggplot(aes(x = day, y = cumulative_cases, group = chain)) +
-  geom_line(color = "black", alpha = 0.25, show.legend = FALSE) +
-  # define a 100-case threshold
-  geom_hline(aes(yintercept = 100), lty = 2) +
-  labs(x = "Day", y = "Cumulative cases")
 ```
 
-### Your answers
+### Your Answers
 
 Group 1
 
