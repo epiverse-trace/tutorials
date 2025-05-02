@@ -1,7 +1,9 @@
-Activity 1
 
 ```{r}
 #| eval: false
+
+# Practical 1
+# Activity 1
 
 # Load packages ----------------------------------------------------------
 library(cleanepi)
