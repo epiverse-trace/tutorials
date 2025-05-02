@@ -39,23 +39,26 @@ Roll call:
 
 This practical has two activities.
 
-Before your start, as a group:
+Before you start, as a group:
 
-- Create one copy of the Posit Cloud project `<paste link>`.
+- Create one copy of the Posit Cloud project using the link provided:
+  `<paste link>`.
 - Solve each challenge using the `Code chunk` as a guide.
-- Paste your figure and table outputs.
+- Paste your figure and table outputs in the designated area.
 - Write your answer to the questions.
-- Choose one person from your group to share your results with everyone.
+- Choose one person from your group to share your group’s results with
+  the rest of the participants.
 
-During the practical, instead of copy-paste, we encourage learners to
-increase their fluency writing R by using:
+During the practical, instead of simply copying and pasting, we
+encourage learners to increase their fluency writing R by using:
 
 - Tab key <kbd>↹</kbd> for [code completion
   feature](https://support.posit.co/hc/en-us/articles/205273297-Code-Completion-in-the-RStudio-IDE)
   and [possible arguments
   displayed](https://docs.posit.co/ide/user/ide/guide/code/console.html).
-- The double-colon notation, e.g. `package::function()`. This helps us
-  remember package functions and avoid namespace conflicts.
+- The double-colon notation, e.g. `package::function()`. This notation
+  allows you to specify which package a function comes from, avoid
+  namespace conflicts, and find functions by using keywords.
 - [R
   shortcuts](https://positron.posit.co/keyboard-shortcuts.html#r-shortcuts):
   - `Cmd/Ctrl`+`Shift`+`M` to Insert the pipe operator (`|>` or `%>%`)
@@ -63,7 +66,7 @@ increase their fluency writing R by using:
 - [Execute one line of
   code](https://docs.posit.co/ide/user/ide/guide/code/execution.html) by
   placing the cursor in the code of interest and press the
-  `Ctrl`+`Enter`. This also works for multiple lines conected by the
+  `Ctrl`+`Enter`. This also works for multiple lines connected by the
   pipe operator.
 - Get [help yourself with R](https://www.r-project.org/help.html) using
   `help()` function or `?` operator to access function reference manual.
@@ -82,44 +85,43 @@ inputs:
 
 - Raw messy data frame in CSV format
 
-As a group, Write your answer to these questions:
+As a group, Write your answers to these questions:
 
 - Diagnose the raw data. What data cleaning operations need to be
   performed on the dataset?. Write all of them before writing the code.
-- What time unit better describe the corresponding time span to
-  calculate?
+- What time unit best describes the time span to calculate?
 - Print the report: How would you communicate these results to a
   decision-maker?
-- Compare: What differences you identify from other group outputs? (if
-  available)
+- Compare: What differences do you identify from other group outputs?
+  (if available)
 
 ### Inputs
 
-| Group | Data           | Link                                                                               | Calculate time span       | Categorize time span          |
-|-------|----------------|------------------------------------------------------------------------------------|---------------------------|-------------------------------|
-| 1     | Small linelist | <https://epiverse-trace.github.io/tutorials-early/data/linelist-date_of_birth.csv> | Age until today           | breaks = c(0, 20, 35, 60, 80) |
-| 2     | Large linelist | <https://epiverse-trace.github.io/tutorials-early/data/covid_simulated_data.csv>   | Delay from onset to death | breaks = c(0, 10, 15, 40)     |
-| 3     | Serology data  | <https://epiverse-trace.github.io/tutorials-early/data/delta_full-messy.csv>       | Time from last exposure   | breaks = c(0, 30, 100, 600)   |
+| Group | Data           | Link                                                                               | Calculate time span                               | Categorize time span          |
+|-------|----------------|------------------------------------------------------------------------------------|---------------------------------------------------|-------------------------------|
+| 1     | Small linelist | <https://epiverse-trace.github.io/tutorials-early/data/linelist-date_of_birth.csv> | Age as of today                                   | breaks = c(0, 20, 35, 60, 80) |
+| 2     | Large linelist | <https://epiverse-trace.github.io/tutorials-early/data/covid_simulated_data.csv>   | Delay from onset of symptoms to the time of death | breaks = c(0, 10, 15, 40)     |
+| 3     | Serology data  | <https://epiverse-trace.github.io/tutorials-early/data/delta_full-messy.csv>       | Time from last exposure to vaccine                | breaks = c(0, 30, 100, 600)   |
 
 ## Activity 2: Validate linelist and plot epicurve
 
-Get a validated linelinst and incidence plot using the following
+Get a validated linelist and incidence plot using the following
 available inputs:
 
 - Clean data frame object
 
-As a group, Write your answer to these questions:
+As a group, Write your answers to these questions:
 
-- In the validation step, Do you need to allow for extra variables names
+- In the validation step, Do you need to allow for extra variable names
   and types?
 - What is the most apprioriate time unit to aggregate the incidence
-  plot?
+  plot, based on visual inspection?
 - Does using arguments like `fill`, `show_cases`, `angle`, `n_breaks`
-  improves the incidence plot?
+  improve the incidence plot?
 - Interpret: How would you communicate these results to a
   decision-maker?
-- Compare: What differences you identify from other group outputs? (if
-  available)
+- Compare: What differences do you identify from other group outputs?
+  (if available)
 
 ### Inputs
 
@@ -275,7 +277,7 @@ dat_incidence
 
 # Plot epicurve ----------------------------------------------------------
 
-# does using arguments like 'fill' or 'show_cases' improves the plot?
+# does using arguments like 'fill' or 'show_cases' improve the plot?
 dat_incidence %>%
   plot(
     fill = "occupation", # "age_category",
@@ -440,7 +442,7 @@ dat_incidence
 
 # Plot epicurve ----------------------------------------------------------
 
-# does using arguments like 'fill' or 'show_cases' improves the plot?
+# does using arguments like 'fill' or 'show_cases' improve the plot?
 dat_incidence %>%
   plot(
     angle = 45,
@@ -572,13 +574,13 @@ dat_incidence %>%
 
 #### Interpretation
 
-Cleanining
+Cleaning
 
-- In small data frames, we can diagnose cleanining operations easier
-  than large data frames.
-- For example, in the large data frame, before cleaninig the sex
-  variable with a data dictionary, we need to remove unconsistent
-  missing values. We can use `dplyr::count()` to find this issue.
+- In small data frames, we can diagnose cleaning operations easier than
+  large data frames.
+- For example, in the large data frame, before cleaning the sex variable
+  with a data dictionary, we need to remove unconsistent missing values.
+  We can use `dplyr::count()` to find this issue.
 
 Validation
 

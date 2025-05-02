@@ -43,12 +43,12 @@ This practical is based in the following tutorial episodes:
 
 ## Activity 1: Account for superspreading
 
-Estimate extent of individual-level variation (i.e. the dispersion parameter) of the offspring distribution and the proportion of transmission that is linked to ‘superspreading events’ using the following available inputs:
+Estimate extent of individual-level variation (i.e. the dispersion parameter) of the offspring distribution, which refers to the variability in the number of secondary cases per individual, and the proportion of transmission that is linked to ‘superspreading events’ using the following available inputs:
 
 - Line list of cases
 - Contact tracing data
 
-As a group, Write your answer to these questions:
+As a group, Write your answers to these questions:
 
 - From descriptive and estimation steps:
     - What set has more infections related to fewer clusters in the contact network?
@@ -58,7 +58,7 @@ As a group, Write your answer to these questions:
     - What is the proportion of new cases originating from a cluster of at least 10 cases?
     - Would you recommend a backward tracing strategy?
 - Interpret: How would you communicate these results to a decision-maker?
-- Compare: What differences you identify from other group outputs? (if available)
+- Compare: What differences do you identify from other group outputs? (if available)
 
 ### Inputs
 
@@ -90,20 +90,20 @@ dat_linelist <- readr::read_rds("link/to/linelist/data/url")
 
 
 # Create an epicontacts object -------------------------------------------
-epi_contacts <- epicontacts::# <COMPLETE>
+epi_contacts <- epicontacts::#<COMPLETE>
 
 # print output
 epi_contacts
 
 # visualize the contact network
-contact_network <- epicontacts::# <COMPLETE>
+contact_network <- epicontacts::#<COMPLETE>
 
 # print output
 contact_network
 
 
 # Count secondary cases per subject in contacts and linelist --------
-secondary_cases <- epicontacts::# <COMPLETE>
+secondary_cases <- epicontacts::#<COMPLETE>
 
 # plot the histogram of secondary cases
 individual_reproduction_num <- secondary_cases %>%
@@ -120,7 +120,7 @@ individual_reproduction_num
 
 
 # Fit a negative binomial distribution -----------------------------------
-offspring_fit <- # <COMPLETE>
+offspring_fit <- #<COMPLETE>
 
 # print output
 offspring_fit
@@ -133,7 +133,7 @@ set.seed(33)
 
 # Estimate the proportion of new cases originating from 
 # a transmission cluster of at least 5, 10, or 25 cases
-proportion_cases_by_cluster_size <- # <COMPLETE>
+proportion_cases_by_cluster_size <- #<COMPLETE>
 
 # print output
 proportion_cases_by_cluster_size
@@ -150,7 +150,7 @@ Group 1
 | parameter estimates |  |
 | probability estimates |  |
 
-Write your answer to the questions above:
+Write your answers to the questions above:
 
 ```
 
@@ -175,7 +175,7 @@ Group 2
 | probability estimates |  |
 
 
-Write your answer to the questions above:
+Write your answers to the questions above:
 
 ```
 
@@ -200,7 +200,7 @@ Group 3
 | probability estimates |  |
 
 
-Write your answer to the questions above:
+Write your answers to the questions above:
 
 ```
 
@@ -225,7 +225,7 @@ Group 4
 | probability estimates |  |
 
 
-Write your answer to the questions above:
+Write your answers to the questions above:
 
 ```
 
@@ -250,7 +250,7 @@ Group 5
 | probability estimates |  |
 
 
-Write your answer to the questions above:
+Write your answers to the questions above:
 
 ```
 
@@ -275,7 +275,7 @@ Group 6
 | probability estimates |  |
 
 
-Write your answer to the questions above:
+Write your answers to the questions above:
 
 ```
 
@@ -415,7 +415,7 @@ Interpretation template:
 
 - For R = 0.8 and k = 0.01:
     - The proportion of new cases originating from a cluster of at least 5 secondary cases from a primary case is 95%
-    - The proportion of all transmission event that were part of secondary case clusters (i.e., from the same primary case) of at least 5 cases is 95%
+    - The proportion of all transmission events that were part of secondary case clusters (i.e., from the same primary case) of at least 5 cases is 95%
 
 Interpretation Helpers:
 
@@ -423,7 +423,7 @@ Interpretation Helpers:
 + From the histogram of secondary cases, skewness in set 1 is higher than set 2 and set 3.
 + Set 1 has cases with the highest number of secondary cases (n = 50), compared with set 2 (n = ~25) and set 3 (n = 11).
 + The contact networks and histograms of secondary cases correlate with the estimated dispersion parameters: A small proportion of clusters generating most of new cases produces a more skewed histogram, and a lowest estimate of dispersion parameter.
-+ About probabilty of new cases from transmission cluster of size at least 10 cases, and the recommending backward tracing strategy:
++ About probability of new cases from transmission cluster of size at least 10 cases, and the recommending backward tracing strategy:
     + set 1: 89%, yes.
     + set 2: 38%, probably no?
     + set 3: 3%, no.
@@ -434,22 +434,22 @@ Interpretation Helpers:
 
 ## Activity 2: Simulate transmission chains
 
-Estimate the potential for large outbreaks from 1000 simulated outbreaks using the following available inputs:
+Estimate the potential for large outbreaks that could occur based on 1000 simulated outbreaks using the following available inputs:
 
 - Basic reproduction number
 - Dispersion parameter
 
-As a group, Write your answer to these questions:
+As a group, Write your answers to these questions:
 
 - You have been assigned to explore `Chain ID`. From the output data frame, describe:
    - How many generations there are.
    - Who infected whom, and when (with reference to the day of infection).
 - Among simulated outbreaks:
     - How many chains reached a 100 case threshold?
-    - What is the maximum size of chain?
-    - What is the maximum length of chain?
+    - What is the maximum size of chain? (The cumulative number of case)
+    - What is the maximum length of chain? (The number of days until the chain stops)
 - Interpret: How would you communicate these results to a decision-maker?
-- Compare: What differences you identify from other group outputs? (if available)
+- Compare: What differences do you identify from other group outputs? (if available)
 
 ### Inputs
 
@@ -474,9 +474,9 @@ library(tidyverse)
 
 
 # Set input parameters ---------------------------------------------------
-known_basic_reproduction_number <- # <COMPLETE>
-known_dispersion <- # <COMPLETE>
-chain_to_observe <- # <COMPLETE>
+known_basic_reproduction_number <- #<COMPLETE>
+known_dispersion <- #<COMPLETE>
+chain_to_observe <- #<COMPLETE>
 
 
 # Set iteration parameters -----------------------------------------------
@@ -498,15 +498,15 @@ set.seed(33)
 
 multiple_chains <- epichains::simulate_chains(
   # simulation controls
-  n_chains = # <COMPLETE>, # number of chains to simulate
+  n_chains = #<COMPLETE>, # number of chains to simulate
   statistic = "size",
   stat_threshold = 500, # stopping criteria
   # offspring
   offspring_dist = rnbinom,
-  mu = # <COMPLETE>,
-  size = # <COMPLETE>,
+  mu = #<COMPLETE>,
+  size = #<COMPLETE>,
   # generation
-  generation_time = # <COMPLETE>
+  generation_time = #<COMPLETE>
 )
 
 multiple_chains
@@ -552,7 +552,7 @@ Group 1
 | simulation |  |
 | figure |  |
 
-Write your answer to the questions above:
+Write your answers to the questions above:
 
 ```
 
@@ -574,7 +574,7 @@ Group 2
 | simulation |  |
 | figure |  |
 
-Write your answer to the questions above:
+Write your answers to the questions above:
 
 ```
 
@@ -596,7 +596,7 @@ Group 3
 | simulation |  |
 | figure |  |
 
-Write your answer to the questions above:
+Write your answers to the questions above:
 
 ```
 
@@ -618,7 +618,7 @@ Group 4
 | simulation |  |
 | figure |  |
 
-Write your answer to the questions above:
+Write your answers to the questions above:
 
 ```
 
@@ -640,7 +640,7 @@ Group 5
 | simulation |  |
 | figure |  |
 
-Write your answer to the questions above:
+Write your answers to the questions above:
 
 ```
 
@@ -662,7 +662,7 @@ Group 6
 | simulation |  |
 | figure |  |
 
-Write your answer to the questions above:
+Write your answers to the questions above:
 
 ```
 

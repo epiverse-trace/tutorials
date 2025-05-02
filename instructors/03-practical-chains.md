@@ -38,23 +38,26 @@ Roll call:
 
 This practical has two activities.
 
-Before your start, as a group:
+Before you start, as a group:
 
-- Create one copy of the Posit Cloud project `<paste link>`.
+- Create one copy of the Posit Cloud project using the link provided:
+  `<paste link>`.
 - Solve each challenge using the `Code chunk` as a guide.
-- Paste your figure and table outputs.
+- Paste your figure and table outputs in the designated area.
 - Write your answer to the questions.
-- Choose one person from your group to share your results with everyone.
+- Choose one person from your group to share your group’s results with
+  the rest of the participants.
 
-During the practical, instead of copy-paste, we encourage learners to
-increase their fluency writing R by using:
+During the practical, instead of simply copying and pasting, we
+encourage learners to increase their fluency writing R by using:
 
 - Tab key <kbd>↹</kbd> for [code completion
   feature](https://support.posit.co/hc/en-us/articles/205273297-Code-Completion-in-the-RStudio-IDE)
   and [possible arguments
   displayed](https://docs.posit.co/ide/user/ide/guide/code/console.html).
-- The double-colon notation, e.g. `package::function()`. This helps us
-  remember package functions and avoid namespace conflicts.
+- The double-colon notation, e.g. `package::function()`. This notation
+  allows you to specify which package a function comes from, avoid
+  namespace conflicts, and find functions by using keywords.
 - [R
   shortcuts](https://positron.posit.co/keyboard-shortcuts.html#r-shortcuts):
   - `Cmd/Ctrl`+`Shift`+`M` to Insert the pipe operator (`|>` or `%>%`)
@@ -62,7 +65,7 @@ increase their fluency writing R by using:
 - [Execute one line of
   code](https://docs.posit.co/ide/user/ide/guide/code/execution.html) by
   placing the cursor in the code of interest and press the
-  `Ctrl`+`Enter`. This also works for multiple lines conected by the
+  `Ctrl`+`Enter`. This also works for multiple lines connected by the
   pipe operator.
 - Get [help yourself with R](https://www.r-project.org/help.html) using
   `help()` function or `?` operator to access function reference manual.
@@ -77,14 +80,15 @@ increase their fluency writing R by using:
 ## Activity 1: Account for superspreading
 
 Estimate extent of individual-level variation (i.e. the dispersion
-parameter) of the offspring distribution and the proportion of
-transmission that is linked to ‘superspreading events’ using the
-following available inputs:
+parameter) of the offspring distribution, which refers to the
+variability in the number of secondary cases per individual, and the
+proportion of transmission that is linked to ‘superspreading events’
+using the following available inputs:
 
 - Line list of cases
 - Contact tracing data
 
-As a group, Write your answer to these questions:
+As a group, Write your answers to these questions:
 
 - From descriptive and estimation steps:
   - What set has more infections related to fewer clusters in the
@@ -98,8 +102,8 @@ As a group, Write your answer to these questions:
   - Would you recommend a backward tracing strategy?
 - Interpret: How would you communicate these results to a
   decision-maker?
-- Compare: What differences you identify from other group outputs? (if
-  available)
+- Compare: What differences do you identify from other group outputs?
+  (if available)
 
 ### Inputs
 
@@ -233,9 +237,9 @@ Interpretation template:
 - For R = 0.8 and k = 0.01:
   - The proportion of new cases originating from a cluster of at least 5
     secondary cases from a primary case is 95%
-  - The proportion of all transmission event that were part of secondary
-    case clusters (i.e., from the same primary case) of at least 5 cases
-    is 95%
+  - The proportion of all transmission events that were part of
+    secondary case clusters (i.e., from the same primary case) of at
+    least 5 cases is 95%
 
 Interpretation Helpers:
 
@@ -249,7 +253,7 @@ Interpretation Helpers:
   the estimated dispersion parameters: A small proportion of clusters
   generating most of new cases produces a more skewed histogram, and a
   lowest estimate of dispersion parameter.
-- About probabilty of new cases from transmission cluster of size at
+- About probability of new cases from transmission cluster of size at
   least 10 cases, and the recommending backward tracing strategy:
   - set 1: 89%, yes.
   - set 2: 38%, probably no?
@@ -257,13 +261,13 @@ Interpretation Helpers:
 
 ## Activity 2: Simulate transmission chains
 
-Estimate the potential for large outbreaks from 1000 simulated outbreaks
-using the following available inputs:
+Estimate the potential for large outbreaks that could occur based on
+1000 simulated outbreaks using the following available inputs:
 
 - Basic reproduction number
 - Dispersion parameter
 
-As a group, Write your answer to these questions:
+As a group, Write your answers to these questions:
 
 - You have been assigned to explore `Chain ID`. From the output data
   frame, describe:
@@ -272,12 +276,13 @@ As a group, Write your answer to these questions:
     infection).
 - Among simulated outbreaks:
   - How many chains reached a 100 case threshold?
-  - What is the maximum size of chain?
-  - What is the maximum length of chain?
+  - What is the maximum size of chain? (The cumulative number of case)
+  - What is the maximum length of chain? (The number of days until the
+    chain stops)
 - Interpret: How would you communicate these results to a
   decision-maker?
-- Compare: What differences you identify from other group outputs? (if
-  available)
+- Compare: What differences do you identify from other group outputs?
+  (if available)
 
 ### Inputs
 

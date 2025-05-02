@@ -38,23 +38,26 @@ Roll call:
 
 This practical has two activities.
 
-Before your start, as a group:
+Before you start, as a group:
 
-- Create one copy of the Posit Cloud project `<paste link>`.
+- Create one copy of the Posit Cloud project using the link provided:
+  `<paste link>`.
 - Solve each challenge using the `Code chunk` as a guide.
-- Paste your figure and table outputs.
+- Paste your figure and table outputs in the designated area.
 - Write your answer to the questions.
-- Choose one person from your group to share your results with everyone.
+- Choose one person from your group to share your group’s results with
+  the rest of the participants.
 
-During the practical, instead of copy-paste, we encourage learners to
-increase their fluency writing R by using:
+During the practical, instead of simply copying and pasting, we
+encourage learners to increase their fluency writing R by using:
 
 - Tab key <kbd>↹</kbd> for [code completion
   feature](https://support.posit.co/hc/en-us/articles/205273297-Code-Completion-in-the-RStudio-IDE)
   and [possible arguments
   displayed](https://docs.posit.co/ide/user/ide/guide/code/console.html).
-- The double-colon notation, e.g. `package::function()`. This helps us
-  remember package functions and avoid namespace conflicts.
+- The double-colon notation, e.g. `package::function()`. This notation
+  allows you to specify which package a function comes from, avoid
+  namespace conflicts, and find functions by using keywords.
 - [R
   shortcuts](https://positron.posit.co/keyboard-shortcuts.html#r-shortcuts):
   - `Cmd/Ctrl`+`Shift`+`M` to Insert the pipe operator (`|>` or `%>%`)
@@ -62,7 +65,7 @@ increase their fluency writing R by using:
 - [Execute one line of
   code](https://docs.posit.co/ide/user/ide/guide/code/execution.html) by
   placing the cursor in the code of interest and press the
-  `Ctrl`+`Enter`. This also works for multiple lines conected by the
+  `Ctrl`+`Enter`. This also works for multiple lines connected by the
   pipe operator.
 - Get [help yourself with R](https://www.r-project.org/help.html) using
   `help()` function or `?` operator to access function reference manual.
@@ -74,7 +77,7 @@ increase their fluency writing R by using:
 
 
 
-## Activity 1: Generate disease trayectories of new infections
+## Activity 1: Generate disease trajectories of new infections
 
 Generate disease trajectories of infectious subjects and new infections
 using the following available inputs:
@@ -84,13 +87,14 @@ using the following available inputs:
 - Disease parameters (basic reproduction number, pre infectious period,
   infectious period)
 
-As a group, Write your answer to these questions:
+As a group, Write your answers to these questions:
 
 - What is the location (time) and size of epidemic peak for infectious
   subjects in each age group?
 - What is the number of new infections at the epidemic peak?
 - Change the basic reproduction number to 1.1 and 3. Are the changes in
   location (time) and size of the peak of new infections as expected?
+  (based on the concept definition of reproduction number)
 - Interpret: How would you communicate these results to a
   decision-maker?
 - Compare: What differences do you identify from other group outputs?
@@ -108,7 +112,7 @@ As a group, Write your answer to these questions:
 |---------------------------|---------------|--------------------------------------------|
 | Age Limits                | 0, 20, 40     | Age group cutoffs                          |
 | Infectious Population     | 1 / 1,000,000 | 1 infectious individual per million people |
-| Basic Reproduction Number | 1.46          | R₀ value                                   |
+| Basic Reproduction Number | 1.46          | R₀ value for influenza                     |
 | Pre-infectious Period     | 3 days        | Incubation before becoming infectious      |
 | Infectious Period         | 7 days        | Duration of infectiousness                 |
 | Max Timesteps (days)      | 600           | Total simulation time                      |
@@ -145,9 +149,10 @@ Interpretation Helpers:
 |-----------------------------------------------------|-----------------------------------------------------|
 | ![image](https://hackmd.io/_uploads/H1UupFOAyl.png) | ![image](https://hackmd.io/_uploads/ryVoat_R1l.png) |
 
-- An epidemic with R=1.1 has a delayed and smaller outbreak (day 1200,
-  9000 new infections), compared with R=3 with a earlier and higher peak
-  than R = 1.5 (day 100, 1,000,000 new infections).
+- An epidemic with R=1.1 has a days delayed and smaller outbreak based
+  on number of infections (day 1200, 9000 new infections), compared with
+  R=3 with a earlier and higher peak than R = 1.5 (day 100, 1,000,000
+  new infections).
 
 | Vietnam                                             | Zimbabwe                                            |
 |-----------------------------------------------------|-----------------------------------------------------|
@@ -166,7 +171,7 @@ intervention using the following available inputs:
 - Type of intervention (on contacts, on transmission, or vaccination)
 - Reduction effect or rate of vaccination
 
-As a group, Write your answer to these questions:
+As a group, write your answers to these questions:
 
 - How does the time to start of the intervention (early/late) impact the
   timing and size of the peak of new infectious individuals?
@@ -178,11 +183,11 @@ As a group, Write your answer to these questions:
 
 ### Inputs
 
-| Group | Intervention | Early Start | Late Start | Duration (days) | Effect (Reduction or Rate)          |
-|-------|--------------|-------------|------------|-----------------|-------------------------------------|
-| 1     | School       | 100         | 200        | 100             | Per age group = 0.5, 0.01, 0.01     |
-| 2     | Mask         | 100         | 200        | 200             | In all age groups = 0.163           |
-| 3     | Vaccine      | 100         | 200        | 150             | Per age group = 0.001, 0.001, 0.001 |
+| Group | Intervention | Early Start | Late Start | Duration (days) | Effect (Reduction or Rate)   |
+|-------|--------------|-------------|------------|-----------------|------------------------------|
+| 1     | School       | 100         | 200        | 100             | Age 0–19: 0.5; Age 20+: 0.01 |
+| 2     | Mask         | 100         | 200        | 200             | All ages: 0.163              |
+| 3     | Vaccine      | 100         | 200        | 150             | All ages: 0.001              |
 
 ### Solution
 
@@ -200,12 +205,14 @@ As a group, Write your answer to these questions:
 
 Interpretation Helpers:
 
-- School clousure with short duration can delay the peak of new
+- School closure with short duration can delay the peak of new
   infections, but this will keep the same size.
 - Mask mandate of 200 days during the time of the epidemic peak can
   delay and reduce the size of new infections.
 - Vaccinations earlier in time will have a higher impact in reducing the
-  size of the epidemic peak and extending its delay.
+  size of the epidemic peak and extending its delay. Note that the
+  effectiveness of vaccination can depend on various factors, including
+  vaccine efficacy and timing relative to the outbreak.
 
 ## Activity 3: Combine interventions
 
@@ -213,12 +220,12 @@ Combine two intervention in the same simulation and compare the disease
 trajectories of new infections against the baseline or only one
 intervention. Use the intervention parameters above.
 
-As a group, Write your answer to these questions:
+As a group, Write your answers to these questions:
 
 - Interpret: How would you communicate these results to a
   decision-maker?
-- Compare: What differences you identify from other group outputs? (if
-  available)
+- Compare: What differences do you identify from other group outputs?
+  (if available)
 
 ### Inputs
 
