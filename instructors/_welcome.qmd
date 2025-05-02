@@ -1,10 +1,8 @@
 Welcome!
 
-- A reminder of our Code of Conduct: 
-- <https://github.com/epiverse-trace/.github/blob/main/CODE_OF_CONDUCT.md>
-- If you experience or witness unacceptable behaviour, or have any other concerns, please report by email or online form available at the "How to report a violation" section.
-- To report an issue involving one of the organisers, please use the LSHTM’s Report and Support tool, where your concern will be triaged by a member of LSHTM’s Equity and Diversity Team.
-- <https://reportandsupport.lshtm.ac.uk/>
+- A reminder of our [Code of Conduct](https://github.com/epiverse-trace/.github/blob/main/CODE_OF_CONDUCT.md)
+- If you experience or witness unacceptable behaviour, or have any other concerns, please notify the organizers or host of the event.
+- To report an issue involving one of the organisers, please use the [LSHTM’s Report and Support tool](https://reportandsupport.lshtm.ac.uk/).
 
 
 Roll call:
@@ -25,8 +23,8 @@ This practical has two activities.
 
 Before you start, as a group:
 
-- Create one copy of the Posit Cloud project using the link provided: `<paste link>`.
-- Solve each challenge using the `Code chunk` as a guide.
+<!-- - Create one copy of the Posit Cloud project using the link provided: `<paste link>`. -->
+- Solve each challenge using the `.R` file at the `Code chunk` section as a guide.
 - Paste your figure and table outputs in the designated area.
 - Write your answer to the questions.
 - Choose one person from your group to share your group's results with the rest of the participants.
