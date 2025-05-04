@@ -3,7 +3,9 @@ title: "Week 2: Access delays to estimate transmission and severity"
 format: 
   html: # learners solutions
     embed-resources: true
-  docx: default # learners practical
+    output-file: "02-practical-solutions"
+  docx: # learners practical
+    output-file: "02-practical-guide"
   gfm: default # instructors
 keep-md: true
 format-links: false
@@ -76,9 +78,9 @@ As a group, Write your answers to these questions:
 
 ### Your Code
 
-Use the file `02-practical-delays-act1.Rmd`.
+Use the file `02-practical-activity-1.Rmd`.
 
-```{r, child = "02-practical-delays-act1.Rmd", echo = FALSE}
+```{r, child = "02-practical-activity-1.Rmd", echo = FALSE}
 
 ```
 
@@ -543,9 +545,9 @@ As a group, Write your answers to these questions:
 
 ### Your Code
 
-Use the file `02-practical-delays-act2.Rmd`.
+Use the file `02-practical-activity-2.Rmd`.
 
-```{r, child = "02-practical-delays-act2.Rmd", echo = FALSE}
+```{r, child = "02-practical-activity-2.Rmd", echo = FALSE}
 
 ```
 

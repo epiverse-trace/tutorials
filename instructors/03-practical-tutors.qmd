@@ -3,7 +3,9 @@ title: "Week 3: Estimate superspreading and simulate transmission chains"
 format: 
   html: # learners solutions
     embed-resources: true
-  docx: default # learners practical
+    output-file: "03-practical-solutions"
+  docx: # learners practical
+    output-file: "03-practical-guide"
   gfm: default # instructors
 keep-md: true
 format-links: false
@@ -76,9 +78,9 @@ As a group, Write your answers to these questions:
 
 ### Your Code
 
-Use the file `03-practical-chains-act1.Rmd`
+Use the file `03-practical-activity-1.Rmd`
 
-```{r, child = "03-practical-chains-act1.Rmd", echo = FALSE}
+```{r, child = "03-practical-activity-1.Rmd", echo = FALSE}
 
 ```
 
@@ -410,9 +412,9 @@ As a group, Write your answers to these questions:
 
 ### Your Code
 
-Use the file `03-practical-chains-act2.Rmd`
+Use the file `03-practical-activity-2.Rmd`
 
-```{r, child = "03-practical-chains-act2.Rmd", echo = FALSE}
+```{r, child = "03-practical-activity-2.Rmd", echo = FALSE}
 
 ```
 

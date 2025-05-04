@@ -14,12 +14,11 @@ This practical is based in the following tutorial episodes:
 Welcome!
 
 - A reminder of our [Code of
-  Conduct](https://github.com/epiverse-trace/.github/blob/main/CODE_OF_CONDUCT.md)
-- If you experience or witness unacceptable behaviour, or have any other
-  concerns, please notify the organizers or host of the event.
-- To report an issue involving one of the organisers, please use the
-  [LSHTM’s Report and Support
-  tool](https://reportandsupport.lshtm.ac.uk/).
+  Conduct](https://github.com/epiverse-trace/.github/blob/main/CODE_OF_CONDUCT.md).
+  If you experience or witness unacceptable behaviour, or have any other
+  concerns, please notify the organizers or host of the event. To report
+  an issue involving one of the organisers, please use the [LSHTM’s
+  Report and Support tool](https://reportandsupport.lshtm.ac.uk/).
 
 Roll call:
 
@@ -57,15 +56,12 @@ encourage learners to increase their fluency writing R by using:
 - The double-colon notation, e.g. `package::function()`. This notation
   allows you to specify which package a function comes from, avoid
   namespace conflicts, and find functions by using keywords.
-- [R
-  shortcuts](https://positron.posit.co/keyboard-shortcuts.html#r-shortcuts):
-  - `Cmd/Ctrl`+`Shift`+`M` to Insert the pipe operator (`|>` or `%>%`)
-  - `Alt`+`-` to Insert the assignment operator (`<-`)
+  <!-- - [R shortcuts](https://positron.posit.co/keyboard-shortcuts.html#r-shortcuts): Insert the pipe operator (`|>` or `%>%`) using `Cmd/Ctrl`+`Shift`+`M`. Insert the assignment operator (`<-`) using `Alt`+`-`. -->
 - [Execute one line of
   code](https://docs.posit.co/ide/user/ide/guide/code/execution.html) by
   placing the cursor in the code of interest and press the
   `Ctrl`+`Enter`. This also works for multiple lines connected by the
-  pipe operator.
+  pipe operator `%>%`.
 - Get [help yourself with R](https://www.r-project.org/help.html) using
   `help()` function or `?` operator to access function reference manual.
 

@@ -1,9 +1,35 @@
-# Week 1: Clean, validate linelist, and plot epicurves
+---
+title: "Week 1: Clean, validate linelist, and plot epicurves"
+format: 
+  html: # learners solutions
+    embed-resources: true
+    output-file: "01-practical-solutions"
+  docx: # learners practical
+    output-file: "01-practical-guide"
+  gfm: default # instructors
+keep-md: true
+format-links: false
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+::: {.content-hidden when-format="html"}
 
 <!-- visible for instructors only -->
 <!-- practical-week.md is generated from practical-week.qmd. Please edit that file -->
 <!-- commit .md and .qmd files together -->
+
 <!-- does not work for instructors text messages -->
+
+:::
+
+::: {.content-hidden when-format="docx"}
+
 <!-- works for text on html and MD only -->
 
 This practical is based in the following tutorial episodes:
@@ -12,119 +38,213 @@ This practical is based in the following tutorial episodes:
 - <https://epiverse-trace.github.io/tutorials-early/validate.html>
 - <https://epiverse-trace.github.io/tutorials-early/describe-cases.html>
 
-Welcome!
 
-- A reminder of our [Code of
-  Conduct](https://github.com/epiverse-trace/.github/blob/main/CODE_OF_CONDUCT.md)
-- If you experience or witness unacceptable behaviour, or have any other
-  concerns, please notify the organizers or host of the event.
-- To report an issue involving one of the organisers, please use the
-  [LSHTM’s Report and Support
-  tool](https://reportandsupport.lshtm.ac.uk/).
-
-Roll call:
-
-- Group 1: …, …
-- Group 2: …, …
-- Group 3: …, …
-- Group 4: …, …
-- Group 5: …, …
-- Group 6: …, …
-
-# Practical
-
-<!-- visible for learners and instructors at practical -->
-
-This practical has two activities.
-
-Before you start, as a group:
-
-<!-- - Create one copy of the [Posit Cloud RStudio project](https://posit.cloud/spaces/609790/join?access_code=hPM1tIeKt5ax_Y-P0lMGVUGqzFPNH4wxkKSzXZYb). -->
-
-- Solve each activity in the corresponding `.R` file. Find the download
-  link in the section `Your Code`.
-- Paste your figure and table outputs and write your answer to the
-  questions in the section `Your Answers`.
-- Choose one person from your group to share your group’s results with
-  the rest of the participants.
-
-During the practical, instead of simply copying and pasting, we
-encourage learners to increase their fluency writing R by using:
-
-- Tab key <kbd>↹</kbd> for [code completion
-  feature](https://support.posit.co/hc/en-us/articles/205273297-Code-Completion-in-the-RStudio-IDE)
-  and [possible arguments
-  displayed](https://docs.posit.co/ide/user/ide/guide/code/console.html).
-- The double-colon notation, e.g. `package::function()`. This notation
-  allows you to specify which package a function comes from, avoid
-  namespace conflicts, and find functions by using keywords.
-- [R
-  shortcuts](https://positron.posit.co/keyboard-shortcuts.html#r-shortcuts):
-  - `Cmd/Ctrl`+`Shift`+`M` to Insert the pipe operator (`|>` or `%>%`)
-  - `Alt`+`-` to Insert the assignment operator (`<-`)
-- [Execute one line of
-  code](https://docs.posit.co/ide/user/ide/guide/code/execution.html) by
-  placing the cursor in the code of interest and press the
-  `Ctrl`+`Enter`. This also works for multiple lines connected by the
-  pipe operator.
-- Get [help yourself with R](https://www.r-project.org/help.html) using
-  `help()` function or `?` operator to access function reference manual.
-
-## Paste your !Error messages here
+:::
 
 
-
-
+{{< include _welcome.qmd >}}
 
 
 ## Activity 1: Clean and standardize raw data
 
-Get a clean and standardized data frame using the following available
-inputs:
+Get a clean and standardized data frame using the following available inputs:
 
 - Raw messy data frame in CSV format
 
 As a group, Write your answers to these questions:
 
-- Diagnose the raw data. What data cleaning operations need to be
-  performed on the dataset? Write all of them before writing the code.
+- Diagnose the raw data. What data cleaning operations need to be performed on the dataset? Write all of them before writing the code.
 - What time unit best describes the time span to calculate?
-- Print the report: How would you communicate these results to a
-  decision-maker?
-- Compare: What differences do you identify from other group outputs?
-  (if available)
+- Print the report: How would you communicate these results to a decision-maker?
+- Compare: What differences do you identify from other group outputs? (if available)
 
 ### Inputs
 
-| Group | Data           | Link                                                                               | Calculate time span                               | Categorize time span          |
-|-------|----------------|------------------------------------------------------------------------------------|---------------------------------------------------|-------------------------------|
-| 1     | Small linelist | <https://epiverse-trace.github.io/tutorials-early/data/linelist-date_of_birth.csv> | Age as of today                                   | breaks = c(0, 20, 35, 60, 80) |
-| 2     | Large linelist | <https://epiverse-trace.github.io/tutorials-early/data/covid_simulated_data.csv>   | Delay from onset of symptoms to the time of death | breaks = c(0, 10, 15, 40)     |
-| 3     | Serology data  | <https://epiverse-trace.github.io/tutorials-early/data/delta_full-messy.csv>       | Time from last exposure to vaccine                | breaks = c(0, 30, 100, 600)   |
+| Group | Data | Link | Calculate time span | Categorize time span |
+|---|---|---|---|---|
+| 1 | Small linelist | <https://epiverse-trace.github.io/tutorials-early/data/linelist-date_of_birth.csv> | Age as of today | breaks = c(0, 20, 35, 60, 80) |
+| 2 | Large linelist | <https://epiverse-trace.github.io/tutorials-early/data/covid_simulated_data.csv> | Delay from onset of symptoms to the time of death | breaks = c(0, 10, 15, 40) |
+| 3 | Serology data | <https://epiverse-trace.github.io/tutorials-early/data/delta_full-messy.csv> | Time from last exposure to vaccine | breaks = c(0, 30, 100, 600) |
+
+::: {.content-visible when-format="docx"}
+
+### Your Code
+
+Use the file `01-practical-activity-1.Rmd`.
+
+```{r, child = "01-practical-activity-1.Rmd", echo = FALSE}
+
+```
+
+### Your Answers
+
+Group 1
+
+| data | paste screenshot here |
+|---|---|
+| messy |  |
+| clean |  |
+
+Write your answers to the questions above:
+
+```
+
+
+
+
+
+
+
+```
+
+
+------------------------
+
+Group 2
+
+| data | paste screenshot here |
+|---|---|
+| messy |  |
+| clean |  |
+
+Write your answers to the questions above:
+
+```
+
+
+
+
+
+
+
+```
+
+
+------------------------
+
+Group 3
+
+| data | paste screenshot here |
+|---|---|
+| messy |  |
+| clean |  |
+
+Write your answers to the questions above:
+
+```
+
+
+
+
+
+
+
+```
+
+:::
+
+
+
 
 ## Activity 2: Validate linelist and plot epicurve
 
-Get a validated linelist and incidence plot using the following
-available inputs:
+Get a validated linelist and incidence plot using the following available inputs:
 
 - Clean data frame object
 
 As a group, Write your answers to these questions:
 
-- In the validation step, Do you need to allow for extra variable names
-  and types?
-- What is the most apprioriate time unit to aggregate the incidence
-  plot, based on visual inspection?
-- Does using arguments like `fill`, `show_cases`, `angle`, `n_breaks`
-  improve the incidence plot?
-- Interpret: How would you communicate these results to a
-  decision-maker?
-- Compare: What differences do you identify from other group outputs?
-  (if available)
+- In the validation step, Do you need to allow for extra variable names and types?
+- What is the most apprioriate time unit to aggregate the incidence plot, based on visual inspection? 
+- Does using arguments like `fill`, `show_cases`, `angle`, `n_breaks` improve the incidence plot?
+- Interpret: How would you communicate these results to a decision-maker?
+- Compare: What differences do you identify from other group outputs? (if available)
 
 ### Inputs
 
 Use outputs from activity 1.
+
+::: {.content-visible when-format="docx"}
+
+### Your Code
+
+Use the file `01-practical-activity-2.Rmd`.
+
+```{r, child = "01-practical-activity-2.Rmd", echo = FALSE}
+
+```
+
+### Your Answers
+
+Group 1
+
+| data | paste screenshot here |
+|---|---|
+| validated |  |
+| incidence plot |  |
+
+Write your answers to the questions above:
+
+```
+
+
+
+
+
+
+
+```
+
+
+------------------------
+
+Group 2
+
+| data | paste screenshot here |
+|---|---|
+| validated |  |
+| incidence plot |  |
+
+Write your answers to the questions above:
+
+```
+
+
+
+
+
+
+
+```
+
+
+------------------------
+
+Group 3
+
+| data | paste screenshot here |
+|---|---|
+| validated |  |
+| incidence plot |  |
+
+Write your answers to the questions above:
+
+```
+
+
+
+
+
+
+
+```
+
+:::
+
+
+
+
+::: {.content-visible unless-format="docx"}
 
 ### Solution
 
@@ -134,7 +254,10 @@ Use outputs from activity 1.
 
 ##### Sample 1
 
-``` r
+```{r}
+#| warning: false
+#| eval: false
+
 # Load packages ----------------------------------------------------------
 library(cleanepi)
 library(linelist)
@@ -290,7 +413,10 @@ dat_incidence %>%
 
 ##### Sample 2
 
-``` r
+```{r}
+#| warning: false
+#| eval: false
+
 # Load packages ----------------------------------------------------------
 library(cleanepi)
 library(linelist)
@@ -449,15 +575,17 @@ dat_incidence %>%
   )
 
 # find plot() arguments at ?incidence2:::plot.incidence2()
+
 ```
 
 ##### Sample 3
 
-> Group 3 should investigate about how the argument `allow_extra = TRUE`
-> us used in this howto entry
-> <https://epiverse-trace.github.io/howto/analyses/describe_cases/cleanepi-linelist-incidence2-stratified.html>
+> Group 3 should investigate about how the argument `allow_extra = TRUE` us used in this howto entry <https://epiverse-trace.github.io/howto/analyses/describe_cases/cleanepi-linelist-incidence2-stratified.html>
 
-``` r
+```{r}
+#| warning: false
+#| eval: false
+
 # Load packages ----------------------------------------------------------
 library(cleanepi)
 library(linelist)
@@ -561,38 +689,31 @@ dat_incidence %>%
   )
 
 # find plot() arguments at ?incidence2:::plot.incidence2()
+
 ```
 
 #### Outputs
 
-| Group | Output                                              |
-|-------|-----------------------------------------------------|
-| 1     | ![image](https://hackmd.io/_uploads/ry5d6xnA1e.png) |
-| 2     | ![image](https://hackmd.io/_uploads/SJ2f0e2Cyx.png) |
-| 3     | ![image](https://hackmd.io/_uploads/H1-PRlhA1g.png) |
+| Group | Output |
+|---|---|
+| 1 | ![image](https://hackmd.io/_uploads/ry5d6xnA1e.png) |
+| 2 | ![image](https://hackmd.io/_uploads/SJ2f0e2Cyx.png) |
+| 3 | ![image](https://hackmd.io/_uploads/H1-PRlhA1g.png) |
 
 #### Interpretation
 
 Cleaning
 
-- In small data frames, we can diagnose cleaning operations easier than
-  large data frames.
-- For example, in the large data frame, before cleaning the sex variable
-  with a data dictionary, we need to remove unconsistent missing values.
-  We can use `dplyr::count()` to find this issue.
+- In small data frames, we can diagnose cleaning operations easier than large data frames. 
+- For example, in the large data frame, before cleaning the sex variable with a data dictionary, we need to remove unconsistent missing values. We can use `dplyr::count()` to find this issue.
 
 Validation
 
-- Using the `linelist::tags_df()` output can keep stable downstream
-  analysis. Jointly with `linelist::lost_tags_action(action = "error")`
-  we can improve the capacity to diagnose changes in the input data.
-  This can prevent getting misleading outputs from automatic daily code
-  runs or dashboards updates.
+- Using the `linelist::tags_df()` output can keep stable downstream analysis. Jointly with `linelist::lost_tags_action(action = "error")` we can improve the capacity to diagnose changes in the input data. This can prevent getting misleading outputs from automatic daily code runs or dashboards updates.
 
 Epicurve
 
-- The argument `show_cases` can improve the visibility of `fill`
-  categorical variables when the amount of observed cases is small.
+- The argument `show_cases` can improve the visibility of `fill` categorical variables when the amount of observed cases is small.
 
 # Continue your learning path
 
@@ -600,11 +721,12 @@ Epicurve
 
 Explore the downstream analysis you can do with {incidence2} outputs
 
-- <https://www.reconverse.org/incidence2/doc/incidence2.html#sec:building-on-incidence2>
+- <https://www.reconverse.org/incidence2/doc/incidence2.html#sec:building-on-incidence2> 
 
-You can use [{epikinetics}](https://seroanalytics.org/epikinetics/) to
-estimate antibody kinetics. Explore this sample code:
+You can use [{epikinetics}](https://seroanalytics.org/epikinetics/) to estimate antibody kinetics. Explore this sample code:
 
 - <https://epiverse-trace.github.io/tutorials-early/epikinetics-statistics.html>
+
+:::
 
 # end

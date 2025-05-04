@@ -3,7 +3,9 @@ title: "Week 4: Simulate transmission and model interventions"
 format: 
   html: # learners solutions
     embed-resources: true
-  docx: default # learners practical
+    output-file: "04-practical-solutions"
+  docx: # learners practical
+    output-file: "04-practical-guide"
   gfm: default # instructors
 keep-md: true
 format-links: false
@@ -81,9 +83,9 @@ As a group, Write your answers to these questions:
 
 ### Your Code
 
-Use the file `04-practical-late-act1.Rmd`
+Use the file `04-practical-activity-1.Rmd`
 
-```{r, child = "04-practical-late-act1.Rmd", echo = FALSE}
+```{r, child = "04-practical-activity-1.Rmd", echo = FALSE}
 
 ```
 
@@ -233,9 +235,9 @@ As a group, write your answers to these questions:
 
 ### Your Code
 
-Use the file `04-practical-late-act2.Rmd`
+Use the file `04-practical-activity-2.Rmd`
 
-```{r, child = "04-practical-late-act2.Rmd", echo = FALSE}
+```{r, child = "04-practical-activity-2.Rmd", echo = FALSE}
 
 ```
 
@@ -358,9 +360,9 @@ As a group, Write your answers to these questions:
 
 ### Your Code
 
-Use the file `04-practical-late-act3.Rmd`
+Use the file `04-practical-activity-3.Rmd`
 
-```{r, child = "04-practical-late-act3.Rmd", echo = FALSE}
+```{r, child = "04-practical-activity-3.Rmd", echo = FALSE}
 
 ```
 
