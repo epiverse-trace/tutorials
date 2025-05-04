@@ -6,30 +6,42 @@ The goal of the `practical.qmd` files in this folder is to host complementary ch
 
 One Quarto file generates:
 
-- MD file: for instructors to study and propose edits.
-- DOCX file: for learners to use during the practical session.
-- HTML file: solutions to share with learners.
+- Tutors MD file: for Tutors to study or propose edits.
+- Guide DOCX file: for Learners to use during the practical session.
+- Activity RMD file: for Learners to complete during the practical session.
+- Solutions HTML file: for Learners to share after the practical session.
 
 ## Features
 
 We are using Quarto:
 
-- multi format <https://quarto.org/docs/output-formats/html-multi-format.html>
-- contidional content <https://quarto.org/docs/authoring/conditional.html>
-- self-contained HTMLs <https://quarto.org/docs/output-formats/html-basics.html#self-contained>
-- includes <https://quarto.org/docs/authoring/includes.html>
+- Multi format <https://quarto.org/docs/output-formats/html-multi-format.html>
+- Contidional content <https://quarto.org/docs/authoring/conditional.html>
+- Self-contained HTMLs <https://quarto.org/docs/output-formats/html-basics.html#self-contained>
+- Includes <https://quarto.org/docs/authoring/includes.html>
+- Output file names <https://stackoverflow.com/a/73589592/6702544>
 
 With the limitation that we can not differentiate content for MD outputs. Using alternatives suggested in the following issue <https://github.com/quarto-dev/quarto-cli/issues/6705>.
 
 ## Contributing
 
-For contributions, please edit this one QUARTO file that renders all the above files
+For contributions, please:
 
+- Edit _only_ the QMD file that renders all the above files.
+- Commit QMD files jointly with MD outputs.
+
+To render the QMD file, you can use the terminal. For example, to render practical number 4:
+
+```bash
+$ quarto render .\instructors\04-practical-tutors.qmd
+```
 
 ## Mantainer 
 
 To Do list:
 
 - [ ] render the quarto file
-- [ ] replace the DOCX file in the “group challenges” folder on Google Drive
-- [ ] upload the HTML to the Moodle platform as a solution file
+- [ ] share a clean the DOCX file in on Google Drive
+- [ ] upload link to DOCX file to Moodle
+- [ ] share MD file with Tutors
+- [ ] upload HTML to Moodle
