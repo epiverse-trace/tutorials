@@ -1,6 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://epiverse-trace.github.io/tutorials/01-practical-activity-1.html</loc>
+  </url>
+  <url>
+    <loc>https://epiverse-trace.github.io/tutorials/01-practical-activity-2.html</loc>
+  </url>
+  <url>
+    <loc>https://epiverse-trace.github.io/tutorials/01-practical-tutors.html</loc>
+  </url>
+  <url>
+    <loc>https://epiverse-trace.github.io/tutorials/02-practical-activity-1.html</loc>
+  </url>
+  <url>
+    <loc>https://epiverse-trace.github.io/tutorials/02-practical-activity-2.html</loc>
+  </url>
+  <url>
+    <loc>https://epiverse-trace.github.io/tutorials/02-practical-tutors.html</loc>
+  </url>
+  <url>
+    <loc>https://epiverse-trace.github.io/tutorials/03-practical-activity-1.html</loc>
+  </url>
+  <url>
+    <loc>https://epiverse-trace.github.io/tutorials/03-practical-activity-2.html</loc>
+  </url>
+  <url>
+    <loc>https://epiverse-trace.github.io/tutorials/03-practical-tutors.html</loc>
+  </url>
+  <url>
+    <loc>https://epiverse-trace.github.io/tutorials/04-practical-activity-1.html</loc>
+  </url>
+  <url>
+    <loc>https://epiverse-trace.github.io/tutorials/04-practical-activity-2.html</loc>
+  </url>
+  <url>
+    <loc>https://epiverse-trace.github.io/tutorials/04-practical-activity-3.html</loc>
+  </url>
+  <url>
+    <loc>https://epiverse-trace.github.io/tutorials/04-practical-tutors.html</loc>
+  </url>
+  <url>
     <loc>https://epiverse-trace.github.io/tutorials/404.html</loc>
   </url>
   <url>
@@ -26,6 +65,45 @@
   </url>
   <url>
     <loc>https://epiverse-trace.github.io/tutorials/index.html</loc>
+  </url>
+  <url>
+    <loc>https://epiverse-trace.github.io/tutorials/instructor/01-practical-activity-1.html</loc>
+  </url>
+  <url>
+    <loc>https://epiverse-trace.github.io/tutorials/instructor/01-practical-activity-2.html</loc>
+  </url>
+  <url>
+    <loc>https://epiverse-trace.github.io/tutorials/instructor/01-practical-tutors.html</loc>
+  </url>
+  <url>
+    <loc>https://epiverse-trace.github.io/tutorials/instructor/02-practical-activity-1.html</loc>
+  </url>
+  <url>
+    <loc>https://epiverse-trace.github.io/tutorials/instructor/02-practical-activity-2.html</loc>
+  </url>
+  <url>
+    <loc>https://epiverse-trace.github.io/tutorials/instructor/02-practical-tutors.html</loc>
+  </url>
+  <url>
+    <loc>https://epiverse-trace.github.io/tutorials/instructor/03-practical-activity-1.html</loc>
+  </url>
+  <url>
+    <loc>https://epiverse-trace.github.io/tutorials/instructor/03-practical-activity-2.html</loc>
+  </url>
+  <url>
+    <loc>https://epiverse-trace.github.io/tutorials/instructor/03-practical-tutors.html</loc>
+  </url>
+  <url>
+    <loc>https://epiverse-trace.github.io/tutorials/instructor/04-practical-activity-1.html</loc>
+  </url>
+  <url>
+    <loc>https://epiverse-trace.github.io/tutorials/instructor/04-practical-activity-2.html</loc>
+  </url>
+  <url>
+    <loc>https://epiverse-trace.github.io/tutorials/instructor/04-practical-activity-3.html</loc>
+  </url>
+  <url>
+    <loc>https://epiverse-trace.github.io/tutorials/instructor/04-practical-tutors.html</loc>
   </url>
   <url>
     <loc>https://epiverse-trace.github.io/tutorials/instructor/404.html</loc>
