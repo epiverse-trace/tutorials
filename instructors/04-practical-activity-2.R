@@ -1,7 +1,4 @@
 
-```{r}
-#| eval: false
-
 # Practical 4
 # Activity 2
 
@@ -61,4 +58,3 @@ infections_baseline_intervention %>%
   ) +
   scale_y_continuous(labels = scales::comma)
 
-```

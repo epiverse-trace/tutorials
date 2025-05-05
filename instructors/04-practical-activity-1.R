@@ -1,7 +1,4 @@
 
-```{r}
-#| eval: false
-
 # Practical 4
 # Activity 1
 
@@ -122,4 +119,3 @@ newinfections_bygroup %>%
     labels = scales::comma
   )
 
-```

@@ -1,6 +1,4 @@
 
-```{r}
-#| eval: false
 
 # Practical 4
 # Activity 3
@@ -65,4 +63,3 @@ compare_interventions %>%
     colour = "Scenario"
   )
 
-```

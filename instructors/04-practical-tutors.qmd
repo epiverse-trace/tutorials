@@ -43,6 +43,9 @@ This practical is based in the following tutorial episodes:
 
 {{< include _welcome.qmd >}}
 
+# Practical
+
+This practical has three activities.
 
 ## Activity 1: Generate disease trajectories of new infections
 
@@ -83,9 +86,9 @@ As a group, Write your answers to these questions:
 
 ### Your Code
 
-Use the file `04-practical-activity-1.Rmd`
+Use the file `04-practical-activity-1.R`
 
-```{r, child = "04-practical-activity-1.Rmd", echo = FALSE}
+```{r, file = "04-practical-activity-1.R", echo = FALSE, eval = FALSE}
 
 ```
 
@@ -235,9 +238,9 @@ As a group, write your answers to these questions:
 
 ### Your Code
 
-Use the file `04-practical-activity-2.Rmd`
+Use the file `04-practical-activity-2.R`
 
-```{r, child = "04-practical-activity-2.Rmd", echo = FALSE}
+```{r, file = "04-practical-activity-2.R", echo = FALSE, eval = FALSE}
 
 ```
 
@@ -360,9 +363,9 @@ As a group, Write your answers to these questions:
 
 ### Your Code
 
-Use the file `04-practical-activity-3.Rmd`
+Use the file `04-practical-activity-3.R`
 
-```{r, child = "04-practical-activity-3.Rmd", echo = FALSE}
+```{r, file = "04-practical-activity-3.R", echo = FALSE, eval = FALSE}
 
 ```
 

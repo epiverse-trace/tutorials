@@ -1,7 +1,4 @@
 
-```{r}
-#| eval: false
-
 # Practical 2
 # Activity 2
 
@@ -62,4 +59,3 @@ disease_adapted %>%
   cfr::cfr_static(
     delay_density = function(x) density(disease_delay, x)
   )
-```

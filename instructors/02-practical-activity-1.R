@@ -1,7 +1,4 @@
 
-```{r}
-#| eval: false
-
 # Practical 2
 # Activity 1
 
@@ -78,4 +75,3 @@ summary(estimates)
 plot(estimates)
 
 
-```

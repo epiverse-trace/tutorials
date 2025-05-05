@@ -1,7 +1,4 @@
 
-```{r}
-#| eval: false
-
 # Practical 1
 # Activity 2
 
@@ -57,4 +54,3 @@ dat_incidence %>%
 
 # find plot() arguments at ?incidence2:::plot.incidence2()
 
-```

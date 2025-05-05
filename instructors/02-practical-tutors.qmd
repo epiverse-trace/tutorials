@@ -42,6 +42,9 @@ This practical is based in the following tutorial episodes:
 
 {{< include _welcome.qmd >}}
 
+# Practical
+
+This practical has two activities.
 
 ## Activity 1: Transmission
 
@@ -80,7 +83,7 @@ As a group, Write your answers to these questions:
 
 Use the file `02-practical-activity-1.Rmd`.
 
-```{r, child = "02-practical-activity-1.Rmd", echo = FALSE}
+```{r, file = "02-practical-activity-1.R", echo = FALSE, eval = FALSE}
 
 ```
 
@@ -545,9 +548,9 @@ As a group, Write your answers to these questions:
 
 ### Your Code
 
-Use the file `02-practical-activity-2.Rmd`.
+Use the file `02-practical-activity-2.R`.
 
-```{r, child = "02-practical-activity-2.Rmd", echo = FALSE}
+```{r, file = "02-practical-activity-2.R", echo = FALSE, eval = FALSE}
 
 ```
 

@@ -6,10 +6,13 @@ The goal of the `practical.qmd` files in this folder is to host complementary ch
 
 One Quarto file generates:
 
-- Tutors MD file: for Tutors to study or propose edits.
-- Guide DOCX file: for Learners to use during the practical session.
-- Activity RMD file: for Learners to complete during the practical session.
-- Solutions HTML file: for Learners to share after the practical session.
+- Tutors MD file: for Tutors to use during practical or propose edits.
+- Guide DOCX file: for Learners to complete during the practical.
+- Solutions HTML file: for Learners to be shared after the practical.
+
+Each Quarto file is linked to:
+
+- Activity R files: for Learners to complete during the practical.
 
 ## Features
 
