@@ -1,6 +1,5 @@
+# nolint start
 
-
-``` r
 # Practical 4
 # Activity 2
 
@@ -59,4 +58,5 @@ infections_baseline_intervention %>%
     linewidth = 0.2
   ) +
   scale_y_continuous(labels = scales::comma)
-```
+
+# nolint end

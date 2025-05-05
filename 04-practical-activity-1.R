@@ -1,8 +1,13 @@
+# nolint start
 
-
-``` r
 # Practical 4
 # Activity 1
+
+# Load packages ----------------------------------------------------------
+library(epidemics)
+library(socialmixr)
+library(tidyverse)
+
 
 # (1) contact matrix ------------------------------------------------------
 
@@ -120,4 +125,5 @@ newinfections_bygroup %>%
     breaks = scales::breaks_pretty(n = 10),
     labels = scales::comma
   )
-```
+
+# nolint end

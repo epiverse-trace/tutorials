@@ -1,6 +1,5 @@
+# nolint start
 
-
-``` r
 # Practical 3
 # Activity 2
 
@@ -78,4 +77,5 @@ aggregate_chains %>%
   # define a 100-case threshold
   geom_hline(aes(yintercept = 100), lty = 2) +
   labs(x = "Day", y = "Cumulative cases")
-```
+
+# nolint end

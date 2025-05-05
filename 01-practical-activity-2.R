@@ -1,6 +1,5 @@
+# nolint start
 
-
-``` r
 # Practical 1
 # Activity 2
 
@@ -55,4 +54,5 @@ dat_incidence %>%
   )
 
 # find plot() arguments at ?incidence2:::plot.incidence2()
-```
+
+# nolint end

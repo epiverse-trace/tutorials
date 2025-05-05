@@ -1,6 +1,5 @@
+# nolint start
 
-
-``` r
 # Practical 2
 # Activity 1
 
@@ -75,4 +74,6 @@ estimates <- EpiNow2::epinow(
 # Print plot and summary table outputs ------------------------------------
 summary(estimates)
 plot(estimates)
-```
+
+
+# nolint end

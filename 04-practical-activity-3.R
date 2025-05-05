@@ -1,6 +1,5 @@
+# nolint start
 
-
-``` r
 # Practical 4
 # Activity 3
 
@@ -63,4 +62,5 @@ compare_interventions %>%
     y = "New infections",
     colour = "Scenario"
   )
-```
+
+# nolint end
