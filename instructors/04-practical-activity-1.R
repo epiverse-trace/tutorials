@@ -2,6 +2,12 @@
 # Practical 4
 # Activity 1
 
+# Load packages ----------------------------------------------------------
+library(epidemics)
+library(socialmixr)
+library(tidyverse)
+
+
 # (1) contact matrix ------------------------------------------------------
 
 socialmixr::list_surveys()
