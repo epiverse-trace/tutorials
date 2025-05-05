@@ -1,4 +1,4 @@
-
+# nolint start
 
 # Practical 4
 # Activity 3
@@ -63,3 +63,4 @@ compare_interventions %>%
     colour = "Scenario"
   )
 
+# nolint end

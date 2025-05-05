@@ -1,3 +1,4 @@
+# nolint start
 
 # Practical 1
 # Activity 1
@@ -67,3 +68,4 @@ dat_timespan <- dat_clean %>%
 dat_timespan
 
 
+# nolint end

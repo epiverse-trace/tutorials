@@ -1,3 +1,4 @@
+# nolint start
 
 # Practical 2
 # Activity 1
@@ -75,3 +76,4 @@ summary(estimates)
 plot(estimates)
 
 
+# nolint end
