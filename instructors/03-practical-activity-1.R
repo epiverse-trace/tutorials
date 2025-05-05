@@ -1,3 +1,4 @@
+# nolint start
 
 # Practical 3
 # Activity 1
@@ -62,3 +63,5 @@ proportion_cases_by_cluster_size <- #<COMPLETE>
 
 # print output
 proportion_cases_by_cluster_size
+
+# nolint end

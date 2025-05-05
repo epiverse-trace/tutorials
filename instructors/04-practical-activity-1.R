@@ -1,3 +1,4 @@
+# nolint start
 
 # Practical 4
 # Activity 1
@@ -125,3 +126,4 @@ newinfections_bygroup %>%
     labels = scales::comma
   )
 
+# nolint end
