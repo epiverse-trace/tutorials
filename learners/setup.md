@@ -152,6 +152,7 @@ new_packages <- c(
   "quarto",
   # for Early Task tutorials
   "cleanepi",
+  "reactable",
   "rio",
   "DBI",
   "RSQLite",
@@ -290,6 +291,7 @@ library(rmarkdown)
 library(quarto)
 # for Early Task tutorials
 library(cleanepi)
+library(reactable)
 library(rio)
 library(DBI)
 library(RSQLite)
