@@ -1,9 +1,14 @@
 # Week 2: Access delays to estimate transmission and severity
 
+
 <!-- visible for instructors only -->
+
 <!-- practical-week.md is generated from practical-week.qmd. Please edit that file -->
+
 <!-- commit .md and .qmd files together -->
+
 <!-- does not work for instructors text messages -->
+
 <!-- works for text on html and MD only -->
 
 This practical is based in the following tutorial episodes:
@@ -69,7 +74,6 @@ If your local configuration was not possible to setup:
 
 
 
-
 # Practical
 
 This practical has two activities.
@@ -95,17 +99,17 @@ As a group, Write your answers to these questions:
 
 ### Inputs
 
-| Group | Incidence     | Link                                                                      |
-|-------|---------------|---------------------------------------------------------------------------|
-| 1     | COVID 30 days | <https://epiverse-trace.github.io/tutorials-middle/data/covid_30days.rds> |
-| 2     | Ebola 35 days | <https://epiverse-trace.github.io/tutorials-middle/data/ebola_35days.rds> |
-| 3     | Ebola 60 days | <https://epiverse-trace.github.io/tutorials-middle/data/ebola_60days.rds> |
-| 4     | COVID 60 days | <https://epiverse-trace.github.io/tutorials-middle/data/covid_60days.rds> |
+| Group | Incidence | Link |
+|----|----|----|
+| 1 | COVID 30 days | <https://epiverse-trace.github.io/tutorials-middle/data/covid_30days.rds> |
+| 2 | Ebola 35 days | <https://epiverse-trace.github.io/tutorials-middle/data/ebola_35days.rds> |
+| 3 | Ebola 60 days | <https://epiverse-trace.github.io/tutorials-middle/data/ebola_60days.rds> |
+| 4 | COVID 60 days | <https://epiverse-trace.github.io/tutorials-middle/data/covid_60days.rds> |
 
-| Disease | Reporting delays                                                                                                                                                                                                                                                                                                                        |
-|---------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Ebola   | The time difference between symptom onset and case report follows a Lognormal distribution with uncertainty. The **meanlog** follows a Normal distribution with mean = 1.4 days and sd = 0.5 days. The **sdlog** follows a Normal distribution with mean = 0.25 days and sd = 0.2 days. Bound the distribution with a maximum = 5 days. |
-| COVID   | The time difference between symptom onset and case report follows a Gamma distribution with uncertainty. The **mean** follows a Normal distribution with mean = 2 days and sd = 0.5 days. The **standard deviation** follows a Normal distribution with mean = 1 day and sd = 0.5 days. Bound the distribution with a maximum = 5 days. |
+| Disease | Reporting delays |
+|----|----|
+| Ebola | The time difference between symptom onset and case report follows a Lognormal distribution with uncertainty. The **meanlog** follows a Normal distribution with mean = 1.4 days and sd = 0.5 days. The **sdlog** follows a Normal distribution with mean = 0.25 days and sd = 0.2 days. Bound the distribution with a maximum = 5 days. |
+| COVID | The time difference between symptom onset and case report follows a Gamma distribution with uncertainty. The **mean** follows a Normal distribution with mean = 2 days and sd = 0.5 days. The **standard deviation** follows a Normal distribution with mean = 1 day and sd = 0.5 days. Bound the distribution with a maximum = 5 days. |
 
 ### Solution
 
@@ -468,11 +472,11 @@ As a group, Write your answers to these questions:
 
 ### Inputs
 
-| Group | Data                      | Action to data input               | Link                                                                        |
-|-------|---------------------------|------------------------------------|-----------------------------------------------------------------------------|
-| 1     | COVID-19 Diamond Princess | Keep dates before March 1st        | <https://epiverse-trace.github.io/tutorials-middle/data/diamond_70days.rds> |
-| 2     | COVID-19 Diamond Princess | Estimate from complete time series | <https://epiverse-trace.github.io/tutorials-middle/data/diamond_70days.rds> |
-| 3     | MERS Korea 2015           | Adapt from incidence to {cfr}      | <https://epiverse-trace.github.io/tutorials-middle/data/mers_linelist.rds>  |
+| Group | Data | Action to data input | Link |
+|----|----|----|----|
+| 1 | COVID-19 Diamond Princess | Keep dates before March 1st | <https://epiverse-trace.github.io/tutorials-middle/data/diamond_70days.rds> |
+| 2 | COVID-19 Diamond Princess | Estimate from complete time series | <https://epiverse-trace.github.io/tutorials-middle/data/diamond_70days.rds> |
+| 3 | MERS Korea 2015 | Adapt from incidence to {cfr} | <https://epiverse-trace.github.io/tutorials-middle/data/mers_linelist.rds> |
 
 ### Solution
 
@@ -630,8 +634,8 @@ mers_adapted %>%
 
 #### Outputs
 
-| Covid Diamond Princess 2020                         | Mers Korea 2015                                     |
-|-----------------------------------------------------|-----------------------------------------------------|
+| Covid Diamond Princess 2020 | Mers Korea 2015 |
+|----|----|
 | ![image](https://hackmd.io/_uploads/ryWr0vNRyx.png) | ![image](https://hackmd.io/_uploads/Sk2J0kjA1g.png) |
 
 | Data Input | Filter Category                    | estimate | low   | high  |
