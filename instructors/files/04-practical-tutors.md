@@ -1,9 +1,14 @@
 # Week 4: Simulate transmission and model interventions
 
+
 <!-- visible for instructors only -->
+
 <!-- practical-week.md is generated from practical-week.qmd. Please edit that file -->
+
 <!-- commit .md and .qmd files together -->
+
 <!-- does not work for instructors text messages -->
+
 <!-- works for text on html and MD only -->
 
 This practical is based in the following tutorial episodes:
@@ -67,7 +72,6 @@ If your local configuration was not possible to setup:
 
 
 
-
 # Practical
 
 This practical has three activities.
@@ -103,14 +107,14 @@ As a group, Write your answers to these questions:
 | 2     | Vietnam  | <https://doi.org/10.5281/zenodo.3874802> |
 | 3     | Zimbabwe | <https://doi.org/10.5281/zenodo.3886638> |
 
-| Parameter                 | Value         | Notes                                      |
-|---------------------------|---------------|--------------------------------------------|
-| Age Limits                | 0, 20, 40     | Age group cutoffs                          |
-| Infectious Population     | 1 / 1,000,000 | 1 infectious individual per million people |
-| Basic Reproduction Number | 1.46          | R₀ value for influenza                     |
-| Pre-infectious Period     | 3 days        | Incubation before becoming infectious      |
-| Infectious Period         | 7 days        | Duration of infectiousness                 |
-| Max Timesteps (days)      | 600           | Total simulation time                      |
+| Parameter | Value | Notes |
+|----|----|----|
+| Age Limits | 0, 20, 40 | Age group cutoffs |
+| Infectious Population | 1 / 1,000,000 | 1 infectious individual per million people |
+| Basic Reproduction Number | 1.46 | R₀ value for influenza |
+| Pre-infectious Period | 3 days | Incubation before becoming infectious |
+| Infectious Period | 7 days | Duration of infectiousness |
+| Max Timesteps (days) | 600 | Total simulation time |
 
 ### Solution
 
@@ -118,8 +122,8 @@ As a group, Write your answers to these questions:
 
 #### Outputs
 
-| all compartments                                    | new infections                                      |
-|-----------------------------------------------------|-----------------------------------------------------|
+| all compartments | new infections |
+|----|----|
 | ![image](https://hackmd.io/_uploads/r1o8OF_Rkx.png) | ![image](https://hackmd.io/_uploads/Syi1tY_R1x.png) |
 
     # Get epidemic_peak
@@ -140,8 +144,8 @@ Interpretation template:
 
 Interpretation Helpers:
 
-| R = 1.1                                             | R = 3                                               |
-|-----------------------------------------------------|-----------------------------------------------------|
+| R = 1.1 | R = 3 |
+|----|----|
 | ![image](https://hackmd.io/_uploads/H1UupFOAyl.png) | ![image](https://hackmd.io/_uploads/ryVoat_R1l.png) |
 
 - An epidemic with R=1.1 has a days delayed and smaller outbreak based
@@ -149,8 +153,8 @@ Interpretation Helpers:
   R=3 with a earlier and higher peak than R = 1.5 (day 100, 1,000,000
   new infections).
 
-| Vietnam                                             | Zimbabwe                                            |
-|-----------------------------------------------------|-----------------------------------------------------|
+| Vietnam | Zimbabwe |
+|----|----|
 | ![image](https://hackmd.io/_uploads/BkZGRY_Rkx.png) | ![image](https://hackmd.io/_uploads/SJVlkcORkl.png) |
 
 - Population structure from Italy, Vietnam, and Zimbabwe influences the
@@ -178,11 +182,11 @@ As a group, write your answers to these questions:
 
 ### Inputs
 
-| Group | Intervention | Early Start | Late Start | Duration (days) | Effect (Reduction or Rate)   |
-|-------|--------------|-------------|------------|-----------------|------------------------------|
-| 1     | School       | 100         | 200        | 100             | Age 0–19: 0.5; Age 20+: 0.01 |
-| 2     | Mask         | 100         | 200        | 200             | All ages: 0.163              |
-| 3     | Vaccine      | 100         | 200        | 150             | All ages: 0.001              |
+| Group | Intervention | Early Start | Late Start | Duration (days) | Effect (Reduction or Rate) |
+|----|----|----|----|----|----|
+| 1 | School | 100 | 200 | 100 | Age 0–19: 0.5; Age 20+: 0.01 |
+| 2 | Mask | 100 | 200 | 200 | All ages: 0.163 |
+| 3 | Vaccine | 100 | 200 | 150 | All ages: 0.001 |
 
 ### Solution
 
@@ -190,11 +194,11 @@ As a group, write your answers to these questions:
 
 #### Outputs
 
-| Intervention       | Early start                                         | Late start                                          |
-|--------------------|-----------------------------------------------------|-----------------------------------------------------|
+| Intervention | Early start | Late start |
+|----|----|----|
 | **School Closure** | ![image](https://hackmd.io/_uploads/H1IKxq_A1e.png) | ![image](https://hackmd.io/_uploads/rJt8ttdA1e.png) |
-| **Mask Mandate**   | ![image](https://hackmd.io/_uploads/rkV2ttO0yx.png) | ![image](https://hackmd.io/_uploads/Bk8wKYOR1l.png) |
-| **Vaccination**    | ![image](https://hackmd.io/_uploads/rycdKYOA1e.png) | ![image](https://hackmd.io/_uploads/B1ff-9_Ckl.png) |
+| **Mask Mandate** | ![image](https://hackmd.io/_uploads/rkV2ttO0yx.png) | ![image](https://hackmd.io/_uploads/Bk8wKYOR1l.png) |
+| **Vaccination** | ![image](https://hackmd.io/_uploads/rycdKYOA1e.png) | ![image](https://hackmd.io/_uploads/B1ff-9_Ckl.png) |
 
 #### Interpretation
 
@@ -236,8 +240,8 @@ As a group, Write your answers to these questions:
 
 #### Outputs
 
-| Combine interventions                               | Compare interventions                               |
-|-----------------------------------------------------|-----------------------------------------------------|
+| Combine interventions | Compare interventions |
+|----|----|
 | ![image](https://hackmd.io/_uploads/rk9cqK_CJe.png) | ![image](https://hackmd.io/_uploads/BJro5KuC1e.png) |
 
 #### Interpretation
