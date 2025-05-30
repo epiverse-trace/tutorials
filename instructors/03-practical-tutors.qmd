@@ -7,7 +7,7 @@ format:
   docx: # learners practical
     output-file: "03-practical-guide"
   gfm: default # instructors
-keep-md: true
+keep-md: false
 format-links: false
 ---
 
