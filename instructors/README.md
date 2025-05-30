@@ -31,10 +31,11 @@ We are using Quarto:
 
 For contributions, please:
 
+- Download and install the latest Quarto release from <https://quarto.org/docs/download/>
 - Edit _only_ the QMD file that renders all the above files.
 - Commit QMD files jointly with MD outputs.
 
-To render the QMD file, you can use the terminal. For example, to render practical number 4:
+To render the QMD file, you can use the [`{quarto}`](https://cran.r-project.org/web/packages/quarto/index.html) R package. For example, to render practical number 4:
 
 ```r
 quarto::quarto_render(input = here::here("instructors", "04-practical-tutors.qmd"))
