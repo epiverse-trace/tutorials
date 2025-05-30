@@ -3,7 +3,7 @@
 # Practical 4
 # Activity 2
 
-# intervention ---------------------------------------------------------
+# Intervention ---------------------------------------------------------
 
 rownames(socialcontact_matrix)
 
@@ -13,14 +13,14 @@ test_intervention <- epidemics::intervention(
 
 test_intervention
 
-# run {epidemics} ---------------------------------------------------------
+# Run {epidemics} ---------------------------------------------------------
 
 simulate_intervention <- epidemics::model_default(
   population = population_object,
   transmission_rate = transmission_rate,
   infectiousness_rate = infectiousness_rate,
   recovery_rate = recovery_rate,
-  # intervention
+  # Intervention
   #<COMPLETE>,
   time_end = 600,
   increment = 1.0
@@ -28,7 +28,7 @@ simulate_intervention <- epidemics::model_default(
 
 simulate_intervention
 
-# visualize effect --------------------------------------------------------
+# Visualize effect --------------------------------------------------------
 
 infections_baseline <- epidemics::new_infections(
   data = simulate_baseline,

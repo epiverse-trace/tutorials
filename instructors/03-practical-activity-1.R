@@ -18,20 +18,20 @@ dat_linelist <- readr::read_rds("link/to/linelist/data/url")
 # Create an epicontacts object -------------------------------------------
 epi_contacts <- epicontacts::#<COMPLETE>
 
-# print output
+# Print output
 epi_contacts
 
-# visualize the contact network
+# Visualize the contact network
 contact_network <- epicontacts::#<COMPLETE>
 
-# print output
+# Print output
 contact_network
 
 
-# Count secondary cases per subject in contacts and linelist --------
+# Count secondary cases per subject in contacts and linelist --------------
 secondary_cases <- epicontacts::#<COMPLETE>
 
-# plot the histogram of secondary cases
+# Plot the histogram of secondary cases
 individual_reproduction_num <- secondary_cases %>%
   enframe() %>% 
   ggplot(aes(value)) +
@@ -41,18 +41,18 @@ individual_reproduction_num <- secondary_cases %>%
     y = "Frequency"
   )
 
-# print output
+# Print output
 individual_reproduction_num
 
 
 # Fit a negative binomial distribution -----------------------------------
 offspring_fit <- #<COMPLETE>
 
-# print output
+# Print output
 offspring_fit
 
 
-# Estimate proportion of new cases from a cluster of secondary cases -----
+# Estimate proportion of new cases from a cluster of secondary cases ------
 
 # Set seed for random number generator
 set.seed(33)
@@ -61,7 +61,7 @@ set.seed(33)
 # a transmission cluster of at least 5, 10, or 25 cases
 proportion_cases_by_cluster_size <- #<COMPLETE>
 
-# print output
+# Print output
 proportion_cases_by_cluster_size
 
 # nolint end

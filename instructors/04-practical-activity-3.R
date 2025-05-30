@@ -10,14 +10,14 @@ simulate_twointerventions <- epidemics::model_default(
   transmission_rate = transmission_rate,
   infectiousness_rate = infectiousness_rate,
   recovery_rate = recovery_rate,
-  # intervention
+  # Intervention
   #<COMPLETE>
   time_end = 600,
   increment = 1.0
 )
 
 
-# visualize effect --------------------------------------------------------
+# Visualize effect --------------------------------------------------------
 
 infections_baseline <- epidemics::new_infections(
   data = simulate_baseline,
@@ -49,7 +49,7 @@ infections_baseline_twointerventions %>%
 
 compare_interventions <- bind_rows(
   infections_baseline,
-  infections_baseline_internvetion,
+  infections_baseline_intervention,
   infections_baseline_twointerventions
 )
 

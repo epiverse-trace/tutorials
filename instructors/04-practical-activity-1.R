@@ -9,7 +9,7 @@ library(socialmixr)
 library(tidyverse)
 
 
-# (1) contact matrix ------------------------------------------------------
+# (1) Contact matrix ------------------------------------------------------
 
 socialmixr::list_surveys()
 
@@ -21,12 +21,12 @@ contact_data <- socialmixr::contact_matrix(
   #<COMPLETE>
 )
 
-# prepare contact matrix
+# Prepare contact matrix
 socialcontact_matrix <- t(contact_data$matrix)
 
-# (2) initial conditions --------------------------------------------------
+# (2) Initial conditions --------------------------------------------------
 
-## infectious population ---------
+## Infectious population ---------
 initial_i <- #<COMPLETE>
 
 initial_conditions_inf <- c(
@@ -39,7 +39,7 @@ initial_conditions_inf <- c(
 
 initial_conditions_inf
 
-## free of infection population ---------
+## Free of infection population ---------
 
 initial_conditions_free <- c(
   S = 1,
@@ -51,40 +51,40 @@ initial_conditions_free <- c(
 
 initial_conditions_free
 
-## combine initial conditions ------------
+## Combine initial conditions ------------
 
-# combine the initial conditions
+# Combine the initial conditions
 initial_conditions <- base::rbind(
   #<COMPLETE>
 )
 
-# use contact matrix to assign age group names
+# Use contact matrix to assign age group names
 rownames(initial_conditions) <- rownames(socialcontact_matrix)
 
 initial_conditions
 
-# (3) population structure ------------------------------------------------
+# (3) Population structure ------------------------------------------------
 
-# prepare the demography vector
+# Prepare the demography vector
 demography_vector <- contact_data$demography$population
 names(demography_vector) <- rownames(socialcontact_matrix)
 
-# prepare the population to model as affected by the epidemic
+# Prepare the population to model as affected by the epidemic
 population_object <- epidemics::population(
   #<COMPLETE>
 )
 
 population_object
 
-# (4) model parameters ----------------------------------------------------
+# (4) Model parameters ----------------------------------------------------
 
-# rates
+# Rates
 infectiousness_rate <- 1 / #<COMPLETE> # 1/pre-infectious period
 recovery_rate <- 1 / #<COMPLETE> # 1/infectious period
 transmission_rate <- recovery_rate * #<COMPLETE> # recovery rate * R0
 
 
-# (5) run the model --------------------------------------------------------
+# (5) Run the model --------------------------------------------------------
 
 simulate_baseline <- epidemics::model_default(
   #<COMPLETE>
@@ -114,10 +114,10 @@ epidemics::epidemic_size(data = simulate_baseline)
 
 # Plot new infections ----------------------------------------------------
 
-# new infections
+# New infections
 newinfections_bygroup <- epidemics::new_infections(data = simulate_baseline)
 
-# visualise the spread of the epidemic in terms of new infections
+# Visualize the spread of the epidemic in terms of new infections
 newinfections_bygroup %>%
   ggplot(aes(time, new_infections, colour = demography_group)) +
   geom_line() +
