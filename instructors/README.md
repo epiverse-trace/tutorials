@@ -1,18 +1,18 @@
 # Practicals
 
-The goal of the `practical.qmd` files in this folder is to host complementary challenges to solve in groups during syncronous trainings.
+The goal of the `practical-tutors.qmd` files in this folder is to host complementary challenges to solve in groups during syncronous trainings.
 
 ## Usage
 
-One Quarto file generates:
+One Quarto QMD file generates:
 
-- Tutors MD file: for Tutors to use during practical or propose edits.
-- Guide DOCX file: for Learners to complete during the practical.
-- Solutions HTML file: for Learners to be shared after the practical.
+- Tutors MD file: for Tutors to use during practical or propose edits. Named `practical-tutors.md`.
+- Guide DOCX file: for Learners to complete during the practical. Named `practical-guide.docx`.
+- Solutions HTML file: for Learners to be shared after the practical. Named `practical-solutions.html`.
 
-Each Quarto file is linked to:
+Each Quarto QMD file is linked to:
 
-- Activity R files: for Learners to complete during the practical.
+- Activity R files: for Learners to complete during the practical. Saved as `data/practical-activity-#.R`.
 
 ## Features
 
@@ -43,7 +43,7 @@ $ quarto render .\instructors\04-practical-tutors.qmd
 
 To Do list:
 
-- [ ] render the quarto file
+- [ ] render the quarto QMD file
 - [ ] share a clean the DOCX file in on Google Drive
 - [ ] upload link to DOCX file to Moodle
 - [ ] share MD file with Tutors
