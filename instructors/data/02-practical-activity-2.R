@@ -28,10 +28,10 @@ plot(disease_incidence)
 
 # Confirm {cfr} data input format ----------------------------------------
 
-# does input data already adapted to {cfr} input? 
+# Is the input data already adapted to {cfr} input? 
 disease_adapted <- disease_dat
 # OR
-# does input data require to be adapted to {cfr}? 
+# Does the input data need to be adapted to {cfr}? 
 disease_adapted <- disease_incidence %>%
   cfr::prepare_data(
     #<COMPLETE>
@@ -45,14 +45,14 @@ disease_delay <- epiparameter::#<COMPLETE>
 
 # Estimate naive and adjusted CFR ----------------------------------------
 
-# Estimate Static CFR
+# Estimate static CFR
 disease_adapted %>%
   filter(
     #<COMPLETE>
   ) %>%
   cfr::cfr_static()
 
-# Estimate Static Delay-Adjusted CFR
+# Estimate static delay-adjusted CFR
 disease_adapted %>%
   filter(
     #<COMPLETE>
