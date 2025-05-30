@@ -53,7 +53,9 @@ po/*~
 renv/sandbox/
 
 # extra
-instructors/*.docx
-instructors/*.html
-instructors/*.pdf
+instructors/files/*.docx
+instructors/files/*.html
+instructors/files/*.pdf
 instructors/*_files/*
+instructors/files/*_files/*
+/.quarto/
