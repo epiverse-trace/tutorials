@@ -83,9 +83,6 @@ As a group, Write your answers to these questions:
 
 Use the file `02-practical-activity-1.Rmd`.
 
-```{r, file = "02-practical-activity-1.R", echo = FALSE, eval = FALSE}
-
-```
 
 ### Your Answers
 
@@ -550,9 +547,6 @@ As a group, Write your answers to these questions:
 
 Use the file `02-practical-activity-2.R`.
 
-```{r, file = "02-practical-activity-2.R", echo = FALSE, eval = FALSE}
-
-```
 
 ### Your Answers
 
