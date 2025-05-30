@@ -1,9 +1,14 @@
 # Week 3: Estimate superspreading and simulate transmission chains
 
+
 <!-- visible for instructors only -->
+
 <!-- practical-week.md is generated from practical-week.qmd. Please edit that file -->
+
 <!-- commit .md and .qmd files together -->
+
 <!-- does not work for instructors text messages -->
+
 <!-- works for text on html and MD only -->
 
 This practical is based in the following tutorial episodes:
@@ -67,7 +72,6 @@ If your local configuration was not possible to setup:
 
 
 
-
 # Practical
 
 This practical has two activities.
@@ -102,14 +106,14 @@ As a group, Write your answers to these questions:
 
 ### Inputs
 
-| Group | Data                                                                                                                                                       |
-|-------|------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| 1     | <https://epiverse-trace.github.io/tutorials-middle/data/set-01-contacts.rds>, <https://epiverse-trace.github.io/tutorials-middle/data/set-01-linelist.rds> |
-| 2     | <https://epiverse-trace.github.io/tutorials-middle/data/set-02-contacts.rds>, <https://epiverse-trace.github.io/tutorials-middle/data/set-02-linelist.rds> |
-| 3     | <https://epiverse-trace.github.io/tutorials-middle/data/set-03-contacts.rds>, <https://epiverse-trace.github.io/tutorials-middle/data/set-03-linelist.rds> |
-| 4     | <https://epiverse-trace.github.io/tutorials-middle/data/set-04-contacts.rds>, <https://epiverse-trace.github.io/tutorials-middle/data/set-04-linelist.rds> |
-| 5     | <https://epiverse-trace.github.io/tutorials-middle/data/set-05-contacts.rds>, <https://epiverse-trace.github.io/tutorials-middle/data/set-05-linelist.rds> |
-| 6     | <https://epiverse-trace.github.io/tutorials-middle/data/set-06-contacts.rds>, <https://epiverse-trace.github.io/tutorials-middle/data/set-06-linelist.rds> |
+| Group | Data |
+|----|----|
+| 1 | <https://epiverse-trace.github.io/tutorials-middle/data/set-01-contacts.rds>, <https://epiverse-trace.github.io/tutorials-middle/data/set-01-linelist.rds> |
+| 2 | <https://epiverse-trace.github.io/tutorials-middle/data/set-02-contacts.rds>, <https://epiverse-trace.github.io/tutorials-middle/data/set-02-linelist.rds> |
+| 3 | <https://epiverse-trace.github.io/tutorials-middle/data/set-03-contacts.rds>, <https://epiverse-trace.github.io/tutorials-middle/data/set-03-linelist.rds> |
+| 4 | <https://epiverse-trace.github.io/tutorials-middle/data/set-04-contacts.rds>, <https://epiverse-trace.github.io/tutorials-middle/data/set-04-linelist.rds> |
+| 5 | <https://epiverse-trace.github.io/tutorials-middle/data/set-05-contacts.rds>, <https://epiverse-trace.github.io/tutorials-middle/data/set-05-linelist.rds> |
+| 6 | <https://epiverse-trace.github.io/tutorials-middle/data/set-06-contacts.rds>, <https://epiverse-trace.github.io/tutorials-middle/data/set-06-linelist.rds> |
 
 ### Solution
 
@@ -200,20 +204,20 @@ proportion_cases_by_cluster_size
 
 Group 1
 
-| contact network                                          | histogram of secondary cases                           |
-|----------------------------------------------------------|--------------------------------------------------------|
+| contact network | histogram of secondary cases |
+|----|----|
 | ![Untitled-1](https://hackmd.io/_uploads/H1DVLbsTyx.png) | ![Untitled](https://hackmd.io/_uploads/BkW48Wo6yg.png) |
 
 Group 2
 
-| contact network                                        | histogram of secondary cases                             |
-|--------------------------------------------------------|----------------------------------------------------------|
+| contact network | histogram of secondary cases |
+|----|----|
 | ![Untitled](https://hackmd.io/_uploads/Hkhg8WspJg.png) | ![Untitled-1](https://hackmd.io/_uploads/HyIlUWopJx.png) |
 
 Group 3
 
-| contact network                                        | histogram of secondary cases                             |
-|--------------------------------------------------------|----------------------------------------------------------|
+| contact network | histogram of secondary cases |
+|----|----|
 | ![Untitled](https://hackmd.io/_uploads/HkzkUZjpyx.png) | ![Untitled-1](https://hackmd.io/_uploads/SkjCBZjpJe.png) |
 
 Group 1/2/3
@@ -392,20 +396,20 @@ aggregate_chains %>%
 
 Group 1
 
-| contact network                                          | secondary cases                                        | simulated chains                                    |
-|----------------------------------------------------------|--------------------------------------------------------|-----------------------------------------------------|
+| contact network | secondary cases | simulated chains |
+|----|----|----|
 | ![Untitled-1](https://hackmd.io/_uploads/H1DVLbsTyx.png) | ![Untitled](https://hackmd.io/_uploads/BkW48Wo6yg.png) | ![image](https://hackmd.io/_uploads/Sy3x3MNAJe.png) |
 
 Group 2
 
-| contact network                                        | secondary cases                                          | simulated chains                                    |
-|--------------------------------------------------------|----------------------------------------------------------|-----------------------------------------------------|
+| contact network | secondary cases | simulated chains |
+|----|----|----|
 | ![Untitled](https://hackmd.io/_uploads/Hkhg8WspJg.png) | ![Untitled-1](https://hackmd.io/_uploads/HyIlUWopJx.png) | ![image](https://hackmd.io/_uploads/rkw-hGN0kl.png) |
 
 Group 3
 
-| contact network                                        | secondary cases                                          | simulated chains                                    |
-|--------------------------------------------------------|----------------------------------------------------------|-----------------------------------------------------|
+| contact network | secondary cases | simulated chains |
+|----|----|----|
 | ![Untitled](https://hackmd.io/_uploads/HkzkUZjpyx.png) | ![Untitled-1](https://hackmd.io/_uploads/SkjCBZjpJe.png) | ![image](https://hackmd.io/_uploads/S1p-2MNRJe.png) |
 
 Sample
@@ -446,14 +450,14 @@ Interpretation Helpers:
 
 From the plot of cumulative cases by day for each simulated chain:
 
-| Group | Parameters        | Number of Chains Above 100 | Max Chain Size | Max Chain Length |
-|-------|-------------------|----------------------------|----------------|------------------|
-| 1     | R = 0.8, k = 0.01 | 10                         | ~200           | ~20 days         |
-| 2     | R = 0.8, k = 0.1  | 8                          | ~420           | ~60 days         |
-| 3     | R = 0.8, k = 0.5  | 3                          | ~180           | ~70 days         |
-| 4     | R = 1.5, k = 0.01 | 16                         | ~840           | ~20 days         |
-| 5     | R = 1.5, k = 0.1  | 65                         | ~890           | ~50 days         |
-| 6     | R = 1.5, k = 0.5  | 216                        | ~850           | ~90 days         |
+| Group | Parameters | Number of Chains Above 100 | Max Chain Size | Max Chain Length |
+|----|----|----|----|----|
+| 1 | R = 0.8, k = 0.01 | 10 | ~200 | ~20 days |
+| 2 | R = 0.8, k = 0.1 | 8 | ~420 | ~60 days |
+| 3 | R = 0.8, k = 0.5 | 3 | ~180 | ~70 days |
+| 4 | R = 1.5, k = 0.01 | 16 | ~840 | ~20 days |
+| 5 | R = 1.5, k = 0.1 | 65 | ~890 | ~50 days |
+| 6 | R = 1.5, k = 0.5 | 216 | ~850 | ~90 days |
 
 # Continue your learning path
 

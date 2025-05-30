@@ -1,9 +1,14 @@
 # Week 1: Clean, validate linelist, and plot epicurves
 
+
 <!-- visible for instructors only -->
+
 <!-- practical-week.md is generated from practical-week.qmd. Please edit that file -->
+
 <!-- commit .md and .qmd files together -->
+
 <!-- does not work for instructors text messages -->
+
 <!-- works for text on html and MD only -->
 
 This practical is based in the following tutorial episodes:
@@ -68,7 +73,6 @@ If your local configuration was not possible to setup:
 
 
 
-
 # Practical
 
 This practical has two activities.
@@ -92,11 +96,11 @@ As a group, Write your answers to these questions:
 
 ### Inputs
 
-| Group | Data           | Link                                                                               | Calculate time span                               | Categorize time span          |
-|-------|----------------|------------------------------------------------------------------------------------|---------------------------------------------------|-------------------------------|
-| 1     | Small linelist | <https://epiverse-trace.github.io/tutorials-early/data/linelist-date_of_birth.csv> | Age as of today                                   | breaks = c(0, 20, 35, 60, 80) |
-| 2     | Large linelist | <https://epiverse-trace.github.io/tutorials-early/data/covid_simulated_data.csv>   | Delay from onset of symptoms to the time of death | breaks = c(0, 10, 15, 40)     |
-| 3     | Serology data  | <https://epiverse-trace.github.io/tutorials-early/data/delta_full-messy.csv>       | Time from last exposure to vaccine                | breaks = c(0, 30, 100, 600)   |
+| Group | Data | Link | Calculate time span | Categorize time span |
+|----|----|----|----|----|
+| 1 | Small linelist | <https://epiverse-trace.github.io/tutorials-early/data/linelist-date_of_birth.csv> | Age as of today | breaks = c(0, 20, 35, 60, 80) |
+| 2 | Large linelist | <https://epiverse-trace.github.io/tutorials-early/data/covid_simulated_data.csv> | Delay from onset of symptoms to the time of death | breaks = c(0, 10, 15, 40) |
+| 3 | Serology data | <https://epiverse-trace.github.io/tutorials-early/data/delta_full-messy.csv> | Time from last exposure to vaccine | breaks = c(0, 30, 100, 600) |
 
 ## Activity 2: Validate linelist and plot epicurve
 
