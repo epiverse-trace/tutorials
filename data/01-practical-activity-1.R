@@ -12,7 +12,7 @@ library(tidyverse)
 
 # Adapt the data dictionary ----------------------------------------------
 
-# replace 'variable_name' when you have the information
+# Replace 'variable_name' when you have the information
 dat_dictionary <- tibble::tribble(
   ~options,  ~values,            ~grp, ~orders,
        "1",   "male", "variable_name",      1L,
@@ -36,7 +36,7 @@ dat_raw
 
 # Clean and standardize data ---------------------------------------------
 
-# how many cleanepi functions you used to get clean data?
+# How many cleanepi functions did you use to get clean data?
 dat_clean <- dat_raw %>%
   cleanepi::#<COMPLETE>
 
@@ -45,7 +45,7 @@ dat_clean
 
 # Create time span variable ----------------------------------------------
 
-# what time span unit better describe 'delay' from 'onset' to 'death'?
+# What time span unit best describes the 'delay' from 'onset' to 'death'?
 dat_timespan <- dat_clean %>%
   cleanepi::timespan(
     #<COMPLETE>
@@ -55,7 +55,7 @@ dat_timespan <- dat_clean %>%
     span_remainder_unit = NULL
   ) %>%
   # skimr::skim(timespan_variable)
-  # categorize the delay numerical variable
+  # Categorize the delay numerical variable
   dplyr::mutate(
     timespan_category = base::cut(
       x = timespan_variable,
