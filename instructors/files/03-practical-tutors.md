@@ -124,6 +124,11 @@ As a group, Write your answers to these questions:
 ##### Set 1 (sample)
 
 ``` r
+# nolint start
+
+# Practical 3
+# Activity 1
+
 # Load packages -----------------------------------------------------------
 library(epicontacts)
 library(fitdistrplus)
@@ -141,31 +146,32 @@ dat_linelist <- readr::read_rds(
 
 
 # Create an epicontacts object -------------------------------------------
-epi_contacts <-
-  epicontacts::make_epicontacts(
-    linelist = dat_linelist,
-    contacts = dat_contacts,
-    directed = TRUE
-  )
+epi_contacts <- epicontacts::make_epicontacts(
+  linelist = dat_linelist,
+  contacts = dat_contacts,
+  directed = TRUE
+)
 
+# Print output
 epi_contacts
 
-# visualize the contact network
+# Visualize the contact network
 contact_network <- epicontacts::vis_epicontacts(epi_contacts)
 
+# Print output
 contact_network
 
 
-# Count secondary cases per subject in contacts and linelist --------
+# Count secondary cases per subject in contacts and linelist --------------
 secondary_cases <- epicontacts::get_degree(
   x = epi_contacts,
   type = "out",
   only_linelist = TRUE
 )
 
-# plot the histogram of secondary cases
+# Plot the histogram of secondary cases
 individual_reproduction_num <- secondary_cases %>%
-  enframe() %>%
+  enframe() %>% 
   ggplot(aes(value)) +
   geom_histogram(binwidth = 1) +
   labs(
@@ -173,6 +179,7 @@ individual_reproduction_num <- secondary_cases %>%
     y = "Frequency"
   )
 
+# Print output
 individual_reproduction_num
 
 
@@ -180,24 +187,28 @@ individual_reproduction_num
 offspring_fit <- secondary_cases %>%
   fitdistrplus::fitdist(distr = "nbinom")
 
+# Print output
 offspring_fit
 
 
-# Estimate proportion of new cases from a cluster of secondary cases -----
+# Estimate proportion of new cases from a cluster of secondary cases ------
 
 # Set seed for random number generator
 set.seed(33)
 
 # Estimate the proportion of new cases originating from 
 # a transmission cluster of at least 5, 10, or 25 cases
-proportion_cases_by_cluster_size <-
+proportion_cases_by_cluster_size <- 
   superspreading::proportion_cluster_size(
     R = offspring_fit$estimate["mu"],
     k = offspring_fit$estimate["size"],
     cluster_size = c(5, 10, 25)
   )
 
+# Print output
 proportion_cases_by_cluster_size
+
+# nolint end
 ```
 
 #### Outputs
@@ -303,6 +314,11 @@ As a group, Write your answers to these questions:
 ##### Set 1 (sample)
 
 ``` r
+# nolint start
+
+# Practical 3
+# Activity 2
+
 # Load packages -----------------------------------------------------------
 library(epiparameter)
 library(epichains)
@@ -310,14 +326,14 @@ library(tidyverse)
 
 
 # Set input parameters ---------------------------------------------------
-known_basic_reproduction_number <- 0.8 #<DIFFERENT PER GROUP>
-known_dispersion <- 0.01 #<DIFFERENT PER GROUP>
-chain_to_observe <- 957 #<DIFFERENT PER GROUP>
+known_basic_reproduction_number <- 0.8
+known_dispersion <- 0.01
+chain_to_observe <- 957
 
 
 # Set iteration parameters -----------------------------------------------
 
-# Create generation time as <epiparameter> object
+# Create generation time as an <epiparameter> object
 generation_time <- epiparameter::epiparameter(
   disease = "disease x",
   epi_name = "generation time",
@@ -327,21 +343,21 @@ generation_time <- epiparameter::epiparameter(
 
 
 # Simulate multiple chains -----------------------------------------------
-# run set.seed() and epichains::simulate_chains() together, in the same run
+# Run set.seed() and epichains::simulate_chains() together, in the same run
 
 # Set seed for random number generator
 set.seed(33)
 
 multiple_chains <- epichains::simulate_chains(
-  # simulation controls
-  n_chains = 1000, # number of chains to simulate
+  # Simulation controls
+  n_chains = 1000, # Number of chains to simulate
   statistic = "size",
-  stat_threshold = 500, # stopping criteria
-  # offspring
+  stat_threshold = 500, # Stopping criteria
+  # Offspring
   offspring_dist = rnbinom,
   mu = known_basic_reproduction_number,
   size = known_dispersion,
-  # generation
+  # Generation
   generation_time = function(x) generate(x = generation_time, times = x)
 )
 
@@ -350,31 +366,31 @@ multiple_chains
 
 # Explore suggested chain ------------------------------------------------
 multiple_chains %>%
-  # use data.frame output from <epichains> object
+  # Use data.frame output from <epichains> object
   as_tibble() %>%
   filter(chain == chain_to_observe) %>%
   print(n = Inf)
 
 
-# visualize ---------------------------------------------------------------
+# Visualize --------------------------------------------------------------
 
-# daily aggregate of cases
+# Daily aggregate of cases
 aggregate_chains <- multiple_chains %>%
   as_tibble() %>%
-  # count the daily number of cases in each chain
+  # Count the daily number of cases in each chain
   mutate(day = ceiling(time)) %>%
   count(chain, day, name = "cases") %>%
-  # calculate the cumulative number of cases for each chain
+  # Calculate the cumulative number of cases for each chain
   group_by(chain) %>%
   mutate(cumulative_cases = cumsum(cases)) %>%
   ungroup()
 
 # Visualize transmission chains by cumulative cases
 aggregate_chains %>%
-  # create grouped chain trajectories
+  # Create grouped chain trajectories
   ggplot(aes(x = day, y = cumulative_cases, group = chain)) +
   geom_line(color = "black", alpha = 0.25, show.legend = FALSE) +
-  # define a 100-case threshold
+  # Define a 100-case threshold
   geom_hline(aes(yintercept = 100), lty = 2) +
   labs(x = "Day", y = "Cumulative cases")
 
@@ -390,6 +406,8 @@ aggregate_chains %>%
 aggregate_chains %>%
   filter(cumulative_cases >= 100) %>% 
   skimr::skim(day)
+
+# nolint end
 ```
 
 #### Outputs
