@@ -10,9 +10,13 @@ library(tidyverse)
 
 
 # Read linelist and contacts ----------------------------------------------
-dat_contacts <- readr::read_rds("link/to/contact/data/url")
+dat_contacts <- readr::read_rds(
+  "link/to/contact/data/url"#<COMPLETE>
+)
 
-dat_linelist <- readr::read_rds("link/to/linelist/data/url")
+dat_linelist <- readr::read_rds(
+  "link/to/linelist/data/url"#<COMPLETE>
+)
 
 
 # Create an epicontacts object -------------------------------------------
