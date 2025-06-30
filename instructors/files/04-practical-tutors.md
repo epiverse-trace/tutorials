@@ -256,19 +256,24 @@ Interpretation Helpers:
 #### Code
 
 ``` r
-library(socialmixr)
-library(epidemics)
-library(tidyverse)
+# nolint start
 
+# Practical 4
+# Activity 1
+
+# Load packages ----------------------------------------------------------
+library(epidemics)
+library(socialmixr)
+library(tidyverse)
 
 # Group parameters -------------------------------------------------------
 
 # activity 1
-socialsurvey_link <- "https://doi.org/10.5281/zenodo.3874557" # polymod
-socialsurvey_link <- "https://doi.org/10.5281/zenodo.3874802" # vietnam
+# socialsurvey_link <- "https://doi.org/10.5281/zenodo.3874557" # polymod
+# socialsurvey_link <- "https://doi.org/10.5281/zenodo.3874802" # vietnam
 socialsurvey_link <- "https://doi.org/10.5281/zenodo.3886638" # zimbabwe
-socialsurvey_country <- "Italy"
-socialsurvey_country <- "Vietnam"
+# socialsurvey_country <- "Italy"
+# socialsurvey_country <- "Vietnam"
 socialsurvey_country <- "Zimbabwe"
 age_limits <- c(0, 20, 40)
 infectious_population <- 1 / 1e6 # 1 infectious out of 1,000,000
@@ -277,17 +282,10 @@ basic_reproduction_number <- 1.46
 pre_infectious_period <- 3 # days
 infectious_period <- 7 # days
 
-# activity 2/3
-school_begin_early <- 100
-school_begin_late <- 200
-mask_begin_early <- 100
-mask_begin_late <- 200
-vaccine_begin_early <- 100
-vaccine_begin_late <- 200
 
-# (1) contact matrix ------------------------------------------------------
+# (1) Contact matrix ------------------------------------------------------
 
-# socialmixr::list_surveys()
+socialmixr::list_surveys()
 
 socialsurvey <- socialmixr::get_survey(
   survey = socialsurvey_link
@@ -300,15 +298,12 @@ contact_data <- socialmixr::contact_matrix(
   symmetric = TRUE
 )
 
-# prepare contact matrix
+# Prepare contact matrix
 socialcontact_matrix <- t(contact_data$matrix)
 
-# (2) initial conditions --------------------------------------------------
+# (2) Initial conditions --------------------------------------------------
 
-#' key:
-#' one set of initial conditions per age-group
-
-## infectious population ---------
+## Infectious population ---------
 initial_i <- infectious_population
 
 initial_conditions_inf <- c(
@@ -321,7 +316,7 @@ initial_conditions_inf <- c(
 
 initial_conditions_inf
 
-## free of infection population ---------
+## Free of infection population ---------
 
 initial_conditions_free <- c(
   S = 1,
@@ -333,27 +328,27 @@ initial_conditions_free <- c(
 
 initial_conditions_free
 
-## combine initial conditions ------------
+## Combine initial conditions ------------
 
-# combine the initial conditions
+# Combine the initial conditions
 initial_conditions <- base::rbind(
   initial_conditions_free, # age group 1
   initial_conditions_inf, # age group 2
   initial_conditions_free # age group 3
 )
 
-# use contact matrix to assign age group names
+# Use contact matrix to assign age group names
 rownames(initial_conditions) <- rownames(socialcontact_matrix)
 
 initial_conditions
 
-# (3) population structure ------------------------------------------------
+# (3) Population structure ------------------------------------------------
 
-# prepare the demography vector
+# Prepare the demography vector
 demography_vector <- contact_data$demography$population
 names(demography_vector) <- rownames(socialcontact_matrix)
 
-# prepare the population to model as affected by the epidemic
+# Prepare the population to model as affected by the epidemic
 population_object <- epidemics::population(
   name = socialsurvey_country,
   contact_matrix = socialcontact_matrix,
@@ -363,15 +358,15 @@ population_object <- epidemics::population(
 
 population_object
 
-# (4) model parameters ----------------------------------------------------
+# (4) Model parameters ----------------------------------------------------
 
-# rates
+# Rates
 infectiousness_rate <- 1 / pre_infectious_period # 1/pre-infectious period
 recovery_rate <- 1 / infectious_period # 1/infectious period
-transmission_rate <- recovery_rate * basic_reproduction_number
+transmission_rate <- recovery_rate * basic_reproduction_number # recovery rate * R0
 
 
-# (5) run the model --------------------------------------------------------
+# (5) Run the model --------------------------------------------------------
 
 simulate_baseline <- epidemics::model_default(
   # population
@@ -409,10 +404,10 @@ epidemics::epidemic_size(data = simulate_baseline)
 
 # Plot new infections ----------------------------------------------------
 
-# new infections
+# New infections
 newinfections_bygroup <- epidemics::new_infections(data = simulate_baseline)
 
-# visualise the spread of the epidemic in terms of new infections
+# Visualize the spread of the epidemic in terms of new infections
 newinfections_bygroup %>%
   ggplot(aes(time, new_infections, colour = demography_group)) +
   geom_line() +
@@ -421,16 +416,35 @@ newinfections_bygroup %>%
     labels = scales::comma
   )
 
+# nolint end
+```
 
-# Non-pharmaceutical interventions ---------------------------------------
+``` r
+# nolint start
 
-# on contacts ------------------------------------------------------------
+# Practical 4
+# Activity 2
 
-# school closure ---------------------------------------------------------
+# Group parameters -------------------------------------------------------
+
+# activity 2/3
+# school_begin_early <- 100
+school_begin_late <- 200
+# mask_begin_early <- 100
+mask_begin_late <- 200
+vaccine_begin_early <- 100
+# vaccine_begin_late <- 200
+
+
+# Intervention 1 ---------------------------------------------------------
+
+# Non-pharmaceutical interventions 
+# on contacts 
+# school closure 
 
 rownames(socialcontact_matrix)
 
-close_schools <- epidemics::intervention(
+test_intervention <- epidemics::intervention(
   name = "School closure",
   type = "contacts",
   time_begin = school_begin_late,
@@ -438,58 +452,68 @@ close_schools <- epidemics::intervention(
   reduction = matrix(c(0.5, 0.01, 0.01))
 )
 
-close_schools
+test_intervention
 
-# run {epidemics} ---------------------------------------------------------
+# Run {epidemics} ---------------------------------------------------------
 
-simulate_school <- epidemics::model_default(
+simulate_intervention <- epidemics::model_default(
   population = population_object,
   transmission_rate = transmission_rate,
   infectiousness_rate = infectiousness_rate,
   recovery_rate = recovery_rate,
   # intervention
-  intervention = list(contacts = close_schools),
+  intervention = list(contacts = test_intervention),
   time_end = 600,
   increment = 1.0
 )
 
-simulate_school
+simulate_intervention
 
-# visualize effect --------------------------------------------------------
+# Visualize effect --------------------------------------------------------
 
 infections_baseline <- epidemics::new_infections(
   data = simulate_baseline,
+  # compartments_from_susceptible = "vaccinated", # if vaccination
   by_group = FALSE
 )
 
-infections_school <- epidemics::new_infections(
-  data = simulate_school,
+infections_intervention <- epidemics::new_infections(
+  data = simulate_intervention,
+  # compartments_from_susceptible = "vaccinated", # if vaccination
   by_group = FALSE
 )
 
 # Assign scenario names
 infections_baseline$scenario <- "Baseline"
-infections_school$scenario <- "School closure"
+infections_intervention$scenario <- "School closure" #<COMPLETE>
 
 # Combine the data from both scenarios
-infections_baseline_school <- bind_rows(infections_baseline, infections_school)
+infections_baseline_intervention <- bind_rows(infections_baseline, infections_intervention)
 
-infections_baseline_school %>%
+infections_baseline_intervention %>%
   ggplot(aes(x = time, y = new_infections, colour = scenario)) +
   geom_line() +
   geom_vline(
-    xintercept = c(close_schools$time_begin, close_schools$time_end),
+    xintercept = c(simulate_intervention$time_begin, simulate_intervention$time_end),
     linetype = "dashed",
     linewidth = 0.2
   ) +
   scale_y_continuous(labels = scales::comma)
 
+# save intervention object
+intervention_schoolclosure <- test_intervention
 
-# on transmission --------------------------------------------------------
 
-# mask mandate -----------------------------------------------------------
 
-mask_mandate <- epidemics::intervention(
+# Intervention 2 ---------------------------------------------------------
+
+# Non-pharmaceutical interventions 
+# on transmission
+# mask mandate
+
+rownames(socialcontact_matrix)
+
+test_intervention <- epidemics::intervention(
   name = "mask mandate",
   type = "rate",
   time_begin = mask_begin_late,
@@ -497,152 +521,173 @@ mask_mandate <- epidemics::intervention(
   reduction = 0.163
 )
 
-# run {epidemics} ---------------------------------------------------------
+test_intervention
 
-simulate_mask <- epidemics::model_default(
+# Run {epidemics} ---------------------------------------------------------
+
+simulate_intervention <- epidemics::model_default(
   population = population_object,
   transmission_rate = transmission_rate,
   infectiousness_rate = infectiousness_rate,
   recovery_rate = recovery_rate,
   # intervention
-  intervention = list(transmission_rate = mask_mandate),
+  intervention = list(transmission_rate = test_intervention),
   time_end = 600,
   increment = 1.0
 )
 
+simulate_intervention
 
-# visualize effect --------------------------------------------------------
+# Visualize effect --------------------------------------------------------
 
 infections_baseline <- epidemics::new_infections(
   data = simulate_baseline,
+  # compartments_from_susceptible = "vaccinated", # if vaccination
   by_group = FALSE
 )
 
-infections_mask <- epidemics::new_infections(
-  data = simulate_mask,
+infections_intervention <- epidemics::new_infections(
+  data = simulate_intervention,
+  # compartments_from_susceptible = "vaccinated", # if vaccination
   by_group = FALSE
 )
 
 # Assign scenario names
 infections_baseline$scenario <- "Baseline"
-infections_mask$scenario <- "Mask mandate"
+infections_intervention$scenario <- "Mask mandate" #<COMPLETE>
 
 # Combine the data from both scenarios
-infections_baseline_mask <- bind_rows(infections_baseline, infections_mask)
+infections_baseline_intervention <- bind_rows(infections_baseline, infections_intervention)
 
-infections_baseline_mask %>%
+infections_baseline_intervention %>%
   ggplot(aes(x = time, y = new_infections, colour = scenario)) +
   geom_line() +
   geom_vline(
-    xintercept = c(mask_mandate$time_begin, mask_mandate$time_end),
+    xintercept = c(simulate_intervention$time_begin, simulate_intervention$time_end),
     linetype = "dashed",
     linewidth = 0.2
   ) +
   scale_y_continuous(labels = scales::comma)
 
+# save intervention object
+intervention_mask_mandate <- test_intervention
 
-# Pharmaceutical intervention --------------------------------------------
 
-# Vaccination ------------------------------------------------------------
 
-# prepare a vaccination object
-vaccinate <- epidemics::vaccination(
+# Intervention 3 ---------------------------------------------------------
+
+# Pharmaceutical interventions 
+# Vaccination
+
+rownames(socialcontact_matrix)
+
+test_intervention <- epidemics::vaccination(
   name = "vaccinate all",
   time_begin = matrix(vaccine_begin_early, nrow(socialcontact_matrix)),
   time_end = matrix(vaccine_begin_early + 150, nrow(socialcontact_matrix)),
   nu = matrix(c(0.001, 0.001, 0.001))
 )
 
-vaccinate
+test_intervention
 
-# run {epidemics} ---------------------------------------------------------
+# Run {epidemics} ---------------------------------------------------------
 
-simulate_vaccinate <- epidemics::model_default(
+simulate_intervention <- epidemics::model_default(
   population = population_object,
   transmission_rate = transmission_rate,
   infectiousness_rate = infectiousness_rate,
   recovery_rate = recovery_rate,
   # intervention
-  vaccination = vaccinate,
+  vaccination = test_intervention,
   time_end = 600,
   increment = 1.0
 )
 
-# visualize effect --------------------------------------------------------
+simulate_intervention
+
+# Visualize effect --------------------------------------------------------
 
 infections_baseline <- epidemics::new_infections(
   data = simulate_baseline,
-  compartments_from_susceptible = "vaccinated",
+  compartments_from_susceptible = "vaccinated", # if vaccination
   by_group = FALSE
 )
 
-infections_vaccinate <- epidemics::new_infections(
-  data = simulate_vaccinate,
-  compartments_from_susceptible = "vaccinated",
+infections_intervention <- epidemics::new_infections(
+  data = simulate_intervention,
+  compartments_from_susceptible = "vaccinated", # if vaccination
   by_group = FALSE
 )
 
 # Assign scenario names
 infections_baseline$scenario <- "Baseline"
-infections_vaccinate$scenario <- "Vaccinate"
+infections_intervention$scenario <- "Mask mandate" #<COMPLETE>
 
 # Combine the data from both scenarios
-infections_baseline_vaccinate <- bind_rows(
-  infections_baseline,
-  infections_vaccinate
-)
+infections_baseline_intervention <- bind_rows(infections_baseline, infections_intervention)
 
-infections_baseline_vaccinate %>%
+infections_baseline_intervention %>%
   ggplot(aes(x = time, y = new_infections, colour = scenario)) +
   geom_line() +
   geom_vline(
-    xintercept = c(vaccinate$time_begin, vaccinate$time_end),
+    xintercept = c(simulate_intervention$time_begin, simulate_intervention$time_end),
     linetype = "dashed",
     linewidth = 0.2
   ) +
   scale_y_continuous(labels = scales::comma)
 
+# save intervention object
+intervention_vaccinate <- test_intervention
+
+# nolint end
+```
+
+``` r
+# nolint start
+
+# Practical 4
+# Activity 3
 
 # Combine interventions --------------------------------------------------
 
-simulate_mask_school <- epidemics::model_default(
+simulate_twointerventions <- epidemics::model_default(
   population = population_object,
   transmission_rate = transmission_rate,
   infectiousness_rate = infectiousness_rate,
   recovery_rate = recovery_rate,
-  # intervention
+  # Intervention
   intervention = list(
-    transmission_rate = mask_mandate,
-    contacts = close_schools
+    transmission_rate = intervention_mask_mandate,
+    contacts = intervention_schoolclosure
   ),
   time_end = 600,
   increment = 1.0
 )
 
 
-# visualize effect --------------------------------------------------------
+# Visualize effect --------------------------------------------------------
 
 infections_baseline <- epidemics::new_infections(
   data = simulate_baseline,
   by_group = FALSE
 )
 
-infections_mask_school <- epidemics::new_infections(
-  data = simulate_mask_school,
+infections_twointerventions <- epidemics::new_infections(
+  data = simulate_twointerventions,
   by_group = FALSE
 )
 
 # Assign scenario names
 infections_baseline$scenario <- "Baseline"
-infections_mask_school$scenario <- "Mask mandate + School closure"
+infections_twointerventions$scenario <- "Mask mandate + School closure" #<COMPLETE>
 
 # Combine the data from both scenarios
-infections_baseline_maskschool <- bind_rows(
+infections_baseline_twointerventions <- bind_rows(
   infections_baseline,
-  infections_mask_school
+  infections_twointerventions
 )
 
-infections_baseline_maskschool %>%
+infections_baseline_twointerventions %>%
   ggplot(aes(x = time, y = new_infections, colour = scenario)) +
   geom_line() +
   scale_y_continuous(labels = scales::comma)
@@ -652,10 +697,8 @@ infections_baseline_maskschool %>%
 
 compare_interventions <- bind_rows(
   infections_baseline,
-  infections_baseline_school,
-  infections_baseline_mask,
-  infections_mask_school,
-  infections_vaccinate
+  infections_baseline_intervention,
+  infections_baseline_twointerventions
 )
 
 compare_interventions %>%
@@ -667,6 +710,8 @@ compare_interventions %>%
     y = "New infections",
     colour = "Scenario"
   )
+
+# nolint end
 ```
 
 # Continue your learning path
