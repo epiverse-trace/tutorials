@@ -120,86 +120,89 @@ As a group, Write your answers to these questions:
 ##### Ebola (sample)
 
 ``` r
+# nolint start
+
+# Practical 2
+# Activity 1
+
 # Load packages -----------------------------------------------------------
 library(epiparameter)
 library(EpiNow2)
 library(tidyverse)
 
+
 # Read reported cases -----------------------------------------------------
-dat_ebola <- readr::read_rds(
-  "https://epiverse-trace.github.io/tutorials-middle/data/ebola_35days.rds"  #<DIFFERENT PER GROUP>
+# for ebola
+dat <- read_rds(
+  "https://epiverse-trace.github.io/tutorials-middle/data/ebola_35days.rds"
 ) %>%
   dplyr::select(date, confirm = cases)
+
 
 # Define a generation time from {epiparameter} to {EpiNow2} ---------------
 
 # access a serial interval
-ebola_serialint <- epiparameter::epiparameter_db(
+dat_serialint <- epiparameter::epiparameter_db(
   disease = "ebola",
   epi_name = "serial",
   single_epiparameter = TRUE
 )
 
 # extract parameters from {epiparameter} object
-ebola_serialint_params <- epiparameter::get_parameters(ebola_serialint)
+dat_serialint_params <- epiparameter::get_parameters(dat_serialint)
 
 # adapt {epiparameter} to {EpiNow2} distribution inferfase
-# preferred
-ebola_generationtime <- EpiNow2::Gamma(
-  shape = ebola_serialint_params["shape"],
-  scale = ebola_serialint_params["scale"]
+dat_generationtime <- EpiNow2::Gamma(
+  shape = dat_serialint_params["shape"],
+  scale = dat_serialint_params["scale"]
 )
 # or
-ebola_generationtime <- EpiNow2::Gamma(
-  mean = ebola_serialint$summary_stats$mean,
-  sd = ebola_serialint$summary_stats$sd
+dat_generationtime <- EpiNow2::Gamma(
+  mean = dat_serialint$summary_stats$mean,
+  sd = dat_serialint$summary_stats$sd
 )
-
 
 # Define the delays from infection to case report for {EpiNow2} -----------
 
 # define delay from symptom onset to case report
-# or reporting delay
-ebola_reportdelay <- EpiNow2::LogNormal(
+dat_reportdelay <- EpiNow2::LogNormal(
   meanlog = EpiNow2::Normal(mean = 1.4, sd = 0.5),
   sdlog = EpiNow2::Normal(mean = 0.25, sd = 0.2),
   max = 5
 )
 
 # define a delay from infection to symptom onset
-# or incubation period
-ebola_incubationtime <- epiparameter::epiparameter_db(
+dat_incubationtime <- epiparameter::epiparameter_db(
   disease = "ebola",
   epi_name = "incubation",
   single_epiparameter = TRUE
 )
 
 # incubation period: extract distribution parameters
-ebola_incubationtime_params <- epiparameter::get_parameters(
-  ebola_incubationtime
+dat_incubationtime_params <- epiparameter::get_parameters(
+  dat_incubationtime
 )
 
 # incubation period: discretize and extract maximum value (p = 99%)
-# preferred
-ebola_incubationtime_max <- ebola_incubationtime %>%
+dat_incubationtime_max <- dat_incubationtime %>% 
   epiparameter::discretise() %>%
   quantile(p = 0.99)
 # or
-ebola_incubationtime_max <- ebola_incubationtime %>%
+dat_incubationtime_max <- dat_incubationtime %>%
   quantile(p = 0.99) %>%
   base::round()
 
 # incubation period: adapt to {EpiNow2} distribution interface
-ebola_incubationtime_epinow <- EpiNow2::Gamma(
-  shape = ebola_incubationtime_params["shape"],
-  scale = ebola_incubationtime_params["scale"],
-  max = ebola_incubationtime_max
+dat_incubationtime_epinow <- EpiNow2::Gamma(
+  shape = dat_incubationtime_params["shape"],
+  scale = dat_incubationtime_params["scale"],
+  max = dat_incubationtime_max
 )
 
-# collect required input
-ebola_generationtime
-ebola_reportdelay
-ebola_incubationtime_epinow
+# print required input
+dat_generationtime
+dat_reportdelay
+dat_incubationtime_epinow
 
 
 # Set the number of parallel cores for {EpiNow2} --------------------------
@@ -208,102 +211,109 @@ withr::local_options(list(mc.cores = parallel::detectCores() - 1))
 
 # Estimate transmission using EpiNow2::epinow() ---------------------------
 # with EpiNow2::*_opts() functions for generation time, delays, and stan.
-ebola_estimates <- EpiNow2::epinow(
-  data = dat_ebola,
-  generation_time = EpiNow2::generation_time_opts(ebola_generationtime),
-  delays = EpiNow2::delay_opts(ebola_incubationtime_epinow + ebola_reportdelay),
+estimates <- EpiNow2::epinow(
+  data = dat,
+  generation_time = EpiNow2::generation_time_opts(dat_generationtime),
+  delays = EpiNow2::delay_opts(dat_incubationtime_epinow + dat_reportdelay),
   stan = EpiNow2::stan_opts(samples = 1000, chains = 3)
 )
 
 
 # Print plot and summary table outputs ------------------------------------
-summary(ebola_estimates)
-plot(ebola_estimates)
+summary(estimates)
+plot(estimates)
+
+
+# nolint end
 ```
 
 ##### COVID (sample)
 
 ``` r
+# nolint start
+
+# Practical 2
+# Activity 1
+
 # Load packages -----------------------------------------------------------
 library(epiparameter)
 library(EpiNow2)
 library(tidyverse)
 
+
 # Read reported cases -----------------------------------------------------
-dat_covid <- read_rds(
-  "https://epiverse-trace.github.io/tutorials-middle/data/covid_30days.rds"  #<DIFFERENT PER GROUP>
+# for covid
+dat <- read_rds(
+  "https://epiverse-trace.github.io/tutorials-middle/data/covid_30days.rds"
 ) %>%
   dplyr::select(date, confirm)
+
 
 # Define a generation time from {epiparameter} to {EpiNow2} ---------------
 
 # access a serial interval
-covid_serialint <- epiparameter::epiparameter_db(
+dat_serialint <- epiparameter::epiparameter_db(
   disease = "covid",
   epi_name = "serial",
   single_epiparameter = TRUE
 )
 
 # extract parameters from {epiparameter} object
-covid_serialint_params <- epiparameter::get_parameters(covid_serialint)
+dat_serialint_params <- epiparameter::get_parameters(dat_serialint)
 
 # adapt {epiparameter} to {EpiNow2} distribution inferfase
-# preferred
-covid_generationtime <- EpiNow2::LogNormal(
-  meanlog = covid_serialint_params["meanlog"],
-  sdlog = covid_serialint_params["sdlog"]
+dat_generationtime <- EpiNow2::LogNormal(
+  meanlog = dat_serialint_params["meanlog"],
+  sdlog = dat_serialint_params["sdlog"]
 )
 # or
-covid_generationtime <- EpiNow2::LogNormal(
-  mean = covid_serialint$summary_stats$mean,
-  sd = covid_serialint$summary_stats$sd
+dat_generationtime <- EpiNow2::LogNormal(
+  mean = dat_serialint$summary_stats$mean,
+  sd = dat_serialint$summary_stats$sd
 )
 
 
 # Define the delays from infection to case report for {EpiNow2} -----------
 
 # define delay from symptom onset to case report
-# or reporting delay
-covid_reportdelay <- EpiNow2::Gamma(
+dat_reportdelay <- EpiNow2::Gamma(
   mean = EpiNow2::Normal(mean = 2, sd = 0.5),
   sd = EpiNow2::Normal(mean = 1, sd = 0.5),
   max = 5
 )
 
 # define a delay from infection to symptom onset
-# or incubation period
-covid_incubationtime <- epiparameter::epiparameter_db(
+dat_incubationtime <- epiparameter::epiparameter_db(
   disease = "covid",
   epi_name = "incubation",
   single_epiparameter = TRUE
 )
 
 # incubation period: extract distribution parameters
-covid_incubationtime_params <- epiparameter::get_parameters(
-  covid_incubationtime
+dat_incubationtime_params <- epiparameter::get_parameters(
+  dat_incubationtime
 )
 
 # incubation period: discretize and extract maximum value (p = 99%)
-# preferred
-covid_incubationtime_max <- covid_incubationtime %>%
+dat_incubationtime_max <- dat_incubationtime %>%
   epiparameter::discretise() %>%
   quantile(p = 0.99)
 # or
-ebola_incubationtime_max <- covid_incubationtime %>%
+dat_incubationtime_max <- dat_incubationtime %>%
   quantile(p = 0.99) %>%
   base::round()
 
 # incubation period: adapt to {EpiNow2} distribution interface
-covid_incubationtime_epinow <- EpiNow2::LogNormal(
-  meanlog = covid_incubationtime_params["meanlog"],
-  sdlog = covid_incubationtime_params["sdlog"],
-  max = covid_incubationtime_max
+dat_incubationtime_epinow <- EpiNow2::LogNormal(
+  meanlog = dat_incubationtime_params["meanlog"],
+  sdlog = dat_incubationtime_params["sdlog"],
+  max = dat_incubationtime_max
 )
 
-# collect required input
-covid_generationtime
-covid_reportdelay
-covid_incubationtime_epinow
+# print required input
+dat_generationtime
+dat_reportdelay
+dat_incubationtime_epinow
 
 
 # Set the number of parallel cores for {EpiNow2} --------------------------
@@ -312,17 +322,20 @@ withr::local_options(list(mc.cores = parallel::detectCores() - 1))
 
 # Estimate transmission using EpiNow2::epinow() ---------------------------
 # with EpiNow2::*_opts() functions for generation time, delays, and stan.
-covid_estimates <- EpiNow2::epinow(
-  data = dat_covid,
-  generation_time = EpiNow2::generation_time_opts(covid_generationtime),
-  delays = EpiNow2::delay_opts(covid_reportdelay + covid_incubationtime_epinow),
+estimates <- EpiNow2::epinow(
+  data = dat,
+  generation_time = EpiNow2::generation_time_opts(dat_generationtime),
+  delays = EpiNow2::delay_opts(dat_reportdelay + dat_incubationtime_epinow),
   stan = EpiNow2::stan_opts(samples = 1000, chains = 3)
 )
 
 
 # Print plot and summary table outputs ------------------------------------
-summary(covid_estimates)
-plot(covid_estimates)
+summary(estimates)
+plot(estimates)
+
+
+# nolint end
 ```
 
 #### Outputs
@@ -487,6 +500,11 @@ As a group, Write your answers to these questions:
 ##### COVID (sample)
 
 ``` r
+# nolint start
+
+# Practical 2
+# Activity 2
+
 # Load packages -----------------------------------------------------------
 library(cfr)
 library(epiparameter)
@@ -494,39 +512,39 @@ library(tidyverse)
 
 
 # Read reported cases -----------------------------------------------------
-covid_dat <- read_rds(
-  "https://epiverse-trace.github.io/tutorials-middle/data/diamond_70days.rds" 
+disease_dat <- readr::read_rds(
+  "https://epiverse-trace.github.io/tutorials-middle/data/diamond_70days.rds"
 )
 
-covid_dat
+disease_dat
 
 
 # Create incidence object ------------------------------------------------
-covid_incidence <- covid_dat %>%
+disease_incidence <- disease_dat %>%
   incidence2::incidence(
     date_index = "date",
     counts = c("cases", "deaths"),
     complete_dates = TRUE
   )
 
-plot(covid_incidence)
+plot(disease_incidence)
 
 
 # Confirm {cfr} data input format ----------------------------------------
 
-# does input data already adapted to {cfr} input? Yes.
-covid_adapted <- covid_dat
-# does input data require to be adapted to {cfr}? No.
-# covid_adapted <- covid_incidence %>%
+# Is the input data already adapted to {cfr} input? 
+disease_adapted <- disease_dat
+# # OR
+# # Does the input data need to be adapted to {cfr}? 
+# disease_adapted <- disease_incidence %>%
 #   cfr::prepare_data(
-#     cases = "cases",
-#     deaths = "deaths"
+#     #<COMPLETE>
 #   )
 
-covid_adapted
+disease_adapted
 
 # Access delay distribution -----------------------------------------------
-covid_delay <- epiparameter::epiparameter_db(
+disease_delay <- epiparameter::epiparameter_db(
   disease = "covid",
   epi_name = "onset-to-death",
   single_epiparameter = TRUE
@@ -535,39 +553,46 @@ covid_delay <- epiparameter::epiparameter_db(
 
 # Estimate naive and adjusted CFR ----------------------------------------
 
-# Estimate Static Delay-Adjusted CFR
-covid_dat %>%
+# Estimate static CFR
+disease_adapted %>%
   filter(
     date < ymd(20200301)
-  ) %>% 
+  ) %>%
   cfr::cfr_static()
 
-# Estimate Static Delay-Adjusted CFR
-covid_dat %>%
+# Estimate static delay-adjusted CFR
+disease_adapted %>%
   filter(
     date < ymd(20200301)
-  ) %>% 
+  ) %>%
   cfr::cfr_static(
-    delay_density = function(x) density(covid_delay, x)
+    delay_density = function(x) density(disease_delay, x)
   )
 
 
-# CFR estimates in whole data --------------------------------------------
+# Estimate in complete time series ---------------------------------------
 
-# Estimate Static Delay-Adjusted CFR
-covid_dat %>% 
+# Estimate static CFR
+disease_adapted %>%
   cfr::cfr_static()
 
-# Estimate Static Delay-Adjusted CFR
-covid_dat %>%
+# Estimate static delay-adjusted CFR
+disease_adapted %>%
   cfr::cfr_static(
-    delay_density = function(x) density(covid_delay, x)
+    delay_density = function(x) density(disease_delay, x)
   )
+
+# nolint end
 ```
 
 ##### MERS (sample)
 
 ``` r
+# nolint start
+
+# Practical 2
+# Activity 2
+
 # Load packages -----------------------------------------------------------
 library(cfr)
 library(epiparameter)
@@ -575,38 +600,39 @@ library(tidyverse)
 
 
 # Read reported cases -----------------------------------------------------
-mers_dat <- readr::read_rds(
+disease_dat <- readr::read_rds(
   "https://epiverse-trace.github.io/tutorials-middle/data/mers_linelist.rds"
 )
 
-mers_dat
+disease_dat
 
 
 # Create incidence object ------------------------------------------------
-mers_incidence <- mers_dat %>%
+disease_incidence <- disease_dat %>%
   incidence2::incidence(
     date_index = c("dt_onset", "dt_death"),
     complete_dates = TRUE
   )
 
-plot(mers_incidence)
+plot(disease_incidence)
 
 
 # Confirm {cfr} data input format ----------------------------------------
 
-# does input data already adapted to {cfr} input? No.
-# mers_adapted <- mers_dat
-# does input data require to be adapted to {cfr}? Yes.
-mers_adapted <- mers_incidence %>%
+# Is the input data already adapted to {cfr} input? 
+disease_adapted <- disease_dat
+# OR
+# Does the input data need to be adapted to {cfr}? 
+disease_adapted <- disease_incidence %>%
   cfr::prepare_data(
     cases = "dt_onset",
     deaths = "dt_death"
   )
 
-mers_adapted
+disease_adapted
 
 # Access delay distribution -----------------------------------------------
-mers_delay <- epiparameter::epiparameter_db(
+disease_delay <- epiparameter::epiparameter_db(
   disease = "mers",
   epi_name = "onset-to-death",
   single_epiparameter = TRUE
@@ -615,21 +641,23 @@ mers_delay <- epiparameter::epiparameter_db(
 
 # Estimate naive and adjusted CFR ----------------------------------------
 
-# Estimate Static CFR
-mers_adapted %>%
+# Estimate static CFR
+disease_adapted %>%
   # filter(
   #   #<COMPLETE>
   # ) %>%
   cfr::cfr_static()
 
-# Estimate Static Delay-Adjusted CFR
-mers_adapted %>%
+# Estimate static delay-adjusted CFR
+disease_adapted %>%
   # filter(
   #   #<COMPLETE>
   # ) %>%
   cfr::cfr_static(
-    delay_density = function(x) density(mers_delay, x)
+    delay_density = function(x) density(disease_delay, x)
   )
+
+# nolint end
 ```
 
 #### Outputs
