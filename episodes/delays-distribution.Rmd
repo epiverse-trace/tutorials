@@ -327,11 +327,17 @@ Additionally, at the beginning of an outbreak, limited data or resources exist t
 
 :::::::::::::::
 
+:::::::::::::::: checklist
+
+### Next step
+
 In the following tutorial episodes, we will:
 
-<!-- - Efficiently clean and produce **epidemic curves** to explore patterns of disease spread by difference group and time aggregates. Find more in [Tutorials Early](https://epiverse-trace.github.io/tutorials-early/)! -->
+- Efficiently clean and produce **epidemic curves** to explore patterns of disease spread by different groups and time aggregates. Find more in [Tutorials Early](https://epiverse-trace.github.io/tutorials-early/)!
 - Access to epidemiological **delay distributions** to estimate delay-adjusted transmission and severity metrics (e.g. reproduction number and case fatality risk). Find more in [Tutorials Middle](https://epiverse-trace.github.io/tutorials-middle/)!
-- Use parameter values like the basic reproduction number, and **delays** like the [latent period](reference.md#latent) and [infectious period](reference.md#infectiousness) to simulate transmission trajectories and intervention scenarios. Find more in [Tutorials Late](https://epiverse-trace.github.io/tutorials-late/)!
+- Use parameter values like the basic reproduction number, and **delays** like the _latent period_ and _infectious period_ to simulate transmission trajectories and intervention scenarios. Find more in [Tutorials Late](https://epiverse-trace.github.io/tutorials-late/)!
+
+::::::::::::::::
 
 ## Challenges
 
