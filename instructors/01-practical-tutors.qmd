@@ -271,7 +271,7 @@ Write your answers to the questions above:
 
 ##### Group 3
 
-> Group 3 should investigate about how the argument `allow_extra = TRUE` us used in this howto entry <https://epiverse-trace.github.io/howto/analyses/describe_cases/cleanepi-linelist-incidence2-stratified.html>
+> Group 3 should investigate about how the argument `allow_extra = TRUE` us used in this GitHub issue entry <https://github.com/epiverse-trace/linelist/issues/176>
 
 ```{r, file = "fig/01-practical-instructor-1-G3.R", eval = FALSE}
 
