@@ -60,6 +60,9 @@ jobs:
       - name: "Check Out Main Branch"
         uses: actions/checkout@v4
 
+      - name: Install system dependencies
+        run: sudo apt-get update && sudo apt-get install -y libtbb-dev pandoc pandoc-citeproc
+
       - name: "Check Out Staging Branch"
         uses: actions/checkout@v4
         with:
