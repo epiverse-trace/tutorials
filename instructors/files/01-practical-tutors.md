@@ -116,7 +116,7 @@ Use outputs from activity 1.
 
 ##### Room 1
 
-###### activity 1
+activity 1
 
 ``` r
 # nolint start
@@ -212,7 +212,7 @@ dat_timespan
 # nolint end
 ```
 
-###### activity 2
+activity 2
 
 ``` r
 # nolint start
@@ -287,7 +287,7 @@ dat_incidence %>%
 
 ##### Room 2
 
-###### activity 1
+activity 1
 
 ``` r
 # nolint start
@@ -393,7 +393,7 @@ dat_timespan
 # nolint end
 ```
 
-###### activity 2
+activity 2
 
 ``` r
 # nolint start
@@ -459,7 +459,7 @@ dat_incidence %>%
 
 ##### Room 3
 
-###### activity 1
+activity 1
 
 ``` r
 # nolint start
@@ -540,7 +540,7 @@ dat_timespan
 # nolint end
 ```
 
-###### activity 2
+activity 2
 
 ``` r
 # nolint start
