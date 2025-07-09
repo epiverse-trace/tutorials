@@ -41,8 +41,11 @@ This practical is based in the following tutorial episodes:
 
 :::
 
+::: {.content-visible when-format="docx"}
 
 {{< include _welcome.qmd >}}
+
+:::
 
 # Practical
 
@@ -54,11 +57,27 @@ Get a clean and standardized data frame using the following available inputs:
 
 - Raw messy data frame in CSV format
 
+Steps:
+
+- Open file `01-practical-activity-1.R`.
+- First, complete the argument to read the data. Paste the link as a “string” in read_csv()
+- Second, complete the cleaning process. Connect these functions using pipe %>%:
+    - cleanepi::standardize_column_names() 
+    - cleanepi::standardize_dates()
+    - cleanepi::check_date_sequence()
+    - cleanepi::convert_to_numeric()
+    - cleanepi::replace_missing_values()
+    - cleanepi::clean_using_dictionary()
+    - cleanepi::remove_constants()
+    - cleanepi::remove_duplicates()
+- Third, complete the cleanepi::timespan() arguments. Access the help manual running `?cleanepi::timespan()` in the console.
+
+
 Within your room, Write your answers to these questions:
 
 - Diagnose the raw data. What data cleaning operations need to be performed on the dataset? Write all of them before writing the code.
 - What time unit best describes the time span to calculate?
-- Print the report: How would you communicate these results to a decision-maker?
+- Print the report: What features do you find useful to communicate with a decision-maker?
 - Compare: What differences do you identify from other room outputs? (if available)
 
 ### Inputs
@@ -67,14 +86,12 @@ Within your room, Write your answers to these questions:
 |---|---|---|---|---|
 | 1 | Small linelist | <https://epiverse-trace.github.io/tutorials-early/data/linelist-date_of_birth.csv> | Age as of today | breaks = c(0, 20, 35, 60, 80) |
 | 2 | Large linelist | <https://epiverse-trace.github.io/tutorials-early/data/covid_simulated_data.csv> | Delay from onset of symptoms to the time of death | breaks = c(0, 10, 15, 40) |
-| 3 | Serology data | <https://epiverse-trace.github.io/tutorials-early/data/delta_full-messy.csv> | Time from last exposure to vaccine | breaks = c(0, 30, 100, 600) |
+| 3 | Serology data [^1] | <https://epiverse-trace.github.io/tutorials-early/data/delta_full-messy.csv> | Time from last exposure to vaccine | breaks = c(0, 30, 100, 600) |
+
+[^1]: Context of Serological data: Participants of a study are exposed to COVID-19 vaccines, then their serum samples are collected and challenged to emerging SARS-CoV-2 variants. They measure the titer of this immunological response. The higher the titre, the higher the antigenic response. Let's focus on describing the change in the frequency of vaccine categories (last vaccine exposure) through time (last date of exposure). Ref: https://www.thelancet.com/journals/laninf/article/PIIS1473-3099(24)00484-5/fulltext
+
 
 ::: {.content-visible when-format="docx"}
-
-### Your Code
-
-Use the file `01-practical-activity-1.R`.
-
 
 ### Your Answers
 
@@ -152,24 +169,32 @@ Get a validated linelist and incidence plot using the following available inputs
 
 - Clean data frame object
 
+Steps:
+- Open the file `01-practical-activity-2.R`.
+- First, complete linelist::make_linelist() arguments.
+- Second, complete the {linelist} function that can validate a linelist.
+- Third, complete the arguments of the incidence2::incidence()
+- Fourth, keep, drop, or change argument values in function plot()
+
 Within your room, Write your answers to these questions:
 
-- In the validation step, Do you need to allow for extra variable names and types?
+- In the validation step, Do you need to allow for extra variable names and types for the date and categorical variables? _[Read this GitHub issue as a hint](https://github.com/epiverse-trace/linelist/issues/176) to allow for extra variables._
 - What is the most apprioriate time unit to aggregate the incidence plot, based on visual inspection? 
-- Does using arguments like `fill`, `show_cases`, `angle`, `n_breaks` improve the incidence plot?
+- Does keeping or dropping arguments like `fill`, `show_cases`, `angle`, `n_breaks` improve the incidence plot? _[Read `plot()` reference manual](https://www.reconverse.org/incidence2/manual.html#sec:man-plot.incidence2) to find its arguments._
 - Interpret: How would you communicate these results to a decision-maker?
 - Compare: What differences do you identify from other room outputs? (if available)
 
 ### Inputs
 
-Use outputs from activity 1.
+Use outputs from activity 1. 
+
+| Room | Date | Categorical variable |
+|---|---|---|
+| 1 | Date reporting | Age category |
+| 2 | Date onset | Outcome |
+| 3 | Last exposure date | Last vaccine type |
 
 ::: {.content-visible when-format="docx"}
-
-### Your Code
-
-Use the file `01-practical-activity-2.R`.
-
 
 ### Your Answers
 
@@ -293,11 +318,27 @@ Write your answers to the questions above:
 
 #### Outputs
 
+##### activity 1
+
+| Room | Cleaning | Time span |
+|---|---|---|
+| 1 | Suggested order: replace missing values before clean using a dictionary for sex variable. Relevant step: remove constants like `Location` and duplicates. | The time unit to calculate age from date of birth to today is “years”. To express today, you can use `Sys.Date()`. It is also the default of `cleanepi::timespan()` |
+| 2 | Relevant step: convert strings to numeric for age, Suggested order: replace inconsistent missing values before clean using a dictionary for sex variable. | The time unit for calculate the delay from date of onset to date of outcome is “days”. |
+| 3 | Relevant step: convert strings to numeric for age. | The time unit to calculate the time from last exposure to vaccine to the date of sample collection is “days”. |
+
+##### activity 2
+
 | Room | Output |
 |---|---|
 | 1 | ![image](https://hackmd.io/_uploads/ry5d6xnA1e.png) |
 | 2 | ![image](https://hackmd.io/_uploads/SJ2f0e2Cyx.png) |
 | 3 | ![image](https://hackmd.io/_uploads/H1-PRlhA1g.png) |
+
+| Room | validation | time unit | incidence plot |
+|---|---|---|---|
+| 1 | The timespan_category (age categories) must be added as an extra variable. Declare age as “factor”. | An appropriate time unit to aggregated is using interval by month. | The argument `show_cases` can improve the visibility of `fill` categorical variables |
+| 2 | It is not required to add an extra variable. | An appropriate time unit to aggregate is using interval by day. | Keeping angle and `n_breaks` works. Dropping `fill` keeps the facets making "died" are move visible. |
+| 3 | last_exp_date and last_vax_type must be added as extra variables. Declare last_vax_type as “character”, and last_vax_date as “Date”. | An appropriate time unit to aggregated is using interval by month. | Keeping `fill` by last_vax_type works. |
 
 #### Interpretation
 
@@ -322,9 +363,9 @@ Explore the downstream analysis you can do with {incidence2} outputs
 
 - <https://www.reconverse.org/incidence2/doc/incidence2.html#sec:building-on-incidence2> 
 
-You can use [{epikinetics}](https://seroanalytics.org/epikinetics/) to estimate antibody kinetics. Explore this sample code:
+<!-- You can use [{epikinetics}](https://seroanalytics.org/epikinetics/) to estimate antibody kinetics. Explore this sample code:
 
-- <https://epiverse-trace.github.io/tutorials-early/epikinetics-statistics.html>
+- <https://epiverse-trace.github.io/tutorials-early/epikinetics-statistics.html> -->
 
 :::
 
