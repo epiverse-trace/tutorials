@@ -54,16 +54,16 @@ Get a clean and standardized data frame using the following available inputs:
 
 - Raw messy data frame in CSV format
 
-As a group, Write your answers to these questions:
+Within your room, Write your answers to these questions:
 
 - Diagnose the raw data. What data cleaning operations need to be performed on the dataset? Write all of them before writing the code.
 - What time unit best describes the time span to calculate?
 - Print the report: How would you communicate these results to a decision-maker?
-- Compare: What differences do you identify from other group outputs? (if available)
+- Compare: What differences do you identify from other room outputs? (if available)
 
 ### Inputs
 
-| Group | Data | Link | Calculate time span | Categorize time span |
+| Room | Data | Link | Calculate time span | Categorize time span |
 |---|---|---|---|---|
 | 1 | Small linelist | <https://epiverse-trace.github.io/tutorials-early/data/linelist-date_of_birth.csv> | Age as of today | breaks = c(0, 20, 35, 60, 80) |
 | 2 | Large linelist | <https://epiverse-trace.github.io/tutorials-early/data/covid_simulated_data.csv> | Delay from onset of symptoms to the time of death | breaks = c(0, 10, 15, 40) |
@@ -78,7 +78,7 @@ Use the file `01-practical-activity-1.R`.
 
 ### Your Answers
 
-Group 1
+Room 1
 
 | data | paste screenshot here |
 |---|---|
@@ -100,7 +100,7 @@ Write your answers to the questions above:
 
 ------------------------
 
-Group 2
+Room 2
 
 | data | paste screenshot here |
 |---|---|
@@ -122,7 +122,7 @@ Write your answers to the questions above:
 
 ------------------------
 
-Group 3
+Room 3
 
 | data | paste screenshot here |
 |---|---|
@@ -152,13 +152,13 @@ Get a validated linelist and incidence plot using the following available inputs
 
 - Clean data frame object
 
-As a group, Write your answers to these questions:
+Within your room, Write your answers to these questions:
 
 - In the validation step, Do you need to allow for extra variable names and types?
 - What is the most apprioriate time unit to aggregate the incidence plot, based on visual inspection? 
 - Does using arguments like `fill`, `show_cases`, `angle`, `n_breaks` improve the incidence plot?
 - Interpret: How would you communicate these results to a decision-maker?
-- Compare: What differences do you identify from other group outputs? (if available)
+- Compare: What differences do you identify from other room outputs? (if available)
 
 ### Inputs
 
@@ -173,7 +173,7 @@ Use the file `01-practical-activity-2.R`.
 
 ### Your Answers
 
-Group 1
+Room 1
 
 | data | paste screenshot here |
 |---|---|
@@ -195,7 +195,7 @@ Write your answers to the questions above:
 
 ------------------------
 
-Group 2
+Room 2
 
 | data | paste screenshot here |
 |---|---|
@@ -217,7 +217,7 @@ Write your answers to the questions above:
 
 ------------------------
 
-Group 3
+Room 3
 
 | data | paste screenshot here |
 |---|---|
@@ -249,33 +249,43 @@ Write your answers to the questions above:
 
 #### Code
 
-##### Group 1
+##### Room 1
+
+###### activity 1
 
 ```{r, file = "fig/01-practical-instructor-1-G1.R", eval = FALSE}
 
 ```
 
+###### activity 2
+
 ```{r, file = "fig/01-practical-instructor-2-G1.R", eval = FALSE}
 
 ```
 
-##### Group 2
+##### Room 2
+
+###### activity 1
 
 ```{r, file = "fig/01-practical-instructor-1-G2.R", eval = FALSE}
 
 ```
 
+###### activity 2
+
 ```{r, file = "fig/01-practical-instructor-2-G2.R", eval = FALSE}
 
 ```
 
-##### Group 3
+##### Room 3
 
-> Group 3 should investigate about how the argument `allow_extra = TRUE` us used in this GitHub issue entry <https://github.com/epiverse-trace/linelist/issues/176>
+###### activity 1
 
 ```{r, file = "fig/01-practical-instructor-1-G3.R", eval = FALSE}
 
 ```
+
+###### activity 2
 
 ```{r, file = "fig/01-practical-instructor-2-G3.R", eval = FALSE}
 
@@ -283,7 +293,7 @@ Write your answers to the questions above:
 
 #### Outputs
 
-| Group | Output |
+| Room | Output |
 |---|---|
 | 1 | ![image](https://hackmd.io/_uploads/ry5d6xnA1e.png) |
 | 2 | ![image](https://hackmd.io/_uploads/SJ2f0e2Cyx.png) |
