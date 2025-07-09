@@ -14,12 +14,11 @@ linelist::tags_types()
 linelist::tags_names()
 dat_timespan
 
-# Does the age variable pass the validation step?
+# Does the categorical variable of interest pass the validation step?
 dat_validate <- dat_timespan %>% 
   # Tag variables
   linelist::make_linelist(
     id = "pid",
-    occupation = "timespan_category", # Categorical variable
     allow_extra = TRUE,
     last_exp_date = "last_exp_date",
     last_vax_type = "last_vax_type"
@@ -46,7 +45,7 @@ dat_incidence <- dat_validate %>%
   # Transform from individual-level to time-aggregate
   incidence2::incidence(
     date_index = "last_exp_date",
-    groups = "last_vax_type", # OR any categorical variable
+    groups = "last_vax_type", # the categorical variable
     interval = "month",
     complete_dates = TRUE
   )
@@ -57,7 +56,7 @@ dat_incidence <- dat_validate %>%
 # Do arguments like 'fill', 'show_cases', 'angle', 'n_breaks' improve the plot?
 dat_incidence %>% 
   plot(
-    fill = "last_vax_type"
+    fill = "last_vax_type" # the categorical variable # <KEEP OR DROP>
   )
 
 # Find plot() arguments at ?incidence2:::plot.incidence2()
