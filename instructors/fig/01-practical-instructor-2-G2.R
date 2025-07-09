@@ -14,7 +14,7 @@ linelist::tags_types()
 linelist::tags_names()
 dat_timespan
 
-# Does the age variable pass the validation step?
+# Does the categorical variable of interest pass the validation step?
 dat_validate <- dat_timespan %>% 
   # Tag variables
   linelist::make_linelist(
@@ -22,8 +22,7 @@ dat_validate <- dat_timespan %>%
     date_onset = "date_onset",
     gender = "sex",
     age = "age",
-    outcome = "outcome",
-    occupation = "timespan_category" # Categorical variable
+    outcome = "outcome"
   ) %>% 
   # Validate linelist
   linelist::validate_linelist() %>% 
@@ -40,7 +39,7 @@ dat_incidence <- dat_validate %>%
   # Transform from individual-level to time-aggregate
   incidence2::incidence(
     date_index = "date_onset",
-    groups = "outcome", # OR any categorical variable
+    groups = "outcome", # the categorical variable
     interval = "day",
     complete_dates = TRUE
   )
