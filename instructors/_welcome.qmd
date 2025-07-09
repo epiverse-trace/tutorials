@@ -2,7 +2,7 @@ Welcome!
 
 - A reminder of our [Code of Conduct](https://github.com/epiverse-trace/.github/blob/main/CODE_OF_CONDUCT.md). If you experience or witness unacceptable behaviour, or have any other concerns, please notify the course organisers or host of the event. To report an issue involving one of the organisers, please use the [LSHTM’s Report and Support tool](https://reportandsupport.lshtm.ac.uk/).
 
-| **Roll call** |
+| **Roll call** (Confirm you can edit) |
 |---|
 | - Your name + Find an emoji writing only a double-colon “**:**” |
 
@@ -12,8 +12,8 @@ Welcome!
 
 Instructions:
 
-- Each `Activity` has five sections: the Goal, Questions, Inputs, Your Code, and Your Answers. 
-- Solve each Activity in the corresponding `.R` file mentioned in the `Your Code` section.
+- Each `Activity` has five sections: the Goal, Steps, Questions, Inputs, and Your Answers.
+- Solve each Activity in the corresponding `.R` file mentioned in the `Steps` section.
 - Paste your figure and table outputs and write your answer to the questions in the section `Your Answers`.
 - Choose one group member to share your group's results with the rest of the participants.
 
@@ -22,6 +22,8 @@ Instructions:
 | 1 |  |
 | 2 |  |
 | 3 |  |
+
+Remember:
 
 During the practical, instead of simply copying and pasting, we encourage learners to increase their fluency in writing R by using:
 
