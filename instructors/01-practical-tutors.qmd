@@ -57,11 +57,18 @@ Get a clean and standardized data frame using the following available inputs:
 
 - Raw messy data frame in CSV format
 
-Steps:
+Within your room, Write your answers to these questions:
+
+- Diagnose the raw data. What data cleaning operations need to be performed on the dataset? Write all of them before writing the code.
+- What time unit best describes the time span to calculate?
+- Print the report: What features do you find useful to communicate with a decision-maker?
+- Compare: What differences do you identify from other room outputs? (if available)
+
+**Steps:**
 
 - Open file `01-practical-activity-1.R`.
-- First, complete the argument to read the data. Paste the link as a “string” in read_csv()
-- Second, complete the cleaning process. Connect these functions using pipe %>%:
+- First, complete the argument to read the data. Paste the link as a “string” in `read_csv()`.
+- Second, complete the cleaning process. Select functions based on the data needs. Connect them using the pipe `%>%`:
     - cleanepi::standardize_column_names() 
     - cleanepi::standardize_dates()
     - cleanepi::check_date_sequence()
@@ -72,13 +79,6 @@ Steps:
     - cleanepi::remove_duplicates()
 - Third, complete the cleanepi::timespan() arguments. Access the help manual running `?cleanepi::timespan()` in the console.
 
-
-Within your room, Write your answers to these questions:
-
-- Diagnose the raw data. What data cleaning operations need to be performed on the dataset? Write all of them before writing the code.
-- What time unit best describes the time span to calculate?
-- Print the report: What features do you find useful to communicate with a decision-maker?
-- Compare: What differences do you identify from other room outputs? (if available)
 
 ### Inputs
 
@@ -169,20 +169,23 @@ Get a validated linelist and incidence plot using the following available inputs
 
 - Clean data frame object
 
-Steps:
+Within your room, Write your answers to these questions:
+
+- In the validation step, Do you need to allow for extra variable names and types for the `Date` and `Categorical` variable? 
+    - _[Read this GitHub issue as a hint](https://github.com/epiverse-trace/linelist/issues/176) to allow for extra variables._
+- What is the most apprioriate time unit to aggregate the incidence plot, based on visual inspection? 
+- Does keeping or dropping arguments like `fill`, `show_cases`, `angle`, `n_breaks` improve the incidence plot? 
+    - _[Read `plot()` reference manual](https://www.reconverse.org/incidence2/manual.html#sec:man-plot.incidence2) to find its arguments._
+- Interpret: How would you communicate these results to a decision-maker?
+- Compare: What differences do you identify from other room outputs? (if available)
+
+**Steps:**
+
 - Open the file `01-practical-activity-2.R`.
 - First, complete linelist::make_linelist() arguments.
 - Second, complete the {linelist} function that can validate a linelist.
 - Third, complete the arguments of the incidence2::incidence()
 - Fourth, keep, drop, or change argument values in function plot()
-
-Within your room, Write your answers to these questions:
-
-- In the validation step, Do you need to allow for extra variable names and types for the date and categorical variables? _[Read this GitHub issue as a hint](https://github.com/epiverse-trace/linelist/issues/176) to allow for extra variables._
-- What is the most apprioriate time unit to aggregate the incidence plot, based on visual inspection? 
-- Does keeping or dropping arguments like `fill`, `show_cases`, `angle`, `n_breaks` improve the incidence plot? _[Read `plot()` reference manual](https://www.reconverse.org/incidence2/manual.html#sec:man-plot.incidence2) to find its arguments._
-- Interpret: How would you communicate these results to a decision-maker?
-- Compare: What differences do you identify from other room outputs? (if available)
 
 ### Inputs
 
