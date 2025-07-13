@@ -31,7 +31,7 @@ using the following available inputs:
 - Line list of cases
 - Contact tracing data
 
-As a group, Write your answers to these questions:
+Within your room, Write your answers to these questions:
 
 - From descriptive and estimation steps:
   - What set has more infections related to fewer clusters in the
@@ -45,12 +45,12 @@ As a group, Write your answers to these questions:
   - Would you recommend a backward tracing strategy?
 - Interpret: How would you communicate these results to a
   decision-maker?
-- Compare: What differences do you identify from other group outputs?
-  (if available)
+- Compare: What differences do you identify from other room outputs? (if
+  available)
 
 ### Inputs
 
-| Group | Data |
+| Room | Data |
 |----|----|
 | 1 | <https://epiverse-trace.github.io/tutorials-middle/data/set-01-contacts.rds>, <https://epiverse-trace.github.io/tutorials-middle/data/set-01-linelist.rds> |
 | 2 | <https://epiverse-trace.github.io/tutorials-middle/data/set-02-contacts.rds>, <https://epiverse-trace.github.io/tutorials-middle/data/set-02-linelist.rds> |
@@ -157,25 +157,25 @@ proportion_cases_by_cluster_size
 
 #### Outputs
 
-Group 1
+Room 1
 
 | contact network | histogram of secondary cases |
 |----|----|
 | ![Untitled-1](https://hackmd.io/_uploads/H1DVLbsTyx.png) | ![Untitled](https://hackmd.io/_uploads/BkW48Wo6yg.png) |
 
-Group 2
+Room 2
 
 | contact network | histogram of secondary cases |
 |----|----|
 | ![Untitled](https://hackmd.io/_uploads/Hkhg8WspJg.png) | ![Untitled-1](https://hackmd.io/_uploads/HyIlUWopJx.png) |
 
-Group 3
+Room 3
 
 | contact network | histogram of secondary cases |
 |----|----|
 | ![Untitled](https://hackmd.io/_uploads/HkzkUZjpyx.png) | ![Untitled-1](https://hackmd.io/_uploads/SkjCBZjpJe.png) |
 
-Group 1/2/3
+Room 1/2/3
 
 ``` r
 #>     R    k prop_5 prop_10 prop_25
@@ -221,7 +221,7 @@ Estimate the potential for large outbreaks that could occur based on
 - Basic reproduction number
 - Dispersion parameter
 
-As a group, Write your answers to these questions:
+Within your room, Write your answers to these questions:
 
 - You have been assigned to explore `Chain ID`. From the output data
   frame, describe:
@@ -235,19 +235,19 @@ As a group, Write your answers to these questions:
     chain stops)
 - Interpret: How would you communicate these results to a
   decision-maker?
-- Compare: What differences do you identify from other group outputs?
-  (if available)
+- Compare: What differences do you identify from other room outputs? (if
+  available)
 
 ### Inputs
 
-| Group | Parameters        | Chain ID |
-|-------|-------------------|----------|
-| 1     | R = 0.8, k = 0.01 | 957      |
-| 2     | R = 0.8, k = 0.1  | 281      |
-| 3     | R = 0.8, k = 0.5  | 38       |
-| 4     | R = 1.5, k = 0.01 | 261      |
-| 5     | R = 1.5, k = 0.1  | 325      |
-| 6     | R = 1.5, k = 0.5  | 591      |
+| Room | Parameters        | Chain ID |
+|------|-------------------|----------|
+| 1    | R = 0.8, k = 0.01 | 957      |
+| 2    | R = 0.8, k = 0.1  | 281      |
+| 3    | R = 0.8, k = 0.5  | 38       |
+| 4    | R = 1.5, k = 0.01 | 261      |
+| 5    | R = 1.5, k = 0.1  | 325      |
+| 6    | R = 1.5, k = 0.5  | 591      |
 
 ### Solution
 
@@ -356,19 +356,19 @@ aggregate_chains %>%
 
 #### Outputs
 
-Group 1
+Room 1
 
 | contact network | secondary cases | simulated chains |
 |----|----|----|
 | ![Untitled-1](https://hackmd.io/_uploads/H1DVLbsTyx.png) | ![Untitled](https://hackmd.io/_uploads/BkW48Wo6yg.png) | ![image](https://hackmd.io/_uploads/Sy3x3MNAJe.png) |
 
-Group 2
+Room 2
 
 | contact network | secondary cases | simulated chains |
 |----|----|----|
 | ![Untitled](https://hackmd.io/_uploads/Hkhg8WspJg.png) | ![Untitled-1](https://hackmd.io/_uploads/HyIlUWopJx.png) | ![image](https://hackmd.io/_uploads/rkw-hGN0kl.png) |
 
-Group 3
+Room 3
 
 | contact network | secondary cases | simulated chains |
 |----|----|----|
@@ -412,7 +412,7 @@ Interpretation Helpers:
 
 From the plot of cumulative cases by day for each simulated chain:
 
-| Group | Parameters | Number of Chains Above 100 | Max Chain Size | Max Chain Length |
+| Room | Parameters | Number of Chains Above 100 | Max Chain Size | Max Chain Length |
 |----|----|----|----|----|
 | 1 | R = 0.8, k = 0.01 | 10 | ~200 | ~20 days |
 | 2 | R = 0.8, k = 0.1 | 8 | ~420 | ~60 days |
