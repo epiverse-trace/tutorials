@@ -16,76 +16,6 @@ This practical is based in the following tutorial episodes:
 - <https://epiverse-trace.github.io/tutorials-late/simulating-transmission.html>
 - <https://epiverse-trace.github.io/tutorials-late/modelling-interventions.html>
 
-Welcome!
-
-- A reminder of our [Code of
-  Conduct](https://github.com/epiverse-trace/.github/blob/main/CODE_OF_CONDUCT.md).
-  If you experience or witness unacceptable behaviour, or have any other
-  concerns, please notify the course organisers or host of the event. To
-  report an issue involving one of the organisers, please use the
-  [LSHTM’s Report and Support
-  tool](https://reportandsupport.lshtm.ac.uk/).
-
-| **Roll call**                                                    |
-|------------------------------------------------------------------|
-| \- Your name + Find an emoji writing only a double-colon “**:**” |
-
-# Read This First
-
-<!-- visible for learners and instructors at practical -->
-
-Instructions:
-
-- Each `Activity` has five sections: the Goal, Questions, Inputs, Your
-  Code, and Your Answers.
-- Solve each Activity in the corresponding `.R` file mentioned in the
-  `Your Code` section.
-- Paste your figure and table outputs and write your answer to the
-  questions in the section `Your Answers`.
-- Choose one group member to share your group’s results with the rest of
-  the participants.
-
-| **Room** | **Write the room member names** |
-|----------|---------------------------------|
-| 1        |                                 |
-| 2        |                                 |
-| 3        |                                 |
-
-During the practical, instead of simply copying and pasting, we
-encourage learners to increase their fluency in writing R by using:
-
-- **The double-colon notation**, e.g. `package::function()`, to specify
-  which package a function comes from, avoid namespace conflicts, and
-  find functions using keywords.
-- **Tab key <kbd>↹</kbd>** to [autocomplete package or function
-  names](https://support.posit.co/hc/en-us/articles/205273297-Code-Completion-in-the-RStudio-IDE)
-  and [display possible
-  arguments](https://docs.posit.co/ide/user/ide/guide/code/console.html).
-- [**R
-  shortcuts**](https://positron.posit.co/keyboard-shortcuts.html#r-shortcuts)
-  to
-  - Insert the pipe operator (`%>%`) using `Ctrl/Cmd`+`Shift`+`M`,
-  - Insert the assignment operator (`<-`) using `Alt/Option`+`-`, and
-  - [Execute one line of
-    code](https://docs.posit.co/ide/user/ide/guide/code/execution.html)
-    or multiple lines connected by the pipe operator (`%>%`) by placing
-    the cursor in the code of interest and pressing the `Ctrl`+`Enter`.
-- **The `help()` function** or `?` operator to access the [function
-  reference manual](https://www.r-project.org/help.html).
-
-If your local configuration was not possible to set up:
-
-- Create one copy of the [Posit Cloud RStudio
-  project](https://posit.cloud/content/10566863).
-
-<!-- - Create one copy of the [Posit Cloud RStudio project](https://posit.cloud/spaces/609790/join?access_code=hPM1tIeKt5ax_Y-P0lMGVUGqzFPNH4wxkKSzXZYb). -->
-
-## Paste your !Error messages here
-
-
-
-
-
 # Practical
 
 This practical has three activities.
@@ -100,7 +30,7 @@ using the following available inputs:
 - Disease parameters (basic reproduction number, pre infectious period,
   infectious period)
 
-As a group, Write your answers to these questions:
+Within your room, Write your answers to these questions:
 
 - What is the location (time) and size of epidemic peak for infectious
   subjects in each age group?
@@ -110,16 +40,16 @@ As a group, Write your answers to these questions:
   (based on the concept definition of reproduction number)
 - Interpret: How would you communicate these results to a
   decision-maker?
-- Compare: What differences do you identify from other group outputs?
-  (if available)
+- Compare: What differences do you identify from other room outputs? (if
+  available)
 
 ### Inputs
 
-| Group | Country  | Survey Link                              |
-|-------|----------|------------------------------------------|
-| 1     | Italy    | <https://doi.org/10.5281/zenodo.3874557> |
-| 2     | Vietnam  | <https://doi.org/10.5281/zenodo.3874802> |
-| 3     | Zimbabwe | <https://doi.org/10.5281/zenodo.3886638> |
+| Room | Country  | Survey Link                              |
+|------|----------|------------------------------------------|
+| 1    | Italy    | <https://doi.org/10.5281/zenodo.3874557> |
+| 2    | Vietnam  | <https://doi.org/10.5281/zenodo.3874802> |
+| 3    | Zimbabwe | <https://doi.org/10.5281/zenodo.3886638> |
 
 | Parameter | Value | Notes |
 |----|----|----|
@@ -184,19 +114,19 @@ intervention using the following available inputs:
 - Type of intervention (on contacts, on transmission, or vaccination)
 - Reduction effect or rate of vaccination
 
-As a group, write your answers to these questions:
+Within your room, write your answers to these questions:
 
 - How does the time to start of the intervention (early/late) impact the
   timing and size of the peak of new infectious individuals?
 - Is the observed impact of the intervention in these results expected?
 - Interpret: How would you communicate these results to a
   decision-maker?
-- Compare: What differences do you identify from other group outputs?
-  (if available)
+- Compare: What differences do you identify from other room outputs? (if
+  available)
 
 ### Inputs
 
-| Group | Intervention | Early Start | Late Start | Duration (days) | Effect (Reduction or Rate) |
+| Room | Intervention | Early Start | Late Start | Duration (days) | Effect (Reduction or Rate) |
 |----|----|----|----|----|----|
 | 1 | School | 100 | 200 | 100 | Age 0–19: 0.5; Age 20+: 0.01 |
 | 2 | Mask | 100 | 200 | 200 | All ages: 0.163 |
@@ -233,20 +163,20 @@ Combine two intervention in the same simulation and compare the disease
 trajectories of new infections against the baseline or only one
 intervention. Use the intervention parameters above.
 
-As a group, Write your answers to these questions:
+Within your room, Write your answers to these questions:
 
 - Interpret: How would you communicate these results to a
   decision-maker?
-- Compare: What differences do you identify from other group outputs?
-  (if available)
+- Compare: What differences do you identify from other room outputs? (if
+  available)
 
 ### Inputs
 
-| Group | Combine interventions           | Compare against |
-|-------|---------------------------------|-----------------|
-| 1     | School closure AND Vaccine      | School closure  |
-| 2     | Mask mandate AND School contact | Mask mandate    |
-| 3     | Vaccine AND Mask mandate        | Vaccine         |
+| Room | Combine interventions           | Compare against |
+|------|---------------------------------|-----------------|
+| 1    | School closure AND Vaccine      | School closure  |
+| 2    | Mask mandate AND School contact | Mask mandate    |
+| 3    | Vaccine AND Mask mandate        | Vaccine         |
 
 ### Solution
 

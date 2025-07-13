@@ -43,16 +43,16 @@ Within your room, Write your answers to these questions:
 - Open file `01-practical-activity-1.R`.
 - First, complete the argument to read the data. Paste the link as a
   “string” in `read_csv()`.
-- Second, complete the cleaning process. Select functions based on the
-  data needs. Connect them using the pipe `%>%`:
-  - cleanepi::standardize_column_names()
-  - cleanepi::standardize_dates()
-  - cleanepi::check_date_sequence()
-  - cleanepi::convert_to_numeric()
-  - cleanepi::replace_missing_values()
-  - cleanepi::clean_using_dictionary()
-  - cleanepi::remove_constants()
-  - cleanepi::remove_duplicates()
+- Second, complete the cleaning process. Add functions based on the data
+  needs. Connect them using the pipe `%>%`:
+  - Standardize column names
+  - Standardize dates
+  - Check date sequence
+  - Convert to numeric
+  - Replace missing values
+  - Clean using dictionary
+  - Remove constants
+  - Remove duplicates
 - Third, complete the cleanepi::timespan() arguments. Access the help
   manual running `?cleanepi::timespan()` in the console.
 - Paste the outputs. Reply to questions.

@@ -16,62 +16,6 @@ This practical is based in the following tutorial episodes:
 - <https://epiverse-trace.github.io/tutorials-middle/superspreading-estimate.html>
 - <https://epiverse-trace.github.io/tutorials-middle/superspreading-simulate.html>
 
-Welcome!
-
-- A reminder of our [Code of
-  Conduct](https://github.com/epiverse-trace/.github/blob/main/CODE_OF_CONDUCT.md).
-  If you experience or witness unacceptable behaviour, or have any other
-  concerns, please notify the course organisers or host of the event. To
-  report an issue involving one of the organisers, please use the
-  [LSHTM’s Report and Support
-  tool](https://reportandsupport.lshtm.ac.uk/).
-
-# Read This First
-
-<!-- visible for learners and instructors at practical -->
-
-Instructions:
-
-- Each `Activity` has five sections: the Goal, Questions, Inputs, Your
-  Code, and Your Answers.
-- Solve each Activity in the corresponding `.R` file mentioned in the
-  `Your Code` section.
-- Paste your figure and table outputs and write your answer to the
-  questions in the section `Your Answers`.
-- Choose one group member to share your group’s results with the rest of
-  the participants.
-
-During the practical, instead of simply copying and pasting, we
-encourage learners to increase their fluency writing R by using:
-
-- The double-colon notation, e.g. `package::function()` to specify which
-  package a function comes from, avoid namespace conflicts, and find
-  functions using keywords.
-- Tab key <kbd>↹</kbd> to [autocomplete package or function
-  names](https://support.posit.co/hc/en-us/articles/205273297-Code-Completion-in-the-RStudio-IDE)
-  and [display possible
-  arguments](https://docs.posit.co/ide/user/ide/guide/code/console.html).
-- [Execute one line of
-  code](https://docs.posit.co/ide/user/ide/guide/code/execution.html) or
-  multiple lines connected by the pipe operator (`%>%`) by placing the
-  cursor in the code of interest and pressing the `Ctrl`+`Enter`.
-- [R
-  shortcuts](https://positron.posit.co/keyboard-shortcuts.html#r-shortcuts)
-  to insert the pipe operator (`%>%`) using `Ctrl/Cmd`+`Shift`+`M`, or
-  insert the assignment operator (`<-`) using `Alt/Option`+`-`.
-  <!-- - Get [help yourself with R](https://www.r-project.org/help.html) using the `help()` function or `?` operator to access the function reference manual. -->
-
-If your local configuration was not possible to setup:
-
-- Create one copy of the [Posit Cloud RStudio
-  project](https://posit.cloud/spaces/609790/join?access_code=hPM1tIeKt5ax_Y-P0lMGVUGqzFPNH4wxkKSzXZYb).
-
-## Paste your !Error messages here
-
-
-
-
-
 # Practical
 
 This practical has two activities.
@@ -87,7 +31,7 @@ using the following available inputs:
 - Line list of cases
 - Contact tracing data
 
-As a group, Write your answers to these questions:
+Within your room, Write your answers to these questions:
 
 - From descriptive and estimation steps:
   - What set has more infections related to fewer clusters in the
@@ -101,12 +45,12 @@ As a group, Write your answers to these questions:
   - Would you recommend a backward tracing strategy?
 - Interpret: How would you communicate these results to a
   decision-maker?
-- Compare: What differences do you identify from other group outputs?
-  (if available)
+- Compare: What differences do you identify from other room outputs? (if
+  available)
 
 ### Inputs
 
-| Group | Data |
+| Room | Data |
 |----|----|
 | 1 | <https://epiverse-trace.github.io/tutorials-middle/data/set-01-contacts.rds>, <https://epiverse-trace.github.io/tutorials-middle/data/set-01-linelist.rds> |
 | 2 | <https://epiverse-trace.github.io/tutorials-middle/data/set-02-contacts.rds>, <https://epiverse-trace.github.io/tutorials-middle/data/set-02-linelist.rds> |
@@ -213,25 +157,25 @@ proportion_cases_by_cluster_size
 
 #### Outputs
 
-Group 1
+Room 1
 
 | contact network | histogram of secondary cases |
 |----|----|
 | ![Untitled-1](https://hackmd.io/_uploads/H1DVLbsTyx.png) | ![Untitled](https://hackmd.io/_uploads/BkW48Wo6yg.png) |
 
-Group 2
+Room 2
 
 | contact network | histogram of secondary cases |
 |----|----|
 | ![Untitled](https://hackmd.io/_uploads/Hkhg8WspJg.png) | ![Untitled-1](https://hackmd.io/_uploads/HyIlUWopJx.png) |
 
-Group 3
+Room 3
 
 | contact network | histogram of secondary cases |
 |----|----|
 | ![Untitled](https://hackmd.io/_uploads/HkzkUZjpyx.png) | ![Untitled-1](https://hackmd.io/_uploads/SkjCBZjpJe.png) |
 
-Group 1/2/3
+Room 1/2/3
 
 ``` r
 #>     R    k prop_5 prop_10 prop_25
@@ -277,7 +221,7 @@ Estimate the potential for large outbreaks that could occur based on
 - Basic reproduction number
 - Dispersion parameter
 
-As a group, Write your answers to these questions:
+Within your room, Write your answers to these questions:
 
 - You have been assigned to explore `Chain ID`. From the output data
   frame, describe:
@@ -291,19 +235,19 @@ As a group, Write your answers to these questions:
     chain stops)
 - Interpret: How would you communicate these results to a
   decision-maker?
-- Compare: What differences do you identify from other group outputs?
-  (if available)
+- Compare: What differences do you identify from other room outputs? (if
+  available)
 
 ### Inputs
 
-| Group | Parameters        | Chain ID |
-|-------|-------------------|----------|
-| 1     | R = 0.8, k = 0.01 | 957      |
-| 2     | R = 0.8, k = 0.1  | 281      |
-| 3     | R = 0.8, k = 0.5  | 38       |
-| 4     | R = 1.5, k = 0.01 | 261      |
-| 5     | R = 1.5, k = 0.1  | 325      |
-| 6     | R = 1.5, k = 0.5  | 591      |
+| Room | Parameters        | Chain ID |
+|------|-------------------|----------|
+| 1    | R = 0.8, k = 0.01 | 957      |
+| 2    | R = 0.8, k = 0.1  | 281      |
+| 3    | R = 0.8, k = 0.5  | 38       |
+| 4    | R = 1.5, k = 0.01 | 261      |
+| 5    | R = 1.5, k = 0.1  | 325      |
+| 6    | R = 1.5, k = 0.5  | 591      |
 
 ### Solution
 
@@ -412,19 +356,19 @@ aggregate_chains %>%
 
 #### Outputs
 
-Group 1
+Room 1
 
 | contact network | secondary cases | simulated chains |
 |----|----|----|
 | ![Untitled-1](https://hackmd.io/_uploads/H1DVLbsTyx.png) | ![Untitled](https://hackmd.io/_uploads/BkW48Wo6yg.png) | ![image](https://hackmd.io/_uploads/Sy3x3MNAJe.png) |
 
-Group 2
+Room 2
 
 | contact network | secondary cases | simulated chains |
 |----|----|----|
 | ![Untitled](https://hackmd.io/_uploads/Hkhg8WspJg.png) | ![Untitled-1](https://hackmd.io/_uploads/HyIlUWopJx.png) | ![image](https://hackmd.io/_uploads/rkw-hGN0kl.png) |
 
-Group 3
+Room 3
 
 | contact network | secondary cases | simulated chains |
 |----|----|----|
@@ -468,7 +412,7 @@ Interpretation Helpers:
 
 From the plot of cumulative cases by day for each simulated chain:
 
-| Group | Parameters | Number of Chains Above 100 | Max Chain Size | Max Chain Length |
+| Room | Parameters | Number of Chains Above 100 | Max Chain Size | Max Chain Length |
 |----|----|----|----|----|
 | 1 | R = 0.8, k = 0.01 | 10 | ~200 | ~20 days |
 | 2 | R = 0.8, k = 0.1 | 8 | ~420 | ~60 days |
