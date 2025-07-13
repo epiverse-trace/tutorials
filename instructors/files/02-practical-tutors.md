@@ -18,62 +18,6 @@ This practical is based in the following tutorial episodes:
 - <https://epiverse-trace.github.io/tutorials-middle/delays-functions.html>
 - <https://epiverse-trace.github.io/tutorials-middle/severity-static.html>
 
-Welcome!
-
-- A reminder of our [Code of
-  Conduct](https://github.com/epiverse-trace/.github/blob/main/CODE_OF_CONDUCT.md).
-  If you experience or witness unacceptable behaviour, or have any other
-  concerns, please notify the course organisers or host of the event. To
-  report an issue involving one of the organisers, please use the
-  [LSHTM’s Report and Support
-  tool](https://reportandsupport.lshtm.ac.uk/).
-
-# Read This First
-
-<!-- visible for learners and instructors at practical -->
-
-Instructions:
-
-- Each `Activity` has five sections: the Goal, Questions, Inputs, Your
-  Code, and Your Answers.
-- Solve each Activity in the corresponding `.R` file mentioned in the
-  `Your Code` section.
-- Paste your figure and table outputs and write your answer to the
-  questions in the section `Your Answers`.
-- Choose one group member to share your group’s results with the rest of
-  the participants.
-
-During the practical, instead of simply copying and pasting, we
-encourage learners to increase their fluency writing R by using:
-
-- The double-colon notation, e.g. `package::function()` to specify which
-  package a function comes from, avoid namespace conflicts, and find
-  functions using keywords.
-- Tab key <kbd>↹</kbd> to [autocomplete package or function
-  names](https://support.posit.co/hc/en-us/articles/205273297-Code-Completion-in-the-RStudio-IDE)
-  and [display possible
-  arguments](https://docs.posit.co/ide/user/ide/guide/code/console.html).
-- [Execute one line of
-  code](https://docs.posit.co/ide/user/ide/guide/code/execution.html) or
-  multiple lines connected by the pipe operator (`%>%`) by placing the
-  cursor in the code of interest and pressing the `Ctrl`+`Enter`.
-- [R
-  shortcuts](https://positron.posit.co/keyboard-shortcuts.html#r-shortcuts)
-  to insert the pipe operator (`%>%`) using `Ctrl/Cmd`+`Shift`+`M`, or
-  insert the assignment operator (`<-`) using `Alt/Option`+`-`.
-  <!-- - Get [help yourself with R](https://www.r-project.org/help.html) using the `help()` function or `?` operator to access the function reference manual. -->
-
-If your local configuration was not possible to setup:
-
-- Create one copy of the [Posit Cloud RStudio
-  project](https://posit.cloud/spaces/609790/join?access_code=hPM1tIeKt5ax_Y-P0lMGVUGqzFPNH4wxkKSzXZYb).
-
-## Paste your !Error messages here
-
-
-
-
-
 # Practical
 
 This practical has two activities.
@@ -86,7 +30,7 @@ Estimate $R_{t}$, *new infections*, *new reports*, *growth rate*, and
 - Incidence of reported cases per day
 - Reporting delay
 
-As a group, Write your answers to these questions:
+Within your room, Write your answers to these questions:
 
 - What phase of the epidemic are you observing? (Exponential growth
   phase, near peak, or decay end phase)
@@ -94,12 +38,30 @@ As a group, Write your answers to these questions:
   effective reproductive number, growth rate, and doubling time?
 - Interpret: How would you communicate these results to a
   decision-maker?
-- Compare: What differences do you identify from other group outputs?
-  (if available)
+- Compare: What differences do you identify from other room outputs? (if
+  available)
+
+**Steps:**
+
+- Open the file `02-practical-activity-1.Rmd`.
+- Paste the URL link as a string to read input data.
+- Keep the reading function that correspond to your input data disease.
+- Define a generation time:
+  - Access to a generation time, if available, or approximation.
+  - Extract distribution parameters or summary statistics.
+  - Adap to {EpiNow2} distribution interface.
+- Define the delays from infection to case report (observation):
+  - For the reporting delay, interpret the description in the `Inputs`
+    section.
+  - For the incubation period, steps are similar to generation time.
+- Add generation time and delays using the {EpiNow2} helper functions in
+  `EpiNow2::epinow()`.
+- Run `EpiNow2::epinow()` and print the summary and plot outputs.
+- Interpret and reply to questions.
 
 ### Inputs
 
-| Group | Incidence | Link |
+| Room | Incidence | Link |
 |----|----|----|
 | 1 | COVID 30 days | <https://epiverse-trace.github.io/tutorials-middle/data/covid_30days.rds> |
 | 2 | Ebola 35 days | <https://epiverse-trace.github.io/tutorials-middle/data/ebola_35days.rds> |
@@ -108,8 +70,8 @@ As a group, Write your answers to these questions:
 
 | Disease | Reporting delays |
 |----|----|
-| Ebola | The time difference between symptom onset and case report follows a Lognormal distribution with uncertainty. The **meanlog** follows a Normal distribution with mean = 1.4 days and sd = 0.5 days. The **sdlog** follows a Normal distribution with mean = 0.25 days and sd = 0.2 days. Bound the distribution with a maximum = 5 days. |
-| COVID | The time difference between symptom onset and case report follows a Gamma distribution with uncertainty. The **mean** follows a Normal distribution with mean = 2 days and sd = 0.5 days. The **standard deviation** follows a Normal distribution with mean = 1 day and sd = 0.5 days. Bound the distribution with a maximum = 5 days. |
+| Ebola | The time difference between symptom onset and case report follows a Lognormal distribution with uncertainty. The **meanlog** follows a Normal distribution with mean = 1.4 days and sd = 0.5 days. The **sdlog** follows a Normal distribution with mean = 0.25 days and sd = 0.2 days. Bound the Lognormal distribution with a maximum = 5 days. |
+| COVID | The time difference between symptom onset and case report follows a Gamma distribution with uncertainty. The **mean** follows a Normal distribution with mean = 2 days and sd = 0.5 days. The **standard deviation** follows a Normal distribution with mean = 1 day and sd = 0.5 days. Bound the Gamma distribution with a maximum = 5 days. |
 
 ### Solution
 
@@ -340,7 +302,7 @@ plot(estimates)
 
 #### Outputs
 
-##### Group 1: COVID 30 days
+##### Room 1: COVID 30 days
 
 With reporting delay plus Incubation time:
 <img src="https://hackmd.io/_uploads/BJl8wYiDC.png" style="width:25.0%"
@@ -357,7 +319,7 @@ With reporting delay plus Incubation time:
     4:                   Rate of growth 0.099 (-0.049 -- 0.26)
     5:     Doubling/halving time (days)         7 (2.7 -- -14)
 
-##### Group 2: Ebola 35 days
+##### Room 2: Ebola 35 days
 
 With reporting delay plus Incubation time:
 <img src="https://hackmd.io/_uploads/H1ZrYYsvR.png" style="width:25.0%"
@@ -374,7 +336,7 @@ With reporting delay plus Incubation time:
     4:                   Rate of growth -0.039 (-0.18 -- 0.12)
     5:     Doubling/halving time (days)      -18 (5.5 -- -3.9)
 
-##### Group 3: Ebola 60 days
+##### Room 3: Ebola 60 days
 
 With reporting delay plus Incubation time:
 <img src="https://hackmd.io/_uploads/Byu3FFoDR.png" style="width:25.0%"
@@ -391,7 +353,7 @@ With reporting delay plus Incubation time:
     4:                   Rate of growth -0.16 (-0.32 -- -0.00055)
     5:     Doubling/halving time (days)      -4.4 (-1300 -- -2.2)
 
-##### Group 4: COVID 60 days
+##### Room 4: COVID 60 days
 
 With reporting delay plus Incubation time:
 <img src="https://hackmd.io/_uploads/S1q6ItjvC.png" style="width:25.0%"
@@ -442,26 +404,40 @@ Interpretation Helpers:
   - Rt include the value 1,
   - growth rate include the value 0,
   - doubling or halving time include the value 0.
-- From table:
-  - The values from the `summary()` output correspond to the latest
-    available date under analysis.
-  - The `Expected change in reports` categories (e.g., `Stable` or
-    `Likely decreasing`) describe the expected change in daily cases
-    based on the posterior probability that Rt \< 1. Find the tutorial
-    table at:
-    <https://epiverse-trace.github.io/tutorials-middle/quantify-transmissibility.html#expected-change-in-reports>
-- From figure:
-  - The estimate of Reports fits the input incidence curve.
-  - The forecast of New infections and Reports per day assumes no change
-    in the reproduction number. For that reason, the forecast section of
-    “Effective reproduction no.” is constant.
-  - When we include at `delays` both the incubation and reporting delay,
+
+**From table**:
+
+- The values from the `summary()` output correspond to the latest
+  available date under analysis.
+- The `Expected change in reports` categories (e.g., `Stable` or
+  `Likely decreasing`) describe the expected change in daily cases based
+  on the posterior probability that Rt \< 1. Find the tutorial table at:
+  <https://epiverse-trace.github.io/tutorials-middle/quantify-transmissibility.html#expected-change-in-reports>
+
+**From figure**:
+
+- The estimate of `Reports` fits the input incidence curve.
+- The forecast of `New infections` and `Reports` per day assumes no
+  change in the reproduction number. For that reason, the forecast
+  section of “Effective reproduction no.” is constant.
+- About delays:
+  - When we include in `delays` the function `EpiNow2::delay_opts()`
+    with both the **incubation** and **reporting** delay,
     - In Reports, the forecast credible intervals increases.
-    - New infections per day, uncertainty increases in an equivalent
-      size to the delays
+    - In New infections per day, uncertainty is expanded due to the
+      length of delays.
+  - For example: Using the same input data as reference, COVID 30 days:
+    In Reports, the upper interval increases from 30k to 45k. In New
+    infections per day, uncertainty expands from Mar 16 onwards.
 - From comparing COVID and Ebola outputs:
-  - The finite maximum value of the generation time distribution define
-    the range of the “estimate based on parial data”.
+  - The finite maximum value of the **generation** time distribution
+    define the range of the `Estimate based on parial data`.
+  - Both values are defined by default by {EpiNow2} using a percentile
+    of 99%
+    - COVID: `max` = ~14 days,
+    - Ebola: `max` = ~45 days.
+  - For this reason, Ebola 35 days has no `Estimate` but only
+    `Estimate based on partial data` and `Forecast`.
 
 ## Activity 2: Severity
 
@@ -471,7 +447,7 @@ the following inputs:
 - Reported cases (aggregate incidence by date of onset)
 - Onset to death delay
 
-As a group, Write your answers to these questions:
+Within your room, Write your answers to these questions:
 
 - What phase of the epidemic are you observing? (Exponential growth
   phase, near peak, or decay end phase)
@@ -480,12 +456,12 @@ As a group, Write your answers to these questions:
 - How much difference is there between the nCFR and aCFR estimates?
 - Interpret: How would you communicate these results to a
   decision-maker?
-- Compare: What differences do you identify from other group outputs?
-  (if available)
+- Compare: What differences do you identify from other room outputs? (if
+  available)
 
 ### Inputs
 
-| Group | Data | Action to data input | Link |
+| Room | Data | Action to data input | Link |
 |----|----|----|----|
 | 1 | COVID-19 Diamond Princess | Keep dates before March 1st | <https://epiverse-trace.github.io/tutorials-middle/data/diamond_70days.rds> |
 | 2 | COVID-19 Diamond Princess | Estimate from complete time series | <https://epiverse-trace.github.io/tutorials-middle/data/diamond_70days.rds> |
@@ -685,11 +661,11 @@ Interpretation template:
 
 Intepretation helpers:
 
+- For COVID, until the end of February (on March 1st), the aCFR central
+  estimate is closer to the CFR estimates on April 15th.
 - The MERS incidence curve seems to be in a decay phase. However, it is
   expected to have death reports in upcoming dates, as observed in the
   COVID Diamond Princess data.
-- For COVID, until the end of February (on March 1st), the aCFR central
-  estimate is closer to the CFR estimates on April 15th.
 - For MERS, the aCFR estimate is almost the double of the nCFR estimate.
 
 Complementary notes:
