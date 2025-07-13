@@ -40,7 +40,11 @@ This practical is based in the following tutorial episodes:
 :::
 
 
+::: {.content-visible when-format="docx"}
+
 {{< include _welcome.qmd >}}
+
+:::
 
 # Practical
 

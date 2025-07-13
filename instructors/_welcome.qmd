@@ -15,13 +15,14 @@ Instructions:
 - Each `Activity` has five sections: the Goal, Questions, Steps, Inputs, and Your Answers.
 - Solve each Activity in the corresponding `.R` file mentioned in the `Steps` section.
 - Paste your figure and table outputs and write your answer to the questions in the section `Your Answers`.
-- Choose one group member to share your group's results with the rest of the participants.
+- Choose one room member to share your room's results with the rest of the participants.
 
 | **Room** | **Write the room member names** |
 |---|---|
 | 1 |  |
 | 2 |  |
 | 3 |  |
+| 4 |  |
 
 Remember:
 
@@ -43,6 +44,8 @@ If your local configuration was not possible to set up:
 <!-- - Create one copy of the [Posit Cloud RStudio project](https://posit.cloud/spaces/609790/join?access_code=hPM1tIeKt5ax_Y-P0lMGVUGqzFPNH4wxkKSzXZYb). -->
 
 ## Paste your !Error messages here
+
+Participants, if you get an unexpected message in the console. Copy and paste it into this section.
 
 ```
 
