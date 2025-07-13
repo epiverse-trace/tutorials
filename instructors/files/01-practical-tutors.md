@@ -55,6 +55,7 @@ Within your room, Write your answers to these questions:
   - cleanepi::remove_duplicates()
 - Third, complete the cleanepi::timespan() arguments. Access the help
   manual running `?cleanepi::timespan()` in the console.
+- Reply to questions.
 
 ### Inputs
 
@@ -97,6 +98,7 @@ Within your room, Write your answers to these questions:
 - Second, complete the {linelist} function that can validate a linelist.
 - Third, complete the arguments of the incidence2::incidence()
 - Fourth, keep, drop, or change argument values in function plot()
+- Reply to questions.
 
 ### Inputs
 
