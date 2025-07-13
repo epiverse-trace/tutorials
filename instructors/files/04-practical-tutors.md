@@ -30,7 +30,7 @@ using the following available inputs:
 - Disease parameters (basic reproduction number, pre infectious period,
   infectious period)
 
-As a group, Write your answers to these questions:
+Within your room, Write your answers to these questions:
 
 - What is the location (time) and size of epidemic peak for infectious
   subjects in each age group?
@@ -40,16 +40,16 @@ As a group, Write your answers to these questions:
   (based on the concept definition of reproduction number)
 - Interpret: How would you communicate these results to a
   decision-maker?
-- Compare: What differences do you identify from other group outputs?
-  (if available)
+- Compare: What differences do you identify from other room outputs? (if
+  available)
 
 ### Inputs
 
-| Group | Country  | Survey Link                              |
-|-------|----------|------------------------------------------|
-| 1     | Italy    | <https://doi.org/10.5281/zenodo.3874557> |
-| 2     | Vietnam  | <https://doi.org/10.5281/zenodo.3874802> |
-| 3     | Zimbabwe | <https://doi.org/10.5281/zenodo.3886638> |
+| Room | Country  | Survey Link                              |
+|------|----------|------------------------------------------|
+| 1    | Italy    | <https://doi.org/10.5281/zenodo.3874557> |
+| 2    | Vietnam  | <https://doi.org/10.5281/zenodo.3874802> |
+| 3    | Zimbabwe | <https://doi.org/10.5281/zenodo.3886638> |
 
 | Parameter | Value | Notes |
 |----|----|----|
@@ -114,19 +114,19 @@ intervention using the following available inputs:
 - Type of intervention (on contacts, on transmission, or vaccination)
 - Reduction effect or rate of vaccination
 
-As a group, write your answers to these questions:
+Within your room, write your answers to these questions:
 
 - How does the time to start of the intervention (early/late) impact the
   timing and size of the peak of new infectious individuals?
 - Is the observed impact of the intervention in these results expected?
 - Interpret: How would you communicate these results to a
   decision-maker?
-- Compare: What differences do you identify from other group outputs?
-  (if available)
+- Compare: What differences do you identify from other room outputs? (if
+  available)
 
 ### Inputs
 
-| Group | Intervention | Early Start | Late Start | Duration (days) | Effect (Reduction or Rate) |
+| Room | Intervention | Early Start | Late Start | Duration (days) | Effect (Reduction or Rate) |
 |----|----|----|----|----|----|
 | 1 | School | 100 | 200 | 100 | Age 0–19: 0.5; Age 20+: 0.01 |
 | 2 | Mask | 100 | 200 | 200 | All ages: 0.163 |
@@ -163,20 +163,20 @@ Combine two intervention in the same simulation and compare the disease
 trajectories of new infections against the baseline or only one
 intervention. Use the intervention parameters above.
 
-As a group, Write your answers to these questions:
+Within your room, Write your answers to these questions:
 
 - Interpret: How would you communicate these results to a
   decision-maker?
-- Compare: What differences do you identify from other group outputs?
-  (if available)
+- Compare: What differences do you identify from other room outputs? (if
+  available)
 
 ### Inputs
 
-| Group | Combine interventions           | Compare against |
-|-------|---------------------------------|-----------------|
-| 1     | School closure AND Vaccine      | School closure  |
-| 2     | Mask mandate AND School contact | Mask mandate    |
-| 3     | Vaccine AND Mask mandate        | Vaccine         |
+| Room | Combine interventions           | Compare against |
+|------|---------------------------------|-----------------|
+| 1    | School closure AND Vaccine      | School closure  |
+| 2    | Mask mandate AND School contact | Mask mandate    |
+| 3    | Vaccine AND Mask mandate        | Vaccine         |
 
 ### Solution
 
