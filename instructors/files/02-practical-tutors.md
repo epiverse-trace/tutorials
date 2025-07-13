@@ -45,15 +45,16 @@ Within your room, Write your answers to these questions:
 
 - Open the file `02-practical-activity-1.Rmd`.
 - Paste the URL link as a string to read input data.
-- Keep the reading function that correspond to your input data disease.
+- Keep the reading function that corresponds to your input data disease.
 - Define a generation time:
-  - Access to a generation time, if available, or approximation.
+  - Access to a generation time, if available, or an approximation.
   - Extract distribution parameters or summary statistics.
-  - Adap to {EpiNow2} distribution interface.
+  - Adapt to {EpiNow2} distribution interface.
 - Define the delays from infection to case report (observation):
   - For the reporting delay, interpret the description in the `Inputs`
     section.
-  - For the incubation period, steps are similar to generation time.
+  - For the incubation period, the steps are similar to the generation
+    time.
 - Add generation time and delays using the {EpiNow2} helper functions in
   `EpiNow2::epinow()`.
 - Run `EpiNow2::epinow()` and print the summary and plot outputs.
@@ -63,10 +64,10 @@ Within your room, Write your answers to these questions:
 
 | Room | Incidence | Link |
 |----|----|----|
-| 1 | COVID 30 days | <https://epiverse-trace.github.io/tutorials-middle/data/covid_30days.rds> |
+| 1 | COVID-19 30 days | <https://epiverse-trace.github.io/tutorials-middle/data/covid_30days.rds> |
 | 2 | Ebola 35 days | <https://epiverse-trace.github.io/tutorials-middle/data/ebola_35days.rds> |
 | 3 | Ebola 60 days | <https://epiverse-trace.github.io/tutorials-middle/data/ebola_60days.rds> |
-| 4 | COVID 60 days | <https://epiverse-trace.github.io/tutorials-middle/data/covid_60days.rds> |
+| 4 | COVID-19 60 days | <https://epiverse-trace.github.io/tutorials-middle/data/covid_60days.rds> |
 
 | Disease | Reporting delays |
 |----|----|
@@ -473,10 +474,10 @@ Within your room, Write your answers to these questions:
 
 ### Inputs
 
-| Room | Data | Action to data input | Link |
+| Room | Data | Action on data input | Link |
 |----|----|----|----|
 | 1 | COVID-19 Diamond Princess | Keep dates before March 1st | <https://epiverse-trace.github.io/tutorials-middle/data/diamond_70days.rds> |
-| 2 | COVID-19 Diamond Princess | Estimate from complete time series | <https://epiverse-trace.github.io/tutorials-middle/data/diamond_70days.rds> |
+| 2 | COVID-19 Diamond Princess | Estimate from a complete time series | <https://epiverse-trace.github.io/tutorials-middle/data/diamond_70days.rds> |
 | 3 | MERS Korea 2015 | Adapt from incidence to {cfr} | <https://epiverse-trace.github.io/tutorials-middle/data/mers_linelist.rds> |
 
 ### Solution
