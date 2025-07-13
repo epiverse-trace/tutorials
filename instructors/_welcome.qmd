@@ -12,7 +12,7 @@ Welcome!
 
 Instructions:
 
-- Each `Activity` has five sections: the Goal, Steps, Questions, Inputs, and Your Answers.
+- Each `Activity` has five sections: the Goal, Questions, Steps, Inputs, and Your Answers.
 - Solve each Activity in the corresponding `.R` file mentioned in the `Steps` section.
 - Paste your figure and table outputs and write your answer to the questions in the section `Your Answers`.
 - Choose one group member to share your group's results with the rest of the participants.
