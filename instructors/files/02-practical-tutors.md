@@ -57,7 +57,7 @@ Within your room, Write your answers to these questions:
 - Add generation time and delays using the {EpiNow2} helper functions in
   `EpiNow2::epinow()`.
 - Run `EpiNow2::epinow()` and print the summary and plot outputs.
-- Interpret and reply to questions.
+- Paste the outputs. Reply to questions.
 
 ### Inputs
 
@@ -458,6 +458,18 @@ Within your room, Write your answers to these questions:
   decision-maker?
 - Compare: What differences do you identify from other room outputs? (if
   available)
+
+**Steps:**
+
+- Open the file `02-practical-activity-2.R`.
+- Paste the URL link as a string to read input data.
+- Fill in the argument to plot an incidence curve.
+- Evaluate if the input data format needs adaptation to {cfr}.
+- Access to the probability distribution for the delay from case onset
+  to death.
+- Evaluate if you need to keep dates or omit using `dplyr::filter()`.
+- Estimate the naive and delay-adjusted CFR.
+- Paste the outputs. Reply to questions.
 
 ### Inputs
 
