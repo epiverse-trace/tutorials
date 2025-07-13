@@ -33,7 +33,7 @@ dat_serialint <- epiparameter::epiparameter_db(
 # extract parameters from {epiparameter} object
 dat_serialint_params <- epiparameter::#<COMPLETE>
 
-# adapt {epiparameter} to {EpiNow2} distribution inferfase
+# adapt {epiparameter} to {EpiNow2} distribution interface
 dat_generationtime <- EpiNow2::#<COMPLETE>
 
 
