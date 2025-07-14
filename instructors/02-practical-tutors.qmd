@@ -518,7 +518,8 @@ Interpretation template:
 
 Intepretation helpers:
 
-- For COVID, until the end of February (on March 1st), the aCFR central estimate is closer to the CFR estimates on April 15th.
+- For COVID-19, until the end of February (on March 1st), the delay-adjusted (aCFR) central estimate is closer to the naive CFR (nCFR) estimates on April 15th.
+- With all data available, the delay-adusted and naive are similar (exactly the same). This is not the case for the data available up until March 1.
 - The MERS incidence curve seems to be in a decay phase. However, it is expected to have death reports in upcoming dates, as observed in the COVID Diamond Princess data.
 - For MERS, the aCFR estimate is almost the double of the nCFR estimate.
 
