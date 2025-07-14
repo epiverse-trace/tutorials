@@ -66,7 +66,7 @@ Within your room, Write your answers to these questions:
 
 **Steps:**
 
-- Open the file `02-practical-activity-1.Rmd`.
+- Open the file `02-practical-activity-1.R` and fill in your `room_number` in the script.
 - Paste the URL link as a string to read input data.
 - Keep the reading function that corresponds to your input data disease.
 - Define a generation time:
@@ -325,11 +325,15 @@ there is no statistical evidence of extinction if the 90% credible intervals of:
   - The estimate of `Reports` fits the input incidence curve.
   - The forecast of `New infections` and `Reports` per day assumes no change in the reproduction number. For that reason,
     the forecast section of "Effective reproduction no." is constant.
+  - The estimated trajectory of `New Infections` (line) is delayed from the `New Reports` (bars), due to the added incubation and reporting delays.
   - About delays:
-      - When we include in `delays` the function `EpiNow2::delay_opts()` with both the **incubation** and **reporting** delay, 
-          - In Reports, the forecast credible intervals increases.
-          - In New infections per day, uncertainty is expanded due to the length of delays.
-      - For example: Using the same input data as reference, COVID 30 days: In Reports, the upper interval increases from 30k to 45k. In New infections per day, uncertainty expands from Mar 16 onwards.
+      - When we correctly include **incubation** and **reporting** `delays` in `EpiNow2::epinow()`, 
+          - In `Reports`, the forecast credible intervals increases.
+          - In `New infections` per day, uncertainty is expanded due to the length of delays.
+      - If we forget adding delays, `{EpiNow2}` could misinterpret `Reports` (confirmed cases) as `Infections`.
+          - For example, using one same input data of reference (e.g., COVID 30 days).
+          - If we forget adding delays, **Panel B** overlaps the trajectory of New infections and the frequency of Reports. 
+          - If we correctly add delays, In Reports, the upper interval increases from 30k to 45k. In New infections per day, uncertainty expands from Mar 16 onwards.
   - From comparing COVID and Ebola outputs:
       - The finite maximum value of the **generation** time distribution define the range of the `Estimate based on parial data`.
       - Both values are defined by default by {EpiNow2} using a percentile of 99%
@@ -358,7 +362,7 @@ Within your room, Write your answers to these questions:
 
 **Steps:**
 
-- Open the file `02-practical-activity-2.R`.
+- Open the file `02-practical-activity-2.R` and fill in your `room_number` in the script.
 - Paste the URL link as a string to read input data.
 - Fill in the argument to plot an incidence curve.
 - Evaluate if the input data format needs adaptation to {cfr}.
