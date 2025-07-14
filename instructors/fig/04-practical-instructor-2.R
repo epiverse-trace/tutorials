@@ -3,6 +3,8 @@
 # Practical 4
 # Activity 2
 
+room_number <- 1 #valid for all
+
 # Group parameters -------------------------------------------------------
 
 # activity 2/3

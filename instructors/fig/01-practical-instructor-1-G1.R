@@ -3,6 +3,8 @@
 # Practical 1
 # Activity 1
 
+room_number <- 1
+
 # Load packages ----------------------------------------------------------
 library(cleanepi)
 library(linelist)

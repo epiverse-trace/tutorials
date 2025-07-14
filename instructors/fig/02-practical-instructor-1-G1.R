@@ -3,6 +3,8 @@
 # Practical 2
 # Activity 1
 
+room_number <- 1 # valid for 4
+
 # Load packages -----------------------------------------------------------
 library(epiparameter)
 library(EpiNow2)
@@ -12,7 +14,7 @@ library(tidyverse)
 # Read reported cases -----------------------------------------------------
 # for covid
 dat <- read_rds(
-  "https://epiverse-trace.github.io/tutorials-middle/data/covid_30days.rds"
+  "https://epiverse-trace.github.io/tutorials-middle/data/covid_30days.rds" #<DIFFERENT PER ROOM>
 ) %>%
   dplyr::select(date, confirm)
 

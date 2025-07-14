@@ -3,6 +3,8 @@
 # Practical 4
 # Activity 2
 
+room_number <- #<COMPLETE> replace with 1/2/3/4
+
 # Intervention ---------------------------------------------------------
 
 rownames(socialcontact_matrix)
