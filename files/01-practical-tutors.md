@@ -40,7 +40,8 @@ Within your room, Write your answers to these questions:
 
 **Steps:**
 
-- Open file `01-practical-activity-1.R`.
+- Open file `01-practical-activity-1.R` and fill in your `room_number`
+  in the script.
 - First, complete the argument to read the data. Paste the link as a
   “string” in `read_csv()`.
 - Second, complete the cleaning process. Add functions based on the data
@@ -93,7 +94,8 @@ Within your room, Write your answers to these questions:
 
 **Steps:**
 
-- Open the file `01-practical-activity-2.R`.
+- Open the file `01-practical-activity-2.R` and fill in your
+  `room_number` in the script.
 - First, complete linelist::make_linelist() arguments.
 - Second, complete the {linelist} function that can validate a linelist.
 - Third, complete the arguments of the incidence2::incidence()
@@ -125,6 +127,8 @@ activity 1
 
 # Practical 1
 # Activity 1
+
+room_number <- 1
 
 # Load packages ----------------------------------------------------------
 library(cleanepi)
@@ -222,6 +226,8 @@ activity 2
 # Practical 1
 # Activity 2
 
+room_number <- 1
+
 # Validate linelist ------------------------------------------------------
 
 # Activate error message
@@ -296,6 +302,8 @@ activity 1
 
 # Practical 1
 # Activity 1
+
+room_number <- 2
 
 # Load packages ----------------------------------------------------------
 library(cleanepi)
@@ -403,6 +411,8 @@ activity 2
 # Practical 1
 # Activity 2
 
+room_number <- 2
+
 # Validate linelist ------------------------------------------------------
 
 # Activate error message
@@ -468,6 +478,8 @@ activity 1
 
 # Practical 1
 # Activity 1
+
+room_number <- 3
 
 # Load packages ----------------------------------------------------------
 library(cleanepi)
@@ -549,6 +561,8 @@ activity 2
 
 # Practical 1
 # Activity 2
+
+room_number <- 3
 
 # Validate linelist ------------------------------------------------------
 

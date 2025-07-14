@@ -3,6 +3,8 @@
 # Practical 3
 # Activity 2
 
+room_number <- 1 #valid for all
+
 # Load packages -----------------------------------------------------------
 library(epiparameter)
 library(epichains)
@@ -10,9 +12,9 @@ library(tidyverse)
 
 
 # Set input parameters ---------------------------------------------------
-known_basic_reproduction_number <- 0.8
-known_dispersion <- 0.01
-chain_to_observe <- 957
+known_basic_reproduction_number <- 0.8 #<DIFFERENT PER GROUP>
+known_dispersion <- 0.01 #<DIFFERENT PER GROUP>
+chain_to_observe <- 957 #<DIFFERENT PER GROUP>
 
 
 # Set iteration parameters -----------------------------------------------

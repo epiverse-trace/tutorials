@@ -3,6 +3,8 @@
 # Practical 3
 # Activity 1
 
+room_number <- 1 #valid for all
+
 # Load packages -----------------------------------------------------------
 library(epicontacts)
 library(fitdistrplus)
@@ -11,11 +13,11 @@ library(tidyverse)
 
 # Read linelist and contacts ----------------------------------------------
 dat_contacts <- readr::read_rds(
-  "https://epiverse-trace.github.io/tutorials-middle/data/set-01-contacts.rds"  #<DIFFERENT PER GROUP>
+  "https://epiverse-trace.github.io/tutorials-middle/data/set-01-contacts.rds"  #<DIFFERENT PER ROOM>
 )
 
 dat_linelist <- readr::read_rds(
-  "https://epiverse-trace.github.io/tutorials-middle/data/set-01-linelist.rds"  #<DIFFERENT PER GROUP>
+  "https://epiverse-trace.github.io/tutorials-middle/data/set-01-linelist.rds"  #<DIFFERENT PER ROOM>
 )
 
 
