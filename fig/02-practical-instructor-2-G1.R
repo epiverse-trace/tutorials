@@ -3,6 +3,8 @@
 # Practical 2
 # Activity 2
 
+room_number <- 1 #valid for 2
+
 # Load packages -----------------------------------------------------------
 library(cfr)
 library(epiparameter)

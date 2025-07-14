@@ -73,6 +73,8 @@ Within your room, Write your answers to these questions:
 # Practical 3
 # Activity 1
 
+room_number <- 1 #valid for all
+
 # Load packages -----------------------------------------------------------
 library(epicontacts)
 library(fitdistrplus)
@@ -81,11 +83,11 @@ library(tidyverse)
 
 # Read linelist and contacts ----------------------------------------------
 dat_contacts <- readr::read_rds(
-  "https://epiverse-trace.github.io/tutorials-middle/data/set-01-contacts.rds"  #<DIFFERENT PER GROUP>
+  "https://epiverse-trace.github.io/tutorials-middle/data/set-01-contacts.rds"  #<DIFFERENT PER ROOM>
 )
 
 dat_linelist <- readr::read_rds(
-  "https://epiverse-trace.github.io/tutorials-middle/data/set-01-linelist.rds"  #<DIFFERENT PER GROUP>
+  "https://epiverse-trace.github.io/tutorials-middle/data/set-01-linelist.rds"  #<DIFFERENT PER ROOM>
 )
 
 
@@ -263,6 +265,8 @@ Within your room, Write your answers to these questions:
 # Practical 3
 # Activity 2
 
+room_number <- 1 #valid for all
+
 # Load packages -----------------------------------------------------------
 library(epiparameter)
 library(epichains)
@@ -270,9 +274,9 @@ library(tidyverse)
 
 
 # Set input parameters ---------------------------------------------------
-known_basic_reproduction_number <- 0.8
-known_dispersion <- 0.01
-chain_to_observe <- 957
+known_basic_reproduction_number <- 0.8 #<DIFFERENT PER GROUP>
+known_dispersion <- 0.01 #<DIFFERENT PER GROUP>
+chain_to_observe <- 957 #<DIFFERENT PER GROUP>
 
 
 # Set iteration parameters -----------------------------------------------

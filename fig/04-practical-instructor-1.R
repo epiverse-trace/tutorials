@@ -3,6 +3,8 @@
 # Practical 4
 # Activity 1
 
+room_number <- 3 #valid for all
+
 # Load packages ----------------------------------------------------------
 library(epidemics)
 library(socialmixr)

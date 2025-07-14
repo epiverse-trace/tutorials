@@ -43,7 +43,8 @@ Within your room, Write your answers to these questions:
 
 **Steps:**
 
-- Open the file `02-practical-activity-1.Rmd`.
+- Open the file `02-practical-activity-1.R` and fill in your
+  `room_number` in the script.
 - Paste the URL link as a string to read input data.
 - Keep the reading function that corresponds to your input data disease.
 - Define a generation time:
@@ -88,6 +89,8 @@ Within your room, Write your answers to these questions:
 # Practical 2
 # Activity 1
 
+room_number <- 2 # valid for 3
+
 # Load packages -----------------------------------------------------------
 library(epiparameter)
 library(EpiNow2)
@@ -97,7 +100,7 @@ library(tidyverse)
 # Read reported cases -----------------------------------------------------
 # for ebola
 dat <- read_rds(
-  "https://epiverse-trace.github.io/tutorials-middle/data/ebola_35days.rds"
+  "https://epiverse-trace.github.io/tutorials-middle/data/ebola_35days.rds" #<DIFFERENT PER ROOM>
 ) %>%
   dplyr::select(date, confirm = cases)
 
@@ -198,6 +201,8 @@ plot(estimates)
 # Practical 2
 # Activity 1
 
+room_number <- 1 # valid for 4
+
 # Load packages -----------------------------------------------------------
 library(epiparameter)
 library(EpiNow2)
@@ -207,7 +212,7 @@ library(tidyverse)
 # Read reported cases -----------------------------------------------------
 # for covid
 dat <- read_rds(
-  "https://epiverse-trace.github.io/tutorials-middle/data/covid_30days.rds"
+  "https://epiverse-trace.github.io/tutorials-middle/data/covid_30days.rds" #<DIFFERENT PER ROOM>
 ) %>%
   dplyr::select(date, confirm)
 
@@ -421,15 +426,24 @@ Interpretation Helpers:
 - The forecast of `New infections` and `Reports` per day assumes no
   change in the reproduction number. For that reason, the forecast
   section of “Effective reproduction no.” is constant.
+- The estimated trajectory of `New Infections` (line) is delayed from
+  the `New Reports` (bars), due to the added incubation and reporting
+  delays.
 - About delays:
-  - When we include in `delays` the function `EpiNow2::delay_opts()`
-    with both the **incubation** and **reporting** delay,
-    - In Reports, the forecast credible intervals increases.
-    - In New infections per day, uncertainty is expanded due to the
+  - When we correctly include **incubation** and **reporting** `delays`
+    in `EpiNow2::epinow()`,
+    - In `Reports`, the forecast credible intervals increases.
+    - In `New infections` per day, uncertainty is expanded due to the
       length of delays.
-  - For example: Using the same input data as reference, COVID 30 days:
-    In Reports, the upper interval increases from 30k to 45k. In New
-    infections per day, uncertainty expands from Mar 16 onwards.
+  - If we forget adding delays, `{EpiNow2}` could misinterpret `Reports`
+    (confirmed cases) as `Infections`.
+    - For example, using one same input data of reference (e.g., COVID
+      30 days).
+    - If we forget adding delays, **Panel B** overlaps the trajectory of
+      New infections and the frequency of Reports.
+    - If we correctly add delays, In Reports, the upper interval
+      increases from 30k to 45k. In New infections per day, uncertainty
+      expands from Mar 16 onwards.
 - From comparing COVID and Ebola outputs:
   - The finite maximum value of the **generation** time distribution
     define the range of the `Estimate based on parial data`.
@@ -462,7 +476,8 @@ Within your room, Write your answers to these questions:
 
 **Steps:**
 
-- Open the file `02-practical-activity-2.R`.
+- Open the file `02-practical-activity-2.R` and fill in your
+  `room_number` in the script.
 - Paste the URL link as a string to read input data.
 - Fill in the argument to plot an incidence curve.
 - Evaluate if the input data format needs adaptation to {cfr}.
@@ -493,6 +508,8 @@ Within your room, Write your answers to these questions:
 
 # Practical 2
 # Activity 2
+
+room_number <- 1 #valid for 2
 
 # Load packages -----------------------------------------------------------
 library(cfr)
@@ -581,6 +598,8 @@ disease_adapted %>%
 
 # Practical 2
 # Activity 2
+
+room_number <- 3
 
 # Load packages -----------------------------------------------------------
 library(cfr)

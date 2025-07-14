@@ -3,6 +3,8 @@
 # Practical 1
 # Activity 2
 
+room_number <- 3
+
 # Validate linelist ------------------------------------------------------
 
 # Activate error message

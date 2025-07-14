@@ -3,6 +3,8 @@
 # Practical 3
 # Activity 1
 
+room_number <- #<COMPLETE> replace with 1/2/3/4
+
 # Load packages -----------------------------------------------------------
 library(epicontacts)
 library(fitdistrplus)

@@ -3,6 +3,8 @@
 # Practical 4
 # Activity 3
 
+room_number <- #<COMPLETE> replace with 1/2/3/4
+
 # Combine interventions --------------------------------------------------
 
 simulate_twointerventions <- epidemics::model_default(

@@ -205,6 +205,8 @@ Interpretation Helpers:
 # Practical 4
 # Activity 1
 
+room_number <- 3 #valid for all
+
 # Load packages ----------------------------------------------------------
 library(epidemics)
 library(socialmixr)
@@ -368,6 +370,8 @@ newinfections_bygroup %>%
 
 # Practical 4
 # Activity 2
+
+room_number <- 1 #valid for all
 
 # Group parameters -------------------------------------------------------
 
@@ -591,6 +595,8 @@ intervention_vaccinate <- test_intervention
 
 # Practical 4
 # Activity 3
+
+room_number <- 2
 
 # Combine interventions --------------------------------------------------
 
