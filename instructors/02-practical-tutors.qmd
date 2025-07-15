@@ -481,15 +481,26 @@ Write your answers to the questions above:
 
 #### Code
 
-##### COVID (sample)
+##### Room 1: COVID 25 days
+
+25 days (before March 1st)
 
 ```{r, file = "fig/02-practical-instructor-2-G1.R", eval = FALSE}
 
 ```
 
-##### MERS (sample)
+##### Room 2: COVID 70 days
+
+70 days (until April 15th)
 
 ```{r, file = "fig/02-practical-instructor-2-G2.R", eval = FALSE}
+
+```
+
+
+##### Room 3: MERS
+
+```{r, file = "fig/02-practical-instructor-2-G3.R", eval = FALSE}
 
 ```
 
@@ -518,10 +529,13 @@ Interpretation template:
 
 Intepretation helpers:
 
-- For COVID-19, until the end of February (on March 1st), the delay-adjusted (aCFR) central estimate is closer to the naive CFR (nCFR) estimates on April 15th.
+- We can assess if the time series include all the possible deaths to observe from known cases using:
+    - the delay distribution from onset to death. Using the percentile-99, for COVID we may need to wait ~60 days and for MERS, ~49 days.
+    - calculating the time difference between the observed date of onset and date of death from the input linelist data, stratified by age category.
+- For COVID-19, until the end of February (on March 1st), the delay-adjusted (aCFR) central estimate is higher than the naive CFR (nCFR), but closer to the nCFR estimates on April 15th.
 - With all data available, the delay-adusted and naive are similar (exactly the same). This is not the case for the data available up until March 1.
 - The MERS incidence curve seems to be in a decay phase. However, it is expected to have death reports in upcoming dates, as observed in the COVID Diamond Princess data.
-- For MERS, the aCFR estimate is almost the double of the nCFR estimate.
+- For MERS, the aCFR central estimate is almost the double of the nCFR estimate, but 95% confidence intervals quite overlapped. 
 
 Complementary notes:
 

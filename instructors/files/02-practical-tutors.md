@@ -501,7 +501,9 @@ Within your room, Write your answers to these questions:
 
 #### Code
 
-##### COVID (sample)
+##### Room 1: COVID 25 days
+
+25 days (before March 1st)
 
 ``` r
 # nolint start
@@ -509,7 +511,7 @@ Within your room, Write your answers to these questions:
 # Practical 2
 # Activity 2
 
-room_number <- 1 #valid for 2
+room_number <- 1
 
 # Load packages -----------------------------------------------------------
 library(cfr)
@@ -519,7 +521,7 @@ library(tidyverse)
 
 # Read reported cases -----------------------------------------------------
 disease_dat <- readr::read_rds(
-  "https://epiverse-trace.github.io/tutorials-middle/data/diamond_70days.rds"
+  "https://epiverse-trace.github.io/tutorials-middle/data/diamond_25days.rds"
 )
 
 disease_dat
@@ -535,7 +537,6 @@ disease_incidence <- disease_dat %>%
 
 # with data available before march 1st
 disease_incidence %>%
-  dplyr::filter(date_index < ymd(20200301)) %>% 
   plot()
 
 # with complete data
@@ -568,22 +569,82 @@ disease_delay <- epiparameter::epiparameter_db(
 
 # Estimate static CFR
 disease_adapted %>%
-  filter(
-    date < ymd(20200301)
-  ) %>%
   cfr::cfr_static()
 
 # Estimate static delay-adjusted CFR
 disease_adapted %>%
-  filter(
-    date < ymd(20200301)
-  ) %>%
   cfr::cfr_static(
     delay_density = function(x) density(disease_delay, x)
   )
 
+# nolint end
+```
 
-# Estimate in complete time series ---------------------------------------
+##### Room 2: COVID 70 days
+
+70 days (until April 15th)
+
+``` r
+# nolint start
+
+# Practical 2
+# Activity 2
+
+room_number <- 2
+
+# Load packages -----------------------------------------------------------
+library(cfr)
+library(epiparameter)
+library(tidyverse)
+
+
+# Read reported cases -----------------------------------------------------
+disease_dat <- readr::read_rds(
+  "https://epiverse-trace.github.io/tutorials-middle/data/diamond_70days.rds"
+)
+
+disease_dat
+
+
+# Create incidence object ------------------------------------------------
+disease_incidence <- disease_dat %>%
+  incidence2::incidence(
+    date_index = "date",
+    counts = c("cases", "deaths"),
+    complete_dates = TRUE
+  )
+
+# with data available before march 1st
+disease_incidence %>%
+  plot()
+
+# with complete data
+disease_incidence %>% 
+  plot()
+
+
+# Confirm {cfr} data input format ----------------------------------------
+
+# Is the input data already adapted to {cfr} input? 
+disease_adapted <- disease_dat
+# # OR
+# # Does the input data need to be adapted to {cfr}? 
+# disease_adapted <- disease_incidence %>%
+#   cfr::prepare_data(
+#     #<COMPLETE>
+#   )
+
+disease_adapted
+
+# Access delay distribution -----------------------------------------------
+disease_delay <- epiparameter::epiparameter_db(
+  disease = "covid",
+  epi_name = "onset-to-death",
+  single_epiparameter = TRUE
+)
+
+
+# Estimate naive and adjusted CFR ----------------------------------------
 
 # Estimate static CFR
 disease_adapted %>%
@@ -598,7 +659,7 @@ disease_adapted %>%
 # nolint end
 ```
 
-##### MERS (sample)
+##### Room 3: MERS
 
 ``` r
 # nolint start
@@ -700,16 +761,24 @@ Interpretation template:
 
 Intepretation helpers:
 
+- We can assess if the time series include all the possible deaths to
+  observe from known cases using:
+  - the delay distribution from onset to death. Using the percentile-99,
+    for COVID we may need to wait ~60 days and for MERS, ~49 days.
+  - calculating the time difference between the observed date of onset
+    and date of death from the input linelist data, stratified by age
+    category.
 - For COVID-19, until the end of February (on March 1st), the
-  delay-adjusted (aCFR) central estimate is closer to the naive CFR
-  (nCFR) estimates on April 15th.
+  delay-adjusted (aCFR) central estimate is higher than the naive CFR
+  (nCFR), but closer to the nCFR estimates on April 15th.
 - With all data available, the delay-adusted and naive are similar
   (exactly the same). This is not the case for the data available up
   until March 1.
 - The MERS incidence curve seems to be in a decay phase. However, it is
   expected to have death reports in upcoming dates, as observed in the
   COVID Diamond Princess data.
-- For MERS, the aCFR estimate is almost the double of the nCFR estimate.
+- For MERS, the aCFR central estimate is almost the double of the nCFR
+  estimate, but 95% confidence intervals quite overlapped.
 
 Complementary notes:
 
