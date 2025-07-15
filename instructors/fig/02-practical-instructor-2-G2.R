@@ -3,7 +3,7 @@
 # Practical 2
 # Activity 2
 
-room_number <- 1
+room_number <- 2
 
 # Load packages -----------------------------------------------------------
 library(cfr)
@@ -13,7 +13,7 @@ library(tidyverse)
 
 # Read reported cases -----------------------------------------------------
 disease_dat <- readr::read_rds(
-  "https://epiverse-trace.github.io/tutorials-middle/data/diamond_25days.rds"
+  "https://epiverse-trace.github.io/tutorials-middle/data/diamond_70days.rds"
 )
 
 disease_dat
