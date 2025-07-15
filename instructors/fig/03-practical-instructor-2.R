@@ -25,7 +25,8 @@ generation_time <- epiparameter::epiparameter(
   epi_name = "generation time",
   prob_distribution = "gamma",
   summary_stats = list(mean = 3, sd = 1)
-)
+) %>% 
+  epiparameter::discretise()
 
 
 # Simulate multiple chains -----------------------------------------------
