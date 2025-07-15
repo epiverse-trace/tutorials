@@ -533,7 +533,14 @@ disease_incidence <- disease_dat %>%
     complete_dates = TRUE
   )
 
-plot(disease_incidence)
+# with data available before march 1st
+disease_incidence %>%
+  dplyr::filter(date_index < ymd(20200301)) %>% 
+  plot()
+
+# with complete data
+disease_incidence %>% 
+  plot()
 
 
 # Confirm {cfr} data input format ----------------------------------------
