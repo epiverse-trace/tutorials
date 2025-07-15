@@ -42,6 +42,8 @@ disease_adapted <- disease_incidence %>%
 disease_adapted
 
 # Access delay distribution -----------------------------------------------
+
+# What delay you need to use to adjust the CFR?
 disease_delay <- epiparameter::#<COMPLETE>
 
 
@@ -49,18 +51,12 @@ disease_delay <- epiparameter::#<COMPLETE>
 
 # Estimate static CFR
 disease_adapted %>%
-  filter(
-    #<COMPLETE>
-  ) %>%
   cfr::cfr_static()
 
 # Estimate static delay-adjusted CFR
 disease_adapted %>%
-  filter(
-    #<COMPLETE>
-  ) %>%
   cfr::cfr_static(
-    delay_density = function(x) density(disease_delay, x)
+    delay_density = #<COMPLETE>
   )
 
 # nolint end
