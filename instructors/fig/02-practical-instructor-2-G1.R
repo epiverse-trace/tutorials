@@ -27,13 +27,7 @@ disease_incidence <- disease_dat %>%
     complete_dates = TRUE
   )
 
-# with data available before march 1st
-disease_incidence %>%
-  plot()
-
-# with complete data
-disease_incidence %>% 
-  plot()
+plot(disease_incidence)
 
 
 # Confirm {cfr} data input format ----------------------------------------
