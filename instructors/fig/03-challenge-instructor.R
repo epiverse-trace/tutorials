@@ -64,4 +64,6 @@ sim_chains_aggregate %>%
   geom_line() +
   # Define a 100-case threshold
   geom_hline(aes(yintercept = 100), lty = 2) +
+  ylim(0,100) +
+  xlim(0,100) +
   labs(x = "Day", y = "Cumulative cases")
