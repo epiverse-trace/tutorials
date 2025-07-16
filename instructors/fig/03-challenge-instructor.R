@@ -44,26 +44,10 @@ sim_multiple_chains <- epichains::simulate_chains(
   generation_time = function(x) generate(x = ebola_serialinter, times = x)
 )
 
+# summarise ----------------------------------------
+
+summary(sim_multiple_chains)
+
 # visualize ----------------------------------------
 
-sim_chains_aggregate <-
-  sim_multiple_chains %>%
-  # use data.frame output from <epichains> object
-  as_tibble() %>%
-  # Count the daily number of cases in each chain
-  mutate(day = ceiling(time)) %>%
-  count(chain, day, name = "cases") %>%
-  # Calculate the cumulative number of cases for each chain
-  group_by(chain) %>%
-  mutate(cumulative_cases = cumsum(cases)) %>%
-  ungroup()
-
-sim_chains_aggregate %>%
-  # Create grouped chain trajectories
-  ggplot(aes(x = day, y = cumulative_cases, group = chain)) +
-  geom_line() +
-  # Define a 100-case threshold
-  geom_hline(aes(yintercept = 100), lty = 2) +
-  ylim(0,100) +
-  xlim(0,100) +
-  labs(x = "Day", y = "Cumulative cases")
+# optional - not to assess
