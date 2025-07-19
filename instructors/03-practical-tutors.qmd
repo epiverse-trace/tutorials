@@ -52,7 +52,7 @@ This practical has two activities.
 
 ## Activity 1: Account for superspreading
 
-Estimate extent of individual-level variation (i.e. the dispersion parameter) of the offspring distribution, which refers to the variability in the number of secondary cases per individual, and assess the implications for variation in transmission for decision-making using the following available inputs:
+Estimate the extent of individual-level variation (i.e. the dispersion parameter) of the offspring distribution, which refers to the variability in the number of secondary cases per individual, and assess the implications for variation in transmission for decision-making using the following available inputs:
 
 - Line list of cases
 - Contact tracing data
@@ -64,12 +64,12 @@ Open the file `03-practical-activity-1.R` and fill in all the `#<COMPLETE>` line
 Within your room, Write your answers to these questions:
 
 - From descriptive and estimation steps:
-    - What set has more infections related to fewer clusters in the contact network?
+    - Which set has more infections related to fewer clusters in the contact network?
     - What set has the most skewed histogram of secondary cases?
     - Does the estimated dispersion parameter correlate with the contact network and histogram of secondary cases?
 - On decision making:
     - What is the probability of new cases originating from a cluster of at least 10 cases?
-    - Would you recommend a backward tracing strategy?
+    - Would you recommend a backward contact tracing strategy?
 - Interpret: How would you communicate these results to a decision-maker?
 - Compare: What differences do you identify from other room outputs? (if available)
 
@@ -310,7 +310,7 @@ Interpretation Helpers:
 
 ## Activity 2: Simulate transmission chains
 
-Estimate the potential for large outbreaks that could occur based on 1000 simulated outbreaks with one initial case using the following available inputs:
+Estimate the potential for large outbreaks that could occur based on 1000 simulated outbreaks with one initial case, using the following available inputs:
 
 - Basic reproduction number
 - Dispersion parameter
@@ -322,12 +322,12 @@ Open the file `03-practical-activity-2.R` and fill in all the `#<COMPLETE>` line
 Within your room, Write your answers to these questions:
 
 - You have been assigned to explore `Chain ID`. From the output data frame, describe:
-   - How many generations this chain has?
+   - How many generations does this chain have?
    - The story of this chain: Who infected whom, and when (with reference to the day of infection).
 - Among simulated outbreaks:
-    - How many chains reached a 100 case threshold?
-    - What is the maximum size of chain? (The cumulative number of case)
-    - What is the maximum length of chain? (The number of days until the chain stops)
+    - How many chains reached a 100-case threshold?
+    - What is the maximum size among all the chains?
+    - What is the maximum length among all the chains? (in days)
 - Interpret: How would you communicate these results to a decision-maker?
 - Compare: What differences do you identify from other room outputs? (if available)
 
