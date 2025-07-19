@@ -24,12 +24,17 @@ This practical has two activities.
 
 Estimate extent of individual-level variation (i.e. the dispersion
 parameter) of the offspring distribution, which refers to the
-variability in the number of secondary cases per individual, and the
-proportion of transmission that is linked to ‘superspreading events’
-using the following available inputs:
+variability in the number of secondary cases per individual, and assess
+the implications for variation in transmission for decision-making using
+the following available inputs:
 
 - Line list of cases
 - Contact tracing data
+
+**Steps:**
+
+Open the file `03-practical-activity-1.R` and fill in all the
+`#<COMPLETE>` lines following the `steps:` detailed in the R file.
 
 Within your room, Write your answers to these questions:
 
@@ -40,8 +45,8 @@ Within your room, Write your answers to these questions:
   - Does the estimated dispersion parameter correlate with the contact
     network and histogram of secondary cases?
 - On decision making:
-  - What is the proportion of new cases originating from a cluster of at
-    least 10 cases?
+  - What is the probability of new cases originating from a cluster of
+    at least 10 cases?
   - Would you recommend a backward tracing strategy?
 - Interpret: How would you communicate these results to a
   decision-maker?
@@ -73,6 +78,7 @@ Within your room, Write your answers to these questions:
 # Practical 3
 # Activity 1
 
+# step: fill in your room number
 room_number <- 1 #valid for all
 
 # Load packages -----------------------------------------------------------
@@ -82,6 +88,8 @@ library(tidyverse)
 
 
 # Read linelist and contacts ----------------------------------------------
+# step: Paste the URL links as a string to read input data.
+
 dat_contacts <- readr::read_rds(
   "https://epiverse-trace.github.io/tutorials-middle/data/set-01-contacts.rds"  #<DIFFERENT PER ROOM>
 )
@@ -92,6 +100,10 @@ dat_linelist <- readr::read_rds(
 
 
 # Create an epicontacts object -------------------------------------------
+# step: Create a *directed* contact network 
+# using the linelist and contacts data inputs.
+# Paste a screenshot of the network in the report.
+
 epi_contacts <- epicontacts::make_epicontacts(
   linelist = dat_linelist,
   contacts = dat_contacts,
@@ -109,6 +121,10 @@ contact_network
 
 
 # Count secondary cases per subject in contacts and linelist --------------
+# step: Calculate the *out-degree* for each node (infector case)
+# in the contact network, using *all* the cases observed in the linelist.
+# Paste the output histogram in the report.
+
 secondary_cases <- epicontacts::get_degree(
   x = epi_contacts,
   type = "out",
@@ -130,6 +146,10 @@ individual_reproduction_num
 
 
 # Fit a negative binomial distribution -----------------------------------
+# step: Use the vector with the number of secondary cases per infector case 
+# to fit a Negative Binomial distribution using {fitdistrplus}
+# Paste the output parameters in the report.
+
 offspring_fit <- secondary_cases %>%
   fitdistrplus::fitdist(distr = "nbinom")
 
@@ -138,11 +158,16 @@ offspring_fit
 
 
 # Estimate proportion of new cases from a cluster of secondary cases ------
+# step: Use {superspreading} to calculate the probability (proportion)
+# of new cases originating from a cluster of a given size (cluster size),
+# using as input the offspring distribution parameters: 
+# the reproduction number and dispersion.
+# Paste the output result in the report.
 
 # Set seed for random number generator
 set.seed(33)
 
-# Estimate the proportion of new cases originating from 
+# Estimate the probability of new cases originating from 
 # a transmission cluster of at least 5, 10, or 25 cases
 proportion_cases_by_cluster_size <- 
   superspreading::proportion_cluster_size(
@@ -190,23 +215,24 @@ Room 1/2/3
 
 Interpretation template:
 
-- For R = 0.8 and k = 0.01:
-  - The proportion of new cases originating from a cluster of at least 5
-    secondary cases from a primary case is 95%
+- Two valid alternatives, For R = 0.8 and k = 0.01:
+  - The probability of new cases originating from a cluster of 5 cases
+    or more is 95%.
   - The proportion of all transmission events that were part of
     secondary case clusters (i.e., from the same primary case) of at
-    least 5 cases is 95%
+    least 5 cases is 95%.
 
 Interpretation Helpers:
 
 - From the contact network, set 1 has the highest frequency of
-  infections related with a small proportion of clusters.
+  infections related with a small number of clusters (four major
+  clusters out of all the transmission events).
 - From the histogram of secondary cases, skewness in set 1 is higher
   than set 2 and set 3.
 - Set 1 has cases with the highest number of secondary cases (n = 50),
   compared with set 2 (n = ~25) and set 3 (n = 11).
 - The contact networks and histograms of secondary cases correlate with
-  the estimated dispersion parameters: A small proportion of clusters
+  the estimated dispersion parameters: A small number of clusters
   generating most of new cases produces a more skewed histogram, and a
   lowest estimate of dispersion parameter.
 - About probability of new cases from transmission cluster of size at
@@ -218,18 +244,24 @@ Interpretation Helpers:
 ## Activity 2: Simulate transmission chains
 
 Estimate the potential for large outbreaks that could occur based on
-1000 simulated outbreaks using the following available inputs:
+1000 simulated outbreaks with one initial case using the following
+available inputs:
 
 - Basic reproduction number
 - Dispersion parameter
+
+**Steps:**
+
+Open the file `03-practical-activity-2.R` and fill in all the
+`#<COMPLETE>` lines following the `steps:` detailed in the R file.
 
 Within your room, Write your answers to these questions:
 
 - You have been assigned to explore `Chain ID`. From the output data
   frame, describe:
-  - How many generations there are.
-  - Who infected whom, and when (with reference to the day of
-    infection).
+  - How many generations this chain has?
+  - The story of this chain: Who infected whom, and when (with reference
+    to the day of infection).
 - Among simulated outbreaks:
   - How many chains reached a 100 case threshold?
   - What is the maximum size of chain? (The cumulative number of case)
@@ -265,6 +297,7 @@ Within your room, Write your answers to these questions:
 # Practical 3
 # Activity 2
 
+# step: fill in your room number
 room_number <- 1 #valid for all
 
 # Load packages -----------------------------------------------------------
@@ -274,12 +307,16 @@ library(tidyverse)
 
 
 # Set input parameters ---------------------------------------------------
+# step: Paste the corresponding input parameter for this room.
+
 known_basic_reproduction_number <- 0.8 #<DIFFERENT PER GROUP>
 known_dispersion <- 0.01 #<DIFFERENT PER GROUP>
 chain_to_observe <- 957 #<DIFFERENT PER GROUP>
 
 
 # Set iteration parameters -----------------------------------------------
+# step: Read how to create a <epiparameter> class object from scratch.
+# This is a step to learn.
 
 # Create generation time as an <epiparameter> object
 generation_time <- epiparameter::epiparameter(
@@ -291,6 +328,9 @@ generation_time <- epiparameter::epiparameter(
 
 
 # Simulate multiple chains -----------------------------------------------
+# step: Create 1000 simulation runs with 1 initial case.
+# Add the input offspring distribution parameters to the corresponding arguments.
+# Add the input generation time of class <epiparameter> as a function.
 # Run set.seed() and epichains::simulate_chains() together, in the same run
 
 # Set seed for random number generator
@@ -313,6 +353,14 @@ multiple_chains
 
 
 # Explore suggested chain ------------------------------------------------
+# step: Read the output of the selected chain to observe.
+# Paste the screenshot in the report.
+# Write in the report a paragraph describing:
+# - the number of unknown and known infectors, their IDs.
+# - the number of generations.
+# - who infected whom in each generation, and when?
+# i.e., the time range in days of these infections per generation.
+
 multiple_chains %>%
   # Use data.frame output from <epichains> object
   as_tibble() %>%
@@ -321,6 +369,14 @@ multiple_chains %>%
 
 
 # Visualize --------------------------------------------------------------
+# step: Run the code to create a summary data frame of the whole simulation.
+# Paste the plot output in the report
+# Use the plot or summary data frame (or any other calculation) 
+# to write in the report a description of:
+# - How many chains reached a 100 case threshold?
+# - What is the maximum size of chain? (The cumulative number of case)
+# - What is the maximum length of chain? (The number of days until the chain stops)
+# Write in the report: interpretation and comparison between rooms.
 
 # Daily aggregate of cases
 aggregate_chains <- multiple_chains %>%
@@ -383,34 +439,43 @@ Sample
 ``` r
 # infector-infectee data frame 
 simulated_chains_map %>%
-  dplyr::filter(simulation_id == 806) %>%
+  dplyr::filter(chain == 957) %>%
   dplyr::as_tibble()
 ```
 
-    # A tibble: 9 × 6
-      chain infector infectee generation  time simulation_id
-      <int>    <dbl>    <dbl>      <int> <dbl>         <int>
-    1     1       NA        1          1   0             806
-    2     1        1        2          2  16.4           806
-    3     1        1        3          2  11.8           806
-    4     1        1        4          2  10.8           806
-    5     1        1        5          2  11.4           806
-    6     1        1        6          2  10.2           806
-    7     1        2        7          3  26.0           806
-    8     1        2        8          3  29.8           806
-    9     1        2        9          3  26.6           806
+    # A tibble: 16 × 5
+       chain infector infectee generation  time
+       <int>    <dbl>    <dbl>      <int> <dbl>
+     1   957       NA        1          1  0   
+     2   957        1        2          2  3.13
+     3   957        1        3          2  4.12
+     4   957        1        4          2  3.42
+     5   957        1        5          2  3.12
+     6   957        1        6          2  3.50
+     7   957        1        7          2  2.79
+     8   957        1        8          2  3.92
+     9   957        1        9          2  6.56
+    10   957        1       10          2  2.93
+    11   957        1       11          2  4.02
+    12   957        1       12          2  3.17
+    13   957        1       13          2  2.99
+    14   957       10       14          3  6.79
+    15   957       10       15          3  4.43
+    16   957       10       16          3  6.18
 
 #### Interpretation
 
 Interpretation template:
 
-- Simulation `806` have `1` chain with `3` known infectors (`NA`, 1, 2),
-  and `3` generations.
-- In the generation 0, subject `NA` infected subject 1.
-- In the generation 1, subject 1 infected subjects 2, 3, 4, 5, 6. These
-  infections occurred between day 10 and 16 after the “case zero”.
-- In the generation 2, subject 2 infected subjects 7, 8, 9. These
-  infections occurred between day 26 and 29 after the “case zero”.
+- Simulated chain `957` have 1 unknown infector `ID = NA`, 2 known
+  infectors `ID = c(1, 10)`, and 3 generations.
+- In the generation 1, subject `ID = NA` infected subject `ID = 1`.
+- In the generation 2, subject `ID = 1` infected 12 subjects
+  `IDs from 2 to 13`. These infections occurred between day 2 and 6
+  after the first infection (initial case).
+- In the generation 3, subject `ID = 10` infected subjects
+  `ID = c(14, 15, 16)`. These infections occurred between day 4 and 7
+  after the first infection (initial case).
 
 Interpretation Helpers:
 
