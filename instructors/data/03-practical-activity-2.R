@@ -3,6 +3,7 @@
 # Practical 3
 # Activity 2
 
+# step: fill in your room number
 room_number <- #<COMPLETE> replace with 1/2/3/4
 
 # Load packages -----------------------------------------------------------
@@ -12,12 +13,16 @@ library(tidyverse)
 
 
 # Set input parameters ---------------------------------------------------
+# step: Paste the corresponding input parameter for this room.
+
 known_basic_reproduction_number <- #<COMPLETE>
 known_dispersion <- #<COMPLETE>
 chain_to_observe <- #<COMPLETE>
 
 
 # Set iteration parameters -----------------------------------------------
+# step: Read how to create a <epiparameter> class object from scratch.
+# This is a step to learn.
 
 # Create generation time as an <epiparameter> object
 generation_time <- epiparameter::epiparameter(
@@ -29,6 +34,9 @@ generation_time <- epiparameter::epiparameter(
 
 
 # Simulate multiple chains -----------------------------------------------
+# step: Create 1000 simulation runs with 1 initial case.
+# Add the input offspring distribution parameters to the corresponding arguments.
+# Add the input generation time of class <epiparameter> as a function.
 # Run set.seed() and epichains::simulate_chains() together, in the same run
 
 # Set seed for random number generator
@@ -51,6 +59,14 @@ multiple_chains
 
 
 # Explore suggested chain ------------------------------------------------
+# step: Read the output of the selected chain to observe.
+# Paste the screenshot in the report.
+# Write in the report a paragraph describing:
+# - the number of unknown and known infectors, their IDs.
+# - the number of generations.
+# - who infected whom in each generation, and when?
+# i.e., the time range in days of these infections per generation.
+
 multiple_chains %>%
   # Use data.frame output from <epichains> object
   as_tibble() %>%
@@ -59,6 +75,14 @@ multiple_chains %>%
 
 
 # Visualize --------------------------------------------------------------
+# step: Run the code to create a summary data frame of the whole simulation.
+# Paste the plot output in the report
+# Use the plot or summary data frame (or any other calculation) 
+# to write in the report a description of:
+# - How many chains reached a 100 case threshold?
+# - What is the maximum size of chain? (The cumulative number of case)
+# - What is the maximum length of chain? (The number of days until the chain stops)
+# Write in the report: interpretation and comparison between rooms.
 
 # Daily aggregate of cases
 aggregate_chains <- multiple_chains %>%
