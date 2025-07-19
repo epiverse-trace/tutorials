@@ -39,9 +39,6 @@ Open the file `03-practical-activity-1.R` and fill in all the
 Within your room, Write your answers to these questions:
 
 - From descriptive and estimation steps:
-  - Which set has more infections related to fewer clusters in the
-    contact network?
-  - What set has the most skewed histogram of secondary cases?
   - Does the estimated dispersion parameter correlate with the contact
     network and histogram of secondary cases?
 - On decision making:
@@ -52,6 +49,11 @@ Within your room, Write your answers to these questions:
   decision-maker?
 - Compare: What differences do you identify from other room outputs? (if
   available)
+  - Which room has more infections related to fewer clusters in the
+    contact network?
+  - What room has the most skewed histogram of secondary cases?
+  - Is there a relationship between contact network clusters, histogram
+    of secondary cases, and dispersion parameter estimates?
 
 ### Inputs
 
@@ -70,7 +72,7 @@ Within your room, Write your answers to these questions:
 
 #### Code
 
-##### Set 1 (sample)
+##### Room 1 (sample)
 
 ``` r
 # nolint start
@@ -224,22 +226,22 @@ Interpretation template:
 
 Interpretation Helpers:
 
-- From the contact network, set 1 has the highest frequency of
+- From the contact network, room 1 has the highest frequency of
   infections related with a small number of clusters (four major
   clusters out of all the transmission events).
-- From the histogram of secondary cases, skewness in set 1 is higher
-  than set 2 and set 3.
-- Set 1 has cases with the highest number of secondary cases (n = 50),
-  compared with set 2 (n = ~25) and set 3 (n = 11).
+- From the histogram of secondary cases, skewness in room 1 is higher
+  than room 2 and room 3.
+- Room 1 has cases with the highest number of secondary cases (n = 50),
+  compared with room 2 (n = ~25) and room 3 (n = 11).
 - The contact networks and histograms of secondary cases correlate with
   the estimated dispersion parameters: A small number of clusters
   generating most of new cases produces a more skewed histogram, and a
   lowest estimate of dispersion parameter.
 - About probability of new cases from transmission cluster of size at
   least 10 cases, and the recommending backward tracing strategy:
-  - set 1: 89%, yes.
-  - set 2: 38%, probably no?
-  - set 3: 3%, no.
+  - room 1: 89%, yes.
+  - room 2: 38%, probably no?
+  - room 3: 3%, no.
 
 ## Activity 2: Simulate transmission chains
 
@@ -288,7 +290,7 @@ Within your room, Write your answers to these questions:
 
 #### Code
 
-##### Set 1 (sample)
+##### Room 1 (sample)
 
 ``` r
 # nolint start
