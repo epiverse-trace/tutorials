@@ -55,7 +55,7 @@ infections_baseline_intervention %>%
   ggplot(aes(x = time, y = new_infections, colour = scenario)) +
   geom_line() +
   geom_vline(
-    xintercept = c(close_intervention$time_begin, close_intervention$time_end),
+    xintercept = c(test_intervention$time_begin, test_intervention$time_end),
     linetype = "dashed",
     linewidth = 0.2
   ) +
