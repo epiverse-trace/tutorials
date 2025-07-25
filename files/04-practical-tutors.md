@@ -20,10 +20,10 @@ This practical is based in the following tutorial episodes:
 
 This practical has three activities.
 
-## Activity 1: Generate disease trajectories of new infections
+## Activity 1: Generate disease trajectories
 
-Generate disease trajectories of infectious subjects and new infections
-using the following available inputs:
+Generate disease trajectories of **infectious individuals** and **new
+infections** using the following available inputs:
 
 - Social contact matrix
 - Age group of the infectious population
@@ -32,16 +32,16 @@ using the following available inputs:
 
 Within your room, Write your answers to these questions:
 
-- What is the location (time) and size of epidemic peak for infectious
-  subjects in each age group?
-- What is the number of new infections at the epidemic peak?
-- Change the basic reproduction number to 1.1 and 3. Are the changes in
-  location (time) and size of the peak of new infections as expected?
-  (based on the concept definition of reproduction number)
-- Interpret: How would you communicate these results to a
-  decision-maker?
-- Compare: What differences do you identify from other room outputs? (if
-  available)
+- What are the time and size of the epidemic peak for *infectious
+  individuals* in each age group?
+- Compare and describe the similarities and differences between these
+  two outputs: the epidemic peak of *infectious individuals* and the
+  plot of *new infections*.
+- Modify the basic reproduction number (R₀) from 1.46 to 1.1 or 3. What
+  changes do you observe in the time and size of the peak of *new
+  infections*?
+- Compare: What differences do you notice compared to the outputs from
+  other rooms (if available)?
 
 ### Inputs
 
@@ -54,7 +54,7 @@ Within your room, Write your answers to these questions:
 | Parameter | Value | Notes |
 |----|----|----|
 | Age Limits | 0, 20, 40 | Age group cutoffs |
-| Infectious Population | 1 / 1,000,000 | 1 infectious individual per million people |
+| Infectious Population | 1 / 1,000,000 | 1 infectious individual per million people in Age group 20-40 |
 | Basic Reproduction Number | 1.46 | R₀ value for influenza |
 | Pre-infectious Period | 3 days | Incubation before becoming infectious |
 | Infectious Period | 7 days | Duration of infectiousness |
@@ -84,18 +84,36 @@ Within your room, Write your answers to these questions:
 Interpretation template:
 
 - In the population, the demographic group of `age from [0,20]` has a
-  peak of infectious subjects at day 320 with a size of `513,986`.
+  peak of infectious individuals at day 320 with a size of `513,986`.
 
-Interpretation Helpers:
+Compare output types:
+
+- `epidemics::epidemic_peak(data = simulate_baseline)`
+  - The table output gives exact values for time and size of peak for
+    *infectious individuals*.
+- `epidemics::new_infections(data = simulate_baseline)`
+  - We can not get exact value for time and size of peak of *new
+    infections*.
+  - We can make qualitative comparisons.
+- Comparing plots:
+  - The peak size of *new infections* is lower than the peak size of
+    *infectious individuals*.
+  - Both plot trajectories seem to share the time of peak.
+  - Other packages that can estimate trend of new infections are
+    `{EpiNow2}` and `{epichains}`.
+
+Modify the basic reproduction number (R₀):
 
 | R = 1.1 | R = 3 |
 |----|----|
 | ![image](https://hackmd.io/_uploads/H1UupFOAyl.png) | ![image](https://hackmd.io/_uploads/ryVoat_R1l.png) |
 
-- An epidemic with R=1.1 has a days delayed and smaller outbreak based
-  on number of infections (day 1200, 9000 new infections), compared with
-  R=3 with a earlier and higher peak than R = 1.5 (day 100, 1,000,000
-  new infections).
+- An epidemic with `R₀ = 1.1` has a days delayed and smaller outbreak
+  based on number of infections (day 1200, 9000 new infections),
+  compared with `R₀ = 3` with an earlier and higher peak than
+  `R₀ = 1.46` (day 100, 1,000,000 new infections).
+
+Comparison between rooms:
 
 | Vietnam | Zimbabwe |
 |----|----|
@@ -104,9 +122,35 @@ Interpretation Helpers:
 - Population structure from Italy, Vietnam, and Zimbabwe influences the
   progression of the transmission in each population.
 
+<!-- -->
+
+    # Italy
+    contact_data$demography
+    #>    age.group population proportion  year
+    #>       <char>      <num>      <num> <int>
+    #> 1:    [0,20)   11204261  0.1905212  2005
+    #> 2:   [20,40)   16305622  0.2772665  2005
+    #> 3:       40+   31298598  0.5322123  2005
+
+    # Vietnam
+    contact_data$demography
+    #>    age.group population proportion  year
+    #>       <char>      <num>      <num> <int>
+    #> 1:    [0,20)   31847968  0.3777536  2005
+    #> 2:   [20,40)   28759380  0.3411194  2005
+    #> 3:       40+   23701489  0.2811270  2005
+
+    # Zimbabwe
+    contact_data$demography
+    #>    age.group population proportion  year
+    #>       <char>      <num>      <num> <int>
+    #> 1:    [0,20)    8235388  0.5219721  2015
+    #> 2:   [20,40)    5179150  0.3282628  2015
+    #> 3:       40+    2362911  0.1497651  2015
+
 ## Activity 2: Compare interventions
 
-Compare the disease trajectories of new infections against an
+Compare the disease trajectories of **new infections** against an
 intervention using the following available inputs:
 
 - Time to start the intervention
@@ -116,21 +160,26 @@ intervention using the following available inputs:
 
 Within your room, write your answers to these questions:
 
-- How does the time to start of the intervention (early/late) impact the
-  timing and size of the peak of new infectious individuals?
-- Is the observed impact of the intervention in these results expected?
-- Interpret: How would you communicate these results to a
+- How can the start of interventions (early vs. late) affect the timing
+  and size of the peak of new infections?
+- Is the impact of the intervention, as shown in these results, what you
+  would expect? Why or why not?
+- Interpret the results: How would you explain these findings to a
   decision-maker?
-- Compare: What differences do you identify from other room outputs? (if
-  available)
+- Compare: What differences do you observe compared to the outputs from
+  other rooms (if available)?
 
 ### Inputs
 
-| Room | Intervention | Early Start | Late Start | Duration (days) | Effect (Reduction or Rate) |
+| Room  | Country  | Survey Link                              |
+|-------|----------|------------------------------------------|
+| 1,2,3 | Zimbabwe | <https://doi.org/10.5281/zenodo.3886638> |
+
+| Room | Intervention | Reduction/Vaccination rate | Early start (day) | Late start (day) | Duration (days) |
 |----|----|----|----|----|----|
-| 1 | School | 100 | 200 | 100 | Age 0–19: 0.5; Age 20+: 0.01 |
-| 2 | Mask | 100 | 200 | 200 | All ages: 0.163 |
-| 3 | Vaccine | 100 | 200 | 150 | All ages: 0.001 |
+| 1 | School | Age 0–19: 0.5; Age 20+: 0.01 | 100 | 200 | 250 |
+| 2 | Mask | All ages: 0.163 | 100 | 200 | 250 |
+| 3 | Vaccination | All ages: 0.001 | 100 | 200 | 250 |
 
 ### Solution
 
@@ -138,11 +187,11 @@ Within your room, write your answers to these questions:
 
 #### Outputs
 
-| Intervention | Early start | Late start |
+| Intervention | Early start (day 100) | Late start (day 200) |
 |----|----|----|
-| **School Closure** | ![image](https://hackmd.io/_uploads/H1IKxq_A1e.png) | ![image](https://hackmd.io/_uploads/rJt8ttdA1e.png) |
-| **Mask Mandate** | ![image](https://hackmd.io/_uploads/rkV2ttO0yx.png) | ![image](https://hackmd.io/_uploads/Bk8wKYOR1l.png) |
-| **Vaccination** | ![image](https://hackmd.io/_uploads/rycdKYOA1e.png) | ![image](https://hackmd.io/_uploads/B1ff-9_Ckl.png) |
+| **School Closure** | ![image](https://hackmd.io/_uploads/HyxrKNWDee.png) | ![image](https://hackmd.io/_uploads/B18MFNWPll.png) |
+| **Mask Mandate** | ![image](https://hackmd.io/_uploads/Hym4FEbDxl.png) | ![image](https://hackmd.io/_uploads/HknbYEbPlg.png) |
+| **Vaccination** | ![image](https://hackmd.io/_uploads/r12Xt4-Dll.png) | ![image](https://hackmd.io/_uploads/Hy6xKN-vex.png) |
 
 #### Interpretation
 
@@ -157,7 +206,7 @@ Interpretation Helpers:
   effectiveness of vaccination can depend on various factors, including
   vaccine efficacy and timing relative to the outbreak.
 
-## Activity 3: Combine interventions
+## Activity 3: Combine interventions (Optional)
 
 Combine two intervention in the same simulation and compare the disease
 trajectories of new infections against the baseline or only one
@@ -197,7 +246,9 @@ Interpretation Helpers:
 - Vaccination can sustain a reduced epidemic peak compared with mask
   mandate alone.
 
-#### Code
+## Code
+
+### Actiivty 1
 
 ``` r
 # nolint start
@@ -345,7 +396,6 @@ simulate_baseline %>%
   )
 
 epidemics::epidemic_peak(data = simulate_baseline)
-epidemics::epidemic_size(data = simulate_baseline)
 
 
 # Plot new infections ----------------------------------------------------
@@ -365,6 +415,8 @@ newinfections_bygroup %>%
 # nolint end
 ```
 
+### Actiivty 2
+
 ``` r
 # nolint start
 
@@ -376,13 +428,8 @@ room_number <- 1 #valid for all
 # Group parameters -------------------------------------------------------
 
 # activity 2/3
-# school_begin_early <- 100
-school_begin_late <- 200
-# mask_begin_early <- 100
-mask_begin_late <- 200
-vaccine_begin_early <- 100
-# vaccine_begin_late <- 200
-
+intervention_begin <- 200 # change
+intervention_duration <- 250 # change
 
 # Intervention 1 ---------------------------------------------------------
 
@@ -395,8 +442,8 @@ rownames(socialcontact_matrix)
 test_intervention <- epidemics::intervention(
   name = "School closure",
   type = "contacts",
-  time_begin = school_begin_late,
-  time_end = school_begin_late + 100,
+  time_begin = intervention_begin,
+  time_end = intervention_begin + intervention_duration,
   reduction = matrix(c(0.5, 0.01, 0.01))
 )
 
@@ -433,7 +480,7 @@ infections_intervention <- epidemics::new_infections(
 
 # Assign scenario names
 infections_baseline$scenario <- "Baseline"
-infections_intervention$scenario <- "School closure" #<COMPLETE>
+infections_intervention$scenario <- "School closure"
 
 # Combine the data from both scenarios
 infections_baseline_intervention <- bind_rows(infections_baseline, infections_intervention)
@@ -442,7 +489,7 @@ infections_baseline_intervention %>%
   ggplot(aes(x = time, y = new_infections, colour = scenario)) +
   geom_line() +
   geom_vline(
-    xintercept = c(simulate_intervention$time_begin, simulate_intervention$time_end),
+    xintercept = c(test_intervention$time_begin, test_intervention$time_end),
     linetype = "dashed",
     linewidth = 0.2
   ) +
@@ -464,8 +511,8 @@ rownames(socialcontact_matrix)
 test_intervention <- epidemics::intervention(
   name = "mask mandate",
   type = "rate",
-  time_begin = mask_begin_late,
-  time_end = mask_begin_late + 200,
+  time_begin = intervention_begin,
+  time_end = intervention_begin + intervention_duration,
   reduction = 0.163
 )
 
@@ -502,7 +549,7 @@ infections_intervention <- epidemics::new_infections(
 
 # Assign scenario names
 infections_baseline$scenario <- "Baseline"
-infections_intervention$scenario <- "Mask mandate" #<COMPLETE>
+infections_intervention$scenario <- "Mask mandate"
 
 # Combine the data from both scenarios
 infections_baseline_intervention <- bind_rows(infections_baseline, infections_intervention)
@@ -511,7 +558,7 @@ infections_baseline_intervention %>%
   ggplot(aes(x = time, y = new_infections, colour = scenario)) +
   geom_line() +
   geom_vline(
-    xintercept = c(simulate_intervention$time_begin, simulate_intervention$time_end),
+    xintercept = c(test_intervention$time_begin, test_intervention$time_end),
     linetype = "dashed",
     linewidth = 0.2
   ) +
@@ -531,8 +578,8 @@ rownames(socialcontact_matrix)
 
 test_intervention <- epidemics::vaccination(
   name = "vaccinate all",
-  time_begin = matrix(vaccine_begin_early, nrow(socialcontact_matrix)),
-  time_end = matrix(vaccine_begin_early + 150, nrow(socialcontact_matrix)),
+  time_begin = matrix(intervention_begin, nrow(socialcontact_matrix)),
+  time_end = matrix(intervention_begin + intervention_duration, nrow(socialcontact_matrix)),
   nu = matrix(c(0.001, 0.001, 0.001))
 )
 
@@ -569,7 +616,7 @@ infections_intervention <- epidemics::new_infections(
 
 # Assign scenario names
 infections_baseline$scenario <- "Baseline"
-infections_intervention$scenario <- "Mask mandate" #<COMPLETE>
+infections_intervention$scenario <- "Vaccination"
 
 # Combine the data from both scenarios
 infections_baseline_intervention <- bind_rows(infections_baseline, infections_intervention)
@@ -578,7 +625,7 @@ infections_baseline_intervention %>%
   ggplot(aes(x = time, y = new_infections, colour = scenario)) +
   geom_line() +
   geom_vline(
-    xintercept = c(simulate_intervention$time_begin, simulate_intervention$time_end),
+    xintercept = c(test_intervention$time_begin, test_intervention$time_end),
     linetype = "dashed",
     linewidth = 0.2
   ) +
@@ -589,6 +636,8 @@ intervention_vaccinate <- test_intervention
 
 # nolint end
 ```
+
+### Actiivty 3
 
 ``` r
 # nolint start
@@ -629,7 +678,7 @@ infections_twointerventions <- epidemics::new_infections(
 
 # Assign scenario names
 infections_baseline$scenario <- "Baseline"
-infections_twointerventions$scenario <- "Mask mandate + School closure" #<COMPLETE>
+infections_twointerventions$scenario <- "Mask mandate + School closure"
 
 # Combine the data from both scenarios
 infections_baseline_twointerventions <- bind_rows(
@@ -647,7 +696,7 @@ infections_baseline_twointerventions %>%
 
 compare_interventions <- bind_rows(
   infections_baseline,
-  infections_baseline_intervention,
+  infections_baseline_intervention, # varies depending on last one runned
   infections_baseline_twointerventions
 )
 
