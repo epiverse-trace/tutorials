@@ -65,7 +65,7 @@ infections_intervention <- epidemics::new_infections(
 
 # Assign scenario names
 infections_baseline$scenario <- "Baseline"
-infections_intervention$scenario <- "School closure" #<COMPLETE>
+infections_intervention$scenario <- "School closure"
 
 # Combine the data from both scenarios
 infections_baseline_intervention <- bind_rows(infections_baseline, infections_intervention)
@@ -74,7 +74,7 @@ infections_baseline_intervention %>%
   ggplot(aes(x = time, y = new_infections, colour = scenario)) +
   geom_line() +
   geom_vline(
-    xintercept = c(simulate_intervention$time_begin, simulate_intervention$time_end),
+    xintercept = c(test_intervention$time_begin, test_intervention$time_end),
     linetype = "dashed",
     linewidth = 0.2
   ) +
@@ -134,7 +134,7 @@ infections_intervention <- epidemics::new_infections(
 
 # Assign scenario names
 infections_baseline$scenario <- "Baseline"
-infections_intervention$scenario <- "Mask mandate" #<COMPLETE>
+infections_intervention$scenario <- "Mask mandate"
 
 # Combine the data from both scenarios
 infections_baseline_intervention <- bind_rows(infections_baseline, infections_intervention)
@@ -143,7 +143,7 @@ infections_baseline_intervention %>%
   ggplot(aes(x = time, y = new_infections, colour = scenario)) +
   geom_line() +
   geom_vline(
-    xintercept = c(simulate_intervention$time_begin, simulate_intervention$time_end),
+    xintercept = c(test_intervention$time_begin, test_intervention$time_end),
     linetype = "dashed",
     linewidth = 0.2
   ) +
@@ -201,7 +201,7 @@ infections_intervention <- epidemics::new_infections(
 
 # Assign scenario names
 infections_baseline$scenario <- "Baseline"
-infections_intervention$scenario <- "Mask mandate" #<COMPLETE>
+infections_intervention$scenario <- "Vaccination"
 
 # Combine the data from both scenarios
 infections_baseline_intervention <- bind_rows(infections_baseline, infections_intervention)
@@ -210,7 +210,7 @@ infections_baseline_intervention %>%
   ggplot(aes(x = time, y = new_infections, colour = scenario)) +
   geom_line() +
   geom_vline(
-    xintercept = c(simulate_intervention$time_begin, simulate_intervention$time_end),
+    xintercept = c(test_intervention$time_begin, test_intervention$time_end),
     linetype = "dashed",
     linewidth = 0.2
   ) +
