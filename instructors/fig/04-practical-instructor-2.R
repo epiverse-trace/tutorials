@@ -8,8 +8,8 @@ room_number <- 1 #valid for all
 # Group parameters -------------------------------------------------------
 
 # activity 2/3
-intervention_begin <- 200 # or 200 (late start)
-intervention_duration <- 250 # or 200 (longer duration)
+intervention_begin <- 200 # change
+intervention_duration <- 250 # change
 
 # Intervention 1 ---------------------------------------------------------
 
