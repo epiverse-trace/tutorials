@@ -51,9 +51,9 @@ This practical is based in the following tutorial episodes:
 
 This practical has three activities.
 
-## Activity 1: Generate disease trajectories of new infections
+## Activity 1: Generate disease trajectories
 
-Generate disease trajectories of infectious subjects and new infections using the following available inputs:
+Generate disease trajectories of **infectious individuals** and **new infections** using the following available inputs:
 
 - Social contact matrix
 - Age group of the infectious population
@@ -61,11 +61,10 @@ Generate disease trajectories of infectious subjects and new infections using th
 
 Within your room, Write your answers to these questions:
 
-- What is the location (time) and size of epidemic peak for infectious subjects in each age group?
-- What is the number of new infections at the epidemic peak?
-- Change the basic reproduction number to 1.1 and 3. Are the changes in location (time) and size of the peak of new infections as expected? (based on the concept definition of reproduction number)
-- Interpret: How would you communicate these results to a decision-maker?
-- Compare: What differences do you identify from other room outputs? (if available)
+- What are the **time** and **size** of the epidemic peak for **infectious individuals** in each age group?
+- Describe any differences between these two outputs: the epidemic peak of *infectious individuals* and the plot of *new infections*.
+- Modify the basic reproduction number (R₀) from 1.46 to 1.1 or 3. What changes do you observe in the **time** and **size** of the peak of *new infections*?
+- **Compare**: What differences do you notice compared to the outputs from other rooms (if available)?
 
 ### Inputs
 
@@ -78,7 +77,7 @@ Within your room, Write your answers to these questions:
 | Parameter | Value | Notes |
 |---|---|---|
 | Age Limits | 0, 20, 40 | Age group cutoffs |
-| Infectious Population | 1 / 1,000,000 | 1 infectious individual per million people |
+| Infectious Population | 1 / 1,000,000 | 1 infectious individual per million people in Age group 20-40 |
 | Basic Reproduction Number | 1.46 | R₀ value for influenza |
 | Pre-infectious Period | 3 days | Incubation before becoming infectious |
 | Infectious Period | 7 days | Duration of infectiousness |
@@ -187,19 +186,30 @@ epidemics::epidemic_peak(data = simulate_baseline)
 
 #### Interpretation
 
-Interpretation template:
+Interpret the **time** and **size** of peak for infectious individuals:
 
-+ In the population, the demographic group of `age from [0,20]` has a peak of infectious subjects at day 320 with a size of `513,986`.
++ In the population, the demographic group of `age from [0,20]` has a peak of infectious individuals at day 320 with a size of `513,986`.
 
+Differences:
 
-Interpretation Helpers:
++ `epidemics::epidemic_peak(data = simulate_baseline)`
+    + The table output gives exact values for time and size of peak for **infectious individuals**.
++ `epidemics::new_infections(data = simulate_baseline)`
+    + We can not get exact value for time and size of peak of **new infections**.
++ Comparing plots:
+    + The peak size of *new infections* is lower than the peak size of *infectious individuals*.
+    + Both plot trajectories seem to share the time of peak.
+
+Modify the basic reproduction number (R₀):
 
 | R = 1.1 | R = 3 |
 |---|---|
 | ![image](https://hackmd.io/_uploads/H1UupFOAyl.png) | ![image](https://hackmd.io/_uploads/ryVoat_R1l.png) |
 
 
-- An epidemic with R=1.1 has a days delayed and smaller outbreak based on  number of infections (day 1200, 9000 new infections), compared with R=3 with a earlier and higher peak than R = 1.5 (day 100, 1,000,000 new infections).
+- An epidemic with `R₀ = 1.1` has a days delayed and smaller outbreak based on  number of infections (day 1200, 9000 new infections), compared with `R₀ = 3` with an earlier and higher peak than `R₀ = 1.46` (day 100, 1,000,000 new infections).
+
+Comparison between rooms:
 
 | Vietnam | Zimbabwe |
 |---|---|
@@ -207,13 +217,43 @@ Interpretation Helpers:
 
 - Population structure from Italy, Vietnam, and Zimbabwe influences the progression of the transmission in each population. 
 
+```
+# Italy
+contact_data$demography
+#>    age.group population proportion  year
+#>       <char>      <num>      <num> <int>
+#> 1:    [0,20)   11204261  0.1905212  2005
+#> 2:   [20,40)   16305622  0.2772665  2005
+#> 3:       40+   31298598  0.5322123  2005
+```
+
+```
+# Vietnam
+contact_data$demography
+#>    age.group population proportion  year
+#>       <char>      <num>      <num> <int>
+#> 1:    [0,20)   31847968  0.3777536  2005
+#> 2:   [20,40)   28759380  0.3411194  2005
+#> 3:       40+   23701489  0.2811270  2005
+```
+
+```
+# Zimbabwe
+contact_data$demography
+#>    age.group population proportion  year
+#>       <char>      <num>      <num> <int>
+#> 1:    [0,20)    8235388  0.5219721  2015
+#> 2:   [20,40)    5179150  0.3282628  2015
+#> 3:       40+    2362911  0.1497651  2015
+```
+
 :::
 
 
 
 ## Activity 2: Compare interventions
 
-Compare the disease trajectories of new infections against an intervention using the following available inputs:
+Compare the disease trajectories of **new infections** against an intervention using the following available inputs:
 
 - Time to start the intervention
 - Duration of the intervention
@@ -225,7 +265,7 @@ Within your room, write your answers to these questions:
 - How does the time to start of the intervention (early/late) impact the timing and size of the peak of new infectious individuals?
 - Is the observed impact of the intervention in these results expected?
 - Interpret: How would you communicate these results to a decision-maker?
-- Compare: What differences do you identify from other room outputs? (if available)
+- **Compare**: What differences do you notice compared to the outputs from other rooms (if available)?
 
 ### Inputs
 
