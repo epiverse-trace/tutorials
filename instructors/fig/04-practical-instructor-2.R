@@ -8,13 +8,8 @@ room_number <- 1 #valid for all
 # Group parameters -------------------------------------------------------
 
 # activity 2/3
-# school_begin_early <- 100
-school_begin_late <- 200
-# mask_begin_early <- 100
-mask_begin_late <- 200
-vaccine_begin_early <- 100
-# vaccine_begin_late <- 200
-
+intervention_begin <- 200 # or 200 (late start)
+intervention_duration <- 250 # or 200 (longer duration)
 
 # Intervention 1 ---------------------------------------------------------
 
@@ -27,8 +22,8 @@ rownames(socialcontact_matrix)
 test_intervention <- epidemics::intervention(
   name = "School closure",
   type = "contacts",
-  time_begin = school_begin_late,
-  time_end = school_begin_late + 100,
+  time_begin = intervention_begin,
+  time_end = intervention_begin + intervention_duration,
   reduction = matrix(c(0.5, 0.01, 0.01))
 )
 
@@ -96,8 +91,8 @@ rownames(socialcontact_matrix)
 test_intervention <- epidemics::intervention(
   name = "mask mandate",
   type = "rate",
-  time_begin = mask_begin_late,
-  time_end = mask_begin_late + 200,
+  time_begin = intervention_begin,
+  time_end = intervention_begin + intervention_duration,
   reduction = 0.163
 )
 
@@ -163,8 +158,8 @@ rownames(socialcontact_matrix)
 
 test_intervention <- epidemics::vaccination(
   name = "vaccinate all",
-  time_begin = matrix(vaccine_begin_early, nrow(socialcontact_matrix)),
-  time_end = matrix(vaccine_begin_early + 150, nrow(socialcontact_matrix)),
+  time_begin = matrix(intervention_begin, nrow(socialcontact_matrix)),
+  time_end = matrix(intervention_begin + intervention_duration, nrow(socialcontact_matrix)),
   nu = matrix(c(0.001, 0.001, 0.001))
 )
 
