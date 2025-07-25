@@ -36,7 +36,7 @@ infections_twointerventions <- epidemics::new_infections(
 
 # Assign scenario names
 infections_baseline$scenario <- "Baseline"
-infections_twointerventions$scenario <- "Mask mandate + School closure" #<COMPLETE>
+infections_twointerventions$scenario <- "Mask mandate + School closure"
 
 # Combine the data from both scenarios
 infections_baseline_twointerventions <- bind_rows(
@@ -54,7 +54,7 @@ infections_baseline_twointerventions %>%
 
 compare_interventions <- bind_rows(
   infections_baseline,
-  infections_baseline_intervention,
+  infections_baseline_intervention, # varies depending on last one runned
   infections_baseline_twointerventions
 )
 
