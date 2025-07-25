@@ -57,7 +57,9 @@ initial_conditions_free
 
 # Combine the initial conditions
 initial_conditions <- base::rbind(
-  #<COMPLETE>
+  #<COMPLETE>, # age group 1
+  #<COMPLETE>, # age group 2
+  #<COMPLETE> # age group 3
 )
 
 # Use contact matrix to assign age group names
@@ -111,7 +113,6 @@ simulate_baseline %>%
   )
 
 epidemics::epidemic_peak(data = simulate_baseline)
-epidemics::epidemic_size(data = simulate_baseline)
 
 
 # Plot new infections ----------------------------------------------------

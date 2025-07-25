@@ -143,7 +143,6 @@ simulate_baseline %>%
   )
 
 epidemics::epidemic_peak(data = simulate_baseline)
-epidemics::epidemic_size(data = simulate_baseline)
 
 
 # Plot new infections ----------------------------------------------------
