@@ -61,10 +61,10 @@ Generate disease trajectories of **infectious individuals** and **new infections
 
 Within your room, Write your answers to these questions:
 
-- What are the **time** and **size** of the epidemic peak for **infectious individuals** in each age group?
-- Describe any differences between these two outputs: the epidemic peak of *infectious individuals* and the plot of *new infections*.
-- Modify the basic reproduction number (R₀) from 1.46 to 1.1 or 3. What changes do you observe in the **time** and **size** of the peak of *new infections*?
-- **Compare**: What differences do you notice compared to the outputs from other rooms (if available)?
+- What are the time and size of the epidemic peak for *infectious individuals* in each age group?
+- Compare and describe the similarities and differences between these two outputs: the epidemic peak of *infectious individuals* and the plot of *new infections*.
+- Modify the basic reproduction number (R₀) from 1.46 to 1.1 or 3. What changes do you observe in the time and size of the peak of *new infections*?
+- Compare: What differences do you notice compared to the outputs from other rooms (if available)?
 
 ### Inputs
 
@@ -186,16 +186,16 @@ epidemics::epidemic_peak(data = simulate_baseline)
 
 #### Interpretation
 
-Interpret the **time** and **size** of peak for infectious individuals:
+Interpretation template:
 
 + In the population, the demographic group of `age from [0,20]` has a peak of infectious individuals at day 320 with a size of `513,986`.
 
-Differences:
+Compare output types:
 
 + `epidemics::epidemic_peak(data = simulate_baseline)`
-    + The table output gives exact values for time and size of peak for **infectious individuals**.
+    + The table output gives exact values for time and size of peak for *infectious individuals*.
 + `epidemics::new_infections(data = simulate_baseline)`
-    + We can not get exact value for time and size of peak of **new infections**.
+    + We can not get exact value for time and size of peak of *new infections*.
     + We can make qualitative comparisons.
 + Comparing plots:
     + The peak size of *new infections* is lower than the peak size of *infectious individuals*.
@@ -384,7 +384,7 @@ Interpretation Helpers:
 
 
 
-## Activity 3: Combine interventions
+## Activity 3: Combine interventions (Optional)
 
 Combine two intervention in the same simulation and compare the disease trajectories of new infections against the baseline or only one intervention. Use the intervention parameters above.
 
