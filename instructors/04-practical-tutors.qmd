@@ -196,9 +196,11 @@ Differences:
     + The table output gives exact values for time and size of peak for **infectious individuals**.
 + `epidemics::new_infections(data = simulate_baseline)`
     + We can not get exact value for time and size of peak of **new infections**.
+    + We can make qualitative comparisons.
 + Comparing plots:
     + The peak size of *new infections* is lower than the peak size of *infectious individuals*.
     + Both plot trajectories seem to share the time of peak.
+    + Other packages that can estimate trend of new infections are `{EpiNow2}` and `{epichains}`.
 
 Modify the basic reproduction number (R₀):
 
@@ -262,18 +264,22 @@ Compare the disease trajectories of **new infections** against an intervention u
 
 Within your room, write your answers to these questions:
 
-- How does the time to start of the intervention (early/late) impact the timing and size of the peak of new infectious individuals?
-- Is the observed impact of the intervention in these results expected?
-- Interpret: How would you communicate these results to a decision-maker?
-- **Compare**: What differences do you notice compared to the outputs from other rooms (if available)?
+- How can the start of interventions (early vs. late) affect the timing and size of the peak of new infections?
+- Is the impact of the intervention, as shown in these results, what you would expect? Why or why not?
+- Interpret the results: How would you explain these findings to a decision-maker?
+- Compare: What differences do you observe compared to the outputs from other rooms (if available)?
 
 ### Inputs
 
-| Room | Intervention | Early Start | Late Start | Duration (days) | Effect (Reduction or Rate) |
+| Room | Country | Survey Link |
+|---|---|---|
+| 1,2,3 | Zimbabwe | <https://doi.org/10.5281/zenodo.3886638> |
+
+| Room | Intervention | Reduction/Vaccination rate | Early start (day) | Late start (day) | Duration (days) |
 |---|---|---|---|---|---|
-| 1 | School | 100 | 200 | 100 | Age 0–19: 0.5; Age 20+: 0.01 |
-| 2 | Mask | 100 | 200 | 200 | All ages: 0.163 |
-| 3 | Vaccine | 100 | 200 | 150 | All ages: 0.001 |
+| 1 | School | Age 0–19: 0.5; Age 20+: 0.01 | 100 | 200 | 250 |
+| 2 | Mask | All ages: 0.163 | 100 | 200 | 250 |
+| 3 | Vaccination | All ages: 0.001 | 100 | 200 | 250 |
 
 ::: {.content-visible when-format="docx"}
 
@@ -359,11 +365,11 @@ Write your answers to the questions above:
 
 #### Outputs
 
-| Intervention | Early start | Late start |
+| Intervention | Early start (day 100) | Late start (day 200) |
 |---|---|---|
-| **School Closure** | ![image](https://hackmd.io/_uploads/H1IKxq_A1e.png) | ![image](https://hackmd.io/_uploads/rJt8ttdA1e.png) |
-| **Mask Mandate** | ![image](https://hackmd.io/_uploads/rkV2ttO0yx.png) | ![image](https://hackmd.io/_uploads/Bk8wKYOR1l.png) |
-| **Vaccination** | ![image](https://hackmd.io/_uploads/rycdKYOA1e.png) | ![image](https://hackmd.io/_uploads/B1ff-9_Ckl.png) |
+| **School Closure** | ![image](https://hackmd.io/_uploads/HyxrKNWDee.png) | ![image](https://hackmd.io/_uploads/B18MFNWPll.png) |
+| **Mask Mandate** | ![image](https://hackmd.io/_uploads/Hym4FEbDxl.png) | ![image](https://hackmd.io/_uploads/HknbYEbPlg.png) |
+| **Vaccination** | ![image](https://hackmd.io/_uploads/r12Xt4-Dll.png) | ![image](https://hackmd.io/_uploads/Hy6xKN-vex.png) |
 
 #### Interpretation
 
@@ -495,15 +501,21 @@ Interpretation Helpers:
 - The combination of school closure and mask mandate can delay the epidemic peak, but will not reduce it size.
 - Vaccination can sustain a reduced epidemic peak compared with mask mandate alone.
 
-#### Code
+## Code
+
+### Actiivty 1
 
 ```{r, file = "fig/04-practical-instructor-1.R", eval = FALSE}
 
 ```
 
+### Actiivty 2
+
 ```{r, file = "fig/04-practical-instructor-2.R", eval = FALSE}
 
 ```
+
+### Actiivty 3
 
 ```{r, file = "fig/04-practical-instructor-3.R", eval = FALSE}
 
