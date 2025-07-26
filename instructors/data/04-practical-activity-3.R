@@ -3,6 +3,7 @@
 # Practical 4
 # Activity 3
 
+# step: fill in your room number
 room_number <- #<COMPLETE> replace with 1/2/3/4
 
 # Combine interventions --------------------------------------------------
@@ -18,6 +19,7 @@ simulate_twointerventions <- epidemics::model_default(
   increment = 1.0
 )
 
+epidemics::epidemic_peak(simulate_twointerventions)
 
 # Visualize effect --------------------------------------------------------
 # Plot new infections 
@@ -36,20 +38,9 @@ infections_twointerventions <- epidemics::new_infections(
 infections_baseline$scenario <- "Baseline"
 infections_twointerventions$scenario <- "ADD intervention 1 + ADD intervention 2" #<COMPLETE>
 
-# Combine the data from both scenarios
-infections_baseline_twointerventions <- bind_rows(
-  infections_baseline,
-  infections_twointerventions
-)
-
-infections_baseline_twointerventions %>%
-  ggplot(aes(x = time, y = new_infections, colour = scenario)) +
-  geom_line() +
-  scale_y_continuous(labels = scales::comma)
-
-
 # Compare interventions --------------------------------------------------
 
+# Combine the data from both scenarios
 compare_interventions <- bind_rows(
   infections_baseline,
   infections_intervention,
