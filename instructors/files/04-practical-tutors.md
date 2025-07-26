@@ -20,7 +20,7 @@ This practical is based in the following tutorial episodes:
 
 This practical has three activities.
 
-## Activity 1: Generate disease trajectories across age groups
+## Activity 1: Generate Disease Trajectories Across Age Groups
 
 Generate disease trajectories of **infectious individuals** and **new
 infections** across age groups using the following available inputs:
@@ -30,10 +30,18 @@ infections** across age groups using the following available inputs:
 - Disease parameters (basic reproduction number, pre infectious period,
   infectious period)
 
+**Steps:**
+
+Open the file `04-practical-activity-1.R` and complete all the lines
+marked with `#<COMPLETE>`, following the detailed steps provided within
+the R file.
+
+**Questions:**
+
 Within your room, Write your answers to these questions:
 
 - What are the time and size of the epidemic peak for *infectious
-  individuals* in each age group?
+  individuals* in each age group? Use the table output.
 - Compare and describe the similarities and differences between these
   two outputs: the table with epidemic peak of *infectious individuals*
   across age groups, and the plot of *new infections* across age groups.
@@ -55,7 +63,7 @@ Within your room, Write your answers to these questions:
 | Basic Reproduction Number | 1.46 | R₀ value for influenza |
 | Pre-infectious Period | 3 days | Incubation before becoming infectious |
 | Infectious Period | 7 days | Duration of infectiousness |
-| Max Timesteps (days) | 1000 | Total simulation time |
+| Time end | 1000 days | Total simulation time |
 
 ### Solution
 
@@ -134,17 +142,30 @@ Comparison between rooms:
     #> 2:   [20,40)    5179150  0.3282628  2015
     #> 3:       40+    2362911  0.1497651  2015
 
-## Activity 2: Compare the baseline scenario with a single intervention
+## Activity 2: Compare the Baseline Scenario with a Single Intervention
 
 Compare the disease trajectories of **new infections** in the whole
-population with those under an intervention, using the following
-available inputs:
+population under two conditions:
 
-- Time to start the intervention
+1.  The baseline scenario (no intervention)
+2.  A scenario with a single intervention
+
+Use the following inputs to define and explore the intervention
+scenario:
+
+- Start time of the intervention
 - Duration of the intervention
-- Type of intervention (on contacts, on transmission rate, or
-  vaccination)
-- Reduction effect or rate of vaccination
+- Type of intervention (on contact reduction, on transmission rate
+  reduction, or vaccination)
+- Reduction or Vaccination rate
+
+**Steps:**
+
+Open the file `04-practical-activity-2.R` and complete all the lines
+marked with `#<COMPLETE>`, following the detailed steps provided within
+the R file.
+
+**Questions:**
 
 Within your room, write your answers to these questions:
 
@@ -192,10 +213,19 @@ Interpretation Helpers:
   effectiveness of vaccination can depend on various factors, including
   vaccine efficacy and timing relative to the outbreak.
 
-## Activity 3: Combine multiple interventions (Optional)
+## Activity 3: Combine Multiple Interventions
 
-Compare the baseline scenario with two intervention in the same
-simulation. Use the intervention parameters above.
+Compare the baseline scenario with a simulation that includes two
+interventions applied simultaneously. Use the intervention parameters
+described in the previous activity.
+
+**Steps:**
+
+Open the file `04-practical-activity-3.R` and complete all the lines
+marked with `#<COMPLETE>`, following the detailed steps provided within
+the R file.
+
+**Questions:**
 
 Within your room, Write your answers to these questions:
 
