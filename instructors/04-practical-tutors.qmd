@@ -81,7 +81,7 @@ Within your room, Write your answers to these questions:
 | Basic Reproduction Number | 1.46 | R₀ value for influenza |
 | Pre-infectious Period | 3 days | Incubation before becoming infectious |
 | Infectious Period | 7 days | Duration of infectiousness |
-| Max Timesteps (days) | 600 | Total simulation time |
+| Max Timesteps (days) | 1000 | Total simulation time |
 
 
 
