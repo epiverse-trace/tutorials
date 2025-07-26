@@ -20,6 +20,7 @@ simulate_twointerventions <- epidemics::model_default(
 
 
 # Visualize effect --------------------------------------------------------
+# Plot new infections 
 
 infections_baseline <- epidemics::new_infections(
   data = simulate_baseline,
@@ -51,7 +52,7 @@ infections_baseline_twointerventions %>%
 
 compare_interventions <- bind_rows(
   infections_baseline,
-  infections_baseline_intervention,
+  infections_intervention,
   infections_baseline_twointerventions
 )
 

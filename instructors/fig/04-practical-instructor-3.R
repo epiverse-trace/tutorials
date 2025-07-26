@@ -17,12 +17,13 @@ simulate_twointerventions <- epidemics::model_default(
     transmission_rate = intervention_mask_mandate,
     contacts = intervention_schoolclosure
   ),
-  time_end = 600,
+  time_end = 1000,
   increment = 1.0
 )
 
 
 # Visualize effect --------------------------------------------------------
+# Plot new infections 
 
 infections_baseline <- epidemics::new_infections(
   data = simulate_baseline,
@@ -39,7 +40,7 @@ infections_baseline$scenario <- "Baseline"
 infections_twointerventions$scenario <- "Mask mandate + School closure"
 
 # Combine the data from both scenarios
-infections_baseline_twointerventions <- bind_rows(
+infections_baseline_twointerventions <- dplyr::bind_rows(
   infections_baseline,
   infections_twointerventions
 )
@@ -52,10 +53,10 @@ infections_baseline_twointerventions %>%
 
 # Compare interventions --------------------------------------------------
 
-compare_interventions <- bind_rows(
+compare_interventions <- dplyr::bind_rows(
   infections_baseline,
-  infections_baseline_intervention, # varies depending on last one runned
-  infections_baseline_twointerventions
+  infections_intervention, # varies depending on last one runned
+  infections_twointerventions
 )
 
 compare_interventions %>%
