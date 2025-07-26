@@ -62,7 +62,7 @@ Generate disease trajectories of **infectious individuals** and **new infections
 Within your room, Write your answers to these questions:
 
 - What are the time and size of the epidemic peak for *infectious individuals* in each age group?
-- Compare and describe the similarities and differences between these two outputs: the epidemic peak of *infectious individuals* and the plot of *new infections*.
+- Compare and describe the similarities and differences between these two outputs: the epidemic peak of *infectious individuals* across age groups, and the plot of *new infections* across age groups.
 - Modify the basic reproduction number (R₀) from 1.46 to 1.1 or 3. What changes do you observe in the time and size of the peak of *new infections*?
 - Compare: What differences do you notice compared to the outputs from other rooms (if available)?
 
