@@ -8,8 +8,8 @@ room_number <- 1 #valid for all
 # Group parameters -------------------------------------------------------
 
 # activity 2/3
-intervention_begin <- 200 # change
-intervention_duration <- 250 # change
+intervention_begin <- 200 # change (e.g., range 100-200)
+intervention_duration <- 250 # change (e.g., range 150-250)
 
 # Intervention 1 ---------------------------------------------------------
 
@@ -38,24 +38,47 @@ simulate_intervention <- epidemics::model_default(
   recovery_rate = recovery_rate,
   # intervention
   intervention = list(contacts = test_intervention),
-  time_end = 600,
+  time_end = 1000,
   increment = 1.0
 )
 
 simulate_intervention
 
+# Plot all compartments --------------------------------------------------
+
+simulate_intervention %>%
+  ggplot(aes(
+    x = time,
+    y = value,
+    color = compartment,
+    linetype = demography_group
+  )) +
+  geom_line() +
+  geom_vline(
+    xintercept = c(test_intervention$time_begin, test_intervention$time_end),
+    linetype = "dashed",
+    linewidth = 0.2
+  ) +
+  scale_y_continuous(
+    breaks = scales::breaks_pretty(n = 10),
+    labels = scales::comma
+  )
+
+epidemics::epidemic_peak(data = simulate_intervention)
+
 # Visualize effect --------------------------------------------------------
+# Plot new infections 
 
 infections_baseline <- epidemics::new_infections(
   data = simulate_baseline,
   # compartments_from_susceptible = "vaccinated", # if vaccination
-  by_group = FALSE
+  by_group = FALSE # if TRUE, then age-stratified
 )
 
 infections_intervention <- epidemics::new_infections(
   data = simulate_intervention,
   # compartments_from_susceptible = "vaccinated", # if vaccination
-  by_group = FALSE
+  by_group = FALSE # if TRUE, then age-stratified
 )
 
 # Assign scenario names
@@ -63,10 +86,15 @@ infections_baseline$scenario <- "Baseline"
 infections_intervention$scenario <- "School closure"
 
 # Combine the data from both scenarios
-infections_baseline_intervention <- bind_rows(infections_baseline, infections_intervention)
+infections_baseline_intervention <- dplyr::bind_rows(infections_baseline, infections_intervention)
 
 infections_baseline_intervention %>%
-  ggplot(aes(x = time, y = new_infections, colour = scenario)) +
+  ggplot(aes(
+    x = time,
+    y = new_infections,
+    colour = scenario,
+    # linetype = demography_group # if by_group = TRUE
+  )) +
   geom_line() +
   geom_vline(
     xintercept = c(test_intervention$time_begin, test_intervention$time_end),
@@ -107,24 +135,47 @@ simulate_intervention <- epidemics::model_default(
   recovery_rate = recovery_rate,
   # intervention
   intervention = list(transmission_rate = test_intervention),
-  time_end = 600,
+  time_end = 1000,
   increment = 1.0
 )
 
 simulate_intervention
 
+# Plot all compartments --------------------------------------------------
+
+simulate_intervention %>%
+  ggplot(aes(
+    x = time,
+    y = value,
+    color = compartment,
+    linetype = demography_group
+  )) +
+  geom_line() +
+  geom_vline(
+    xintercept = c(test_intervention$time_begin, test_intervention$time_end),
+    linetype = "dashed",
+    linewidth = 0.2
+  ) +
+  scale_y_continuous(
+    breaks = scales::breaks_pretty(n = 10),
+    labels = scales::comma
+  )
+
+epidemics::epidemic_peak(data = simulate_intervention)
+
 # Visualize effect --------------------------------------------------------
+# Plot new infections 
 
 infections_baseline <- epidemics::new_infections(
   data = simulate_baseline,
   # compartments_from_susceptible = "vaccinated", # if vaccination
-  by_group = FALSE
+  by_group = FALSE # if TRUE, then age-stratified
 )
 
 infections_intervention <- epidemics::new_infections(
   data = simulate_intervention,
   # compartments_from_susceptible = "vaccinated", # if vaccination
-  by_group = FALSE
+  by_group = FALSE # if TRUE, then age-stratified
 )
 
 # Assign scenario names
@@ -132,10 +183,15 @@ infections_baseline$scenario <- "Baseline"
 infections_intervention$scenario <- "Mask mandate"
 
 # Combine the data from both scenarios
-infections_baseline_intervention <- bind_rows(infections_baseline, infections_intervention)
+infections_baseline_intervention <- dplyr::bind_rows(infections_baseline, infections_intervention)
 
 infections_baseline_intervention %>%
-  ggplot(aes(x = time, y = new_infections, colour = scenario)) +
+  ggplot(aes(
+    x = time,
+    y = new_infections,
+    colour = scenario,
+    # linetype = demography_group # if by_group = TRUE
+  )) +
   geom_line() +
   geom_vline(
     xintercept = c(test_intervention$time_begin, test_intervention$time_end),
@@ -174,24 +230,47 @@ simulate_intervention <- epidemics::model_default(
   recovery_rate = recovery_rate,
   # intervention
   vaccination = test_intervention,
-  time_end = 600,
+  time_end = 1000,
   increment = 1.0
 )
 
 simulate_intervention
 
+# Plot all compartments --------------------------------------------------
+
+simulate_intervention %>%
+  ggplot(aes(
+    x = time,
+    y = value,
+    color = compartment,
+    linetype = demography_group
+  )) +
+  geom_line() +
+  geom_vline(
+    xintercept = c(test_intervention$time_begin, test_intervention$time_end),
+    linetype = "dashed",
+    linewidth = 0.2
+  ) +
+  scale_y_continuous(
+    breaks = scales::breaks_pretty(n = 10),
+    labels = scales::comma
+  )
+
+epidemics::epidemic_peak(data = simulate_intervention)
+
 # Visualize effect --------------------------------------------------------
+# Plot new infections 
 
 infections_baseline <- epidemics::new_infections(
   data = simulate_baseline,
   compartments_from_susceptible = "vaccinated", # if vaccination
-  by_group = FALSE
+  by_group = FALSE # if TRUE, then age-stratified
 )
 
 infections_intervention <- epidemics::new_infections(
   data = simulate_intervention,
   compartments_from_susceptible = "vaccinated", # if vaccination
-  by_group = FALSE
+  by_group = FALSE # if TRUE, then age-stratified
 )
 
 # Assign scenario names
@@ -199,10 +278,15 @@ infections_baseline$scenario <- "Baseline"
 infections_intervention$scenario <- "Vaccination"
 
 # Combine the data from both scenarios
-infections_baseline_intervention <- bind_rows(infections_baseline, infections_intervention)
+infections_baseline_intervention <- dplyr::bind_rows(infections_baseline, infections_intervention)
 
 infections_baseline_intervention %>%
-  ggplot(aes(x = time, y = new_infections, colour = scenario)) +
+  ggplot(aes(
+    x = time,
+    y = new_infections,
+    colour = scenario,
+    # linetype = demography_group # if by_group = TRUE
+  )) +
   geom_line() +
   geom_vline(
     xintercept = c(test_intervention$time_begin, test_intervention$time_end),
