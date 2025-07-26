@@ -3,6 +3,7 @@
 # Practical 4
 # Activity 1
 
+# step: fill in your room number
 room_number <- #<COMPLETE> replace with 1/2/3/4
 
 # Load packages ----------------------------------------------------------
@@ -13,12 +14,15 @@ library(tidyverse)
 
 # (1) Contact matrix ------------------------------------------------------
 
-socialmixr::list_surveys()
-
+# step: paste the survey link for your room
 socialsurvey <- socialmixr::get_survey(
   #<COMPLETE>
 )
 
+# step: generate contact matrix by defining
+# survey class object, country name, 
+# age limits from table of parameters, 
+# and whether to make a symmetric matrix
 contact_data <- socialmixr::contact_matrix(
   #<COMPLETE>
 )
@@ -29,6 +33,9 @@ socialcontact_matrix <- t(contact_data$matrix)
 # (2) Initial conditions --------------------------------------------------
 
 ## Infectious population ---------
+
+# step: add the proportion of infectious 
+# from table of parameters
 initial_i <- #<COMPLETE>
 
 initial_conditions_inf <- c(
@@ -55,7 +62,9 @@ initial_conditions_free
 
 ## Combine initial conditions ------------
 
-# Combine the initial conditions
+# step: Combine the initial conditions
+# add initial_conditions_inf or initial_conditions_free
+# to the each age group as given in table of parameter
 initial_conditions <- base::rbind(
   #<COMPLETE>, # age group 1
   #<COMPLETE>, # age group 2
@@ -73,7 +82,11 @@ initial_conditions
 demography_vector <- contact_data$demography$population
 names(demography_vector) <- rownames(socialcontact_matrix)
 
-# Prepare the population to model as affected by the epidemic
+# step: Prepare the population to model as affected by the epidemic
+# add the name of the country, 
+# the symmetric and transposed contact matrix,
+# the vector with the population size of each age group
+# the binded matrix with initial conditions for each age group
 population_object <- epidemics::population(
   #<COMPLETE>
 )
@@ -82,7 +95,8 @@ population_object
 
 # (4) Model parameters ----------------------------------------------------
 
-# Rates
+# step: Rates
+# add the values as given in table of parameter
 infectiousness_rate <- 1 / #<COMPLETE> # 1/pre-infectious period
 recovery_rate <- 1 / #<COMPLETE> # 1/infectious period
 transmission_rate <- recovery_rate * #<COMPLETE> # recovery rate * R0
@@ -90,6 +104,10 @@ transmission_rate <- recovery_rate * #<COMPLETE> # recovery rate * R0
 
 # (5) Run the model --------------------------------------------------------
 
+# step: in each function argument add
+# the population object
+# each of the previously defined rates
+# the total simulation time as given in table of parameter
 simulate_baseline <- epidemics::model_default(
   #<COMPLETE>
 )
@@ -98,6 +116,8 @@ simulate_baseline
 
 
 # Plot all compartments --------------------------------------------------
+
+# step: paste plot and table output in report
 
 simulate_baseline %>%
   ggplot(aes(
@@ -116,6 +136,8 @@ epidemics::epidemic_peak(data = simulate_baseline)
 
 
 # Plot new infections ----------------------------------------------------
+
+# step: paste plot output in report
 
 # New infections
 newinfections_bygroup <- epidemics::new_infections(data = simulate_baseline)
