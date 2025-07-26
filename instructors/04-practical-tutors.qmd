@@ -51,9 +51,9 @@ This practical is based in the following tutorial episodes:
 
 This practical has three activities.
 
-## Activity 1: Generate disease trajectories
+## Activity 1: Generate disease trajectories across age groups
 
-Generate disease trajectories of **infectious individuals** and **new infections** using the following available inputs:
+Generate disease trajectories of **infectious individuals** and **new infections** across age groups using the following available inputs:
 
 - Social contact matrix
 - Age group of the infectious population
@@ -62,9 +62,8 @@ Generate disease trajectories of **infectious individuals** and **new infections
 Within your room, Write your answers to these questions:
 
 - What are the time and size of the epidemic peak for *infectious individuals* in each age group?
-- Compare and describe the similarities and differences between these two outputs: the epidemic peak of *infectious individuals* across age groups, and the plot of *new infections* across age groups.
-- Modify the basic reproduction number (R₀) from 1.46 to 1.1 or 3. What changes do you observe in the time and size of the peak of *new infections*?
-- Compare: What differences do you notice compared to the outputs from other rooms (if available)?
+- Compare and describe the similarities and differences between these two outputs: the table with epidemic peak of *infectious individuals* across age groups, and the plot of *new infections* across age groups.
+- Compare: What differences do you observe compared to the outputs from other rooms (if available)?
 
 ### Inputs
 
@@ -96,10 +95,11 @@ Use the file `04-practical-activity-1.R`
 
 Room 1
 
-| output | paste here |
+| **Output** | **Paste below** |
 |---|---|
-| figure |  |
-| table |  |
+| Plot of *all compartments* and age groups |  |
+| Table of *infectious* across age groups |  |
+| Plot of *new infections* across age groups |  |
 
 Write your answers to the questions above:
 
@@ -118,10 +118,11 @@ Write your answers to the questions above:
 
 Room 2
 
-| output | paste here |
+| **Output** | **Paste below** |
 |---|---|
-| figure |  |
-| table |  |
+| Plot of *all compartments* and age groups |  |
+| Table of *infectious* across age groups |  |
+| Plot of *new infections* across age groups |  |
 
 Write your answers to the questions above:
 
@@ -140,10 +141,11 @@ Write your answers to the questions above:
 
 Room 3
 
-| output | paste here |
+| **Output** | **Paste below** |
 |---|---|
-| figure |  |
-| table |  |
+| Plot of *all compartments* and age groups |  |
+| Table of *infectious* across age groups |  |
+| Plot of *new infections* across age groups |  |
 
 Write your answers to the questions above:
 
@@ -202,15 +204,6 @@ Compare output types:
     + Both plot trajectories seem to share the time of peak.
     + Other packages that can estimate trend of new infections are `{EpiNow2}` and `{epichains}`.
 
-Modify the basic reproduction number (R₀):
-
-| R = 1.1 | R = 3 |
-|---|---|
-| ![image](https://hackmd.io/_uploads/H1UupFOAyl.png) | ![image](https://hackmd.io/_uploads/ryVoat_R1l.png) |
-
-
-- An epidemic with `R₀ = 1.1` has a days delayed and smaller outbreak based on  number of infections (day 1200, 9000 new infections), compared with `R₀ = 3` with an earlier and higher peak than `R₀ = 1.46` (day 100, 1,000,000 new infections).
-
 Comparison between rooms:
 
 | Vietnam | Zimbabwe |
@@ -253,19 +246,18 @@ contact_data$demography
 
 
 
-## Activity 2: Compare interventions
+## Activity 2: Compare the baseline scenario with a single intervention
 
-Compare the disease trajectories of **new infections** against an intervention using the following available inputs:
+Compare the disease trajectories of **new infections** in the whole population with those under an intervention, using the following available inputs:
 
 - Time to start the intervention
 - Duration of the intervention
-- Type of intervention (on contacts, on transmission, or vaccination)
+- Type of intervention (on contacts, on transmission rate, or vaccination)
 - Reduction effect or rate of vaccination
 
 Within your room, write your answers to these questions:
 
-- How can the start of interventions (early vs. late) affect the timing and size of the peak of new infections?
-- Is the impact of the intervention, as shown in these results, what you would expect? Why or why not?
+- Does the impact of the intervention, compared to the baseline, align with your expectations? Why or why not? Use all the available outputs.
 - Interpret the results: How would you explain these findings to a decision-maker?
 - Compare: What differences do you observe compared to the outputs from other rooms (if available)?
 
@@ -275,11 +267,11 @@ Within your room, write your answers to these questions:
 |---|---|---|
 | 1,2,3 | Zimbabwe | <https://doi.org/10.5281/zenodo.3886638> |
 
-| Room | Intervention | Reduction/Vaccination rate | Early start (day) | Late start (day) | Duration (days) |
-|---|---|---|---|---|---|
-| 1 | School | Age 0–19: 0.5; Age 20+: 0.01 | 100 | 200 | 250 |
-| 2 | Mask | All ages: 0.163 | 100 | 200 | 250 |
-| 3 | Vaccination | All ages: 0.001 | 100 | 200 | 250 |
+| Room | Intervention | Reduction/Vaccination rate | Time begin (day) | Duration (days) |
+|---|---|---|---|---|
+| 1 | School closure | Age 0–19: 0.5; Age 20+: 0.01 | 200 | 250 |
+| 2 | Mask mandate | All ages: 0.163 | 200 | 250 |
+| 3 | Vaccination | All ages: 0.001 | 200 | 250 |
 
 ::: {.content-visible when-format="docx"}
 
@@ -292,10 +284,11 @@ Use the file `04-practical-activity-2.R`
 
 Room 1
 
-| output | paste here |
+| **Output** | **Paste below** |
 |---|---|
-| figure |  |
-| table |  |
+| Plot of *all compartments* and age groups |  |
+| Table of *infectious* across age groups |  |
+| Plot of *new infections* in the whole population |  |
 
 Write your answers to the questions above:
 
@@ -314,10 +307,11 @@ Write your answers to the questions above:
 
 Room 2
 
-| output | paste here |
+| **Output** | **Paste below** |
 |---|---|
-| figure |  |
-| table |  |
+| Plot of *all compartments* and age groups |  |
+| Table of *infectious* across age groups |  |
+| Plot of *new infections* in the whole population |  |
 
 Write your answers to the questions above:
 
@@ -336,10 +330,11 @@ Write your answers to the questions above:
 
 Room 3
 
-| output | paste here |
+| **Output** | **Paste below** |
 |---|---|
-| figure |  |
-| table |  |
+| Plot of *all compartments* and age groups |  |
+| Table of *infectious* across age groups |  |
+| Plot of *new infections* in the whole population |  |
 
 Write your answers to the questions above:
 
@@ -384,14 +379,14 @@ Interpretation Helpers:
 
 
 
-## Activity 3: Combine interventions (Optional)
+## Activity 3: Combine multiple interventions (Optional)
 
-Combine two intervention in the same simulation and compare the disease trajectories of new infections against the baseline or only one intervention. Use the intervention parameters above.
+Compare the baseline scenario with two intervention in the same simulation. Use the intervention parameters above.
 
 Within your room, Write your answers to these questions:
 
 - Interpret: How would you communicate these results to a decision-maker?
-- Compare: What differences do you identify from other room outputs? (if available)
+- Compare: What differences do you observe compared to the outputs from other rooms (if available)?
 
 ### Inputs
 
@@ -414,10 +409,10 @@ Use the file `04-practical-activity-3.R`
 
 Room 1
 
-| output | paste here |
+| **Output** | **Paste below** |
 |---|---|
-| figure |  |
-| table |  |
+| Table of *infectious* across age groups |  |
+| Plot of *new infections* in the whole population comparing interventions |  |
 
 Write your answers to the questions above:
 
@@ -436,10 +431,10 @@ Write your answers to the questions above:
 
 Room 2
 
-| output | paste here |
+| **Output** | **Paste below** |
 |---|---|
-| figure |  |
-| table |  |
+| Table of *infectious* across age groups |  |
+| Plot of *new infections* in the whole population comparing interventions |  |
 
 Write your answers to the questions above:
 
@@ -458,10 +453,10 @@ Write your answers to the questions above:
 
 Room 3
 
-| output | paste here |
+| **Output** | **Paste below** |
 |---|---|
-| figure |  |
-| table |  |
+| Table of *infectious* across age groups |  |
+| Plot of *new infections* in the whole population comparing interventions |  |
 
 Write your answers to the questions above:
 
@@ -521,7 +516,24 @@ Interpretation Helpers:
 
 ```
 
+### Additional challenge
 
+<!-- In Activity 1
+
+- Modify the basic reproduction number (R₀) from 1.46 to 1.1 or 3. What changes do you observe in the outputs? (increase the total simulation time if needed) -->
+
+<!-- Modify the basic reproduction number (R₀):
+
+| R = 1.1 | R = 3 |
+|---|---|
+| ![image](https://hackmd.io/_uploads/H1UupFOAyl.png) | ![image](https://hackmd.io/_uploads/ryVoat_R1l.png) |
+
+
+- An epidemic with `R₀ = 1.1` has a days delayed and smaller outbreak based on  number of infections (day 1200, 9000 new infections), compared with `R₀ = 3` with an earlier and higher peak than `R₀ = 1.46` (day 100, 1,000,000 new infections). -->
+
+In Activity 2
+
+- How can the start time or duration of interventions affect the timing and size of the peak in *new infections*? Try changing the start time from day 200 to day 100, or the duration from 250 days to 100 days.
 
 # Continue your learning path
 
