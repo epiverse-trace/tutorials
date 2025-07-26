@@ -35,7 +35,7 @@ socialcontact_matrix <- t(contact_data$matrix)
 ## Infectious population ---------
 
 # step: add the proportion of infectious 
-# from table of parameters
+# as given in table of parameter
 initial_i <- #<COMPLETE>
 
 initial_conditions_inf <- c(
