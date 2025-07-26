@@ -53,7 +53,7 @@ socialcontact_matrix <- t(contact_data$matrix)
 ## Infectious population ---------
 
 # step: add the proportion of infectious 
-# from table of parameters
+# as given in table of parameter
 initial_i <- infectious_population
 
 initial_conditions_inf <- c(
@@ -137,7 +137,7 @@ simulate_baseline <- epidemics::model_default(
   infectiousness_rate = infectiousness_rate,
   recovery_rate = recovery_rate,
   # time setup
-  time_end = 1000,
+  time_end = 1000, # increase if needed
   increment = 1.0
 )
 
