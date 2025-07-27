@@ -27,7 +27,7 @@ infections** across age groups using the following available inputs:
 
 - Social contact matrix
 - Age group of the infectious population
-- Disease parameters (basic reproduction number, pre infectious period,
+- Disease parameters (basic reproduction number, pre-infectious period,
   infectious period)
 
 **Steps:**
@@ -43,8 +43,9 @@ Within your room, Write your answers to these questions:
 - What are the time and size of the epidemic peak for *infectious
   individuals* in each age group? Use the table output.
 - Compare and describe the similarities and differences between these
-  two outputs: the table with epidemic peak of *infectious individuals*
-  across age groups, and the plot of *new infections* across age groups.
+  two outputs: the table with the epidemic peak of *infectious
+  individuals* across age groups, and the plot of *new infections*
+  across age groups.
 - Compare: What differences do you observe compared to the outputs from
   other rooms (if available)?
 
@@ -59,7 +60,7 @@ Within your room, Write your answers to these questions:
 | Parameter | Value | Notes |
 |----|----|----|
 | Age Limits | 0, 20, 40 | Age group cutoffs |
-| Infectious Population | 1 / 1,000,000 | 1 infectious individual per million people in Age group 20-40 |
+| Infectious Population | 1 / 1,000,000 | 1 infectious individual per million people in the Age group 20-40 |
 | Basic Reproduction Number | 1.46 | R₀ value for influenza |
 | Pre-infectious Period | 3 days | Incubation before becoming infectious |
 | Infectious Period | 7 days | Duration of infectiousness |
@@ -284,7 +285,7 @@ the R file.
 
 Within your room, Write your answers to these questions:
 
-- Interpret: How would you communicate these results to a
+- Interpret the results: How would you explain these findings to a
   decision-maker?
 - Compare: What differences do you observe compared to the outputs from
   other rooms (if available)?
