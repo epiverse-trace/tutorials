@@ -12,7 +12,11 @@ room_number <- 1 #valid for all
 intervention_begin <- 200 # change (e.g., range 100-200)
 intervention_duration <- 250 # change (e.g., range 150-250)
 
+
+# * ----------------------------------------------------------------------
 # Intervention 1 ---------------------------------------------------------
+# * ----------------------------------------------------------------------
+
 
 # Non-pharmaceutical interventions 
 # on contacts 
@@ -130,7 +134,10 @@ intervention_schoolclosure <- test_intervention
 
 
 
+# * ----------------------------------------------------------------------
 # Intervention 2 ---------------------------------------------------------
+# * ----------------------------------------------------------------------
+
 
 # Non-pharmaceutical interventions 
 # on transmission
@@ -227,7 +234,10 @@ intervention_mask_mandate <- test_intervention
 
 
 
+# * ----------------------------------------------------------------------
 # Intervention 3 ---------------------------------------------------------
+# * ----------------------------------------------------------------------
+
 
 # Pharmaceutical interventions 
 # Vaccination
