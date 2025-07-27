@@ -45,8 +45,12 @@ contact_data <- socialmixr::contact_matrix(
   symmetric = TRUE
 )
 
+contact_data
+
 # Prepare contact matrix
 socialcontact_matrix <- t(contact_data$matrix)
+
+socialcontact_matrix
 
 # (2) Initial conditions --------------------------------------------------
 
