@@ -71,76 +71,86 @@ Within your room, Write your answers to these questions:
 
 #### Outputs
 
-| all compartments | new infections |
-|----|----|
-| ![image](https://hackmd.io/_uploads/r1o8OF_Rkx.png) | ![image](https://hackmd.io/_uploads/Syi1tY_R1x.png) |
+| country | all compartments | new infections |
+|----|----|----|
+| Italy | ![image](https://hackmd.io/_uploads/SyVnWdXvle.png) | ![image](https://hackmd.io/_uploads/Syua-OQPeg.png) |
 
-    # Get epidemic_peak
     epidemics::epidemic_peak(data = simulate_baseline)
-    # Output:
-    #   demography_group compartment  time    value
-    #             <char>      <char> <num>    <num>
-    # 1:           [0,20)  infectious   320 513985.6
-    # 2:          [20,40)  infectious   328 560947.2
-    # 3:              40+  infectious   329 932989.6
+    #>    demography_group compartment  time    value
+    #>              <char>      <char> <num>    <num>
+    #> 1:           [0,20)  infectious   320 513985.5
+    #> 2:          [20,40)  infectious   328 560947.3
+    #> 3:              40+  infectious   329 932989.8
+
+| country | all compartments | new infections |
+|----|----|----|
+| Vietnam | ![image](https://hackmd.io/_uploads/BJFgQ_mvel.png) | ![image](https://hackmd.io/_uploads/HJ8-Qdmvlg.png) |
+
+    epidemics::epidemic_peak(data = simulate_baseline)
+    #>    demography_group compartment  time     value
+    #>              <char>      <char> <num>     <num>
+    #> 1:           [0,20)  infectious   325  929142.4
+    #> 2:          [20,40)  infectious   322  975411.0
+    #> 3:              40+  infectious   317 1053391.8
+
+| country | all compartments | new infections |
+|----|----|----|
+| Zimbabwe | ![image](https://hackmd.io/_uploads/HJ_t7dXwgg.png) | ![image](https://hackmd.io/_uploads/Sk_9mdXDgx.png) |
+
+    epidemics::epidemic_peak(data = simulate_baseline)
+    #>    demography_group compartment  time    value
+    #>              <char>      <char> <num>    <num>
+    #> 1:           [0,20)  infectious   322 277709.4
+    #> 2:          [20,40)  infectious   321 188967.9
+    #> 3:              40+  infectious   317 111165.7
 
 #### Interpretation
 
 Interpretation template:
 
-- In the population, the demographic group of `age from [0,20]` has a
-  peak of infectious individuals at day 320 with a size of `513,986`.
+- In an age-structured SEIR epidemic model for influenza transmission in
+  Zimbabwe, the demographic group aged 0 to 20 years (`[0,20]`) reaches
+  its peak number of *infectious individuals* on day `322`, with a peak
+  size of `277,709` individuals.
 
 Compare output types:
 
 - `epidemics::epidemic_peak(data = simulate_baseline)`
   - The table output gives exact values for time and size of peak for
-    *infectious individuals*.
+    *infectious individuals* across age groups.
 - `epidemics::new_infections(data = simulate_baseline)`
-  - We can not get exact value for time and size of peak of *new
-    infections*.
-  - We can make qualitative comparisons.
+  - We can plot the trajectories of *new infections* across age groups,
+    but not get exact value for time and size of peak directly.
+  - We can make qualitative comparisons between countries or scenarios.
 - Comparing plots:
   - The peak size of *new infections* is lower than the peak size of
     *infectious individuals*.
-  - Both plot trajectories seem to share the time of peak.
-  - Other packages that can estimate trend of new infections are
+    - New infections are defined as the daily outflow of individuals
+      from the susceptible to the exposed compartment.
+    - Infectious are defined as the total number of cumulative amount of
+      individuals in the infectious compartment at each time.
+  - The peak time may be similar in both outputs.
+  - Other packages that can estimate the trend of new infections are
     `{EpiNow2}` and `{epichains}`.
 
 Comparison between rooms:
 
-| Vietnam | Zimbabwe |
-|----|----|
-| ![image](https://hackmd.io/_uploads/BkZGRY_Rkx.png) | ![image](https://hackmd.io/_uploads/SJVlkcORkl.png) |
+- Population structure and age-specific social contact patterns in each
+  country influence the progression of disease transmission.
+- Using `{socialmixr}`, the symmetric contact matrix contains the *mean
+  number of contacts* that an individual in each age group (row) reports
+  having with individuals of the same or another age group (column).
+  - Note: The contact matrix may look asymmetric, but it is *symmetric
+    in total contacts*. That is, the total number of contacts from one
+    group to another is the same in both directions — check this by
+    multiplying the mean contacts by the population size for each group.
 
-- Population structure from Italy, Vietnam, and Zimbabwe influences the
-  progression of the transmission in each population.
+| Italy | Vietnam | Zimbabwe |
+|----|----|----|
+| ![image](https://hackmd.io/_uploads/HyYOZ57Dll.png) | ![image](https://hackmd.io/_uploads/HkTjb9QDxl.png) | ![image](https://hackmd.io/_uploads/Bkrhx5Xvlx.png) |
 
-<!-- -->
-
-    # Italy
-    contact_data$demography
-    #>    age.group population proportion  year
-    #>       <char>      <num>      <num> <int>
-    #> 1:    [0,20)   11204261  0.1905212  2005
-    #> 2:   [20,40)   16305622  0.2772665  2005
-    #> 3:       40+   31298598  0.5322123  2005
-
-    # Vietnam
-    contact_data$demography
-    #>    age.group population proportion  year
-    #>       <char>      <num>      <num> <int>
-    #> 1:    [0,20)   31847968  0.3777536  2005
-    #> 2:   [20,40)   28759380  0.3411194  2005
-    #> 3:       40+   23701489  0.2811270  2005
-
-    # Zimbabwe
-    contact_data$demography
-    #>    age.group population proportion  year
-    #>       <char>      <num>      <num> <int>
-    #> 1:    [0,20)    8235388  0.5219721  2015
-    #> 2:   [20,40)    5179150  0.3282628  2015
-    #> 3:       40+    2362911  0.1497651  2015
+Figures using
+`socialmixr::matrix_plot(contact_data$matrix * contact_data$demography$proportion)`
 
 ## Activity 2: Compare the Baseline Scenario with a Single Intervention
 
@@ -194,29 +204,74 @@ Within your room, write your answers to these questions:
 
 #### Outputs
 
-| Intervention | Early start (day 100) | Late start (day 200) |
+| intervention | all compartments | new infections |
 |----|----|----|
-| **School Closure** | ![image](https://hackmd.io/_uploads/HyxrKNWDee.png) | ![image](https://hackmd.io/_uploads/B18MFNWPll.png) |
-| **Mask Mandate** | ![image](https://hackmd.io/_uploads/Hym4FEbDxl.png) | ![image](https://hackmd.io/_uploads/HknbYEbPlg.png) |
-| **Vaccination** | ![image](https://hackmd.io/_uploads/r12Xt4-Dll.png) | ![image](https://hackmd.io/_uploads/Hy6xKN-vex.png) |
+| School closure | ![image](https://hackmd.io/_uploads/SJcXBqmwxg.png) | ![image](https://hackmd.io/_uploads/B1G2HcXwlx.png) |
+
+    epidemics::epidemic_peak(simulate_intervention)
+    #>    demography_group compartment  time     value
+    #> 1:           [0,20)  infectious   568 190371.93
+    #> 2:          [20,40)  infectious   566 121626.39
+    #> 3:              40+  infectious   562  70255.15
+
+| intervention | all compartments | new infections |
+|----|----|----|
+| Mask mandate | ![image](https://hackmd.io/_uploads/S12cIcXPex.png) | ![image](https://hackmd.io/_uploads/BytgP5QPll.png) |
+
+    epidemics::epidemic_peak(simulate_intervention)
+
+    #>    demography_group compartment  time    value
+    #> 1:           [0,20)  infectious   380 88058.78
+    #> 2:          [20,40)  infectious   378 61155.76
+    #> 3:              40+  infectious   374 38143.96
+
+| intervention | all compartments | new infections |
+|----|----|----|
+| Vaccination | ![image](https://hackmd.io/_uploads/rJMVOcXPeg.png) | ![image](https://hackmd.io/_uploads/r1p_O9Qwgx.png) |
+
+    epidemics::epidemic_peak(data = simulate_intervention)
+    #>    demography_group compartment  time     value
+    #> 1:           [0,20)  infectious   318 155276.44
+    #> 2:          [20,40)  infectious   317 107294.83
+    #> 3:              40+  infectious   314  65867.72
 
 #### Interpretation
 
 Interpretation Helpers:
 
-- School closure with short duration can delay the peak of new
-  infections, but this will keep the same size.
-- Mask mandate of 200 days during the time of the epidemic peak can
-  delay and reduce the size of new infections.
-- Vaccinations earlier in time will have a higher impact in reducing the
-  size of the epidemic peak and extending its delay. Note that the
-  effectiveness of vaccination can depend on various factors, including
-  vaccine efficacy and timing relative to the outbreak.
+- School closure starting on day 200 for a duration of 250 days can
+  delay the peak of infectious across age groups by 240 days aprox., and
+  reduce the total number of new infections in the whole population by
+  20,000 aprox.
+- Mask mandate starting on day 200 for a duration of 250 days can delay
+  the peak of infectious across age groups by 40 days aprox., and reduce
+  the total number of new infections in the whole population by 50,000
+  aprox.
+- Vaccinations starting on day 200 for a duration of 250 days will not
+  delay the peak of infectious across age groups, but reduce the total
+  number of new infections in the whole population by 40,000 aprox.
+  - Note that the effectiveness of vaccination can depend on various
+    factors, including **vaccine efficacy** and **timing relative to the
+    outbreak**.
+
+### Additional challenges
+
+1.  **How do the start time and duration of interventions influence the
+    timing and size of the peak in new infections?** Try modifying the
+    intervention start time from day 200 to day 100, or changing the
+    duration from 250 days to 100 days, and observe the impact on the
+    epidemic dynamics in Zimbabwe.
+
+2.  **How can interventions affect the timing and size of the peak in
+    new infections across different countries?** Try changing the
+    population from Zimbabwe to Vietnam or Italy to observe how
+    country-specific factors like population structure and social
+    contacts influence the epidemic curve.
 
 ## Activity 3: Combine Multiple Interventions
 
 Compare the baseline scenario with a simulation that includes two
-interventions applied simultaneously. Use the intervention parameters
+overlapping or sequential interventions. Use the intervention parameters
 described in the previous activity.
 
 **Steps:**
@@ -248,18 +303,58 @@ Within your room, Write your answers to these questions:
 
 #### Outputs
 
-| Combine interventions | Compare interventions |
-|----|----|
-| ![image](https://hackmd.io/_uploads/rk9cqK_CJe.png) | ![image](https://hackmd.io/_uploads/BJro5KuC1e.png) |
+| room 1 | room 2 | room 3 |
+|----|----|----|
+| ![image](https://hackmd.io/_uploads/Bk_gXjQwex.png) | ![image](https://hackmd.io/_uploads/rylgZiXPeg.png) | ![image](https://hackmd.io/_uploads/S1KyEsXwgg.png) |
+
+room 1
+
+    epidemics::epidemic_peak(simulate_twointerventions)
+    #>    demography_group compartment  time    value
+    #> 1:           [0,20)  infectious   201 7078.228
+    #> 2:          [20,40)  infectious   261 7677.865
+    #> 3:              40+  infectious   260 5131.311
+
+room 2
+
+    epidemics::epidemic_peak(simulate_twointerventions)
+    #>    demography_group compartment  time    value
+    #> 1:           [0,20)  infectious   648 253705.5
+    #> 2:          [20,40)  infectious   647 170917.0
+    #> 3:              40+  infectious   642 100149.4
+
+room 3
+
+    epidemics::epidemic_peak(simulate_twointerventions)
+    #>    demography_group compartment time    value
+    #> 1:           [0,20)  infectious  324 29117.39
+    #> 2:          [20,40)  infectious  324 20627.33
+    #> 3:              40+  infectious  322 13569.35
 
 #### Interpretation
 
 Interpretation Helpers:
 
-- The combination of school closure and mask mandate can delay the
-  epidemic peak, but will not reduce it size.
-- Vaccination can sustain a reduced epidemic peak compared with mask
-  mandate alone.
+- Overlapping School closure and Vaccinations can have an earlier peak
+  of infectious across age groups by 100 days aprox., and reduce the
+  total number of new infections in the whole population by 75,000
+  aprox.
+- Overlapping Mask mandate and School closure can delay the peak of
+  infectious across age groups by 300 days aprox., and reduce the total
+  number of new infections in the whole population by 10,000 aprox.
+- Overlapping Mask mandate and Vaccination will not change the time of
+  peak of infectious across age groups, but reduce the total number of
+  new infections in the whole population by 70,000 aprox.
+
+### Additional challenge
+
+1.  **What sequence of interventions would you propose to delay the peak
+    and reduce the impact of the epidemic?** Experiment by independently
+    adjusting the start time and duration of each intervention.
+    Implement them either sequentially or with overlapping periods, and
+    observe their effects on the epidemic dynamics in Zimbabwe. This can
+    support a response plan that allows time for risk assessment and
+    efficient resource allocation.
 
 ## Code
 
@@ -313,8 +408,18 @@ contact_data <- socialmixr::contact_matrix(
   symmetric = TRUE
 )
 
+contact_data
+
+# Matrix are symmetric for the total number of contacts
+# of one group with another is the same as the reverse
+contact_data$matrix * contact_data$demography$proportion
+
 # Prepare contact matrix
+# {socialmixr} provides contacts from-to
+# {epidemics} expects contacts to-from
 socialcontact_matrix <- t(contact_data$matrix)
+
+socialcontact_matrix
 
 # (2) Initial conditions --------------------------------------------------
 
@@ -468,7 +573,11 @@ room_number <- 1 #valid for all
 intervention_begin <- 200 # change (e.g., range 100-200)
 intervention_duration <- 250 # change (e.g., range 150-250)
 
+
+# * ----------------------------------------------------------------------
 # Intervention 1 ---------------------------------------------------------
+# * ----------------------------------------------------------------------
+
 
 # Non-pharmaceutical interventions 
 # on contacts 
@@ -583,10 +692,13 @@ infections_baseline_intervention %>%
 
 # save intervention object
 intervention_schoolclosure <- test_intervention
+infections_schoolclosure <- infections_intervention
 
 
-
+# * ----------------------------------------------------------------------
 # Intervention 2 ---------------------------------------------------------
+# * ----------------------------------------------------------------------
+
 
 # Non-pharmaceutical interventions 
 # on transmission
@@ -680,10 +792,13 @@ infections_baseline_intervention %>%
 
 # save intervention object
 intervention_mask_mandate <- test_intervention
+infections_mask_mandate <- infections_intervention
 
 
-
+# * ----------------------------------------------------------------------
 # Intervention 3 ---------------------------------------------------------
+# * ----------------------------------------------------------------------
+
 
 # Pharmaceutical interventions 
 # Vaccination
@@ -775,6 +890,7 @@ infections_baseline_intervention %>%
 
 # save intervention object
 intervention_vaccinate <- test_intervention
+infections_vaccinate <- infections_intervention
 
 # nolint end
 ```
@@ -788,10 +904,11 @@ intervention_vaccinate <- test_intervention
 # Activity 3
 
 # step: fill in your room number
-room_number <- 2
+room_number <- 1
 
 # Combine interventions --------------------------------------------------
 
+#step: complete the intervention or vaccination arguments
 simulate_twointerventions <- epidemics::model_default(
   population = population_object,
   transmission_rate = transmission_rate,
@@ -799,38 +916,52 @@ simulate_twointerventions <- epidemics::model_default(
   recovery_rate = recovery_rate,
   # Intervention
   intervention = list(
-    transmission_rate = intervention_mask_mandate,
+    # transmission_rate = intervention_mask_mandate#,
     contacts = intervention_schoolclosure
   ),
+  vaccination = intervention_vaccinate,
   time_end = 1000,
   increment = 1.0
 )
 
+# step: paste table output in report
 epidemics::epidemic_peak(simulate_twointerventions)
 
 # Visualize effect --------------------------------------------------------
 # Plot new infections 
 
+# step: 
+# add intervention name
+# if your intervention is vaccination, then
+# activate the argument compartments_from_susceptible
+# run and paste plot output in report
+
 infections_baseline <- epidemics::new_infections(
   data = simulate_baseline,
-  by_group = FALSE
+  compartments_from_susceptible = "vaccinated", # if vaccination
+  by_group = FALSE # if TRUE, then age-stratified output
 )
 
 infections_twointerventions <- epidemics::new_infections(
   data = simulate_twointerventions,
-  by_group = FALSE
+  compartments_from_susceptible = "vaccinated", # if vaccination
+  by_group = FALSE # if TRUE, then age-stratified output
 )
 
 # Assign scenario names
 infections_baseline$scenario <- "Baseline"
-infections_twointerventions$scenario <- "Mask mandate + School closure"
+infections_twointerventions$scenario <- "School closure + Vaccination"
+# infections_twointerventions$scenario <- "Mask mandate + School closure"
+# infections_twointerventions$scenario <- "Mask mandate + Vaccination"
 
 # Compare interventions --------------------------------------------------
 
 # Combine the data from all scenarios
 compare_interventions <- dplyr::bind_rows(
   infections_baseline,
-  infections_intervention, # varies depending on last one runned
+  infections_schoolclosure, 
+  # infections_mask_mandate,
+  # infections_vaccinate, 
   infections_twointerventions
 )
 
@@ -846,24 +977,6 @@ compare_interventions %>%
 
 # nolint end
 ```
-
-### Additional challenge
-
-<!-- In Activity 1
-&#10;- Modify the basic reproduction number (R₀) from 1.46 to 1.1 or 3. What changes do you observe in the outputs? (increase the total simulation time if needed) -->
-
-<!-- Modify the basic reproduction number (R₀):
-&#10;| R = 1.1 | R = 3 |
-|---|---|
-| ![image](https://hackmd.io/_uploads/H1UupFOAyl.png) | ![image](https://hackmd.io/_uploads/ryVoat_R1l.png) |
-&#10;
-- An epidemic with `R₀ = 1.1` has a days delayed and smaller outbreak based on  number of infections (day 1200, 9000 new infections), compared with `R₀ = 3` with an earlier and higher peak than `R₀ = 1.46` (day 100, 1,000,000 new infections). -->
-
-In Activity 2
-
-- How can the start time or duration of interventions affect the timing
-  and size of the peak in *new infections*? Try changing the start time
-  from day 200 to day 100, or the duration from 250 days to 100 days.
 
 # Continue your learning path
 
