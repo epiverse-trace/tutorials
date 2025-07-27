@@ -8,6 +8,7 @@ room_number <- #<COMPLETE> replace with 1/2/3/4
 
 # Combine interventions --------------------------------------------------
 
+#step: complete the intervention or vaccination arguments
 simulate_twointerventions <- epidemics::model_default(
   population = population_object,
   transmission_rate = transmission_rate,
@@ -19,19 +20,28 @@ simulate_twointerventions <- epidemics::model_default(
   increment = 1.0
 )
 
+# step: paste table output in report
 epidemics::epidemic_peak(simulate_twointerventions)
 
 # Visualize effect --------------------------------------------------------
 # Plot new infections 
 
+# step: 
+# add intervention name
+# if your intervention is vaccination, then
+# activate the argument compartments_from_susceptible
+# run and paste plot output in report
+
 infections_baseline <- epidemics::new_infections(
   data = simulate_baseline,
-  by_group = FALSE
+  # compartments_from_susceptible = "vaccinated", # if vaccination
+  by_group = FALSE # if TRUE, then age-stratified output
 )
 
 infections_twointerventions <- epidemics::new_infections(
   data = simulate_twointerventions,
-  by_group = FALSE
+  # compartments_from_susceptible = "vaccinated", # if vaccination
+  by_group = FALSE # if TRUE, then age-stratified output
 )
 
 # Assign scenario names
