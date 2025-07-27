@@ -437,7 +437,7 @@ Open the file `04-practical-activity-3.R` and complete all the lines marked with
 
 Within your room, Write your answers to these questions:
 
-- Interpret: How would you communicate these results to a decision-maker?
+- Interpret the results: How would you explain these findings to a decision-maker?
 - Compare: What differences do you observe compared to the outputs from other rooms (if available)?
 
 ### Inputs

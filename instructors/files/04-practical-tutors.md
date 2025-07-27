@@ -285,7 +285,7 @@ the R file.
 
 Within your room, Write your answers to these questions:
 
-- Interpret: How would you communicate these results to a
+- Interpret the results: How would you explain these findings to a
   decision-maker?
 - Compare: What differences do you observe compared to the outputs from
   other rooms (if available)?
