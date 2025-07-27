@@ -92,11 +92,6 @@ Within your room, Write your answers to these questions:
 
 ::: {.content-visible when-format="docx"}
 
-### Your Code
-
-Use the file `04-practical-activity-1.R`
-
-
 ### Your Answers
 
 Room 1
@@ -292,11 +287,6 @@ Within your room, write your answers to these questions:
 
 ::: {.content-visible when-format="docx"}
 
-### Your Code
-
-Use the file `04-practical-activity-2.R`
-
-
 ### Your Answers
 
 Room 1
@@ -461,11 +451,6 @@ Within your room, Write your answers to these questions:
 
 
 ::: {.content-visible when-format="docx"}
-
-### Your Code
-
-Use the file `04-practical-activity-3.R`
-
 
 ### Your Answers
 
