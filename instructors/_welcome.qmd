@@ -34,7 +34,7 @@ to [autocomplete package or function names](https://support.posit.co/hc/en-us/ar
 - [**R shortcuts**](https://positron.posit.co/keyboard-shortcuts.html#r-shortcuts) to 
     - Insert the pipe operator (`%>%`) using `Ctrl/Cmd`+`Shift`+`M`, 
     - Insert the assignment operator (`<-`) using `Alt/Option`+`-`, and 
-    - [Execute one line of code](https://docs.posit.co/ide/user/ide/guide/code/execution.html) or multiple lines connected by the pipe operator (`%>%`) by placing the cursor in the code of interest and pressing the `Ctrl`+`Enter`.
+    - [Execute one line of code](https://docs.posit.co/ide/user/ide/guide/code/execution.html) or multiple lines connected by the pipe operator (`%>%`) by placing the cursor in the code of interest and pressing `Ctrl`+`Enter`.
 - **The `help()` function** or `?` operator to access the [function reference manual](https://www.r-project.org/help.html).
 
 If your local configuration was not possible to set up:

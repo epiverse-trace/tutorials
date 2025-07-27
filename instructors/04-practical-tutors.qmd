@@ -57,7 +57,7 @@ Generate disease trajectories of **infectious individuals** and **new infections
 
 - Social contact matrix
 - Age group of the infectious population
-- Disease parameters (basic reproduction number, pre infectious period, infectious period)
+- Disease parameters (basic reproduction number, pre-infectious period, infectious period)
 
 **Steps:**  
 
@@ -68,7 +68,7 @@ Open the file `04-practical-activity-1.R` and complete all the lines marked with
 Within your room, Write your answers to these questions:
 
 - What are the time and size of the epidemic peak for *infectious individuals* in each age group? Use the table output.
-- Compare and describe the similarities and differences between these two outputs: the table with epidemic peak of *infectious individuals* across age groups, and the plot of *new infections* across age groups.
+- Compare and describe the similarities and differences between these two outputs: the table with the epidemic peak of *infectious individuals* across age groups, and the plot of *new infections* across age groups.
 - Compare: What differences do you observe compared to the outputs from other rooms (if available)?
 
 ### Inputs
@@ -82,7 +82,7 @@ Within your room, Write your answers to these questions:
 | Parameter | Value | Notes |
 |---|---|---|
 | Age Limits | 0, 20, 40 | Age group cutoffs |
-| Infectious Population | 1 / 1,000,000 | 1 infectious individual per million people in Age group 20-40 |
+| Infectious Population | 1 / 1,000,000 | 1 infectious individual per million people in the Age group 20-40 |
 | Basic Reproduction Number | 1.46 | R₀ value for influenza |
 | Pre-infectious Period | 3 days | Incubation before becoming infectious |
 | Infectious Period | 7 days | Duration of infectiousness |
@@ -104,7 +104,7 @@ Room 1
 | **Output** | **Paste below** |
 |---|---|
 | Plot of *all compartments* and age groups |  |
-| Table of peak of *infectious* across age groups |  |
+| Table of peaks of *infectious individuals* across age groups |  |
 | Plot of *new infections* across age groups |  |
 
 Write your answers to the questions above:
@@ -127,7 +127,7 @@ Room 2
 | **Output** | **Paste below** |
 |---|---|
 | Plot of *all compartments* and age groups |  |
-| Table of peak of *infectious* across age groups |  |
+| Table of peaks of *infectious individuals* across age groups |  |
 | Plot of *new infections* across age groups |  |
 
 Write your answers to the questions above:
@@ -150,7 +150,7 @@ Room 3
 | **Output** | **Paste below** |
 |---|---|
 | Plot of *all compartments* and age groups |  |
-| Table of peak of *infectious* across age groups |  |
+| Table of peaks of *infectious individuals* across age groups |  |
 | Plot of *new infections* across age groups |  |
 
 Write your answers to the questions above:
@@ -304,7 +304,7 @@ Room 1
 | **Output** | **Paste below** |
 |---|---|
 | Plot of *all compartments* and age groups |  |
-| Table of peak of *infectious* across age groups |  |
+| Table of peaks of *infectious individuals* across age groups |  |
 | Plot of *new infections* in the whole population |  |
 
 Write your answers to the questions above:
@@ -327,7 +327,7 @@ Room 2
 | **Output** | **Paste below** |
 |---|---|
 | Plot of *all compartments* and age groups |  |
-| Table of peak of *infectious* across age groups |  |
+| Table of peaks of *infectious individuals* across age groups |  |
 | Plot of *new infections* in the whole population |  |
 
 Write your answers to the questions above:
@@ -350,7 +350,7 @@ Room 3
 | **Output** | **Paste below** |
 |---|---|
 | Plot of *all compartments* and age groups |  |
-| Table of peak of *infectious* across age groups |  |
+| Table of peaks of *infectious individuals* across age groups |  |
 | Plot of *new infections* in the whole population |  |
 
 Write your answers to the questions above:
@@ -473,8 +473,8 @@ Room 1
 
 | **Output** | **Paste below** |
 |---|---|
-| Table of peak of *infectious* across age groups |  |
-| Plot of *new infections* in the whole population comparing interventions |  |
+| Table of peaks of *infectious individuals* across age groups |  |
+| Plot of *new infections* in the whole population, comparing interventions |  |
 
 Write your answers to the questions above:
 
@@ -495,8 +495,8 @@ Room 2
 
 | **Output** | **Paste below** |
 |---|---|
-| Table of peak of *infectious* across age groups |  |
-| Plot of *new infections* in the whole population comparing interventions |  |
+| Table of peaks of *infectious individuals* across age groups |  |
+| Plot of *new infections* in the whole population, comparing interventions |  |
 
 Write your answers to the questions above:
 
@@ -517,8 +517,8 @@ Room 3
 
 | **Output** | **Paste below** |
 |---|---|
-| Table of peak of *infectious* across age groups |  |
-| Plot of *new infections* in the whole population comparing interventions |  |
+| Table of peaks of *infectious individuals* across age groups |  |
+| Plot of *new infections* in the whole population, comparing interventions |  |
 
 Write your answers to the questions above:
 
