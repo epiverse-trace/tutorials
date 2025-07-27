@@ -29,7 +29,13 @@ contact_data <- socialmixr::contact_matrix(
 
 contact_data
 
+# Matrix are symmetric for the total number of contacts
+# of one group with another is the same as the reverse
+contact_data$matrix * contact_data$demography$proportion
+
 # Prepare contact matrix
+# {socialmixr} provides contacts from-to
+# {epidemics} expects contacts to-from
 socialcontact_matrix <- t(contact_data$matrix)
 
 socialcontact_matrix
