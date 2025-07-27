@@ -131,7 +131,7 @@ infections_baseline_intervention %>%
 
 # save intervention object
 intervention_schoolclosure <- test_intervention
-
+infections_schoolclosure <- infections_intervention
 
 
 # * ----------------------------------------------------------------------
@@ -231,7 +231,7 @@ infections_baseline_intervention %>%
 
 # save intervention object
 intervention_mask_mandate <- test_intervention
-
+infections_mask_mandate <- infections_intervention
 
 
 # * ----------------------------------------------------------------------
@@ -329,5 +329,6 @@ infections_baseline_intervention %>%
 
 # save intervention object
 intervention_vaccinate <- test_intervention
+infections_vaccinate <- infections_intervention
 
 # nolint end
