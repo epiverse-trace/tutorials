@@ -4,7 +4,7 @@
 # Activity 3
 
 # step: fill in your room number
-room_number <- 1
+room_number <- 1 # valid for all, account by specific changes
 
 # Combine interventions --------------------------------------------------
 
@@ -16,10 +16,10 @@ simulate_twointerventions <- epidemics::model_default(
   recovery_rate = recovery_rate,
   # Intervention
   intervention = list(
-    # transmission_rate = intervention_mask_mandate#,
-    contacts = intervention_schoolclosure
+    # transmission_rate = intervention_mask_mandate#, #<CHANGE-BY-ROOM>
+    contacts = intervention_schoolclosure #<CHANGE-BY-ROOM>
   ),
-  vaccination = intervention_vaccinate,
+  vaccination = intervention_vaccinate, #<CHANGE-BY-ROOM>
   time_end = 1000,
   increment = 1.0
 )
@@ -38,30 +38,30 @@ epidemics::epidemic_peak(simulate_twointerventions)
 
 infections_baseline <- epidemics::new_infections(
   data = simulate_baseline,
-  compartments_from_susceptible = "vaccinated", # if vaccination
+  compartments_from_susceptible = "vaccinated", # if vaccination #<CHANGE-BY-ROOM>
   by_group = FALSE # if TRUE, then age-stratified output
 )
 
 infections_twointerventions <- epidemics::new_infections(
   data = simulate_twointerventions,
-  compartments_from_susceptible = "vaccinated", # if vaccination
+  compartments_from_susceptible = "vaccinated", # if vaccination #<CHANGE-BY-ROOM>
   by_group = FALSE # if TRUE, then age-stratified output
 )
 
 # Assign scenario names
 infections_baseline$scenario <- "Baseline"
-infections_twointerventions$scenario <- "School closure + Vaccination"
-# infections_twointerventions$scenario <- "Mask mandate + School closure"
-# infections_twointerventions$scenario <- "Mask mandate + Vaccination"
+infections_twointerventions$scenario <- "School closure + Vaccination" #<CHANGE-BY-ROOM>
+# infections_twointerventions$scenario <- "Mask mandate + School closure" #<CHANGE-BY-ROOM>
+# infections_twointerventions$scenario <- "Mask mandate + Vaccination" #<CHANGE-BY-ROOM>
 
 # Compare interventions --------------------------------------------------
 
 # Combine the data from all scenarios
 compare_interventions <- dplyr::bind_rows(
   infections_baseline,
-  infections_schoolclosure, 
-  # infections_mask_mandate,
-  # infections_vaccinate, 
+  infections_schoolclosure, #<CHANGE-BY-ROOM>
+  # infections_mask_mandate, #<CHANGE-BY-ROOM>
+  # infections_vaccinate, #<CHANGE-BY-ROOM>
   infections_twointerventions
 )
 
