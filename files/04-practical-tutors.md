@@ -241,16 +241,16 @@ Within your room, write your answers to these questions:
 Interpretation Helpers:
 
 - School closure starting on day 200 for a duration of 250 days can
-  delay the peak of infectious across age groups by 240 days aprox., and
-  reduce the total number of new infections in the whole population by
-  20,000 aprox.
+  delay the peak of infectious across age groups by 240 days approx.,
+  and reduce the total number of new infections in the whole population
+  by 20,000 approx.
 - Mask mandate starting on day 200 for a duration of 250 days can delay
-  the peak of infectious across age groups by 40 days aprox., and reduce
-  the total number of new infections in the whole population by 50,000
-  aprox.
+  the peak of infectious across age groups by 40 days approx., and
+  reduce the total number of new infections in the whole population by
+  50,000 approx.
 - Vaccinations starting on day 200 for a duration of 250 days will not
   delay the peak of infectious across age groups, but reduce the total
-  number of new infections in the whole population by 40,000 aprox.
+  number of new infections in the whole population by 40,000 approx.
   - Note that the effectiveness of vaccination can depend on various
     factors, including **vaccine efficacy** and **timing relative to the
     outbreak**.
@@ -337,15 +337,15 @@ room 3
 Interpretation Helpers:
 
 - Overlapping School closure and Vaccinations can have an earlier peak
-  of infectious across age groups by 100 days aprox., and reduce the
+  of infectious across age groups by 100 days approx., and reduce the
   total number of new infections in the whole population by 75,000
-  aprox.
+  approx.
 - Overlapping Mask mandate and School closure can delay the peak of
-  infectious across age groups by 300 days aprox., and reduce the total
-  number of new infections in the whole population by 10,000 aprox.
+  infectious across age groups by 300 days approx., and reduce the total
+  number of new infections in the whole population by 10,000 approx.
 - Overlapping Mask mandate and Vaccination will not change the time of
   peak of infectious across age groups, but reduce the total number of
-  new infections in the whole population by 70,000 aprox.
+  new infections in the whole population by 70,000 approx.
 
 ### Additional challenge
 
@@ -905,7 +905,7 @@ infections_vaccinate <- infections_intervention
 # Activity 3
 
 # step: fill in your room number
-room_number <- 1
+room_number <- 1 # valid for all, account by specific changes
 
 # Combine interventions --------------------------------------------------
 
@@ -917,10 +917,10 @@ simulate_twointerventions <- epidemics::model_default(
   recovery_rate = recovery_rate,
   # Intervention
   intervention = list(
-    # transmission_rate = intervention_mask_mandate#,
-    contacts = intervention_schoolclosure
+    # transmission_rate = intervention_mask_mandate#, #<CHANGE-BY-ROOM>
+    contacts = intervention_schoolclosure #<CHANGE-BY-ROOM>
   ),
-  vaccination = intervention_vaccinate,
+  vaccination = intervention_vaccinate, #<CHANGE-BY-ROOM>
   time_end = 1000,
   increment = 1.0
 )
@@ -939,30 +939,30 @@ epidemics::epidemic_peak(simulate_twointerventions)
 
 infections_baseline <- epidemics::new_infections(
   data = simulate_baseline,
-  compartments_from_susceptible = "vaccinated", # if vaccination
+  compartments_from_susceptible = "vaccinated", # if vaccination #<CHANGE-BY-ROOM>
   by_group = FALSE # if TRUE, then age-stratified output
 )
 
 infections_twointerventions <- epidemics::new_infections(
   data = simulate_twointerventions,
-  compartments_from_susceptible = "vaccinated", # if vaccination
+  compartments_from_susceptible = "vaccinated", # if vaccination #<CHANGE-BY-ROOM>
   by_group = FALSE # if TRUE, then age-stratified output
 )
 
 # Assign scenario names
 infections_baseline$scenario <- "Baseline"
-infections_twointerventions$scenario <- "School closure + Vaccination"
-# infections_twointerventions$scenario <- "Mask mandate + School closure"
-# infections_twointerventions$scenario <- "Mask mandate + Vaccination"
+infections_twointerventions$scenario <- "School closure + Vaccination" #<CHANGE-BY-ROOM>
+# infections_twointerventions$scenario <- "Mask mandate + School closure" #<CHANGE-BY-ROOM>
+# infections_twointerventions$scenario <- "Mask mandate + Vaccination" #<CHANGE-BY-ROOM>
 
 # Compare interventions --------------------------------------------------
 
 # Combine the data from all scenarios
 compare_interventions <- dplyr::bind_rows(
   infections_baseline,
-  infections_schoolclosure, 
-  # infections_mask_mandate,
-  # infections_vaccinate, 
+  infections_schoolclosure, #<CHANGE-BY-ROOM>
+  # infections_mask_mandate, #<CHANGE-BY-ROOM>
+  # infections_vaccinate, #<CHANGE-BY-ROOM>
   infections_twointerventions
 )
 
