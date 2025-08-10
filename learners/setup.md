@@ -134,7 +134,7 @@ new_packages <- c(
   "rmarkdown",
   "quarto",
   # for Early Task tutorials
-  "cleanepi",
+  "cleanepi@1.1.0",
   "reactable",
   "rio",
   "DBI",
