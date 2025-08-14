@@ -288,7 +288,7 @@ Interpretation template:
 `1987` with 90% credible interval of `760` to `4566`.
 
 + The effective reproduction number $R_t$ estimate (on the last date of the data),
-or the number of new infections caused by one infectious individual, on average, is
+or the number of new infections caused by one infected individual, on average, is
 `0.81`, with a 90% credible interval of `0.43` to `1.30`.
 
 + The exponential growth rate of case reports is, on average
