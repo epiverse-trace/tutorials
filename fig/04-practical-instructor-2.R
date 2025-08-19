@@ -92,18 +92,18 @@ epidemics::epidemic_peak(data = simulate_intervention)
 # step: 
 # add intervention name
 # if your intervention is vaccination, then
-# activate the argument compartments_from_susceptible
+# activate the argument exclude_compartments
 # run and paste plot output in report
 
 infections_baseline <- epidemics::new_infections(
   data = simulate_baseline,
-  # compartments_from_susceptible = "vaccinated", # if vaccination
+  # exclude_compartments = "vaccinated", # if vaccination
   by_group = FALSE # if TRUE, then age-stratified output
 )
 
 infections_intervention <- epidemics::new_infections(
   data = simulate_intervention,
-  # compartments_from_susceptible = "vaccinated", # if vaccination
+  # exclude_compartments = "vaccinated", # if vaccination
   by_group = FALSE # if TRUE, then age-stratified output
 )
 
@@ -197,13 +197,13 @@ epidemics::epidemic_peak(data = simulate_intervention)
 
 infections_baseline <- epidemics::new_infections(
   data = simulate_baseline,
-  # compartments_from_susceptible = "vaccinated", # if vaccination
+  # exclude_compartments = "vaccinated", # if vaccination
   by_group = FALSE # if TRUE, then age-stratified output
 )
 
 infections_intervention <- epidemics::new_infections(
   data = simulate_intervention,
-  # compartments_from_susceptible = "vaccinated", # if vaccination
+  # exclude_compartments = "vaccinated", # if vaccination
   by_group = FALSE # if TRUE, then age-stratified output
 )
 
@@ -295,13 +295,13 @@ epidemics::epidemic_peak(data = simulate_intervention)
 
 infections_baseline <- epidemics::new_infections(
   data = simulate_baseline,
-  compartments_from_susceptible = "vaccinated", # if vaccination
+  exclude_compartments = "vaccinated", # if vaccination
   by_group = FALSE # if TRUE, then age-stratified output
 )
 
 infections_intervention <- epidemics::new_infections(
   data = simulate_intervention,
-  compartments_from_susceptible = "vaccinated", # if vaccination
+  exclude_compartments = "vaccinated", # if vaccination
   by_group = FALSE # if TRUE, then age-stratified output
 )
 
