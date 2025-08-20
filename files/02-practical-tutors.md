@@ -24,27 +24,19 @@ This practical has two activities.
 
 ## Activity 1: Transmission
 
+**Goal:**
+
 Estimate $R_{t}$, *new infections*, *new reports*, *growth rate*, and
 *doubling/halving time* using the following available inputs:
 
 - Incidence of reported cases per day
 - Reporting delay
 
-Within your room, Write your answers to these questions:
-
-- What phase of the epidemic are you observing? (Exponential growth
-  phase, near peak, or decay end phase)
-- Is the expected change in daily reports consistent with the estimated
-  effective reproductive number, growth rate, and doubling time?
-- Interpret: How would you communicate these results to a
-  decision-maker?
-- Compare: What differences do you identify from other room outputs? (if
-  available)
-
 **Steps:**
 
-- Open the file `02-practical-activity-1.R` and fill in your
-  `room_number` in the script.
+- Open the file `02-practical-activity-1.R` and complete all the lines
+  marked with `#<COMPLETE>`, following the detailed steps provided
+  within the R file.
 - Paste the URL link as a string to read input data.
 - Keep the reading function that corresponds to your input data disease.
 - Define a generation time:
@@ -60,6 +52,19 @@ Within your room, Write your answers to these questions:
   `EpiNow2::epinow()`.
 - Run `EpiNow2::epinow()` and print the summary and plot outputs.
 - Paste the outputs. Reply to questions.
+
+**Questions:**
+
+Within your room, Write your answers to these questions:
+
+- What phase of the epidemic are you observing? (Exponential growth
+  phase, near peak, or decay end phase)
+- Is the expected change in daily reports consistent with the estimated
+  effective reproductive number, growth rate, and doubling time?
+- Interpret: How would you communicate these results to a
+  decision-maker?
+- Compare: What differences do you identify from other room outputs? (if
+  available)
 
 ### Inputs
 
@@ -456,11 +461,30 @@ Interpretation Helpers:
 
 ## Activity 2: Severity
 
+**Goal:**
+
 Estimate the *naive CFR (nCFR)* and *delay-adjusted CFR (aCFR)* using
 the following inputs:
 
 - Reported cases (aggregate incidence by date of onset)
 - Onset to death delay
+
+**Steps:**
+
+- Open the file `02-practical-activity-2.R` and complete all the lines
+  marked with `#<COMPLETE>`, following the detailed steps provided
+  within the R file.
+- Paste the URL link as a string to read input data.
+- Fill in the argument to plot an incidence curve.
+- Evaluate if the input data format needs adaptation to {cfr}.
+- Access to the probability distribution for the delay from case onset
+  to death.
+- Evaluate if you are requested to keep dates or omit using
+  `dplyr::filter()`.
+- Estimate the naive and delay-adjusted CFR.
+- Paste the outputs. Reply to questions.
+
+**Questions:**
 
 Within your room, Write your answers to these questions:
 
@@ -473,19 +497,6 @@ Within your room, Write your answers to these questions:
   decision-maker?
 - Compare: What differences do you identify from other room outputs? (if
   available)
-
-**Steps:**
-
-- Open the file `02-practical-activity-2.R` and fill in your
-  `room_number` in the script.
-- Paste the URL link as a string to read input data.
-- Fill in the argument to plot an incidence curve.
-- Evaluate if the input data format needs adaptation to {cfr}.
-- Access to the probability distribution for the delay from case onset
-  to death.
-- Evaluate if you need to keep dates or omit using `dplyr::filter()`.
-- Estimate the naive and delay-adjusted CFR.
-- Paste the outputs. Reply to questions.
 
 ### Inputs
 
