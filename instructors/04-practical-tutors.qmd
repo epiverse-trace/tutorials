@@ -302,11 +302,13 @@ Within your room, write your answers to these questions:
 |---|---|---|
 | 1,2,3 | Zimbabwe | <https://doi.org/10.5281/zenodo.3886638> |
 
-| Room | Intervention | Reduction/Vaccination rate | Time begin (day) | Duration (days) |
+| Room | Intervention | Reduction/Vaccination rate | Intervention Time begin (day) | Intervention Time End (day) |
 |---|---|---|---|---|
-| 1 | School closure | Age 0–19: 0.5; Age 20+: 0.01 | 200 | 250 |
-| 2 | Mask mandate | All ages: 0.163 | 200 | 250 |
-| 3 | Vaccination | All ages: 0.001 | 200 | 250 |
+| 1 | School closure | Age 0–19: 0.5; Age 20-40: 0.01; Age 40+: 0.01 | 200 | 200+250 |
+| 2 | Mask mandate | All ages: 0.163 | 200 | 200+250 |
+| 3 | Vaccination | All ages: 0.001 | 200 | 200+250 |
+
+The duration of the intervention is 250 days.
 
 ::: {.content-visible when-format="docx"}
 
