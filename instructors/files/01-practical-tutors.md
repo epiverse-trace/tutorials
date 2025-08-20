@@ -23,25 +23,18 @@ This practical has two activities.
 
 ## Activity 1: Clean and standardize raw data
 
+**Goal:**
+
 Get a clean and standardized data frame using the following available
 inputs:
 
 - Raw messy data frame in CSV format
 
-Within your room, Write your answers to these questions:
-
-- Diagnose the raw data. What data cleaning operations need to be
-  performed on the dataset? Write all of them before writing the code.
-- What time unit best describes the time span to calculate?
-- Print the report: What features do you find useful to communicate with
-  a decision-maker?
-- Compare: What differences do you identify from other room outputs? (if
-  available)
-
 **Steps:**
 
-- Open file `01-practical-activity-1.R` and fill in your `room_number`
-  in the script.
+- Open file `01-practical-activity-1.R` and complete all the lines
+  marked with `#<COMPLETE>`, following the detailed steps provided
+  within the R file.
 - First, complete the argument to read the data. Paste the link as a
   “string” in `read_csv()`.
 - Second, complete the cleaning process. Add functions based on the data
@@ -58,6 +51,18 @@ Within your room, Write your answers to these questions:
   manual running `?cleanepi::timespan()` in the console.
 - Paste the outputs. Reply to questions.
 
+**Questions:**
+
+Within your room, Write your answers to these questions:
+
+- Diagnose the raw data. What data cleaning operations need to be
+  performed on the dataset? Write all of them before writing the code.
+- What time unit best describes the time span to calculate?
+- Print the report: What features do you find useful to communicate with
+  a decision-maker?
+- Compare: What differences do you identify from other room outputs? (if
+  available)
+
 ### Inputs
 
 | Room | Data | Link | Calculate time span | Categorize time span |
@@ -68,10 +73,25 @@ Within your room, Write your answers to these questions:
 
 ## Activity 2: Validate linelist and plot epicurve
 
+**Goal:**
+
 Get a validated linelist and incidence plot using the following
 available inputs:
 
 - Clean data frame object
+
+**Steps:**
+
+- Open the file `01-practical-activity-2.R` and complete all the lines
+  marked with `#<COMPLETE>`, following the detailed steps provided
+  within the R file.
+- First, complete linelist::make_linelist() arguments.
+- Second, complete the {linelist} function that can validate a linelist.
+- Third, complete the arguments of the incidence2::incidence()
+- Fourth, keep, drop, or change argument values in function plot()
+- Paste the outputs. Reply to questions.
+
+**Questions:**
 
 Within your room, Write your answers to these questions:
 
@@ -91,16 +111,6 @@ Within your room, Write your answers to these questions:
   decision-maker?
 - Compare: What differences do you identify from other room outputs? (if
   available)
-
-**Steps:**
-
-- Open the file `01-practical-activity-2.R` and fill in your
-  `room_number` in the script.
-- First, complete linelist::make_linelist() arguments.
-- Second, complete the {linelist} function that can validate a linelist.
-- Third, complete the arguments of the incidence2::incidence()
-- Fourth, keep, drop, or change argument values in function plot()
-- Paste the outputs. Reply to questions.
 
 ### Inputs
 

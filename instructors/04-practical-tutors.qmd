@@ -53,6 +53,8 @@ This practical has three activities.
 
 ## Activity 1: Generate Disease Trajectories Across Age Groups
 
+**Goal:**
+
 Generate disease trajectories of **infectious individuals** and **new infections** across age groups using the following available inputs:
 
 - Social contact matrix
@@ -61,7 +63,16 @@ Generate disease trajectories of **infectious individuals** and **new infections
 
 **Steps:**  
 
-Open the file `04-practical-activity-1.R` and complete all the lines marked with `#<COMPLETE>`, following the detailed steps provided within the R file.
+- Open the file `04-practical-activity-1.R` and complete all the lines marked with `#<COMPLETE>`, following the detailed steps provided within the R file.
+- Paste the survey link for your room
+- Generate contact matrix by defining survey class object, country name, age limits from table of parameters, and whether to make a symmetric matrix.
+- Combine the initial conditions add `initial_conditions_inf` or `initial_conditions_free` to the each age group as given in table of parameter.
+- Prepare the population to model as affected by the epidemic add the name of the country, the symmetric and transposed contact matrix, the vector with the population size of each age group, the binded matrix with initial conditions for each age group.
+- Rates. add the values as given in table of parameter
+- In each function argument add the population object, each of the previously defined rates, the total simulation time as given in table of parameter.
+- Paste plot of total number of individual per compartment and table output with peak size and time in report
+- Paste plot output of new infections in report
+
 
 **Questions:**
 
@@ -249,6 +260,8 @@ Figures using `socialmixr::matrix_plot(contact_data$matrix * contact_data$demogr
 
 ## Activity 2: Compare the Baseline Scenario with a Single Intervention
 
+**Goal:**
+
 Compare the disease trajectories of **new infections** in the whole population under two conditions: 
 
 1. The baseline scenario (no intervention)
@@ -263,7 +276,17 @@ Use the following inputs to define and explore the intervention scenario:
 
 **Steps:**  
 
-Open the file `04-practical-activity-2.R` and complete all the lines marked with `#<COMPLETE>`, following the detailed steps provided within the R file.
+- Open the file `04-practical-activity-2.R` and complete all the lines marked with `#<COMPLETE>`, following the detailed steps provided within the R file.
+- Create the intervention object: identify if you need to keep: epidemics::intervention() or epidemics::vaccination(). then add:
+    - name of the intervention
+    - type of intervention ("rate" or "contacts"), if needed
+    - time when the intervention begins and ends (as values or matrix*) as given in table of inputs
+    - reduction or vaccination rate (as values or matrix*)
+    *if matrix, values follow same order as in the social contact matrix
+- Add the intervention argument as a list (for interventions against contacts or transmission rate) or as an object (for vaccination)
+- Paste plot and table output in report
+- Plot new infections. Add intervention name if your intervention is vaccination, then activate the argument exclude_compartments, run and paste plot output in report
+
 
 **Questions:**
 
@@ -427,11 +450,17 @@ Try modifying the intervention start time from day 200 to day 100, or changing t
 
 ## Activity 3: Combine Multiple Interventions
 
+**Goal:**
+
 Compare the baseline scenario with a simulation that includes two overlapping or sequential interventions. Use the intervention parameters described in the previous activity.
 
 **Steps:**  
 
-Open the file `04-practical-activity-3.R` and complete all the lines marked with `#<COMPLETE>`, following the detailed steps provided within the R file.
+- Open the file `04-practical-activity-3.R` and complete all the lines marked with `#<COMPLETE>`, following the detailed steps provided within the R file.
+- Complete the intervention or vaccination arguments
+- Paste table output in report
+- Plot new infections. add intervention name if your intervention is vaccination, then activate the argument exclude_compartments, run and paste plot output in report
+
 
 **Questions:**
 

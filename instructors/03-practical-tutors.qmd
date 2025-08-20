@@ -52,6 +52,8 @@ This practical has two activities.
 
 ## Activity 1: Account for superspreading
 
+**Goal:**
+
 Estimate the extent of individual-level variation (i.e. the dispersion parameter) of the offspring distribution, which refers to the variability in the number of secondary cases per individual, and assess the implications for variation in transmission for decision-making using the following available inputs:
 
 - Line list of cases
@@ -59,7 +61,15 @@ Estimate the extent of individual-level variation (i.e. the dispersion parameter
 
 **Steps:**
 
-Open the file `03-practical-activity-1.R` and fill in all the `#<COMPLETE>` lines following the `steps:` detailed in the R file.
+- Open the file `03-practical-activity-1.R` and complete all the lines marked with `#<COMPLETE>`, following the detailed steps provided within the R file.
+- Paste the URL links as a string to read input data.
+- Create a *directed* contact network using the linelist and contacts data inputs. Paste a screenshot of the network in the report.
+- Calculate the *out-degree* for each node (infector case) in the contact network, using *all* the cases observed in the linelist. Paste the output histogram in the report.
+- Use the vector with the number of secondary cases per infector case to fit a Negative Binomial distribution using {fitdistrplus}. Paste the output parameters in the report.
+- Use {superspreading} to calculate the probability (proportion) of new cases originating from a cluster of a given size (cluster size), using as input the offspring distribution parameters: the reproduction number and dispersion. Paste the output result in the report.
+
+
+**Questions:**
 
 Within your room, Write your answers to these questions:
 
@@ -308,6 +318,8 @@ Interpretation Helpers:
 
 ## Activity 2: Simulate transmission chains
 
+**Goal:**
+
 Estimate the potential for large outbreaks that could occur based on 1000 simulated outbreaks with one initial case, using the following available inputs:
 
 - Basic reproduction number
@@ -315,7 +327,23 @@ Estimate the potential for large outbreaks that could occur based on 1000 simula
 
 **Steps:**
 
-Open the file `03-practical-activity-2.R` and fill in all the `#<COMPLETE>` lines following the `steps:` detailed in the R file.
+- Open the file `03-practical-activity-2.R` and complete all the lines marked with `#<COMPLETE>`, following the detailed steps provided within the R file.
+- Use the input parameter for this room.
+- Create generation time as an <epiparameter> object using epiparameter::epiparameter() with prob_distribution "gamma" and summary statistics: mean = 3, sd = 1
+- Create 1000 simulation runs with 1 initial case. Add the input offspring distribution parameters to the corresponding arguments. Add the input generation time of class <epiparameter> as a function. Run set.seed() and epichains::simulate_chains() together, in the same run.
+- Read the output of the selected chain to observe. Paste the screenshot in the report. Write in the report a paragraph describing:
+    - the number of unknown and known infectors, their IDs.
+    - the number of generations.
+    - who infected whom in each generation, and when? i.e., the time range in days of these infections per generation.
+- Run the code to create a summary data frame of the whole simulation. Paste the plot output in the report. 
+- Use the plot or summary data frame (or any other calculation) to write in the report a description of:
+    - How many chains reached a 100 case threshold?
+    - What is the maximum size of chain? (The cumulative number of case)
+    - What is the maximum length of chain? (The number of days until the chain stops)
+- Write in the report: interpretation and comparison between rooms.
+
+
+**Questions:**
 
 Within your room, Write your answers to these questions:
 
