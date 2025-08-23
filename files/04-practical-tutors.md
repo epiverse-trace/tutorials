@@ -400,7 +400,10 @@ Interpretation Helpers:
     Implement them either sequentially or with overlapping periods, and
     observe their effects on the epidemic dynamics in Zimbabwe. This can
     support a response plan that allows time for risk assessment and
-    efficient resource allocation.
+    efficient resource allocation. In designing an intervention
+    strategy, we need to consider context-specific factors such as:
+    Resource availability (e.g., Vaccine dose) or compare Economic
+    impacts (e.g., productivity loss, healthcare costs).
 
 ## Code
 
