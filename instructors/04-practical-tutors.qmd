@@ -609,7 +609,7 @@ Interpretation Helpers:
 ### Additional challenge
 
 1. **What sequence of interventions would you propose to delay the peak and reduce the impact of the epidemic?**
-Experiment by independently adjusting the start time and duration of each intervention. Implement them either sequentially or with overlapping periods, and observe their effects on the epidemic dynamics in Zimbabwe. This can support a response plan that allows time for risk assessment and efficient resource allocation.
+Experiment by independently adjusting the start time and duration of each intervention. Implement them either sequentially or with overlapping periods, and observe their effects on the epidemic dynamics in Zimbabwe. This can support a response plan that allows time for risk assessment and efficient resource allocation. In designing an intervention strategy, we need to consider context-specific factors such as: Resource availability (e.g., Vaccine dose) or compare Economic impacts (e.g., productivity loss, healthcare costs).
 
 ## Code
 
