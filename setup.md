@@ -131,8 +131,9 @@ Your system is ready to build packages!
 
 If the build tools are not available, this will trigger an automated install.
 
-Wait until to get the expected output message.
-We recommend restarting your R session, or closing and reopening RStudio, so that it can recognize the new installation.
+1. Run the command (likely installing a package or updating something).
+2. Don’t interrupt it—wait until R prints the confirmation message.
+3. Once that’s done, restart your R session (or just restart RStudio) to ensure the changes take effect.
 
 If the automatic installation does not work, you can manually install them according to your operating system.
 
@@ -149,15 +150,14 @@ We suggest you to follow:
 
 ### Mac
 
-Mac users require three steps as detailed in <https://github.com/stan-dev/rstan/wiki/Configuring-C---Toolchain-for-Mac>:
+Mac users require two additional steps as detailed in this [guide to Configuring C Toolchain for Mac](https://github.com/stan-dev/rstan/wiki/Configuring-C---Toolchain-for-Mac):
 
-- Install R version 4.0.0 or later
-- Use `macrtools` to setup the C++ toolchain
+- Install and use [`macrtools`](https://mac.thecoatlessprofessor.com/macrtools/) to setup the C++ toolchain
 - Enable some compiler optimizations.
 
 ### Linux
 
-Linux users require specific details per distribution. Find them in <https://github.com/stan-dev/rstan/wiki/Configuring-C-Toolchain-for-Linux>.
+Linux users require specific details per distribution. Find them in this [guide to Configuring C Toolchain for Linux](https://github.com/stan-dev/rstan/wiki/Configuring-C-Toolchain-for-Linux).
 
 :::::::::::::::::::::::::::::
 
@@ -218,11 +218,11 @@ These installation steps could ask you `? Do you want to continue (Y/n)` write `
 
 ### do you get an error with epiverse-trace packages?
 
-For example, if you get an error message when installing `{simulist}`, try this alternative code:
+For example, if you get an error message when installing `{epidemics}`, try this alternative code:
 
 ```r
-# for simulist
-install.packages("simulist", repos = c("https://epiverse-trace.r-universe.dev"))
+# for epidemics
+install.packages("epidemics", repos = c("https://epiverse-trace.r-universe.dev"))
 ```
 
 :::::::::::::::::::::::::::::
@@ -241,7 +241,7 @@ install.packages("rio")
 
 ::::::::::::::::::::::::::: spoiler
 
-### What to do if an Error persist?
+### Do you need a GitHub Personal access token (PAT)?
 
 If the error message keyword include an string like `Personal access token (PAT)`, you may need to [set up your GitHub token](https://epiverse-trace.github.io/git-rstudio-basics/02-setup.html#set-up-your-github-token).
 
@@ -317,6 +317,8 @@ library(epichains)
 library(socialmixr)
 library(finalsize)
 library(epidemics)
+library(odin)
+library(overshiny)
 library(scales)
 ```
 
