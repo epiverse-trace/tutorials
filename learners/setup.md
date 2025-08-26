@@ -189,6 +189,7 @@ new_packages <- c(
   "finalsize",
   "epiverse-trace/epidemics",
   "odin",
+  "overshiny",
   "scales"
 )
 
