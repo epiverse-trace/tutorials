@@ -114,7 +114,38 @@ While this may sound scary, it is **far more common** to run into issues due to 
 
 :::::::::::::::::::::::::::::
 
-### 2. Install the required R packages
+### 2. Install build tools
+
+Some packages require a complementary set of tools to build them. To check if you have them, run:
+
+```r
+if(!require("pkgbuild")) install.packages("pkgbuild")
+pkgbuild::check_build_tools(debug = TRUE)
+```
+
+We expect a message like the one below:
+
+```output
+Your system is ready to build packages!
+```
+
+If the build tools are not available, this will trigger an automated install. 
+Wait until to get the expected output message.
+We suggest to restart your R session or close and open back again RStudio to let it recognize this new installation.
+
+::::::::::::::::::::::::::::: spoiler
+
+### What to do if this step does not work?
+
+Windows users will need a working installation of `Rtools` in order to build the package from source. `Rtools` is not an R package, but a software you need to download and install. We suggest you to follow:
+
+- **Install `Rtools`**. Download the `Rtools` installer from <https://cran.r-project.org/bin/windows/Rtools/>. Install with default selections.
+- Close and open back again RStudio to let it recognize this new installation.
+
+:::::::::::::::::::::::::::::
+
+
+### 3. Install the required R packages
 
 <!--
 During the tutorial, we will need a number of R packages. Packages contain useful R code written by other people. We will use packages from the [Epiverse-TRACE](https://epiverse-trace.github.io/). 
@@ -157,6 +188,7 @@ new_packages <- c(
   "socialmixr",
   "finalsize",
   "epiverse-trace/epidemics",
+  "odin",
   "scales"
 )
 
@@ -164,34 +196,6 @@ pak::pak(new_packages)
 ```
 
 These installation steps could ask you `? Do you want to continue (Y/n)` write `Y` and press <kbd>Enter</kbd>.
-
-::::::::::::::::::::::::::::: spoiler
-
-### do you get an error with EpiNow2?
-
-Windows users will need a working installation of `Rtools` in order to build the package from source. `Rtools` is not an R package, but a software you need to download and install. We suggest you to follow:
-
-<!-- reference [these steps](http://jtleek.com/modules/01_DataScientistToolbox/02_10_rtools/#1) -->
-
-1. **Verify `Rtools` installation**. You can do so by using Windows search across your system. Optionally, you can use `{devtools}` running: 
-
-```r
-if(!require("devtools")) install.packages("devtools")
-devtools::find_rtools()
-```
-
-If the result is `FALSE`, then you should do step 2.
-
-2. **Install `Rtools`**. Download the `Rtools` installer from <https://cran.r-project.org/bin/windows/Rtools/>. Install with default selections.
-
-3. **Verify `Rtools` installation**. Again, we can use `{devtools}`:
-
-```r
-if(!require("devtools")) install.packages("devtools")
-devtools::find_rtools()
-```
-
-:::::::::::::::::::::::::::::
 
 ::::::::::::::::::::::::::::: spoiler
 
@@ -301,7 +305,7 @@ library(scales)
 
 If you do NOT see an error like `there is no package called ‘...’` you are good to go! If you do, [contact us](#your-questions)!
 
-### 3. Setup an RStudio project and folder
+### 4. Setup an RStudio project and folder
 
 We suggest to use RStudio Projects. 
 
@@ -327,7 +331,7 @@ like `"C:/Users/MyName/WeirdPath/training/data/file.csv"`.
 
 ::::::::::::::::::::::::::::::::: 
 
-### 4. Create a GitHub Account
+### 5. Create a GitHub Account
 
 We can use [GitHub](https://github.com) as a collaboration platform to communicate package issues and engage in [community discussions](https://github.com/orgs/epiverse-trace/discussions).
 
@@ -342,7 +346,7 @@ We can use [GitHub](https://github.com) as a collaboration platform to communica
 
 :::::::::::::::::::::::::::::::::
 
-### 5. Watch and Read the pre-training material
+### 6. Watch and Read the pre-training material
 
 :::::::::::::::::::::::::::: prereq
 
