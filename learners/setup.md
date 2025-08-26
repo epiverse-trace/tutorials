@@ -114,7 +114,7 @@ While this may sound scary, it is **far more common** to run into issues due to 
 
 :::::::::::::::::::::::::::::
 
-### 2. Install build tools
+### 2. Check and Install Build Tools
 
 Some packages require a complementary set of tools to build them. To check if you have them, run:
 
