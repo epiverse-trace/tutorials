@@ -129,21 +129,37 @@ We expect a message like the one below:
 Your system is ready to build packages!
 ```
 
-If the build tools are not available, this will trigger an automated install. 
+If the build tools are not available, this will trigger an automated install.
+
 Wait until to get the expected output message.
-We suggest to restart your R session or close and open back again RStudio to let it recognize this new installation.
+We recommend restarting your R session, or closing and reopening RStudio, so that it can recognize the new installation.
 
-::::::::::::::::::::::::::::: spoiler
+If the automatic installation does not work, you can manually install them according to your operating system.
 
-### What to do if this step does not work?
+::::::::::::::::::::::::::::: tab
 
-Windows users will need a working installation of `Rtools` in order to build the package from source. `Rtools` is not an R package, but a software you need to download and install. We suggest you to follow:
+### Windows
+
+Windows users will need a working installation of `Rtools` in order to build the package from source.  
+`Rtools` is not an R package, but a software you need to download and install.
+We suggest you to follow:
 
 - **Install `Rtools`**. Download the `Rtools` installer from <https://cran.r-project.org/bin/windows/Rtools/>. Install with default selections.
-- Close and open back again RStudio to let it recognize this new installation.
+- Close and reopen RStudio so it can recognize the new installation.
+
+### Mac
+
+Mac users require three steps as detailed in <https://github.com/stan-dev/rstan/wiki/Configuring-C---Toolchain-for-Mac>:
+
+- Install R version 4.0.0 or later
+- Use `macrtools` to setup the C++ toolchain
+- Enable some compiler optimizations.
+
+### Linux
+
+Linux users require specific details per distribution. Find them in <https://github.com/stan-dev/rstan/wiki/Configuring-C-Toolchain-for-Linux>.
 
 :::::::::::::::::::::::::::::
-
 
 ### 3. Install the required R packages
 
@@ -157,7 +173,7 @@ Open RStudio and **copy and paste** the following code chunk into the [console w
 if(!require("pak")) install.packages("pak")
 
 new_packages <- c(
-  # for Introduction tutorial
+  # for Introduction tutorials
   "here",
   "tidyverse",
   "visdat",
