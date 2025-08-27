@@ -164,9 +164,10 @@ Linux users require specific details per distribution. Find them in this [guide 
 This step requires administrator privileges to install software.
 
 If you do not have admin rights in your current environment:  
-- ✅ Try running the tutorial on your **personal machine** where you have full access.  
-- ✅ Use a **preconfigured development environment** (e.g. [Posit Cloud](https://posit.cloud/)).  
-- ✅ Ask your **system administrator** to install the required software for you.  
+
+- Try running the tutorial on your **personal machine** where you have full access.  
+- Use a **preconfigured development environment** (e.g. [Posit Cloud](https://posit.cloud/)).  
+- Ask your **system administrator** to install the required software for you.  
 
 :::::::::::::
 
