@@ -8,6 +8,6 @@
 "episodes/delays-distribution.Rmd" "c363e07ed7fd150da6f94d0a5a5eed90" "site/built/delays-distribution.md" "2025-08-26"
 "instructors/instructor-notes.md" "ca3834a1b0f9e70c4702aa7a367a6bb5" "site/built/instructor-notes.md" "2025-08-26"
 "learners/reference.md" "106717912e909a7c8d9e3e8fea48e17d" "site/built/reference.md" "2025-08-26"
-"learners/setup.md" "2fc8602dc37c45ba9bb0cdea6175d7fe" "site/built/setup.md" "2025-08-30"
+"learners/setup.md" "a47171ff5f0d82f8250ac87089085786" "site/built/setup.md" "2025-08-30"
 "profiles/learner-profiles.md" "31b503c4b5bd1f0960ada730eca4a25e" "site/built/learner-profiles.md" "2025-08-26"
 "renv/profiles/lesson-requirements/renv.lock" "8f9fe6d64446ee2fde78bcaaa33dd2a9" "site/built/renv.lock" "2025-08-26"
