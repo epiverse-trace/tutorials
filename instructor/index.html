@@ -544,7 +544,7 @@ manually install them according to your operating system.</p>
 </button>
 </div>
 </nav><div id="nav-tabContent-1" class="tab-content">
-<div id="nav-tabpanel-1-1" class="tab-pane show active" aria-labelledby="nav-tab-1-1" role="tabpanel">
+<div id="nav-tabpanel-1-1" class="tab-pane show active" role="tabpanel" aria-labelledby="nav-tab-1-1">
 <p>Windows users will need a working installation of <code>Rtools</code>
 in order to build the package from source.<br><code>Rtools</code> is not an R package, but a software you need to
 download and install. We suggest you to follow:</p>
@@ -555,14 +555,14 @@ with default selections.</li>
 <li>Close and reopen RStudio so it can recognize the new
 installation.</li>
 </ul></div>
-<div id="nav-tabpanel-1-2" class="tab-pane" aria-labelledby="nav-tab-1-2" role="tabpanel">
+<div id="nav-tabpanel-1-2" class="tab-pane" role="tabpanel" aria-labelledby="nav-tab-1-2">
 <p>Mac users require two additional steps as detailed in this <a href="https://github.com/stan-dev/rstan/wiki/Configuring-C---Toolchain-for-Mac" class="external-link">guide
 to Configuring C Toolchain for Mac</a>:</p>
 <ul><li>Install and use <a href="https://mac.thecoatlessprofessor.com/macrtools/" class="external-link"><code>macrtools</code></a>
 to setup the C++ toolchain</li>
 <li>Enable some compiler optimizations.</li>
 </ul></div>
-<div id="nav-tabpanel-1-3" class="tab-pane" aria-labelledby="nav-tab-1-3" role="tabpanel">
+<div id="nav-tabpanel-1-3" class="tab-pane" role="tabpanel" aria-labelledby="nav-tab-1-3">
 <p>Linux users require specific details per distribution. Find them in
 this <a href="https://github.com/stan-dev/rstan/wiki/Configuring-C-Toolchain-for-Linux" class="external-link">guide
 to Configuring C Toolchain for Linux</a>.</p>
@@ -612,6 +612,7 @@ window</a>, then press the <kbd>Enter</kbd> (Windows and Linux) or
 <span>  <span class="st">"rmarkdown"</span>,</span>
 <span>  <span class="st">"quarto"</span>,</span>
 <span>  <span class="co"># for Early Task tutorials</span></span>
+<span>  <span class="st">"epiverse-trace/readepi@readepi_no_his_spc_deps"</span>,</span>
 <span>  <span class="st">"cleanepi@1.1.0"</span>,</span>
 <span>  <span class="st">"reactable"</span>,</span>
 <span>  <span class="st">"rio"</span>,</span>
@@ -761,6 +762,7 @@ by pasting the following code into the console:</p>
 <span><span class="kw">library</span><span class="op">(</span><span class="va">rmarkdown</span><span class="op">)</span></span>
 <span><span class="kw">library</span><span class="op">(</span><span class="va">quarto</span><span class="op">)</span></span>
 <span><span class="co"># for Early Task tutorials</span></span>
+<span><span class="kw">library</span><span class="op">(</span><span class="va">readepi</span><span class="op">)</span></span>
 <span><span class="kw">library</span><span class="op">(</span><span class="va">cleanepi</span><span class="op">)</span></span>
 <span><span class="kw">library</span><span class="op">(</span><span class="va">reactable</span><span class="op">)</span></span>
 <span><span class="kw">library</span><span class="op">(</span><span class="va">rio</span><span class="op">)</span></span>
