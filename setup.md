@@ -116,7 +116,10 @@ While this may sound scary, it is **far more common** to run into issues due to 
 
 ### 2. Check and Install Build Tools
 
-Some packages require a complementary set of tools to build them. To check if you have them, run:
+Some packages require a complementary set of tools to build them.
+Open RStudio and **copy and paste** the following code chunk into the 
+[console window](https://docs.posit.co/ide/user/ide/guide/code/console.html),
+then press the <kbd>Enter</kbd> (Windows and Linux) or <kbd>Return</kbd> (MacOS) to execute the command:
 
 ```r
 if(!require("pkgbuild")) install.packages("pkgbuild")
@@ -131,11 +134,11 @@ Your system is ready to build packages!
 
 If the build tools are not available, this will trigger an automated install.
 
-1. Run the command (likely installing a package or updating something).
+1. Run the command in the console.
 2. Don’t interrupt it—wait until R prints the confirmation message.
 3. Once that’s done, restart your R session (or just restart RStudio) to ensure the changes take effect.
 
-If the automatic installation does not work, you can manually install them according to your operating system.
+If the automatic installation **does not** work, you can manually install them according to your operating system.
 
 ::::::::::::::::::::::::::::: tab
 
