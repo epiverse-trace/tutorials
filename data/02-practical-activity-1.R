@@ -3,6 +3,7 @@
 # Practical 2
 # Activity 1
 
+# step: fill in your room number
 room_number <- #<COMPLETE> replace with 1/2/3/4
 
 # Load packages -----------------------------------------------------------
@@ -12,6 +13,8 @@ library(tidyverse)
 
 
 # Read reported cases -----------------------------------------------------
+# step: Paste the URL links as a string to read input data.
+
 # for covid
 dat <- read_rds(
   "paste/link/url/here/covid"#<COMPLETE>
@@ -25,50 +28,61 @@ dat <- read_rds(
   dplyr::select(date, confirm = cases)
 
 
+# Verify format of incidence data ----------------------------------------
+# step: Check the column names in incidence data
+# match EpiNow2 requirement of column names: date and confirm
+
+dat
+
 # Define a generation time from {epiparameter} to {EpiNow2} ---------------
 
-# access a serial interval
+# step: access a serial interval
 dat_serialint <- epiparameter::epiparameter_db(
   #<COMPLETE>
 )
 
-# extract parameters from {epiparameter} object
+# step: extract parameters from {epiparameter} object
 dat_serialint_params <- epiparameter::#<COMPLETE>
 
-# adapt {epiparameter} to {EpiNow2} distribution interface
+# step: adapt {epiparameter} to {EpiNow2} distribution interface
 dat_generationtime <- EpiNow2::#<COMPLETE>
 
 
 # Define the delays from infection to case report for {EpiNow2} -----------
 
-# define delay from symptom onset to case report
+# step: define delay from symptom onset to case report
+# You need to interpret the description given in the Inputs table
+
 dat_reportdelay <- EpiNow2::#<COMPLETE>
 
-# define a delay from infection to symptom onset
+# step: define a delay from infection to symptom onset
 dat_incubationtime <- epiparameter::epiparameter_db(
   #<COMPLETE>
 )
 
-# incubation period: extract distribution parameters
+# step: incubation period: extract distribution parameters
 dat_incubationtime_params <- epiparameter::#<COMPLETE>
 
-# incubation period: discretize and extract maximum value (p = 99%)
+# step: incubation period: discretize and extract maximum value (p = 99%)
 dat_incubationtime_max <- dat_incubationtime %>% #<COMPLETE>
 
-# incubation period: adapt to {EpiNow2} distribution interface
+# step: incubation period: adapt to {EpiNow2} distribution interface
 dat_incubationtime_epinow <- EpiNow2::#<COMPLETE>
 
-# print required input
+# step: print required input
 dat_generationtime
 dat_reportdelay
 dat_incubationtime_epinow
 
 
 # Set the number of parallel cores for {EpiNow2} --------------------------
+# step: run this configuration step
+
 withr::local_options(list(mc.cores = parallel::detectCores() - 1))
 
 
 # Estimate transmission using EpiNow2::epinow() ---------------------------
+# step: run epinow() using incidence cases, and required delays
 # with EpiNow2::*_opts() functions for generation time, delays, and stan.
 estimates <- EpiNow2::epinow(
   data = dat,
@@ -78,8 +92,11 @@ estimates <- EpiNow2::epinow(
 
 
 # Print plot and summary table outputs ------------------------------------
+# step: paste the figure and table outputs in the shared document
+
 summary(estimates)
 plot(estimates)
 
+# step: reply to questions in document
 
 # nolint end
