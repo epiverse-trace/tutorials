@@ -41,11 +41,18 @@ dat_serialint <- epiparameter::epiparameter_db(
   #<COMPLETE>
 )
 
+dat_serialint
+plot(dat_serialint)
+
 # step: extract parameters from {epiparameter} object
 dat_serialint_params <- epiparameter::#<COMPLETE>
 
+dat_serialint_params
+
 # step: adapt {epiparameter} to {EpiNow2} distribution interface
 dat_generationtime <- EpiNow2::#<COMPLETE>
+
+dat_generationtime
 
 
 # Define the delays from infection to case report for {EpiNow2} -----------
@@ -55,14 +62,23 @@ dat_incubationtime <- epiparameter::epiparameter_db(
   #<COMPLETE>
 )
 
+dat_incubationtime
+plot(dat_incubationtime)
+
 # step: incubation period: extract distribution parameters
 dat_incubationtime_params <- epiparameter::#<COMPLETE>
+
+dat_incubationtime_params
 
 # step: incubation period: discretize and extract maximum value (p = 99%)
 dat_incubationtime_max <- dat_incubationtime %>% #<COMPLETE>
 
+dat_incubationtime_max
+  
 # step: incubation period: adapt to {EpiNow2} distribution interface
 dat_incubationtime_epinow <- EpiNow2::#<COMPLETE>
+
+dat_incubationtime_epinow
 
 
 # step: define delay from symptom onset to case report
