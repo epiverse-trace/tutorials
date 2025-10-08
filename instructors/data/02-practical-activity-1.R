@@ -29,14 +29,14 @@ dat <- read_rds(
 
 
 # Verify format of incidence data ----------------------------------------
-# step: Check the column names in incidence data
-# match EpiNow2 requirement of column names: date and confirm
+# step: Check if the column names in incidence data
+# match the EpiNow2 requirement of column names: date and confirm
 
 dat
 
 # Define a generation time from {epiparameter} to {EpiNow2} ---------------
 
-# step: access a serial interval
+# step: access a serial interval (based on the disease)
 dat_serialint <- epiparameter::epiparameter_db(
   #<COMPLETE>
 )
@@ -50,12 +50,7 @@ dat_generationtime <- EpiNow2::#<COMPLETE>
 
 # Define the delays from infection to case report for {EpiNow2} -----------
 
-# step: define delay from symptom onset to case report
-# You need to interpret the description given in the Inputs table
-
-dat_reportdelay <- EpiNow2::#<COMPLETE>
-
-# step: define a delay from infection to symptom onset
+# step: define a delay from infection to symptom onset (based on the disease)
 dat_incubationtime <- epiparameter::epiparameter_db(
   #<COMPLETE>
 )
@@ -69,10 +64,18 @@ dat_incubationtime_max <- dat_incubationtime %>% #<COMPLETE>
 # step: incubation period: adapt to {EpiNow2} distribution interface
 dat_incubationtime_epinow <- EpiNow2::#<COMPLETE>
 
+
+# step: define delay from symptom onset to case report
+# You need to interpret the description given in the Inputs table
+# located in the shared document
+
+dat_reportdelay <- EpiNow2::#<COMPLETE>
+
+
 # step: print required input
 dat_generationtime
-dat_reportdelay
 dat_incubationtime_epinow
+dat_reportdelay
 
 
 # Set the number of parallel cores for {EpiNow2} --------------------------
