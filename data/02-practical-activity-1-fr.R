@@ -29,14 +29,14 @@ dat <- read_rds(
 
 
 # Vérifier le format des données d'incidence ----------------------------------------
-# étape : Vérifier les noms des colonnes dans les données d'incidence
-# correspondre aux exigences d'EpiNow2 concernant les noms des colonnes : date et confirmer
+# étape : vérifier si les noms des colonnes dans les données d'incidence
+# correspondent aux exigences d'EpiNow2 en matière de noms de colonnes : date et confirmation.
 
 dat
 
 # Définir un temps de génération de {epiparameter} à {EpiNow2} ---------------
 
-# étape : accéder à un intervalle sériel
+# étape : accéder à un intervalle sériel (en fonction de la maladie)
 dat_serialint <- epiparameter::epiparameter_db(
   #<COMPLETE>
 )
@@ -50,12 +50,7 @@ dat_generationtime <- EpiNow2::#<COMPLETE>
 
 # Définir les délais entre l'infection et la déclaration du cas pour {EpiNow2} -----------
 
-# étape : définir le délai entre l'apparition des symptômes et la déclaration du cas
-# Vous devez interprétez la description fournie dans le tableau Entrées
-
-dat_reportdelay <- EpiNow2::#<COMPLETE>
-
-# étape : définir un délai entre l'infection et l'apparition des symptômes
+# étape : définir un délai entre l'infection et l'apparition des symptômes (en fonction de la maladie)
 dat_incubationtime <- epiparameter::epiparameter_db(
   #<COMPLETE>
 )
@@ -69,10 +64,17 @@ dat_incubationtime_max <- dat_incubationtime %>% #<COMPLETE>
 # étape : période d'incubation : adaptation à l'interface de distribution {EpiNow2}
 dat_incubationtime_epinow <- EpiNow2::#<COMPLETE>
 
+
+# étape : définir le délai entre l'apparition des symptômes et la déclaration du cas
+# Vous devez interprétez la description fournie dans le tableau Entrées
+
+dat_reportdelay <- EpiNow2::#<COMPLETE>
+
+
 # étape : impression des données requises
 dat_generationtime
-dat_reportdelay
 dat_incubationtime_epinow
+dat_reportdelay
 
 
 # Définir le nombre de cœurs parallèles pour {EpiNow2} --------------------------
