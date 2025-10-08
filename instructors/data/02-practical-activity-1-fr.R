@@ -67,6 +67,7 @@ dat_incubationtime_epinow <- EpiNow2::#<COMPLETE>
 
 # étape : définir le délai entre l'apparition des symptômes et la déclaration du cas
 # Vous devez interprétez la description fournie dans le tableau Entrées
+# situé dans le document partagé
 
 dat_reportdelay <- EpiNow2::#<COMPLETE>
 
