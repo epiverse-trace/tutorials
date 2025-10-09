@@ -4,7 +4,7 @@ Welcome!
 
 | **Roll call** (Confirm you can edit) |
 |---|
-| - Your name + Find an emoji writing only a double-colon “**:**” |
+| - Your name + Find an emoji writing only a double-colon “**:**”  (+ Add room number) |
 
 # Read This First
 

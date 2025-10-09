@@ -365,7 +365,6 @@ Estimate the _naive CFR (nCFR)_ and _delay-adjusted CFR (aCFR)_ using the follow
 - Fill in the argument to plot an incidence curve.
 - Evaluate if the input data format needs adaptation to {cfr}.
 - Access to the probability distribution for the delay from case onset to death.
-- Evaluate if you are requested to keep dates or omit using `dplyr::filter()`.
 - Estimate the naive and delay-adjusted CFR.
 - Paste the outputs. Reply to questions.
 
@@ -381,11 +380,11 @@ Within your room, Write your answers to these questions:
 
 ### Inputs
 
-| Room | Data | Action on data input | Link |
+| Room | Data | Feature input | Link |
 |---|---|---|---|
-| 1 | COVID-19 Diamond Princess | Keep dates before March 1st | <https://epiverse-trace.github.io/tutorials-middle/data/diamond_70days.rds> |
-| 2 | COVID-19 Diamond Princess | Estimate from a complete time series | <https://epiverse-trace.github.io/tutorials-middle/data/diamond_70days.rds> |
-| 3 | MERS Korea 2015 | Adapt from incidence to {cfr} | <https://epiverse-trace.github.io/tutorials-middle/data/mers_linelist.rds> |
+| 1 | COVID-19 Diamond Princess | Time serie before March 1st | <https://epiverse-trace.github.io/tutorials-middle/data/diamond_25days.rds> |
+| 2 | COVID-19 Diamond Princess | Complete time series of deaths among cases | <https://epiverse-trace.github.io/tutorials-middle/data/diamond_70days.rds> |
+| 3 | MERS Korea 2015 | Requires adaptation to {cfr} | <https://epiverse-trace.github.io/tutorials-middle/data/mers_linelist.rds> |
 
 
 
