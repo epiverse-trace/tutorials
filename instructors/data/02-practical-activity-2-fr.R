@@ -1,4 +1,7 @@
-# Activity 5
+# nolint start
+
+# Practical 2
+# Activity 1
 
 # étape: donner le numéro du groupe
 room_number <- #<À COMPLETER> replace with 1/2/3/4
