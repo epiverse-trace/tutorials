@@ -16,60 +16,62 @@ library(tidyverse)
 # étape : copier et coller le lien fourni dans le fichier google doc.
 
 dat_contacts <- readr::read_rds(
-  "link/to/contact/data/url"#<À COMPLETER>
+  "link/to/contact/data/url" #<À COMPLETER>
 )
 
 dat_linelist <- readr::read_rds(
-  "link/to/linelist/data/url"#<À COMPLETER>
+  "link/to/linelist/data/url" #<À COMPLETER>
 )
 
 
 # Créer un objet de type epicontacts -------------------------------------------
-# étape : Créez un réseau de contacts *dirigé* à l'aide 
-# des données saisies dans la liste de lignes et les contacts.
+# étape : Créez un réseau de contacts *dirigé* à l'aide
+# des données de cas et contacts.
 # Collez une capture d'écran du réseau dans le rapport.
 
 epi_contacts <- epicontacts::#<À COMPLETER>
 
-# Imprimer la sortie
+# voir un aperçu de l'objet créé
 epi_contacts
 
 # Visualiser le réseau de contacts
 contact_network <- epicontacts::#<À COMPLÉTER>
 
-# Imprimer la sortie
+# voir un aperçu du réseau
 contact_network
 
 
-# Compter les cas secondaires par sujet -----------------------------------------
+# Compter les cas secondaires par individu -----------------------------------------
 # étape : Calculez le *degré sortant* pour chaque nœud (cas infectieux)
-# dans le réseau de contacts, en utilisant *tous* les cas observés dans la liste.
+# dans le réseau de contacts, en utilisant *tous* les cas observés dans le
+# tableau de données.
 # Collez l'histogramme obtenu dans le rapport.
 
 secondary_cases <- epicontacts::#<À COMPLETER>
 
 # Tracer l'histogramme des cas secondaires
 individual_reproduction_num <- secondary_cases %>%
-  enframe() %>% 
+  enframe() %>%
   ggplot(aes(value)) +
   geom_histogram(binwidth = 1) +
   labs(
-    x = "Number of secondary cases",
-    y = "Frequency"
+    x = "Nombre de cas secondaires",
+    y = "Fréquence"
   )
 
-# Imprimer la sortie
+# voir un aperçu du graphe
 individual_reproduction_num
 
 
 # Ajuster une distribution binomiale négative -----------------------------------
-# étape : Utilisez le vecteur avec le nombre de cas secondaires par cas infectieux
-# pour ajuster une distribution binomiale négative à l'aide de {fitdistrplus}.
+# étape : Utilisez le vecteur avec le nombre de cas secondaires engendrés par
+# chaque cas infectieux pour ajuster une distribution binomiale négative à
+# l'aide de {fitdistrplus}.
 # Collez les paramètres de sortie dans le rapport.
 
 offspring_fit <- #<À COMPLETER>
 
-# Imprimer la sortie
+# voir un aperçu de l'objet créé
 offspring_fit
 
 
@@ -80,14 +82,14 @@ offspring_fit
 # le nombre de reproduction et la dispersion.
 # Collez le résultat obtenu dans le rapport.
 
-# Définir la graine pour le générateur de nombres aléatoires
+# Définir le générateur de nombres aléatoires
 set.seed(33)
 
-# Estimer la probabilité de nouveaux cas provenant d'
-# un groupe de transmission d'au moins 5, 10 ou 25 cas
+# Estimer la probabilité que de nouveaux cas proviennent d'un groupe de
+# transmission d'au moins 5, 10 ou 25 cas
 proportion_cases_by_cluster_size <- #<À COMPLETER>
 
-# Imprimer la sortie
+# voir un aperçu du résultat
 proportion_cases_by_cluster_size
 
 # nolint end
