@@ -8,20 +8,27 @@ room_number <- #<COMPLETE> replace with 1/2/3/4
 
 # Intervention ---------------------------------------------------------
 
+# note: all input parameters come from
+# the table of parameters of the practical document
+  
 rownames(socialcontact_matrix)
 
 # step: create the intervention object:
+# 
 # identify if you need to keep: 
 # epidemics::intervention() or epidemics::vaccination()
+#
 # then add:
 # - name of the intervention
 # - type of intervention ("rate" or "contacts"), if needed
 # - time when the intervention begins and ends (as values or matrix*)
-# as given in table of inputs
 # - reduction or vaccination rate (as values or matrix*)
+# 
 # *if matrix, values follow same order as in the social contact matrix
+#  
 test_intervention <- epidemics::intervention(#<COMPLETE>
 )
+# or
 test_intervention <- epidemics::vaccination(#<COMPLETE>
 )
 
@@ -30,8 +37,10 @@ test_intervention
 # Run {epidemics} ---------------------------------------------------------
 
 # step: add the intervention argument
+# 
 # as a list (for interventions against contacts or transmission rate) 
 # or as an object (for vaccination)
+# 
 simulate_intervention <- epidemics::model_default(
   population = population_object,
   transmission_rate = transmission_rate,
@@ -47,7 +56,7 @@ simulate_intervention
 
 # Plot all compartments --------------------------------------------------
 
-# step: paste plot and table output in report
+# run: paste plot in report
 
 simulate_intervention %>%
   ggplot(aes(
@@ -67,16 +76,21 @@ simulate_intervention %>%
     labels = scales::comma
   )
 
+
+# Peak of infectious -----------------------------------------------------
+
+# run: paste table output in report
+
 epidemics::epidemic_peak(data = simulate_intervention)
 
 # Visualize effect --------------------------------------------------------
 # Plot new infections 
 
 # step: 
-# add intervention name
-# if your intervention is vaccination, then
-# activate the argument exclude_compartments
-# run and paste plot output in report
+# - add intervention name
+# - if your intervention is vaccination, then
+# - activate the argument "exclude_compartments"
+# - run and paste plot output in report
 
 infections_baseline <- epidemics::new_infections(
   data = simulate_baseline,
