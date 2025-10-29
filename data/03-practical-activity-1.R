@@ -35,10 +35,7 @@ epi_contacts <- epicontacts::#<COMPLETE>
 epi_contacts
 
 # Visualize the contact network
-contact_network <- epicontacts::#<COMPLETE>
-
-# Print output
-contact_network
+plot(epi_contacts)
 
 
 # Count secondary cases per subject in contacts and linelist --------------
