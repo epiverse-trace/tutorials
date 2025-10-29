@@ -35,10 +35,7 @@ epi_contacts <- epicontacts::#<À COMPLETER>
 epi_contacts
 
 # Visualiser le réseau de contacts
-contact_network <- epicontacts::#<À COMPLÉTER>
-
-# voir un aperçu du réseau
-contact_network
+plot(epi_contacts)
 
 
 # Compter les cas secondaires par individu -----------------------------------------
