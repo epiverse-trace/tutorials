@@ -46,7 +46,7 @@ plot(epi_contacts)
 secondary_cases <- epicontacts::#<COMPLETE>
 
 # Plot the histogram of secondary cases
-individual_reproduction_num <- secondary_cases %>%
+secondary_cases %>%
   enframe() %>% 
   ggplot(aes(value)) +
   geom_histogram(binwidth = 1) +
@@ -54,9 +54,6 @@ individual_reproduction_num <- secondary_cases %>%
     x = "Number of secondary cases",
     y = "Frequency"
   )
-
-# Print output
-individual_reproduction_num
 
 
 # Fit a negative binomial distribution -----------------------------------
