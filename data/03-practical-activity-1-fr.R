@@ -47,7 +47,7 @@ plot(epi_contacts)
 secondary_cases <- epicontacts::#<À COMPLETER>
 
 # Tracer l'histogramme des cas secondaires
-individual_reproduction_num <- secondary_cases %>%
+secondary_cases %>%
   enframe() %>%
   ggplot(aes(value)) +
   geom_histogram(binwidth = 1) +
@@ -55,9 +55,6 @@ individual_reproduction_num <- secondary_cases %>%
     x = "Nombre de cas secondaires",
     y = "Fréquence"
   )
-
-# voir un aperçu du graphe
-individual_reproduction_num
 
 
 # Ajuster une distribution binomiale négative -----------------------------------
