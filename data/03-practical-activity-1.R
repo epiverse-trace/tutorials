@@ -79,9 +79,6 @@ set.seed(33)
 
 # Estimate the probability of new cases originating from 
 # a transmission cluster of at least 5, 10, or 25 cases
-proportion_cases_by_cluster_size <- #<COMPLETE>
-
-# Print output
-proportion_cases_by_cluster_size
+superspreading::#<COMPLETE>
 
 # nolint end
