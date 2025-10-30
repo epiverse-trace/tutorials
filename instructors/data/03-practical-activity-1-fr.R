@@ -81,9 +81,6 @@ set.seed(33)
 
 # Estimer la probabilité que de nouveaux cas proviennent d'un groupe de
 # transmission d'au moins 5, 10 ou 25 cas
-proportion_cases_by_cluster_size <- #<À COMPLETER>
-
-# voir un aperçu du résultat
-proportion_cases_by_cluster_size
+superspreading::#<À COMPLETER>
 
 # nolint end
