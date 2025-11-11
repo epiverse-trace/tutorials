@@ -1,69 +1,72 @@
 # nolint start
 
-# Practical 4
-# Activity 1
+# Activité pratique 4
+# Activité 1
 
-# step: fill in your room number
-room_number <- #<COMPLETE> replace with 1/2/3/4
-
-# Load packages ----------------------------------------------------------
+# étape: compléter le numéro du groupe
+room_number <- #<À COMPLÉTER> remplacer avec 1/2/3/4
+  
+# charger les packages ----------------------------------------------------
 library(epidemics)
 library(socialmixr)
 library(tidyverse)
 
 
-# (1) Contact matrix ------------------------------------------------------
+# (1) matrice des contacts ------------------------------------------------------
 
-# note: all input parameters come from
-# the table of parameters of the practical document
+# remarque: tous les paramètres sont issus du tableau des paramètres
+# qui se trouve dans le fichier avec les activités pratiques
 
-# step: paste the survey link assigned to your room
-# then run the function to download the social contact data
+# étape: coller le lien correspondant à l'enquête assignée à votre groupe
+# puis exécuter la fonction pour télécharger les données de contacts sociaux
 socialsurvey <- socialmixr::get_survey(
-  #<COMPLETE>
+  #<À COMPLÉTER>
 )
 
 socialsurvey
 
-# step: generate the contact matrix by defining
-# - the survey class object just downloaded,
-# - the country name, 
-# - the age limits, as in the table of parameters, and
-# - TRUE or FALSE to create a symmetric matrix.
+# étape: créer la matrice de contacts en définissant:
+# - l'objet de classe <survey> que vous venez de créer,
+# - le nom du pays, 
+# - les limites d'âge, comme mentionnés dans le tableau des paramètres, et
+# - TRUE ou FALSE pour créer une matrice symétrique.
 contact_data <- socialmixr::contact_matrix(
-  #<COMPLETE>
+  #<À COMPLÉTER>
 )
 
 contact_data
 
-# run: confirm the symmetry of the matrix
-# Matrix are symmetric for the total number of contacts.
-# The total number of contacts from one group to another is the same in both directions.
-# Check this by multiplying the mean contacts by the population size for each group.
+# exécuter la commande suivante pour confirmer la symmétrie de la matrice
+# La matrice du nombre total de contact est une matrice symétrique.
+# Le nombre total de contacts des individus d'un groupe à un autre est le même
+# dans toutes les directions.
+# Vérifier la symmétrie en multipliant le nombre moyen de contacts la taille de
+# la population de chaque groupe.
 contact_data$matrix * contact_data$demography$proportion
 
-# run: Prepare contact matrix
+# Exécuter la commande ci-dessous pour préparer la matrice de contacts
 #
-# - {socialmixr} provides a matrix from-to: from-participants -> to-contacts
-#   In surveys, participants report their contacts.
+# - {socialmixr} fournit une matrice du type de-à: de-participants -> à-contacts
+#   les participants à une enquête révèle leurs contacts.
 #
-# - {epidemics} expects a matrix to-from: to-contacts <- from-participants
-#   Models assume that each susceptible (contact) is exposed to infection based on
-#   how often they are contacted (by participants) and how infectious (participatns) are. 
+# - {epidemics} prend en entrée une matrice du type à-de: à-contacts <- de-participants
+#   Les modèles supposent que chaque personne susceptible (contact) est exposée
+#   à l'infection en fonction de la fréquence à laquelle elle est contactée
+#   (par les participants) et du degré d'infectiosité (des participants).
 # 
 socialcontact_matrix <- t(contact_data$matrix)
 
 socialcontact_matrix
 
-# (2) Initial conditions --------------------------------------------------
+# (2) Les conditions initiales  --------------------------------------------------
 
-## Infectious population ---------
+## Population indectieuse ---------
 
-# step: add the proportion of infectious 
-# as given in table of parameter
-initial_i <- #<COMPLETE>
-
-# run: create an infectious vector
+# étape: compléter la proportion d'individus infectieux
+# selon le tableau des paramètres
+initial_i <- #<À COMPLÉTER>
+  
+# Exécuter la commande ci-dessous pour créer le vecteur de conditions initiales
 initial_conditions_inf <- c(
   S = 1 - initial_i,
   E = 0,
@@ -74,9 +77,10 @@ initial_conditions_inf <- c(
 
 initial_conditions_inf
 
-## Free of infection population ---------
+## Une population exempt d'infections ---------
 
-# run: create an infection-free vector
+# Exécuter la commande ci-dessous pour créer le vecteur de conditions initiales
+# dans une population exempt d'infections
 initial_conditions_free <- c(
   S = 1,
   E = 0,
@@ -87,70 +91,71 @@ initial_conditions_free <- c(
 
 initial_conditions_free
 
-## Combine initial conditions ------------
+## Combiner les conditions initiales ------------
 
-# note: not all the population needs to be infectious.
-# The epidemic can start with infecitous in a specific age range.
+# Remarque: toute la population n’a pas besoin d’être contagieuse.
+# L’épidémie peut débuter par une infection au sein d’une tranche d’âge
+# spécifique.
 
-# step: Combine the initial conditions
-# Add initial_conditions_inf or initial_conditions_free
-# to the each age group as detailed in table of parameter
+# étape: Combiner les conditions initiales 
+# Associer 'initial_conditions_inf' or 'initial_conditions_free' à chaque
+# groupe selon le tableau des paramètres
 initial_conditions <- base::rbind(
-  #<COMPLETE>, # age group 1
-  #<COMPLETE>, # age group 2
-  #<COMPLETE> # age group 3
+  #<À COMPLÉTER>, # groupe d'âge 1
+  #<À COMPLÉTER>, # groupe d'âge 2
+  #<À COMPLÉTER> # groupe d'âge 3
 )
 
-# run: Use contact matrix to assign age group names
+# Exécuter la commande ci-dessous pour renommer les groupes d'âge en utilisant
+# les noms de lignes de la matrice de contact
 rownames(initial_conditions) <- rownames(socialcontact_matrix)
 
 initial_conditions
 
-# (3) Population structure ------------------------------------------------
+# (3) La structure de la population ------------------------------------------------
 
-# run: Prepare the demography vector
+# Exécuter la commande ci-dessous pour préparer le vecteur de demographie
 demography_vector <- contact_data$demography$population
 names(demography_vector) <- rownames(socialcontact_matrix)
 
-# step: Prepare the population to model as affected by the epidemic adding
-# - the name of the country, 
-# - the symmetric and transposed contact matrix,
-# - the vector with the population size of each age group
-# - the binded matrix with initial conditions for each age group
+# étape: Préparer la population à modéliser en spécifiant:
+# - le nom du pays, 
+# - la matrice de contact symmétrique et transposée,
+# - le vecteur avec la taille de la population de chaque groupe d'âge
+# - la matrice des conditions initiales pour chaque groupe d'âge
 population_object <- epidemics::population(
-  #<COMPLETE>
+  #<À COMPLÉTER>
 )
 
 population_object
 
-# (4) Model parameters ----------------------------------------------------
+# (4) Les paramètres du modèle ----------------------------------------------------
 
-# step: define the disease-specific parameters: the rates
-# add the values as given in table of parameter
-infectiousness_rate <- 1 / #<COMPLETE> # 1/pre-infectious period
-recovery_rate <- 1 / #<COMPLETE> # 1/infectious period
-transmission_rate <- recovery_rate * #<COMPLETE> # recovery rate * R0
+# étape: définir les paramètres spécifiques à la maladie: les taux
+# compléter les valeurs correspondantes selon le tableau des paramètres
+infectiousness_rate <- 1 / #<À COMPLÉTER> # 1/pre-infectious period
+recovery_rate <- 1 / #<À COMPLÉTER> # 1/infectious period
+transmission_rate <- recovery_rate * #<À COMPLÉTER> # recovery rate * R0
+  
+  
+# (5) Exécuter le modèle --------------------------------------------------------
 
-
-# (5) Run the model --------------------------------------------------------
-
-# step: in each function argument add
-# - the population object
-# - each of the previously defined disease-specific rates
-# - the total simulation time as given in table of parameter
+# étape: donner les valeurs des arguments de la fonction
+# - l'objet de classe <population>
+# - chacun des taux spécifiques à la maladie définis précédemment
+# - le temps de simulation fournit dans le tableau des paramètres
 simulate_baseline <- epidemics::model_default(
-  #<COMPLETE>
+  #<À COMPLÉTER>
 )
 
 simulate_baseline
 
 
-# (6) Plot all compartments ------------------------------------------------
+# (6) Tracer la courbe de tous les compartiments ------------------------------------------------
 
-# run: paste plot in report
+# Exécuter la commande ci-dessous et coller la courbe dans votre rapport
 
-# plot with total number of individual per compartment
-# at different points in time
+# courbe du nombre total d'individus par compartiment au cours du temps
 simulate_baseline %>%
   ggplot(aes(
     x = time,
@@ -164,23 +169,22 @@ simulate_baseline %>%
     labels = scales::comma
   )
 
-# (7) Peak of infectious -------------------------------------------------
+# (7) Pic d'infectiosité -------------------------------------------------
 
-# run: paste table output in report
+# Exécuter la commande ci-dessous et coller le tableau obtenu dans le rapport
 
-# table of epidemic peak size and time
-# per demographic group
+# Tableau de l'ampleur et de la durée du pic épidémique par groupe démographique
 epidemics::epidemic_peak(data = simulate_baseline)
 
 
-# (8) Plot new infections -------------------------------------------------
+# (8) Tracer la courbe des nouvelles infections -------------------------------------------------
 
-# run: paste plot output in report
+# Exécuter la commande ci-dessous et coller le résultat obtenu dans le rapport
 
-# New infections per demographic group in time
+# Nouvelles infections par groupe démographique dans le temps
 newinfections_bygroup <- epidemics::new_infections(data = simulate_baseline)
 
-# Visualize the spread of the epidemic in terms of new infections
+# Visualisez la propagation de l'épidémie en termes de nouvelles infections
 newinfections_bygroup %>%
   ggplot(aes(time, new_infections, colour = demography_group)) +
   geom_line() +
