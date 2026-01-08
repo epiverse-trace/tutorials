@@ -198,8 +198,8 @@ new_packages <- c(
   "rmarkdown",
   "quarto",
   # for Early Task tutorials
-  "epiverse-trace/readepi@readepi_no_his_spc_deps",
-  "cleanepi@1.1.0",
+  "readepi",
+  "cleanepi",
   "reactable",
   "rio",
   "DBI",
