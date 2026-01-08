@@ -10,4 +10,6 @@ epidemics::population(
     ncol = 4
   )
 )
+pak::pak("cyclocomp")
+cyclocomp::cyclocomp(quote( if (condition) "foo" else "bar" ))
 # nolint end

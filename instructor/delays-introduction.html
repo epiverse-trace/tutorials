@@ -301,7 +301,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Introduction to outbreak analytics</h1>
-        <p>Last updated on 2025-11-11 |
+        <p>Last updated on 2026-01-08 |
 
         <a href="https://github.com/epiverse-trace/tutorials/edit/main/episodes/delays-introduction.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -352,7 +352,7 @@ function.</li>
 <button class="accordion-button instructor-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseInstructor1" aria-expanded="false" aria-controls="collapseInstructor1">
   <h3 class="accordion-header" id="headingInstructor1">  <div class="note-square"><i aria-hidden="true" class="callout-icon" data-feather="edit-2"></i></div> Instructor Note </h3>
 </button>
-<div id="collapseInstructor1" class="accordion-collapse collapse" aria-labelledby="headingInstructor1" data-bs-parent="#accordionInstructor1">
+<div id="collapseInstructor1" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor1" aria-labelledby="headingInstructor1">
 <div class="accordion-body">
 <p>Useful concepts maps to teach this episode are</p>
 <ul><li><a href="https://github.com/rstudio/concept-maps?tab=readme-ov-file#dplyr" class="external-link uri">https://github.com/rstudio/concept-maps?tab=readme-ov-file#dplyr</a></li>
@@ -441,11 +441,11 @@ from the package <a href="https://ggplot2.tidyverse.org" class="external-link">g
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="output" tabindex="0"><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
-✔ dplyr     1.1.4     ✔ readr     2.1.5
-✔ forcats   1.0.0     ✔ stringr   1.5.1
-✔ ggplot2   3.5.2     ✔ tibble    3.3.0
-✔ lubridate 1.9.4     ✔ tidyr     1.3.1
-✔ purrr     1.0.4
+✔ dplyr     1.1.4     ✔ readr     2.1.6
+✔ forcats   1.0.1     ✔ stringr   1.6.0
+✔ ggplot2   4.0.1     ✔ tibble    3.3.0
+✔ lubridate 1.9.4     ✔ tidyr     1.3.2
+✔ purrr     1.2.0
 ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
 ✖ dplyr::filter() masks stats::filter()
 ✖ dplyr::lag()    masks stats::lag()
@@ -556,7 +556,7 @@ information might you want to collect?</li>
 <button class="accordion-button instructor-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseInstructor2" aria-expanded="false" aria-controls="collapseInstructor2">
   <h3 class="accordion-header" id="headingInstructor2">  <div class="note-square"><i aria-hidden="true" class="callout-icon" data-feather="edit-2"></i></div> Instructor Note </h3>
 </button>
-<div id="collapseInstructor2" class="accordion-collapse collapse" aria-labelledby="headingInstructor2" data-bs-parent="#accordionInstructor2">
+<div id="collapseInstructor2" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor2" aria-labelledby="headingInstructor2">
 <div class="accordion-body">
 <p>The information to collect will depend on the questions we need to
 give a response.</p>
@@ -585,7 +585,7 @@ time.</li>
 <button class="accordion-button spoiler-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSpoiler1" aria-expanded="false" aria-controls="collapseSpoiler1">
   <h3 class="accordion-header" id="headingSpoiler1">  <div class="note-square"><i aria-hidden="true" class="callout-icon" data-feather="eye"></i></div> Show details </h3>
 </button>
-<div id="collapseSpoiler1" class="accordion-collapse collapse" aria-labelledby="headingSpoiler1" data-bs-parent="#accordionSpoiler1">
+<div id="collapseSpoiler1" class="accordion-collapse collapse" data-bs-parent="#accordionSpoiler1" aria-labelledby="headingSpoiler1">
 <div class="accordion-body">
 <p>We can also explore missing data with summary a visualization:</p>
 <div class="codewrapper sourceCode" id="cb7">
@@ -595,7 +595,7 @@ time.</li>
 <code class="sourceCode R"><span><span class="va">cases</span> <span class="op">%&gt;%</span></span>
 <span>  <span class="fu">visdat</span><span class="fu">::</span><span class="fu">vis_miss</span><span class="op">(</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="../fig/delays-introduction-rendered-unnamed-chunk-5-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure></div>
+<figure><img src="../fig/delays-introduction-rendered-unnamed-chunk-5-1.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure></div>
 </div>
 </div>
 </div>
@@ -616,7 +616,7 @@ outcome?</p>
 <button class="accordion-button instructor-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseInstructor3" aria-expanded="false" aria-controls="collapseInstructor3">
   <h3 class="accordion-header" id="headingInstructor3">  <div class="note-square"><i aria-hidden="true" class="callout-icon" data-feather="edit-2"></i></div> Instructor Note </h3>
 </button>
-<div id="collapseInstructor3" class="accordion-collapse collapse" aria-labelledby="headingInstructor3" data-bs-parent="#accordionInstructor3">
+<div id="collapseInstructor3" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor3" aria-labelledby="headingInstructor3">
 <div class="accordion-body">
 <ul><li>date of infection: mostly unknown, depended on limited coverage of
 contact tracing or outbreak research, and sensitive to recall bias from
@@ -671,7 +671,7 @@ CFR?</p></li>
 <button class="accordion-button instructor-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseInstructor4" aria-expanded="false" aria-controls="collapseInstructor4">
   <h3 class="accordion-header" id="headingInstructor4">  <div class="note-square"><i aria-hidden="true" class="callout-icon" data-feather="edit-2"></i></div> Instructor Note </h3>
 </button>
-<div id="collapseInstructor4" class="accordion-collapse collapse" aria-labelledby="headingInstructor4" data-bs-parent="#accordionInstructor4">
+<div id="collapseInstructor4" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor4" aria-labelledby="headingInstructor4">
 <div class="accordion-body">
 <p>Keeping cases with missing outcome is useful to track the incidence
 of number of new cases, useful to assess transmission.</p>
@@ -697,7 +697,7 @@ hospitalization.</p>
 <p>In a random sample of 30 observations from the <code>cases</code>
 data frame we observe variability between the date of hospitalization
 and date of outcome:</p>
-<figure><img src="../fig/delays-introduction-rendered-unnamed-chunk-7-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>We can calculate the average time from hospitalisation to outcome
+<figure><img src="../fig/delays-introduction-rendered-unnamed-chunk-7-1.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>We can calculate the average time from hospitalisation to outcome
 from the line list.</p>
 <p>From the <code>cases</code> object we will use:</p>
 <ul><li>
@@ -791,7 +791,7 @@ death.</li>
 <button class="accordion-button hint-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseHint1" aria-expanded="false" aria-controls="collapseHint1">
   <h4 class="accordion-header" id="headingHint1"> Give me a hint </h4>
 </button>
-<div id="collapseHint1" class="accordion-collapse collapse" aria-labelledby="headingHint1" data-bs-parent="#accordionHint1">
+<div id="collapseHint1" class="accordion-collapse collapse" data-bs-parent="#accordionHint1" aria-labelledby="headingHint1">
 <div class="accordion-body">
 <p>Keep the rows that match a condition like
 <code>outcome == "Death"</code>:</p>
@@ -815,7 +815,7 @@ death?</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb12">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -873,7 +873,7 @@ do it?</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
 <p>We can use <code>dplyr::filter()</code> again to identify the
 inconsistent observations:</p>
@@ -931,7 +931,7 @@ days.</li>
 <span>  <span class="fu">ggplot</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">date_of_onset</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">geom_histogram</span><span class="op">(</span>binwidth <span class="op">=</span> <span class="fl">7</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="../fig/delays-introduction-rendered-unnamed-chunk-12-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div id="discussion5" class="callout discussion">
+<figure><img src="../fig/delays-introduction-rendered-unnamed-chunk-12-1.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div id="discussion5" class="callout discussion">
 <div class="callout-square">
 <i class="callout-icon" data-feather="message-circle"></i>
 </div>
@@ -949,7 +949,7 @@ weeks?</li>
 <button class="accordion-button instructor-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseInstructor5" aria-expanded="false" aria-controls="collapseInstructor5">
   <h3 class="accordion-header" id="headingInstructor5">  <div class="note-square"><i aria-hidden="true" class="callout-icon" data-feather="edit-2"></i></div> Instructor Note </h3>
 </button>
-<div id="collapseInstructor5" class="accordion-collapse collapse" aria-labelledby="headingInstructor5" data-bs-parent="#accordionInstructor5">
+<div id="collapseInstructor5" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor5" aria-labelledby="headingInstructor5">
 <div class="accordion-body">
 <p>Close inspection of the line list shows that the last date of any
 entry (by date of hospitalization) is a bit later than the last date of
@@ -1000,13 +1000,13 @@ this line list data:</p>
 <span>  <span class="fu">ggplot</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">reporting_delay</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">geom_histogram</span><span class="op">(</span>binwidth <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="../fig/delays-introduction-rendered-unnamed-chunk-14-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>The distribution of the reporting delay in day units is heavily
+<figure><img src="../fig/delays-introduction-rendered-unnamed-chunk-14-1.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>The distribution of the reporting delay in day units is heavily
 skewed. Symptomatic cases may take up to <strong>two weeks</strong> to
 be reported.</p>
 <p>From reports (hospitalisations) in the most recent two weeks, we
 completed the exponential growth trend of incidence cases within the
 last four weeks:</p>
-<figure><img src="../fig/delays-introduction-rendered-unnamed-chunk-15-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>Given to reporting delays during this outbreak, it seemed that two
+<figure><img src="../fig/delays-introduction-rendered-unnamed-chunk-15-1.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>Given to reporting delays during this outbreak, it seemed that two
 weeks ago we had a decay of cases during the last three weeks. We needed
 to wait a couple of weeks to complete the incidence of cases on each
 week.</p>
@@ -1028,14 +1028,14 @@ incidence curve?</li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution3" aria-expanded="false" aria-controls="collapseSolution3">
   <h4 class="accordion-header" id="headingSolution3"> Show me the solution </h4>
 </button>
-<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
+<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
 <div class="accordion-body">
 <ul><li>The growth rate! by fitting a linear model.</li>
 <li>The reproduction number accounting for delays from secondary
 observations to infection.</li>
 </ul><p>More on this topic on episodes about <strong>Aggregate and
 visualize</strong> and <strong>Quantifying transmission</strong>.</p>
-<figure><img src="../fig/delays-introduction-rendered-unnamed-chunk-16-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div class="codewrapper">
+<figure><img src="../fig/delays-introduction-rendered-unnamed-chunk-16-1.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="output" tabindex="0"><code># A tibble: 2 × 6
@@ -1080,7 +1080,7 @@ list.</p></li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution4" aria-expanded="false" aria-controls="collapseSolution4">
   <h4 class="accordion-header" id="headingSolution4"> Show me the solution </h4>
 </button>
-<div id="collapseSolution4" class="accordion-collapse collapse" aria-labelledby="headingSolution4" data-bs-parent="#accordionSolution4">
+<div id="collapseSolution4" class="accordion-collapse collapse" data-bs-parent="#accordionSolution4" aria-labelledby="headingSolution4">
 <div class="accordion-body">
 <p>Calculate the summary statistics:</p>
 <div class="codewrapper sourceCode" id="cb20">
@@ -1135,7 +1135,7 @@ list.</p></li>
 <span>  <span class="fu">ggplot</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">incubation_period</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">geom_histogram</span><span class="op">(</span>binwidth <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="../fig/delays-introduction-rendered-unnamed-chunk-19-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>In coming episode we will learn how to fit statistical
+<figure><img src="../fig/delays-introduction-rendered-unnamed-chunk-19-1.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>In coming episode we will learn how to fit statistical
 <em>distribution paramaters</em> to a distribution, or access to the
 most appropriate estimates.</p>
 <p>With the distribution parameters of the incubation period we can
@@ -1231,7 +1231,7 @@ any links that you are not going to use.
   "url": "https://epiverse-trace.github.io/tutorials/instructor/delays-introduction.html",
   "identifier": "https://epiverse-trace.github.io/tutorials/instructor/delays-introduction.html",
   "dateCreated": "2026-01-08",
-  "dateModified": "2025-11-11",
+  "dateModified": "2026-01-08",
   "datePublished": "2026-01-08"
 }
 
