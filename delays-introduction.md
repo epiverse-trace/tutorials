@@ -89,11 +89,11 @@ library(tidyverse) # loads readr, dplyr, tidyr and ggplot2
 
 ``` output
 ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
-✔ dplyr     1.1.4     ✔ readr     2.1.5
-✔ forcats   1.0.0     ✔ stringr   1.5.1
-✔ ggplot2   3.5.2     ✔ tibble    3.3.0
-✔ lubridate 1.9.4     ✔ tidyr     1.3.1
-✔ purrr     1.0.4     
+✔ dplyr     1.1.4     ✔ readr     2.1.6
+✔ forcats   1.0.1     ✔ stringr   1.6.0
+✔ ggplot2   4.0.1     ✔ tibble    3.3.0
+✔ lubridate 1.9.4     ✔ tidyr     1.3.2
+✔ purrr     1.2.0     
 ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
 ✖ dplyr::filter() masks stats::filter()
 ✖ dplyr::lag()    masks stats::lag()
@@ -211,7 +211,7 @@ cases %>%
   visdat::vis_miss()
 ```
 
-<img src="fig/delays-introduction-rendered-unnamed-chunk-5-1.png" style="display: block; margin: auto;" />
+<img src="fig/delays-introduction-rendered-unnamed-chunk-5-1.png" alt="" style="display: block; margin: auto;" />
 
 :::::::::::::
 
@@ -282,7 +282,7 @@ The time between sequence of dated events can vary between subjects. For example
 
 In a random sample of 30 observations from the `cases` data frame we observe variability between the date of hospitalization and date of outcome: 
 
-<img src="fig/delays-introduction-rendered-unnamed-chunk-7-1.png" style="display: block; margin: auto;" />
+<img src="fig/delays-introduction-rendered-unnamed-chunk-7-1.png" alt="" style="display: block; margin: auto;" />
 
 We can calculate the average time from hospitalisation to outcome from the line list.
 
@@ -447,7 +447,7 @@ cases %>%
   geom_histogram(binwidth = 7)
 ```
 
-<img src="fig/delays-introduction-rendered-unnamed-chunk-12-1.png" style="display: block; margin: auto;" />
+<img src="fig/delays-introduction-rendered-unnamed-chunk-12-1.png" alt="" style="display: block; margin: auto;" />
 
 :::::::::::: discussion
 
@@ -498,13 +498,13 @@ cases %>%
   geom_histogram(binwidth = 1)
 ```
 
-<img src="fig/delays-introduction-rendered-unnamed-chunk-14-1.png" style="display: block; margin: auto;" />
+<img src="fig/delays-introduction-rendered-unnamed-chunk-14-1.png" alt="" style="display: block; margin: auto;" />
 
 The distribution of the reporting delay in day units is heavily skewed. Symptomatic cases may take up to **two weeks** to be reported.
 
 From reports (hospitalisations) in the most recent two weeks, we completed the exponential growth trend of incidence cases within the last four weeks:
 
-<img src="fig/delays-introduction-rendered-unnamed-chunk-15-1.png" style="display: block; margin: auto;" />
+<img src="fig/delays-introduction-rendered-unnamed-chunk-15-1.png" alt="" style="display: block; margin: auto;" />
 
 Given to reporting delays during this outbreak, it seemed that two weeks ago we had a decay of cases during the last three weeks. We needed to wait a couple of weeks to complete the incidence of cases on each week.
 
@@ -521,7 +521,7 @@ Report:
 
 More on this topic on episodes about **Aggregate and visualize** and **Quantifying transmission**.
 
-<img src="fig/delays-introduction-rendered-unnamed-chunk-16-1.png" style="display: block; margin: auto;" />
+<img src="fig/delays-introduction-rendered-unnamed-chunk-16-1.png" alt="" style="display: block; margin: auto;" />
 
 
 ``` output
@@ -598,7 +598,7 @@ cases %>%
   geom_histogram(binwidth = 1)
 ```
 
-<img src="fig/delays-introduction-rendered-unnamed-chunk-19-1.png" style="display: block; margin: auto;" />
+<img src="fig/delays-introduction-rendered-unnamed-chunk-19-1.png" alt="" style="display: block; margin: auto;" />
 
 In coming episode we will learn how to fit statistical _distribution paramaters_ to a distribution, or access to the most appropriate estimates.
 

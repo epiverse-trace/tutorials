@@ -34,7 +34,7 @@ library(tidyverse) # loads dplyr, the pipe, and ggplot2
 library(fitdistrplus)
 ```
 
-<img src="fig/delays-distribution-rendered-unnamed-chunk-2-1.png" style="display: block; margin: auto;" />
+<img src="fig/delays-distribution-rendered-unnamed-chunk-2-1.png" alt="" style="display: block; margin: auto;" />
 
 
 ::::::::::::::::::: checklist
@@ -397,7 +397,7 @@ cases %>%
   geom_histogram(binwidth = 1)
 ```
 
-<img src="fig/delays-distribution-rendered-unnamed-chunk-17-1.png" style="display: block; margin: auto;" />
+<img src="fig/delays-distribution-rendered-unnamed-chunk-17-1.png" alt="" style="display: block; margin: auto;" />
 
 Fit a log-normal distribution:
 
