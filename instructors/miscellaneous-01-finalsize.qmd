@@ -48,8 +48,10 @@ This practical is based in the following tutorial episodes:
 
 This practical session focuses on calculating the expected final size of an epidemic for:
 
-- a homogeneous (well-mixed); and
+- a homogeneous (well-mixed); 
 - heterogeneous populations with demographic differences in social contact patterns and susceptibility to infection.
+
+In addition, it also covers how to compute the herd immunity threshold.
 
 
 
@@ -77,6 +79,18 @@ The estimated epidemic final size is reported in the `p_infected` column, which 
 For $R_0 = 1.5$, the estimated final size proportion is $0.5828132$, meaning that approximately $58\%$ of the population is expected to become infected by the end of the outbreak. 
 
 
+## Herd immunity threshold
+
+The herd immunity threshold (HIT) is given by
+$$ HIT = 1- \frac{1}{R_0} $$
+In our example, $R_0 = 1.5$, hence the threshold  is 
+$$ HIT= 1 -1/1.5 \sim 0.33.$$
+
+
+### Interpretation 
+
+This means that approximately $33\%$ of the population (about one third) must be immune in order to prevent sustained transmission and contain the epidemic under the assumption of a homogeneous, well-mixed population.
+
 
 ## Activity 1: Calculate final size and herd immunity
 
@@ -91,7 +105,7 @@ Calculate final size of epidemic, and compute the corresponding herd immunity th
 Within your room, Write your answers to these questions:
 
  1. Calculate final size of epidemic in a well-mixed community with the given $R_0$ value, and interpret the result?
- 2. Compute the corresponding herd immunity threshold?
+ 2. Compute the corresponding herd immunity threshold, and interpret the result?
 
 ### Inputs
 
@@ -108,14 +122,13 @@ Within your room, Write your answers to these questions:
 
 Room 1
 
-| $R_0$| Final size | Interpretation | HIT [^1]|  
-|---|---|---|----|
-|   |   |   |    |
-
-[^1]: Herd Immunity Threshold
+| $R_0$| Final size | HIT|  
+|---|---|---|
+|   |   |   |
 
 
-Write your answers to the questions above:
+
+Write your interpretation to the results above:
 
 ```
 
@@ -132,13 +145,12 @@ Write your answers to the questions above:
 
 Room 2
 
-| $R_0$| Final size | Interpretation | HIT [^1]|  
-|---|---|---|----|
-|   |   |   |    |
+| $R_0$| Final size| HIT|  
+|---|---|---|
+|   |   |   |
 
-[^1]: Herd Immunity Threshold
 
-Write your answers to the questions above:
+Write your interpretations to the results above:
 
 ```
 
@@ -155,11 +167,10 @@ Write your answers to the questions above:
 
 Room 3
 
-| $R_0$| Final size | Interpretation | HIT [^1]|  
+| $R_0$| Final size | Interpretation | HIT|  
 |---|---|---|----|
 |   |   |   |    |
 
-[^1]: Herd Immunity Threshold
 
 Write your answers to the questions above:
 
@@ -224,7 +235,6 @@ $R_0$. This normalization is carried outt in two steps:
 1. **Scaling by the largest eigenvalue**: Divide the contact matrix by its largest eigenvalue (also called the dominant eigenvalue or spectral radius). By doing so, the resulting next-generation matrix has a dominant eigenvalue equal to $R_0$, ensuring that the transmission intensity across demographic groups matches the assumed reproduction number.
 
 2. **Adjusting for group size** divide each row of the contact matrix by the corresponding demography. This reflects the assumption that each individual in group {j} make contacts at random with individuals in group {i}, correctly weighting contacts according to population composition.
-
 
 
 ```{r}
@@ -302,9 +312,9 @@ The model returns the proportion of individuals infected in each age (and suscep
 
 These results can then be visualized either as:
 
-- proportions infected by group (to compare relative risk), or
+- proportions of infected by group (to compare relative risk), or
 
-- total numbers infected by group (to assess absolute burden).
+- total numbers of infected by group (to assess absolute burden).
 
 
 
@@ -361,22 +371,6 @@ ggplot(fs_result) +
 ```
 
 
-::::{.callout-note}
-
-## Exercise #2
-
-1. Calculate the final size of an epidemic in Italy under the following assumptions:
-     - $R_0=2.4$
-    - Demographic groups defined by age categories: `c(0, 30, 50)`
-    - A single susceptibility group
-    - Susceptibility vector: `c(0.5, 0.75, 1)`
-
-2. Visualize the proportion infected in each demographic group.
-
-3. Visualize the total number infected in each demographic group.
-
-::::
-
 
 ## Activity 2: Final Size for Heterogeneous Population
 
@@ -399,7 +393,7 @@ Calculate  and visualize the final size of an epidemic for a population with str
 
 ### Inputs
 
-Use outputs from activity 1. 
+Use assumptions assigned to your room. 
 
 | Room | $R_0$| Country |Age groups | # of sub-groups | susceptibility level| 
 |---|---|---|---|:---:|:---:|
@@ -441,4 +435,52 @@ Room 3
 
 
 :::
+
+
+::: {.content-visible unless-format="docx"}
+
+# Continue your learning path
+
+<!-- Suggest learners to Epiverse-TRACE documentation or external resources --->
+
+Explore more about epidemic final size and herd immunity threshold
+
+- <https://epiverse-trace.github.io/finalsize/index.html> 
+
+- Andreasen, Viggo. 2011.
+“The Final Size of an Epidemic and Its Relation to the Basic Reproduction Number.”
+<em>Bulletin of Mathematical Biology</em> 73 (10): 2305–2321.
+<a href="https://doi.org/10.1007/s11538-010-9623-3" target="_blank">
+https://doi.org/10.1007/s11538-010-9623-3
+</a>.
+
+- Bidari, Subekshya, Xinying Chen, Daniel Peters, Dylanger Pittman, and Péter L. Simon. 2016.
+“Solvability of Implicit Final Size Equations for SIR Epidemic Models.”
+<em>Mathematical Biosciences</em> 282 (December): 181–190.
+<a href="https://doi.org/10.1016/j.mbs.2016.10.012" target="_blank">
+https://doi.org/10.1016/j.mbs.2016.10.012
+</a>.
+
+- Kucharski, Adam J., Kin O. Kwok, Vivian W. I. Wei, Benjamin J. Cowling,
+Jonathan M. Read, Justin Lessler, Derek A. Cummings, and Steven Riley. 2014.
+“The Contribution of Social Behaviour to the Transmission of Influenza A in a Human Population.”
+<em>PLoS Pathogens</em> 10 (6): e1004206.
+<a href="https://doi.org/10.1371/journal.ppat.1004206" target="_blank">
+https://doi.org/10.1371/journal.ppat.1004206
+</a>.
+
+- Miller, Joel C. 2012.
+“A Note on the Derivation of Epidemic Final Sizes.”
+<em>Bulletin of Mathematical Biology</em> 74 (9): 2125–2141.
+<a href="https://doi.org/10.1007/s11538-012-9749-6" target="_blank">
+https://doi.org/10.1007/s11538-012-9749-6
+</a>.
+
+- Anderson, Roy M., and Robert M. May. 1991.
+<em>Infectious Diseases of Humans: Dynamics and Control.</em>
+Oxford: Oxford University Press.
+
+:::
+
+# end
 
