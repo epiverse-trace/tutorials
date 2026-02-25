@@ -98,8 +98,6 @@ This means that approximately $33\%$ of the population (about one third) must be
 
 Calculate final size of epidemic, and compute the corresponding herd immunity threshold.
  
-
-
 **Questions:**
 
 Within your room, Write your answers to these questions:
@@ -116,7 +114,12 @@ Within your room, Write your answers to these questions:
 |3     | $0.9$ |
 
 
+
 ::: {.content-visible when-format="docx"}
+
+**Steps:**
+
+- Open the file `miscellaneous-practical-finalsize-acativity-1.R` and complete all the lines marked with `#<COMPLETE>`, following the detailed steps provided within the R file.
 
 ### Your Answers
 
@@ -139,10 +142,7 @@ Write your interpretation to the results above:
 
 
 ```
-
-
 ------------------------
-
 Room 2
 
 | $R_0$| Final size| HIT|  
@@ -380,7 +380,7 @@ Calculate  and visualize the final size of an epidemic for a population with str
 
 **Steps:**
 
-- Open the file `05-practical-finalsize.R` and complete all the lines marked with `#<COMPLETE>`, following the detailed steps provided within the R file.
+- Open the file `miscellaneous-practical-finalsize-acativity-2.R` and complete all the lines marked with `#<COMPLETE>`, following the detailed steps provided within the R file.
 - First, extract contact data, and demography data from **polymod** survey.
 - Second, transpose and normalize contact matrix.
 - Third, create susceptibility, and demography-susceptibility distribution matrices
