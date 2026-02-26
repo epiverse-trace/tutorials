@@ -20,7 +20,7 @@ r0
 
 final_size_value <- finalsize::#<COMPLETE>
 
-final_size_vale
+final_size_value
 
 
 # Compute the herd immunity threshold ---------------------------------------
