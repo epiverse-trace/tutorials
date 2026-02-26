@@ -32,7 +32,7 @@ knitr::opts_chunk$set(
 
 <!-- works for text on html and MD only -->
 
-This practical is based in the following tutorial episodes:
+This practical is based on the following tutorial episodes:
 
 - <https://epiverse-trace.github.io/tutorials-middle/quantify-transmissibility.html>
 - <https://epiverse-trace.github.io/tutorials-late/contact-matrices.html>
@@ -51,7 +51,7 @@ This practical session focuses on calculating the expected final size of an epid
 - homogeneous (well-mixed) populations; and
 - heterogeneous populations with demographic differences in social contact patterns and susceptibility to infection.
 
-In addition, it also covers how to compute the herd immunity threshold for homogeneous population.
+In addition, it also covers how to compute the herd immunity threshold for a homogeneous population.
 
 
 
@@ -96,14 +96,14 @@ This means that approximately $33\%$ of the population (about one third) must be
 
 **Goal:**
 
-Calculate final size of epidemic, and compute the corresponding herd immunity threshold.
+Calculate the final size of the epidemic, and compute the corresponding herd immunity threshold.
  
 **Questions:**
 
 Within your room, write your answers to these questions:
 
- 1. Calculate final size of epidemic in a well-mixed community with the given $R_0$ value, and interpret the result?
- 2. Compute the corresponding herd immunity threshold, and interpret the result?
+ 1. What us the final size of the epidemic in a well-mixed community for the given $R_0$ value, and how do you interpret this result?
+ 2. What is the corresponding herd-immunity threshold, and how do you interpret this result?
 
 ### Inputs
 
