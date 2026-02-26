@@ -1,5 +1,5 @@
 ---
-title: "Session 1: Epidemic Final Size"
+title: "Session 1: Epidemic Final Size & Herd Immunity Threshold"
 format: 
   html: # learners solutions
     embed-resources: true
