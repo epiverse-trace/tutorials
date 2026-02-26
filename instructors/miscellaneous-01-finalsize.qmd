@@ -48,7 +48,7 @@ This practical is based in the following tutorial episodes:
 
 This practical session focuses on calculating the expected final size of an epidemic for:
 
-- a homogeneous (well-mixed) population; 
+- homogeneous (well-mixed) populations; and
 - heterogeneous populations with demographic differences in social contact patterns and susceptibility to infection.
 
 In addition, it also covers how to compute the herd immunity threshold for homogeneous population.
