@@ -3,7 +3,9 @@ title: "Session 1: Epidemic Final Size & Herd Immunity Threshold"
 format: 
   html: # learners solutions
     embed-resources: true
-  docx: default # learners practical
+    output-file: "final-size-practical"
+  docx:  # learners practical
+    output-file: "final-size-practical-guide"
   gfm: default # instructors
 keep-md: false
 execute: 
