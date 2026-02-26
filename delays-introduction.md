@@ -89,10 +89,10 @@ library(tidyverse) # loads readr, dplyr, tidyr and ggplot2
 
 ``` output
 ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
-✔ dplyr     1.1.4     ✔ readr     2.1.6
+✔ dplyr     1.2.0     ✔ readr     2.1.6
 ✔ forcats   1.0.1     ✔ stringr   1.6.0
-✔ ggplot2   4.0.1     ✔ tibble    3.3.1
-✔ lubridate 1.9.4     ✔ tidyr     1.3.2
+✔ ggplot2   4.0.2     ✔ tibble    3.3.1
+✔ lubridate 1.9.5     ✔ tidyr     1.3.2
 ✔ purrr     1.2.1     
 ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
 ✖ dplyr::filter() masks stats::filter()
@@ -520,6 +520,17 @@ Report:
 - The reproduction number accounting for delays from secondary observations to infection.
 
 More on this topic on episodes about **Aggregate and visualize** and **Quantifying transmission**.
+
+
+``` warning
+Warning: There was 1 warning in `mutate()`.
+ℹ In argument: `result = Map(...)`.
+Caused by warning in `check_dep_version()`:
+! ABI version mismatch: 
+lme4 was built with Matrix ABI version 2
+Current Matrix ABI version is 1
+Please re-install lme4 from source or restore original 'Matrix' package
+```
 
 <img src="fig/delays-introduction-rendered-unnamed-chunk-16-1.png" alt="" style="display: block; margin: auto;" />
 
