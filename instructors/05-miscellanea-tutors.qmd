@@ -3,13 +3,11 @@ title: "Session 1: Epidemic Final Size & Herd Immunity Threshold"
 format: 
   html: # learners solutions
     embed-resources: true
-    output-file: "final-size-practical"
+    output-file: "05-miscellanea-solutions"
   docx:  # learners practical
-    output-file: "final-size-practical-guide"
+    output-file: "05-miscellanea-guide"
   gfm: default # instructors
 keep-md: false
-execute: 
-  cache: true
 format-links: false
 ---
 
@@ -121,7 +119,7 @@ Within your room, write your answers to these questions:
 
 **Steps:**
 
-- Open the file `miscellaneous-practical-finalsize-acativity-1.R` and complete all the lines marked with `#<COMPLETE>`, following the detailed steps provided within the R file.
+- Open the file `05-miscellanea-activity-1.R` and complete all the lines marked with `#<COMPLETE>`, following the detailed steps provided within the R file.
 
 ### Your Answers
 
@@ -383,7 +381,7 @@ Calculate  and visualize the final size of an epidemic for a population with str
 
 **Steps:**
 
-- Open the file `miscellaneous-practical-finalsize-acativity-2.R` and complete all the lines marked with `#<COMPLETE>`, following the detailed steps provided within the R file.
+- Open the file `05-miscellanea-activity-2.R` and complete all the lines marked with `#<COMPLETE>`, following the detailed steps provided within the R file.
 - First, extract contact data, and demography data from **polymod** survey.
 - Second, transpose and normalize contact matrix.
 - Third, create susceptibility, and demography-susceptibility distribution matrices
