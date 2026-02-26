@@ -209,10 +209,11 @@ library(socialmixr)
 library(epidemics)
 
 gam_survey <- socialmixr::get_survey("https://doi.org/10.5281/zenodo.13101862")
-contact_data <- socialmixr::contact_matrix(gam_survey,
-                                           countries = "Gambia",
-                                           age_limits = c(0, 10, 20, 40, 60),
-                                           symmetric = TRUE
+contact_data <- socialmixr::contact_matrix(
+  gam_survey,
+  countries = "Gambia",
+  age_limits = c(0, 10, 20, 40, 60),
+  symmetric = TRUE
 )
 # view the elements of the contact data list
 # the contact matrix
