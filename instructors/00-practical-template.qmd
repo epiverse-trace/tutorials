@@ -3,9 +3,11 @@ title: "Week 2: Name"
 format: 
   html: # learners solutions
     embed-resources: true
-  docx: default # learners practical
+    output-file: "02-practical-solutions"
+  docx: # learners practical
+    output-file: "02-practical-guide"
   gfm: default # instructors
-keep-md: true
+keep-md: false
 format-links: false
 ---
 
