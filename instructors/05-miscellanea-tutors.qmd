@@ -143,6 +143,7 @@ Write your interpretation to the results above:
 
 ```
 ------------------------
+
 Room 2
 
 | $R_0$| Final size| HIT|  
