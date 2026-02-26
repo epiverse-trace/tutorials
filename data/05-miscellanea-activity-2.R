@@ -22,7 +22,7 @@ polymod <- socialmixr::polymod
 contact_data <- socialmixr::contact_matrix(
   polymod,
   countries = #<COMPLETE>,
-  age.limits = #<COMPLETE>,
+  age_limits = #<COMPLETE>,
   symmetric = TRUE
 )
 
@@ -61,11 +61,11 @@ susc_guess <- # <COMPLETE>
 
 # Declare susceptibility matrix
 
-  susc_uniform <- matrix(
-    data = #<COMPLETE>,
-    nrow = #<COMPLETE>,
-    ncol = #<COMPLETE>
-  )
+susc_uniform <- matrix(
+  data = #<COMPLETE>,
+  nrow = #<COMPLETE>,
+  ncol = #<COMPLETE>
+)
 
 # Declare demography-susceptibility distribution matrix
 p_susc_uniform <- matrix(
@@ -117,7 +117,9 @@ ggplot(final_size_data) +
     x = "Age group",
     y = "% Infected"
   )
+
 # Visualize the total number infected in each demographic group----------------
+
 # prepare demography data
 demography_data <- contact_data$demography
 
@@ -138,4 +140,8 @@ final_size_data$demo_grp <- factor(
 # multiply counts with proportion infected
 final_size_data$n_infected <- final_size_data$p_infected *
   final_size_data$population
+
+# print table
+final_size_data
+
 # nolint end
