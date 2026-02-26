@@ -48,10 +48,10 @@ This practical is based in the following tutorial episodes:
 
 This practical session focuses on calculating the expected final size of an epidemic for:
 
-- a homogeneous (well-mixed); 
+- a homogeneous (well-mixed) population; 
 - heterogeneous populations with demographic differences in social contact patterns and susceptibility to infection.
 
-In addition, it also covers how to compute the herd immunity threshold.
+In addition, it also covers how to compute the herd immunity threshold for homogeneous population.
 
 
 
@@ -92,15 +92,15 @@ $$ HIT= 1 -1/1.5 \sim 0.33.$$
 This means that approximately $33\%$ of the population (about one third) must be immune in order to prevent sustained transmission and contain the epidemic under the assumption of a homogeneous, well-mixed population.
 
 
-## Activity 1: Calculate final size and herd immunity
+## Activity 1: Calculate final size and herd immunity threshold
 
-**Goals:**
+**Goal:**
 
 Calculate final size of epidemic, and compute the corresponding herd immunity threshold.
  
 **Questions:**
 
-Within your room, Write your answers to these questions:
+Within your room, write your answers to these questions:
 
  1. Calculate final size of epidemic in a well-mixed community with the given $R_0$ value, and interpret the result?
  2. Compute the corresponding herd immunity threshold, and interpret the result?
@@ -389,14 +389,14 @@ Calculate  and visualize the final size of an epidemic for a population with str
 - Sixth, visualize the total number infected in each demographic group.
 
 
-- Paste the outputs.
+- Paste your outputs.
 
 ### Inputs
 
 Use assumptions assigned to your room. 
 
-| Room | $R_0$| Country |Age groups | # of sub-groups | susceptibility level| 
-|---|---|---|---|:---:|:---:|
+| Room | $R_0$| Country |Age groups | #of susceptibility groups | susceptibility level| 
+|---|---|---|---|---|---|
 | 1 | $1.8$ | Italy |{0, 30, 50, 80}| 1 | 1| 
 | 2 | $3.0$ | Germany | {0, 20, 40, 60} | 1| 1 |
 | 3 | $0.9$ | Netherlands | {0, 30, 50, 70} | 1| 1|
