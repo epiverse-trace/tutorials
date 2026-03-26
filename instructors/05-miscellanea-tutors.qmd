@@ -441,6 +441,14 @@ Room 3
 
 ::: {.content-visible unless-format="docx"}
 
+## Code
+
+### Activity 2
+
+```{r, file = "fig/05-miscellanea-instructor-2.R", eval = FALSE}
+
+```
+
 # Continue your learning path
 
 <!-- Suggest learners to Epiverse-TRACE documentation or external resources --->
