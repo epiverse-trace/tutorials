@@ -1,6 +1,6 @@
 {
   "R": {
-    "Version": "4.5.2",
+    "Version": "4.5.3",
     "Repositories": [
       {
         "Name": "CRAN",
@@ -1274,7 +1274,7 @@
       "NeedsCompilation": "yes",
       "Author": "Rich FitzJohn [aut, cre], Imperial College of Science, Technology and Medicine [cph]",
       "Maintainer": "Rich FitzJohn <rich.fitzjohn@gmail.com>",
-      "Repository": "CRAN"
+      "Repository": "RSPM"
     },
     "cleanepi": {
       "Package": "cleanepi",
@@ -1846,7 +1846,8 @@
       "URL": "https://github.com/tpetzoldt/deSolve/",
       "LazyData": "yes",
       "NeedsCompilation": "yes",
-      "Repository": "CRAN"
+      "Repository": "RSPM",
+      "Encoding": "UTF-8"
     },
     "desc": {
       "Package": "desc",
@@ -4483,7 +4484,7 @@
       "NeedsCompilation": "no",
       "Author": "Rich FitzJohn [aut, cre], Thibaut Jombart [ctb], Imperial College of Science, Technology and Medicine [cph]",
       "Maintainer": "Rich FitzJohn <rich.fitzjohn@gmail.com>",
-      "Repository": "CRAN"
+      "Repository": "RSPM"
     },
     "openssl": {
       "Package": "openssl",
@@ -5649,7 +5650,7 @@
       "NeedsCompilation": "yes",
       "Author": "Rich FitzJohn [aut, cre], Imperial College of Science, Technology and Medicine [cph]",
       "Maintainer": "Rich FitzJohn <rich.fitzjohn@gmail.com>",
-      "Repository": "CRAN"
+      "Repository": "RSPM"
     },
     "rlang": {
       "Package": "rlang",
