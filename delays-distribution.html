@@ -429,27 +429,27 @@ distribution, or with their <strong>distribution parameters</strong>
 that inform about the <em>form</em> (shape and rate/scale) of the
 distribution. These estimated values can be reported with their
 <strong>uncertainty</strong> (95% confidence intervals).</p>
-<table class="table"><thead><tr class="header"><th align="left">Gamma</th>
+<table class="table"><thead><tr><th align="left">Gamma</th>
 <th align="left">mean</th>
 <th align="left">shape</th>
 <th align="left">rate/scale</th>
-</tr></thead><tbody><tr class="odd"><td align="left">MERS-CoV</td>
+</tr></thead><tbody><tr><td align="left">MERS-CoV</td>
 <td align="left">14.13(13.9–14.7)</td>
 <td align="left">6.31(4.88–8.52)</td>
 <td align="left">0.43(0.33–0.60)</td>
-</tr><tr class="even"><td align="left">COVID-19</td>
+</tr><tr><td align="left">COVID-19</td>
 <td align="left">5.1(5.0–5.5)</td>
 <td align="left">2.77(2.09–3.88)</td>
 <td align="left">0.53(0.38–0.76)</td>
-</tr></tbody></table><table class="table"><thead><tr class="header"><th align="left">Weibull</th>
+</tr></tbody></table><table class="table"><thead><tr><th align="left">Weibull</th>
 <th align="left">mean</th>
 <th align="left">shape</th>
 <th align="left">rate/scale</th>
-</tr></thead><tbody><tr class="odd"><td align="left">MERS-CoV</td>
+</tr></thead><tbody><tr><td align="left">MERS-CoV</td>
 <td align="left">14.2(13.3–15.2)</td>
 <td align="left">3.07(2.64–3.63)</td>
 <td align="left">16.1(15.0–17.1)</td>
-</tr><tr class="even"><td align="left">COVID-19</td>
+</tr><tr><td align="left">COVID-19</td>
 <td align="left">5.2(4.6–5.9)</td>
 <td align="left">1.74(1.46–2.11)</td>
 <td align="left">5.83(5.08–6.67)</td>
@@ -457,15 +457,15 @@ distribution. These estimated values can be reported with their
 distributions. 95% confidence intervals for the shape and scale (logmean
 and sd for Log Normal) parameters are shown in brackets (<a href="https://www.sciencedirect.com/science/article/pii/S2468042722000537#tbl3" class="external-link">Althobaity
 et al., 2022</a>).</caption>
-<thead><tr class="header"><th align="left">Log normal</th>
+<thead><tr><th align="left">Log normal</th>
 <th align="left">mean</th>
 <th align="left">mean-log</th>
 <th align="left">sd-log</th>
-</tr></thead><tbody><tr class="odd"><td align="left">MERS-CoV</td>
+</tr></thead><tbody><tr><td align="left">MERS-CoV</td>
 <td align="left">14.08(13.1–15.2)</td>
 <td align="left">2.58(2.50–2.68)</td>
 <td align="left">0.44(0.39–0.5)</td>
-</tr><tr class="even"><td align="left">COVID-19</td>
+</tr><tr><td align="left">COVID-19</td>
 <td align="left">5.2(4.2–6.5)</td>
 <td align="left">1.45(1.31–1.61)</td>
 <td align="left">0.63(0.54–0.74)</td>
@@ -532,7 +532,7 @@ the epidemiological delay! Want to learn how? Read the “Show details”
 <button class="accordion-button spoiler-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSpoiler1" aria-expanded="false" aria-controls="collapseSpoiler1">
   <h3 class="accordion-header" id="headingSpoiler1">  <div class="note-square"><i aria-hidden="true" class="callout-icon" data-feather="eye"></i></div> Show details </h3>
 </button>
-<div id="collapseSpoiler1" class="accordion-collapse collapse" aria-labelledby="headingSpoiler1" data-bs-parent="#accordionSpoiler1">
+<div id="collapseSpoiler1" class="accordion-collapse collapse" data-bs-parent="#accordionSpoiler1" aria-labelledby="headingSpoiler1">
 <div class="accordion-body">
 <p><strong>Making inferences from probability distributions</strong></p>
 <p>From probability distributions we can infer estimates like cumulative
@@ -822,7 +822,7 @@ are expected to show symptoms.</p></li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <p>Calculate the summary statistics:</p>
 <div class="codewrapper sourceCode" id="cb19">
@@ -835,31 +835,31 @@ are expected to show symptoms.</p></li>
 <span>  <span class="fu">skimr</span><span class="fu">::</span><span class="fu">skim</span><span class="op">(</span><span class="va">incubation_period</span><span class="op">)</span></span></code></pre>
 </div>
 <table class="table"><caption>Data summary</caption>
-<tbody><tr class="odd"><td align="left">Name</td>
+<tbody><tr><td align="left">Name</td>
 <td align="left">Piped data</td>
-</tr><tr class="even"><td align="left">Number of rows</td>
+</tr><tr><td align="left">Number of rows</td>
 <td align="left">166</td>
-</tr><tr class="odd"><td align="left">Number of columns</td>
+</tr><tr><td align="left">Number of columns</td>
 <td align="left">4</td>
-</tr><tr class="even"><td align="left">_______________________</td>
+</tr><tr><td align="left">_______________________</td>
 <td align="left"></td>
-</tr><tr class="odd"><td align="left">Column type frequency:</td>
+</tr><tr><td align="left">Column type frequency:</td>
 <td align="left"></td>
-</tr><tr class="even"><td align="left">difftime</td>
+</tr><tr><td align="left">difftime</td>
 <td align="left">1</td>
-</tr><tr class="odd"><td align="left">________________________</td>
+</tr><tr><td align="left">________________________</td>
 <td align="left"></td>
-</tr><tr class="even"><td align="left">Group variables</td>
+</tr><tr><td align="left">Group variables</td>
 <td align="left">None</td>
 </tr></tbody></table><p><strong>Variable type: difftime</strong></p>
-<table class="table"><colgroup><col width="24%"><col width="13%"><col width="19%"><col width="9%"><col width="10%"><col width="9%"><col width="12%"></colgroup><thead><tr class="header"><th align="left">skim_variable</th>
+<table class="table"><colgroup><col width="24%"><col width="13%"><col width="19%"><col width="9%"><col width="10%"><col width="9%"><col width="12%"></colgroup><thead><tr><th align="left">skim_variable</th>
 <th align="right">n_missing</th>
 <th align="right">complete_rate</th>
 <th align="left">min</th>
 <th align="left">max</th>
 <th align="left">median</th>
 <th align="right">n_unique</th>
-</tr></thead><tbody><tr class="odd"><td align="left">incubation_period</td>
+</tr></thead><tbody><tr><td align="left">incubation_period</td>
 <td align="right">61</td>
 <td align="right">0.63</td>
 <td align="left">1 days</td>
@@ -1013,7 +1013,7 @@ any links that you are not going to use.
   "identifier": "https://epiverse-trace.github.io/tutorials/delays-distribution.html",
   "dateCreated": "2026-04-01",
   "dateModified": "2026-04-28",
-  "datePublished": "2026-04-28"
+  "datePublished": "2026-05-05"
 }
 
   </script><script>
