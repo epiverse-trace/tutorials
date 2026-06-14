@@ -35,7 +35,6 @@ knitr::opts_chunk$set(
 This practical is based in the following tutorial episodes:
 
 - <https://epiverse-trace.github.io/tutorials-early/clean-data.html>
-- <https://epiverse-trace.github.io/tutorials-early/validate.html>
 - <https://epiverse-trace.github.io/tutorials-early/describe-cases.html>
 
 
