@@ -20,7 +20,7 @@ carpentry: 'epiverse-trace'
 title: 'Outbreak analytics with R'
 
 # Date the lesson was created (YYYY-MM-DD, this is empty by default)
-created: 
+created:
 
 # Comma-separated list of keywords for the lesson
 keywords: 'forecasts, epidemic models, interventions'
@@ -65,19 +65,20 @@ contact: 'andree.valle-campos@lshtm.ac.uk'
 # - another-learner.md
 
 # Order of episodes in your lesson
-episodes: 
+episodes:
+- introduction-to-probabilities.Rmd
 - delays-introduction.Rmd
 - delays-distribution.Rmd
-- introduction-to-probabilities.Rmd
+
 
 # Information for Learners
-learners: 
+learners:
 
 # Information for Instructors
-instructors: 
+instructors:
 
 # Learner Profiles
-profiles: 
+profiles:
 
 # Customisation ---------------------------------------------
 #
