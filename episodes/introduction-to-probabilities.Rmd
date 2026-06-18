@@ -195,3 +195,62 @@ barplot(px,
 
 In this figure, the x-axis shows the number of days from disease onset to outcome, and the y-axis shows the probability associated with each day. The height of each bar represents the proportion of cases whose outcome occurred on that day. The collection of bars forms the probability distribution, describing how outcome times are distributed among the cases.
 
+
+::::::::::::::::: callout
+
+**Shape of a probability distribution**
+
+The shape of a probability distribution contains important information about the underlying process. In particular, the location of the highest bar, known as the mode, indicates the most likely outcome. The spread of the distribution describes how dispersed the outcomes are around the center. Distributions with a narrow spread indicate that outcomes tend to occur within a relatively small range of values, whereas distributions with a wider spread indicate greater variability or uncertainty. Thus, the shape of the distribution helps us understand both the most likely outcome and the degree of variation in the data.
+
+:::::::::::::::::
+
+:::::::::::::::: challenge
+
+
+- What can you learn from the probability distribution shown above?
+- Which outcome times are the most likely and least likely?
+- What does the shape of the distribution tell you about the variability of outcome times?
+
+::::::::::::: hint
+
+- Identify the days corresponding to the highest and lowest bars.
+- Look for the range of days where most of the probability mass is concentrated.
+- Observe how the probabilities change before and after the peak.
+
+:::::::::::::
+
+:::::::::::: solution
+
+From the probability distribution, we can conclude that:
+
+1. Very short outcome times (1–5 days) are relatively rare.
+2. The most likely outcome times occur between days 10 and 14, with the highest probability around day 12.
+3. Most outcomes are concentrated in the middle of the distribution, indicating a typical outcome time of approximately 10–14 days after onset.
+4. The probability decreases gradually for longer outcome times, producing a right tail.
+5. The distribution shows substantial variability, as outcomes can occur over a wide range of days (1–20 days).
+6. Overall, the distribution is unimodal, with a single peak, indicating one dominant period during which outcomes are most likely to occur.
+
+::::::::::::
+
+:::::::::::::::::
+
+
+### Continuous and discrete distributions
+
+There are two main types of probability distributions, depending on the type of random variable being described.
+
+1. **Discrete distributions**
+
+A discrete probability distribution is used when the random variable takes a countable number of distinct values (often integers).
+
+The Ebola example above is a discrete distribution because the variable X (number of days from onset to outcome) can only take specific values such as 1, 2, 3, …, 20. Each value has an associated probability, and the full distribution can be represented using a probability mass function **(PMF)**.
+
+2. **Continuous distributions**
+
+A continuous probability distribution is used when the random variable can take any value within a continuous range, including fractions and decimals.
+
+For example, variables such as height, blood pressure, incubation time (measured precisely), or time-to-event measured in hours or seconds are continuous. In this case, probabilities are not assigned to exact values $(e.g., P(X=2.5))$, because this probability is essentially zero. Instead, probabilities are assigned to intervals, such as: $P(2≤X≤3)$.
+
+Continuous distributions are described using a probability density function (PDF) rather than a PMF.
+
+Common examples of continuous distributions include the normal distribution, exponential distribution, and gamma distribution, which are widely used in epidemiology and outbreak modelling
