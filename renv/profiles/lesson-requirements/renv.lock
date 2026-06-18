@@ -80,7 +80,7 @@
     },
     "EpiNow2": {
       "Package": "EpiNow2",
-      "Version": "1.8.0",
+      "Version": "1.9.0",
       "Source": "Repository",
       "Type": "Package",
       "Title": "Estimate and Forecast Real-Time Infection Dynamics",
@@ -137,16 +137,16 @@
         "rstan (>= 2.26.0)",
         "StanHeaders (>= 2.26.0)"
       ],
-      "Additional_repositories": "https://production.r-multiverse.org/2025-12-15",
+      "Additional_repositories": "https://production.r-multiverse.org/2026-03-15",
       "Biarch": "true",
       "Config/testthat/edition": "3",
       "Config/Needs/dev": "covr, here, hexSticker, lintr, magick, pkgdown, precommit, styler, usethis",
       "Encoding": "UTF-8",
       "Language": "en-GB",
       "LazyData": "true",
-      "RoxygenNote": "7.3.3",
       "SystemRequirements": "GNU make C++17",
       "VignetteBuilder": "knitr",
+      "Config/roxygen2/version": "8.0.0",
       "NeedsCompilation": "yes",
       "Author": "Sam Abbott [aut] (ORCID: <https://orcid.org/0000-0001-8057-8037>), Joel Hellewell [aut] (ORCID: <https://orcid.org/0000-0003-2683-0849>), Katharine Sherratt [aut], Katelyn Gostic [aut], Joe Hickson [aut], Hamada S. Badr [aut] (ORCID: <https://orcid.org/0000-0002-9808-2344>), Michael DeWitt [aut] (ORCID: <https://orcid.org/0000-0001-8940-1967>), James M. Azam [aut] (ORCID: <https://orcid.org/0000-0001-5782-7330>), Adrian Lison [aut] (ORCID: <https://orcid.org/0000-0002-6822-8437>), Robin Thompson [ctb], Sophie Meakin [ctb], James Munday [ctb], Nikos Bosse [ctb], Paul Mee [ctb], Peter Ellis [ctb], Pietro Monticone [ctb], Lloyd Chapman [ctb], Andrew Johnson [ctb], Kaitlyn Johnson [ctb] (ORCID: <https://orcid.org/0000-0001-8011-0012>), Adam Howes [ctb] (ORCID: <https://orcid.org/0000-0003-2386-4031>), Sebastian Funk [aut, cre] (ORCID: <https://orcid.org/0000-0002-2842-3406>)",
       "Maintainer": "Sebastian Funk <sebastian.funk@lshtm.ac.uk>",
@@ -382,8 +382,7 @@
       "Description": "Provides color schemes for maps (and other graphics) designed by Cynthia Brewer as described at http://colorbrewer2.org.",
       "License": "Apache License 2.0",
       "NeedsCompilation": "no",
-      "Repository": "RSPM",
-      "Encoding": "UTF-8"
+      "Repository": "CRAN"
     },
     "Rcpp": {
       "Package": "Rcpp",
@@ -1764,17 +1763,17 @@
     },
     "dbplyr": {
       "Package": "dbplyr",
-      "Version": "2.5.2",
+      "Version": "2.6.0",
       "Source": "Repository",
       "Type": "Package",
       "Title": "A 'dplyr' Back End for Databases",
       "Authors@R": "c( person(\"Hadley\", \"Wickham\", , \"hadley@posit.co\", role = c(\"aut\", \"cre\")), person(\"Maximilian\", \"Girlich\", role = \"aut\"), person(\"Edgar\", \"Ruiz\", role = \"aut\"), person(\"Posit Software, PBC\", role = c(\"cph\", \"fnd\")) )",
-      "Description": "A 'dplyr' back end for databases that allows you to work with remote database tables as if they are in-memory data frames.  Basic features works with any database that has a 'DBI' back end; more advanced features require 'SQL' translation to be provided by the package author.",
+      "Description": "A 'dplyr' back end for databases that allows you to work with remote database tables as if they are in-memory data frames.  Basic features work with any database that has a 'DBI' back end; more advanced features require 'SQL' translation to be provided by the package author.",
       "License": "MIT + file LICENSE",
       "URL": "https://dbplyr.tidyverse.org/, https://github.com/tidyverse/dbplyr",
       "BugReports": "https://github.com/tidyverse/dbplyr/issues",
       "Depends": [
-        "R (>= 3.6)"
+        "R (>= 4.1)"
       ],
       "Imports": [
         "blob (>= 1.2.0)",
@@ -1797,12 +1796,16 @@
         "withr (>= 2.5.0)"
       ],
       "Suggests": [
+        "adbcdrivermanager",
+        "adbcsqlite",
+        "adbi",
         "bit64",
         "covr",
         "knitr",
         "Lahman",
         "nycflights13",
         "odbc (>= 1.4.2)",
+        "RJDBC",
         "RMariaDB (>= 1.2.2)",
         "rmarkdown",
         "RPostgres (>= 1.4.5)",
@@ -1816,8 +1819,8 @@
       "Config/testthat/parallel": "TRUE",
       "Encoding": "UTF-8",
       "Language": "en-gb",
-      "RoxygenNote": "7.3.3",
-      "Collate": "'db-sql.R' 'utils-check.R' 'import-standalone-types-check.R' 'import-standalone-obj-type.R' 'utils.R' 'sql.R' 'escape.R' 'translate-sql-cut.R' 'translate-sql-quantile.R' 'translate-sql-string.R' 'translate-sql-paste.R' 'translate-sql-helpers.R' 'translate-sql-window.R' 'translate-sql-conditional.R' 'backend-.R' 'backend-access.R' 'backend-hana.R' 'backend-hive.R' 'backend-impala.R' 'verb-copy-to.R' 'backend-mssql.R' 'backend-mysql.R' 'backend-odbc.R' 'backend-oracle.R' 'backend-postgres.R' 'backend-postgres-old.R' 'backend-redshift.R' 'backend-snowflake.R' 'backend-spark-sql.R' 'backend-sqlite.R' 'backend-teradata.R' 'build-sql.R' 'data-cache.R' 'data-lahman.R' 'data-nycflights13.R' 'db-escape.R' 'db-io.R' 'db.R' 'dbplyr.R' 'explain.R' 'ident.R' 'import-standalone-s3-register.R' 'join-by-compat.R' 'join-cols-compat.R' 'lazy-join-query.R' 'lazy-ops.R' 'lazy-query.R' 'lazy-select-query.R' 'lazy-set-op-query.R' 'memdb.R' 'optimise-utils.R' 'pillar.R' 'progress.R' 'sql-build.R' 'query-join.R' 'query-select.R' 'query-semi-join.R' 'query-set-op.R' 'query.R' 'reexport.R' 'remote.R' 'rows.R' 'schema.R' 'simulate.R' 'sql-clause.R' 'sql-expr.R' 'src-sql.R' 'src_dbi.R' 'table-name.R' 'tbl-lazy.R' 'tbl-sql.R' 'test-frame.R' 'testthat.R' 'tidyeval-across.R' 'tidyeval.R' 'translate-sql.R' 'utils-format.R' 'verb-arrange.R' 'verb-compute.R' 'verb-count.R' 'verb-distinct.R' 'verb-do-query.R' 'verb-do.R' 'verb-expand.R' 'verb-fill.R' 'verb-filter.R' 'verb-group_by.R' 'verb-head.R' 'verb-joins.R' 'verb-mutate.R' 'verb-pivot-longer.R' 'verb-pivot-wider.R' 'verb-pull.R' 'verb-select.R' 'verb-set-ops.R' 'verb-slice.R' 'verb-summarise.R' 'verb-uncount.R' 'verb-window.R' 'zzz.R'",
+      "Collate": "'verb-copy-inline.R' 'verb-copy-to.R' 'db-sql.R' 'db.R' 'utils-check.R' 'import-standalone-types-check.R' 'import-standalone-obj-type.R' 'utils.R' 'sql.R' 'escape.R' 'translate-sql-cut.R' 'translate-sql-string.R' 'translate-sql-aggregate.R' 'translate-sql-scalar.R' 'translate-sql-helpers.R' 'translate-sql-window.R' 'translate-sql-conditional.R' 'backend-.R' 'backend-access.R' 'backend-adbc.R' 'backend-db2.R' 'backend-hana.R' 'backend-hive.R' 'backend-impala.R' 'backend-jdbc.R' 'backend-mssql.R' 'backend-mysql.R' 'backend-odbc.R' 'backend-oracle.R' 'backend-postgres.R' 'backend-postgres-old.R' 'backend-redshift.R' 'backend-snowflake.R' 'backend-spark-sql.R' 'backend-sqlite.R' 'backend-teradata.R' 'backward-compatibility.R' 'bind-queries.R' 'data-cache.R' 'data-lahman.R' 'data-nycflights13.R' 'db-io.R' 'dbplyr.R' 'ident.R' 'import-standalone-s3-register.R' 'join-by-compat.R' 'join-cols-compat.R' 'lazy-ops.R' 'memdb.R' 'optimise-utils.R' 'progress.R' 'query-base.R' 'query-join.R' 'query-rf-join.R' 'query-select.R' 'query-semi-join.R' 'query-set-op.R' 'query-union.R' 'query.R' 'remote.R' 'rows.R' 'schema.R' 'sql-build.R' 'sql-clause.R' 'sql-dialect.R' 'sql-glue.R' 'sql-quote.R' 'sql-superseded.R' 'src-sql.R' 'src_dbi.R' 'table-name.R' 'tbl-lazy.R' 'tbl-sql.R' 'tidyeval-across.R' 'tidyeval.R' 'translate-sql.R' 'utils-format.R' 'verb-arrange.R' 'verb-collapse.R' 'verb-collect.R' 'verb-compute.R' 'verb-count.R' 'verb-distinct.R' 'verb-do-query.R' 'verb-do.R' 'verb-expand.R' 'verb-explain.R' 'verb-fill.R' 'verb-filter.R' 'verb-group_by.R' 'verb-head.R' 'verb-joins.R' 'verb-mutate.R' 'verb-pivot-longer.R' 'verb-pivot-wider.R' 'verb-pull.R' 'verb-select.R' 'verb-set-ops.R' 'verb-slice.R' 'verb-summarise.R' 'verb-uncount.R' 'verb-window.R' 'with-dialect.R' 'zzz.R'",
+      "Config/roxygen2/version": "8.0.0",
       "NeedsCompilation": "no",
       "Author": "Hadley Wickham [aut, cre], Maximilian Girlich [aut], Edgar Ruiz [aut], Posit Software, PBC [cph, fnd]",
       "Maintainer": "Hadley Wickham <hadley@posit.co>",
@@ -2193,7 +2196,7 @@
     "epidemics": {
       "Package": "epidemics",
       "Version": "0.4.0.9000",
-      "Source": "GitHub",
+      "Source": "Repository",
       "Title": "Composable Epidemic Scenario Modelling",
       "Authors@R": "c( person(\"Pratik\", \"Gupte\", , \"pratik.gupte@lshtm.ac.uk\", role = c(\"aut\", \"cph\"), comment = c(ORCID = \"0000-0001-5294-7819\")), person(\"Rosalind\", \"Eggo\", , \"rosalind.eggo@lshtm.ac.uk\", role = c(\"aut\", \"cph\", \"cre\"), comment = c(ORCID = \"0000-0002-0362-6717\")), person(\"Edwin\", \"Van Leeuwen\", , \"edwin.vanleeuwen@ukhsa.gov.uk\", role = c(\"aut\", \"cph\"), comment = c(ORCID = \"0000-0002-2383-5305\")), person(\"Adam\", \"Kucharski\", , \"adam.kucharski@lshtm.ac.uk\", role = c(\"ctb\", \"rev\"), comment = c(ORCID = \"0000-0001-8814-9421\")), person(\"Tim\", \"Taylor\", , \"tim.taylor@hiddenelephants.co.uk\", role = c(\"ctb\", \"rev\"), comment = c(ORCID = \"0000-0002-8587-7113\")), person(\"Banky\", \"Ahadzie\", , \"bahadzie@gmail.com\", role = \"ctb\"), person(\"Alexis\", \"Robert\", , \"alexis.robert@lshtm.ac.uk\", role = \"ctb\", comment = c(ORCID = \"0000-0002-4516-2965\")), person(\"Hugo\", \"Gruson\", , \"hugo.gruson@data.org\", role = \"rev\", comment = c(ORCID = \"0000-0002-4094-1476\")), person(\"Joshua W.\", \"Lambert\", , \"joshua.lambert@lshtm.ac.uk\", role = \"rev\", comment = c(ORCID = \"0000-0001-5218-3046\")), person(\"James M.\", \"Azam\", , \"james.azam@lshtm.ac.uk\", role = \"rev\", comment = c(ORCID = \"0000-0001-5782-7330\")), person(\"Alexis\", \"Robert\", , \"alexis.robert@lshtm.ac.uk\", role = \"rev\", comment = c(ORCID = \"0000-0002-4516-2965\")) )",
       "Description": "A library of compartmental epidemic models taken from the published literature, and classes to represent affected populations, public health response measures including non-pharmaceutical interventions on social contacts, non-pharmaceutical and pharmaceutical interventions that affect disease transmissibility, vaccination regimes, and disease seasonality, which can be combined to compose epidemic scenario models.",
@@ -2241,16 +2244,14 @@
       "Language": "en-GB",
       "Roxygen": "list(markdown = TRUE)",
       "Config/roxygen2/version": "8.0.0",
-      "RemoteType": "github",
-      "RemoteHost": "api.github.com",
-      "RemoteRepo": "epidemics",
-      "RemoteUsername": "epiverse-trace",
-      "RemotePkgRef": "epiverse-trace/epidemics",
-      "RemoteRef": "HEAD",
-      "RemoteSha": "516555d78a8aef828ee689eeec2a68ca7fa64daa",
+      "Repository": "https://epiverse-trace.r-universe.dev",
       "NeedsCompilation": "yes",
       "Author": "Pratik Gupte [aut, cph] (ORCID: <https://orcid.org/0000-0001-5294-7819>), Rosalind Eggo [aut, cph, cre] (ORCID: <https://orcid.org/0000-0002-0362-6717>), Edwin Van Leeuwen [aut, cph] (ORCID: <https://orcid.org/0000-0002-2383-5305>), Adam Kucharski [ctb, rev] (ORCID: <https://orcid.org/0000-0001-8814-9421>), Tim Taylor [ctb, rev] (ORCID: <https://orcid.org/0000-0002-8587-7113>), Banky Ahadzie [ctb], Alexis Robert [ctb] (ORCID: <https://orcid.org/0000-0002-4516-2965>), Hugo Gruson [rev] (ORCID: <https://orcid.org/0000-0002-4094-1476>), Joshua W. Lambert [rev] (ORCID: <https://orcid.org/0000-0001-5218-3046>), James M. Azam [rev] (ORCID: <https://orcid.org/0000-0001-5782-7330>), Alexis Robert [rev] (ORCID: <https://orcid.org/0000-0002-4516-2965>)",
-      "Maintainer": "Rosalind Eggo <rosalind.eggo@lshtm.ac.uk>"
+      "Maintainer": "Rosalind Eggo <rosalind.eggo@lshtm.ac.uk>",
+      "RemoteType": "repository",
+      "RemoteUrl": "https://github.com/epiverse-trace/epidemics",
+      "RemoteRef": "HEAD",
+      "RemoteSha": "516555d78a8aef828ee689eeec2a68ca7fa64daa"
     },
     "epiparameter": {
       "Package": "epiparameter",
@@ -3766,8 +3767,7 @@
         "stats",
         "graphics"
       ],
-      "Repository": "RSPM",
-      "Encoding": "UTF-8"
+      "Repository": "CRAN"
     },
     "lambda.r": {
       "Package": "lambda.r",
@@ -4623,7 +4623,7 @@
       "NeedsCompilation": "yes",
       "Author": "Gábor Csárdi [aut, cre], Jim Hester [aut], Posit Software, PBC [cph, fnd] (ROR: <https://ror.org/03wc8by49>), Winston Chang [ctb] (R6, callr, processx), Ascent Digital Services [cph, fnd] (callr, processx), Hadley Wickham [ctb, cph] (cli, curl, pkgbuild, yaml), Jeroen Ooms [ctb] (curl, jsonlite), Maëlle Salmon [ctb] (desc, pkgsearch), Duncan Temple Lang [ctb] (jsonlite), Lloyd Hilaiel [cph] (jsonlite), Alec Wong [ctb] (keyring), Michel Berkelaar and lpSolve authors [ctb] (lpSolve), R Consortium [fnd] (pkgsearch), Jay Loden [ctb] (ps), Dave Daeschler [ctb] (ps), Giampaolo Rodola [ctb] (ps), Shawn Garbett [ctb] (yaml), Jeremy Stephens [ctb] (yaml), Kirill Simonov [ctb] (yaml), Yihui Xie [ctb] (yaml), Zhuoer Dong [ctb] (yaml), Jeffrey Horner [ctb] (yaml), Will Beasley [ctb] (yaml), Brendan O'Connor [ctb] (yaml), Gregory Warnes [ctb] (yaml), Michael Quinn [ctb] (yaml), Zhian Kamvar [ctb] (yaml), Charlie Gao [ctb] (yaml), Kuba Podgórski [ctb] (zip), Rich Geldreich [ctb] (zip)",
       "Maintainer": "Gábor Csárdi <csardi.gabor@gmail.com>",
-      "Repository": "https://packagemanager.posit.co/cran/latest"
+      "Repository": "CRAN"
     },
     "patchwork": {
       "Package": "patchwork",
@@ -4939,7 +4939,7 @@
     },
     "primarycensored": {
       "Package": "primarycensored",
-      "Version": "1.5.0",
+      "Version": "1.5.1",
       "Source": "Repository",
       "Title": "Primary Event Censored Distributions",
       "Authors@R": "c(person(given = \"Sam\", family = \"Abbott\", role = c(\"aut\", \"cre\", \"cph\"), email = \"contact@samabbott.co.uk\", comment = c(ORCID = \"0000-0001-8057-8037\")), person(given = \"Sam\", family = \"Brand\", role = c(\"aut\"), email = \"usi1@cdc.gov\", comment = c(ORCID = \"0000-0003-0645-5367\")), person(given = \"Adam\", family = \"Howes\", role = c(\"ctb\"), email = \"adamthowes@gmail.com\", comment = c(ORCID = \"0000-0003-2386-4031\")), person(given = \"James Mba\", family = \"Azam\", role = c(\"aut\"), email = \"james.azam@lshtm.ac.uk\", comment = c(ORCID = \"0000-0001-5782-7330\")), person(given = \"Carl\", family = \"Pearson\", role = c(\"aut\"), email = \"carl.ab.pearson@gmail.com\", comment = c(ORCID = \"0000-0003-0701-7860\")), person(given = \"Sebastian\", family = \"Funk\", role = c(\"aut\"), email = \"sebastian.funk@lshtm.ac.uk\", comment = c(ORCID = \"0000-0002-2842-3406\")), person(given = \"Kelly\", family = \"Charniga\", role = c(\"aut\"), email = \" kelly.charniga@gmail.com\", comment = c(ORCID = \"0000-0002-7648-7041\")))",
@@ -6848,7 +6848,7 @@
     },
     "tinytex": {
       "Package": "tinytex",
-      "Version": "0.59",
+      "Version": "0.60",
       "Source": "Repository",
       "Type": "Package",
       "Title": "Helper Functions to Install and Maintain TeX Live, and Compile LaTeX Documents",

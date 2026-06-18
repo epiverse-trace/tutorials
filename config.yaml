@@ -26,6 +26,7 @@ created:
 keywords: 'forecasts, epidemic models, interventions'
 
 # Life cycle stage of the lesson
+# refer to <https://docs.carpentries.org/resources/curriculum/lesson-life-cycle.html> for details
 # possible values: pre-alpha, alpha, beta, stable
 life_cycle: 'pre-alpha'
 
@@ -67,6 +68,7 @@ contact: 'andree.valle-campos@lshtm.ac.uk'
 episodes: 
 - delays-introduction.Rmd
 - delays-distribution.Rmd
+- introduction-to-probabilities.Rmd
 
 # Information for Learners
 learners: 
@@ -81,6 +83,5 @@ profiles:
 #
 # This space below is where custom yaml items (e.g. pinning
 # sandpaper and varnish versions) should live
-
 
 varnish: epiverse-trace/varnish@epiversetheme
