@@ -1,0 +1,24 @@
+---
+title: 'Introduction to probabilities'
+teaching: 10
+exercises: 2
+---
+
+:::::::::::::::::::::::::::::::::::::: questions 
+
+- What is probability?
+- What is probability distribution?
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+::::::::::::::::::::::::::::::::::::: objectives
+
+- Understand and interpret probability
+- Understand probability distribution
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+## Introduction
+
+## What is probability?
+
