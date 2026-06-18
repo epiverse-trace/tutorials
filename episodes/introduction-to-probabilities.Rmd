@@ -146,3 +146,52 @@ P(A \text{ and } B)
 $$
 
 Thus, the probability that both events occur is 0.252.
+
+## What is a probability distribution?
+
+A **probability distribution** describes how probabilities are assigned to the possible values of a random variable. It provides a concise summary of the uncertainty and variability observed in a process and forms the foundation of many statistical methods used in epidemiology and outbreak analysis.
+
+#### Illustrative Example
+
+Suppose we record the number of days from disease onset to death  for each of the 3,956 Ebola deaths in the previous example. Let $(X)$ denote the number of days from onset to death. We observe that $(X)$ can take values ranging from 1 to 20 days, as shown in Table 1.
+
+
+
+
+| **x (day)**    | 1      | 2      | 3      | 4      | 5      | 6      | 7      | 8      | 9      | 10     | 11     | 12     | 13     | 14     | 15     | 16     | 17     | 18     | 19     | 20     |
+| -------------- | ------ | ------ | ------ | ------ | ------ | ------ | ------ | ------ | ------ | ------ | ------ | ------ | ------ | ------ | ------ | ------ | ------ | ------ | ------ | ------ |
+| **nₓ (cases)** | 5      | 8      | 12     | 20     | 35     | 60     | 90     | 140    | 260    | 390    | 460    | 500    | 490    | 440    | 360    | 260    | 180    | 120    | 80     | 46     |
+| **P(X = x)**   | 0.0013 | 0.0020 | 0.0030 | 0.0051 | 0.0089 | 0.0152 | 0.0228 | 0.0354 | 0.0657 | 0.0986 | 0.1164 | 0.1264 | 0.1239 | 0.1113 | 0.0911 | 0.0657 | 0.0455 | 0.0304 | 0.0202 | 0.0116 |
+
+**Table 1**: Hypothetical probability distribution of Ebola outcome times. The probability associated with each day is computed as $P(X= x= \frac{n_x}{N})$, where $(n_x)$ is the number of cases with outcome on day $x$, and $(N=3956)$ is the total number of cases.
+
+The first row of the table lists the possible values of the random variable (X), while the second row gives the corresponding probabilities. Together, these probabilities constitute the probability distribution of (X).
+
+
+Probability distributions are often visualized using graphs. The Figure below  shows the probability mass function (PMF), which illustrates how the probabilities are distributed across the possible outcome times.
+```{r, echo=FALSE}
+# Days
+x <- 1:20
+
+# Frequencies (n_x)
+nx <- c(5, 8, 12, 20, 35, 60, 90, 140, 260, 390,
+        460, 500, 490, 440, 360, 260, 180, 120, 80, 46)
+
+# Total cases
+N <- sum(nx)
+
+# Probability mass function
+px <- nx / N
+
+barplot(px,
+        names.arg = x,
+        xlab = "Days from onset to death",
+        ylab = "Probability P(X = x)",
+        main = "Onset to death distribution",
+        col = "skyblue",
+        border = "white")
+```
+
+
+In this figure, the x-axis shows the number of days from disease onset to outcome, and the y-axis shows the probability associated with each day. The height of each bar represents the proportion of cases whose outcome occurred on that day. The collection of bars forms the probability distribution, describing how outcome times are distributed among the cases.
+
