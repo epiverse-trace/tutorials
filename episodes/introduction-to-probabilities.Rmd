@@ -7,18 +7,142 @@ exercises: 2
 :::::::::::::::::::::::::::::::::::::: questions 
 
 - What is probability?
-- What is probability distribution?
+- What is a probability distribution?
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
 ::::::::::::::::::::::::::::::::::::: objectives
 
-- Understand and interpret probability
-- Understand probability distribution
+- Understand the concept and interpretation of probability
+- Understand the idea of a probability distribution.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
 ## Introduction
+Probability is a mathematical framework for quantifying uncertainty. It allows us to measure how likely an event is to occur and provides the foundation for statistical inference, risk assessment, and predictive modelling.
+
 
 ## What is probability?
 
+There are two interpretations of probability, both are widely used in statistics and epidemiology, although they arise from different philosophical perspectives.
+
+1. **Standard (frequentist) definition**
+
+The standard interpretation of probability is based on the long-run frequency of an event occurring in repeated observations or experiments.
+
+For example, during the 2014 Ebola outbreak in Sierra Leone, there were 14,124 reported cases, of which 3,956 resulted in death. The observed probability of death among reported cases is therefore
+$$P(death \;from \;Ebola) = \frac{3956}{14124} \approx 0.28$$.
+
+This means that approximately $28\%$ of reported Ebola cases resulted in death. Under the frequentist interpretation, probability is viewed as the proportion of times an event occurs when the same process is repeated many times under similar conditions.
+
+
+2. **Subjective Probability**
+
+
+The long-run interpretation of probability can make it difficult to interpret it for single
+event--particularly for unique events that cannot be repeated many times.
+
+For example, we cannot repeatedly recreate the 2014 Ebola outbreak to directly verify its case fatality risk. In such situations, probability may be interpreted as a degree of belief based on available information, knowledge, and experience.
+
+For example:
+
+"The probability that my best friend calls today is 40%."
+
+This statement represents a subjective probability, and different individuals may assign different probabilities to the same event depending on their knowledge and assumptions. Unlike the frequentist interpretation, subjective probability is not derived from repeated experiments or observations.
+
+### Four baisc rules of probabilities
+
+Probabilities always lie between 0 and 1, where 0 represents an impossible event and 1 represents a certain event. Most probability calculations are based on a few simple rules that can be applied repeatedly.
+
+1. **Complement rule**
+
+The probability that an event does not occur is
+
+$$
+P(A^c) = 1 - P(A),
+$$
+
+where $(A^c)$ denotes the complement of event (A).
+
+For example, in the 2014 Ebola outbreak in Sierra Leone, the probability of death among reported cases was approximately
+
+$$
+P(\text{death from Ebola}) = 0.28.
+$$
+
+Therefore, the probability of recovery is
+
+$$
+P(\text{recovery from Ebola}) = 1 - 0.28 = 0.72.
+$$
+
+2. **Equally likely outcomes rule**
+
+If an experiment has (n) possible outcomes and all outcomes are equally likely, then the probability of an event (A) is
+
+$$
+P(A) = \frac{\text{number of outcomes in } A}{n}.
+$$
+
+Rolling a fair six-sided die is a classic example. Since each face is equally likely to occur,
+
+$$
+P(\text{rolling a 4}) = \frac{1}{6}.
+$$
+Similarly,
+
+$$
+P(\text{rolling an even number}) = \frac{3}{6} = \frac{1}{2},
+$$
+
+because there are three even numbers (2, 4, and 6).
+
+
+
+
+3. **Addition rule**
+
+If two events (A) and (B) are mutually exclusive (they cannot occur at the same time), then
+
+$$
+P(A \text{ or } B) = P(A \cup B) = P(A) + P(B).
+$$
+
+For example, when rolling a die, the events
+
+- (A): rolling a 2
+- (B): rolling a 5
+
+are mutually exclusive because a single roll cannot be both 2 and 5.
+
+Therefore,
+
+$$
+P(2 \text{ or } 5) = P(2) + P(5)
+= \frac{1}{6} + \frac{1}{6}
+= \frac{1}{3}.
+$$
+4. **Multiplication rule**
+
+f two events (A) and (B) are independent (the occurrence of one does not affect the probability of the other), then
+
+$$
+P(A \text{ and } B) = P(A \cap B) = P(A)P(B).
+$$
+
+For example, consider:
+
+- (A): a patient dies from Ebola, P(A)=0.28
+
+- (B): the internet is working on a given day, P(B)=0.90
+
+If these events are independent, then
+
+$$
+P(A \text{ and } B)
+= P(A)P(B)
+= 0.28 \times 0.90
+= 0.252.
+$$
+
+Thus, the probability that both events occur is 0.252.
