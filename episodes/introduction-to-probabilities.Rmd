@@ -249,8 +249,19 @@ The Ebola example above is a discrete distribution because the variable X (numbe
 
 A continuous probability distribution is used when the random variable can take any value within a continuous range, including fractions and decimals.
 
+<<<<<<< HEAD
 For example, variables such as height, blood pressure, incubation time (measured precisely), or time-to-event measured in hours or seconds are continuous. In this case, probabilities are not assigned to exact values $(e.g., P(X=2.5))$, because this probability is essentially zero. Instead, probabilities are assigned to intervals, such as: $P(2≤X≤3)$.
 
 Continuous distributions are described using a probability density function (PDF) rather than a PMF.
 
 Common examples of continuous distributions include the normal distribution, exponential distribution, and gamma distribution, which are widely used in epidemiology and outbreak modelling
+=======
+For example, variables such as height, blood pressure, incubation time (measured precisely), or time-to-event measured in hours or seconds are continuous. In this case, probabilities are not assigned to exact values (e.g.,  $P(X=162.5)$ for a person height), because this probability is essentially zero. Instead, probabilities are assigned to intervals, such as: $P(162≤X≤165)$.
+
+Continuous distributions are described using a probability density function (PDF) rather than a PMF. In PDF, instead of bars, the probabilities are represented by histograms. 
+
+![Examples of continuous probability distributions for hights (in **CM**) as continuous varaibles. Taken from Chapter 3 of  [OpenIntro Statistics book](https://https://www.openintro.org/book/os/). Adding more bins to the histogram provides greater detail. 
+This sample is extremely large, which is why much smaller bins still work well](fig/continuous-dist.png)
+
+
+>>>>>>> b4116f1 (add continuous dist fig)
