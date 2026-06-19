@@ -21,6 +21,8 @@ exercises: 2
 ## Introduction
 Probability is a mathematical framework for quantifying uncertainty. It allows us to measure how likely an event is to occur and provides the foundation for statistical inference, risk assessment, and predictive modelling.
 
+This episode provides a brief introduction about probability,  probability distributions.  
+
 
 ## What is probability?
 
@@ -36,7 +38,7 @@ $$P(death \;from \;Ebola) = \frac{3956}{14124} \approx 0.28$$.
 This means that approximately $28\%$ of reported Ebola cases resulted in death. Under the frequentist interpretation, probability is viewed as the proportion of times an event occurs when the same process is repeated many times under similar conditions.
 
 
-2. **Subjective Probability**
+2. **Subjective probability**
 
 
 The long-run interpretation of probability can make it difficult to interpret it for single
@@ -151,7 +153,7 @@ Thus, the probability that both events occur is 0.252.
 
 A **probability distribution** describes how probabilities are assigned to the possible values of a random variable. It provides a concise summary of the uncertainty and variability observed in a process and forms the foundation of many statistical methods used in epidemiology and outbreak analysis.
 
-#### Illustrative Example
+#### Illustrative example
 
 Suppose we record the number of days from disease onset to death  for each of the 3,956 Ebola deaths in the previous example. Let $(X)$ denote the number of days from onset to death. We observe that $(X)$ can take values ranging from 1 to 20 days, as shown in Table 1.
 
@@ -264,7 +266,7 @@ Unlike a discrete distribution, probabilities are not assigned to individual val
 
 A key advantage of continuous probability distributions is that they allow us to estimate probabilities for values that were not directly observed in the sample. 
 
-### Parameterization of Probability Distributions
+### Parameterization of probability distributions
 
 So far, we have described probability distributions using tables and graphs. Another common approach is to describe a distribution using a **mathematical function** whose shape is determined by a set of parameters. This process is known as **parameterization**.
 
@@ -302,6 +304,8 @@ Suppose two diseases have the same average time from onset to outcome (12 days),
 
 ::::::::::::::::::::::::::
 
+
+
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
 - What is a probability distribution?
@@ -315,3 +319,9 @@ Suppose two diseases have the same average time from onset to outcome (12 days),
 - How do distribution parameters determine the shape of a distribution?
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
+
+### References
+
+- OpenIntro Statistics. https://https://www.openintro.org/book/os/
+
+- Krzywinski M, Altman N. Points of significance: Importance of being uncertain. Nat Methods. 2013 Sep;10(9):809-10. doi: 10.1038/nmeth.2613. PMID: 24143821.
