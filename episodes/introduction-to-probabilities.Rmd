@@ -249,13 +249,7 @@ The Ebola example above is a discrete distribution because the variable X (numbe
 
 A continuous probability distribution is used when the random variable can take any value within a continuous range, including fractions and decimals.
 
-<<<<<<< HEAD
-For example, variables such as height, blood pressure, incubation time (measured precisely), or time-to-event measured in hours or seconds are continuous. In this case, probabilities are not assigned to exact values $(e.g., P(X=2.5))$, because this probability is essentially zero. Instead, probabilities are assigned to intervals, such as: $P(2≤X≤3)$.
 
-Continuous distributions are described using a probability density function (PDF) rather than a PMF.
-
-Common examples of continuous distributions include the normal distribution, exponential distribution, and gamma distribution, which are widely used in epidemiology and outbreak modelling
-=======
 For example, variables such as height, blood pressure, incubation time (measured precisely), or time-to-event measured in hours or seconds are continuous. In this case, probabilities are not assigned to exact values (e.g.,  $P(X=162.5)$ for a person height), because this probability is essentially zero. Instead, probabilities are assigned to intervals, such as: $P(162≤X≤165)$.
 
 Continuous distributions are described using a probability density function (PDF) rather than a probability mass function (PMF). Unlike discrete distributions, probabilities in the continuous case are not assigned to individual values but to intervals of values.
@@ -270,7 +264,54 @@ Unlike a discrete distribution, probabilities are not assigned to individual val
 
 A key advantage of continuous probability distributions is that they allow us to estimate probabilities for values that were not directly observed in the sample. 
 
+### Parameterization of Probability Distributions
+
+So far, we have described probability distributions using tables and graphs. Another common approach is to describe a distribution using a **mathematical function** whose shape is determined by a set of parameters. This process is known as **parameterization**.
+
+Different families of probability distributions are characterized by different functional forms, each designed to represent particular types of data and patterns of variability. The specific shape of a distribution is governed by one or more parameters. Common examples include:
+
+* **Location parameters**, which determine where the distribution is centered;
+* **Dispersion (or scale) parameters**, which control the spread or variability of the distribution;
+* **Shape parameters**, which determine features such as skewness and tail behavior;
+* **Rate parameters**, which control how rapidly probabilities decrease or events occur.
+
+For example, the Normal distribution is parameterized by a mean $(\mu)$ and a standard deviation $(\sigma)$, while the Gamma distribution is often parameterized by a shape parameter $(\alpha)$ and a rate parameter $(\beta)$.
+
+By specifying a probability distribution through its parameters, we can summarize its key characteristics without listing every probability or plotting a graph. The mathematical function, together with its parameters, provides a compact description of the distribution and allows us to compute probabilities, quantify uncertainty, and make predictions about unobserved values.
+
+Parameterized distributions are particularly useful in statistical modelling because they enable us to represent complex data using only a few interpretable quantities, such as the average outcome, variability, and shape of the distribution.
+
+Figure 2 illustrates how the shape of a Normal distribution changes with different values of its parameters. The location parameter $(\mu)$ determines the center of the distribution, shifting the curve left or right, while the dispersion parameter $(\sigma)$ controls the spread of the distribution around the mean. Larger values of σ produce wider and flatter curves, indicating greater variability (or uncertainty) in the data, whereas smaller values produce narrower and more concentrated distributions.
+
+![**Figure 2**: Examples of Normal distributions with different values of the mean (μ) and standard deviation (σ). The mean determines the location of the distribution, while the standard deviation determines its spread. Distributions with larger standard deviations exhibit greater variability and uncertainty. Adapted from  [Krzywinski M, Altman N](https://www.nature.com/articles/nmeth.2613)](fig/normal-dist.jpg)
 
 
+:::::::::::::::::::::::: challenge
 
->>>>>>> b4116f1 (add continuous dist fig)
+<!-- summative assessment -->
+
+Suppose two diseases have the same average time from onset to outcome (12 days), but Disease A has a standard deviation of 2 days and Disease B has a standard deviation of 6 days.
+
+- Which disease has greater variability in outcome times?
+
+- Which distribution would appear wider?
+
+- Which disease would have greater uncertainty in predicting when an individual outcome will occur?
+
+- Sketch the two distributions and explain the differences.
+
+::::::::::::::::::::::::::
+
+::::::::::::::::::::::::::::::::::::: keypoints 
+
+- What is a probability distribution?
+
+- How can a probability distribution be represented using tables, graphs, and mathematical functions?
+
+- What is the difference between discrete and continuous distributions?
+
+- What do the location and spread of a distribution represent?
+
+- How do distribution parameters determine the shape of a distribution?
+
+::::::::::::::::::::::::::::::::::::::::::::::::
