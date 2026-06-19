@@ -4,7 +4,14 @@ The goal of the `##-practical-tutors.qmd` files in this folder is to host comple
 
 ## Usage
 
-One Quarto QMD file generates:
+### Inputs:
+
+- `data/`: practical scaffold scripts
+- `fig/`: practical solutions
+
+### Outputs:
+
+In `files/`, one Quarto QMD file generates:
 
 - Tutors MD file: for Tutors to use during practical or propose edits. Saved as `files/##-practical-tutors.md`.
 - Guide DOCX file: for Learners to complete during the practical. Saved as `files/##-practical-guide.docx`.
