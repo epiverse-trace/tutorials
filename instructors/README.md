@@ -8,6 +8,8 @@ The goal of the `##-practical-tutors.qmd` files in this folder is to host comple
 
 - `data/`: practical scaffold scripts
 - `fig/`: practical solutions
+    - `-challenge` for tutorial challenge without solution
+    - `-miscellanea` for extended sessions
 
 ### Outputs:
 
