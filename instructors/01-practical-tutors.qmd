@@ -54,44 +54,43 @@ This practical has two activities.
 
 **Goal:**
 
-Get a clean and standardized data frame using the following available inputs:
+Produce a clean and standardized data frame from the following input:
 
-- Raw messy data frame in CSV format
+- Raw, messy CSV file
 
 **Steps:**
 
-- Open file `01-practical-activity-1.R` and complete all the lines marked with `#<COMPLETE>`, following the detailed steps provided within the R file.
-- First, complete the argument to read the data. Paste the link as a “string” in `read_csv()`.
-- Second, complete the cleaning process. Add functions based on the data needs. Connect them using the pipe `%>%`:
-    - Standardize column names 
-    - Standardize dates
-    - Check date sequence
-    - Convert to numeric
-    - Replace missing values
-    - Clean using dictionary
-    - Remove constants
-    - Remove duplicates
-- Third, complete the cleanepi::timespan() arguments. Access the help manual running `?cleanepi::timespan()` in the console.
-- Paste the outputs. Reply to questions.
+1. Open `01-practical-activity-1.R` and complete every line marked with `#<COMPLETE>`, following the instructions in the file.
+2. Complete the argument in `read_csv()` by pasting the data link as a string.
+3. Complete the cleaning function arguments. Remove functions based on the data needs.
+4. Paste your outputs and answer the questions below.
 
 **Questions:**
 
-Within your room, Write your answers to these questions:
+1. **Diagnose the raw data.** What cleaning operations are needed? List them all before writing any code.
+2. **Time unit.** What time unit best describes the time span you need to calculate?
+3. **Report.** Print the report. Which features would be most useful when presenting findings to a decision-maker?
+4. **Compare** *(if applicable).* What differences do you notice compared to outputs from other rooms?
 
-- Diagnose the raw data. What data cleaning operations need to be performed on the dataset? Write all of them before writing the code.
-- What time unit best describes the time span to calculate?
-- Print the report: What features do you find useful to communicate with a decision-maker?
-- Compare: What differences do you identify from other room outputs? (if available)
+Discuss your answers with your group before sharing with the wider room.
 
 ### Inputs
 
-| Room | Data | Link | Calculate time span | Categorize time span |
-|---|---|---|---|---|
-| 1 | Small linelist | <https://epiverse-trace.github.io/tutorials-early/data/linelist-date_of_birth.csv> | Age as of today | breaks = c(0, 20, 35, 60, 80) |
-| 2 | Large linelist | <https://epiverse-trace.github.io/tutorials-early/data/covid_simulated_data.csv> | Delay from onset of symptoms to the time of death | breaks = c(0, 10, 15, 40) |
-| 3 | Serology data [^1] | <https://epiverse-trace.github.io/tutorials-early/data/delta_full-messy.csv> | Time from last exposure to vaccine | breaks = c(0, 30, 100, 600) |
+| Room | Data | Link | Calculate time span |
+|---|---|---|---|
+| 1 | Small linelist | <https://epiverse-trace.github.io/tutorials-early/data/linelist-date_of_birth.csv> | Age (as of today) |
+| 2 | Large linelist | <https://epiverse-trace.github.io/tutorials-early/data/covid_simulated_data.csv> | Time from symptom onset to death |
+| 3 | Serology data [^1] | <https://epiverse-trace.github.io/tutorials-early/data/delta_full-messy.csv> | Time from last vaccine dose to sample collection [^2] |
 
-[^1]: Context of Serological data: Participants of a study are exposed to COVID-19 vaccines, then their serum samples are collected and challenged to emerging SARS-CoV-2 variants. They measure the titer of this immunological response. The higher the titre, the higher the antigenic response. Let's focus on describing the change in the frequency of vaccine categories (last vaccine exposure) through time (last date of exposure). Ref: https://www.thelancet.com/journals/laninf/article/PIIS1473-3099(24)00484-5/fulltext
+[^1]: Context of Serological data: Participants of a study are exposed to COVID-19 vaccines, then their serum samples are collected and challenged to emerging SARS-CoV-2 variants. They measure the titer of this immunological response. The higher the titre, the higher the antigenic response. Let's focus on describing the change in the frequency of vaccine categories (last vaccine exposure) through time (last date of exposure). Ref: https://www.thelancet.com/journals/laninf/article/PIIS1473-3099(24)00484-5/fulltext 
+
+[^2]: How to read the repeated-measurements cohort dataset:
+Subject `pid = 1` was `Infection naive` (never exposed to infection).
+Was exposed 2 times (`exp_num`) to the vaccine type BNT162b2 (`last_vax_type`).
+The last vaccine exposure was on 2021-03-08 (`last_exp_date`).
+One serum sample was obtain on 2021-03-10 (`date`, two days after last vaccine exposure).
+The antibody titer against Alpha and Delta COVID variants (`titre_type`) was 5 units (`value`).
+The antibody titer against Ancestral COVID variants was 176 units.
 
 
 ::: {.content-visible when-format="docx"}
@@ -166,41 +165,40 @@ Write your answers to the questions above:
 
 
 
-## Activity 2: Plot epicurve and delays
+## Activity 2: Plot delays and epicurves
 
 **Goal:**
 
 Using a clean linelist data frame, produce:
 
-- An incidence plot (epicurve) showing case counts over time.
 - A delay distribution plot showing time between two epidemiological events.
+- An incidence plot (epicurve) showing case counts over time.
 
 **Steps:**
 
 - Open `01-practical-activity-2.R` and complete all lines marked with `#<COMPLETE>`.
-- Complete the arguments of `incidence2::incidence()` to generate the incidence object.
+- Complete the argument to read the data. Paste the link as a “string” in `read_rds()`.
+- Describe the pre-configured epidemiological delay. Explore others you find relevant.
+- Complete the arguments of `incidence2::incidence()` to generate an incidence object.
 - Adjust the arguments of `plot()` to get the most informative epicurve. Read the [`plot()` reference manual](https://www.reconverse.org/incidence2/manual.html#sec:man-plot.incidence2) to find available arguments.
-- Use `{ggplot2}` to plot the delay distribution(s) from the output of `cleanepi::timespan()`.
 - Paste your plots and reply to the discussion questions.
 
 **Questions:**
 
-- Which combination of time unit and case categories best captures the outbreak pattern and why?
-- What does the shape of your epicurve suggest about how this outbreak spread?
 - Which is larger in your delay distribution: the mean or the median, and what does that tell you about its shape?
 - How might delays in the data collection process affect your interpretation of the most recent cases?
+- Which combination of time unit and case categories best captures the outbreak pattern and why?
+- What does the shape of your epicurve suggest about how this outbreak spread?
 
 Discuss your answers with your group before sharing with the wider room.
 
 ### Inputs
 
-Use outputs from activity 1. 
-
-| Room | Date | Categorical variable |
+| Room | Data | Link |
 |---|---|---|
-| 1 | Date reporting | Age category |
-| 2 | Date onset | Outcome |
-| 3 | Last exposure date | Last vaccine type |
+| 1 | COVID | <https://epiverse-trace.github.io/tutorials-early/data/covid_simulist.rds> |
+| 2 | Ebola | <https://epiverse-trace.github.io/tutorials-early/data/ebola_simulist.rds> |
+| 3 | Unknown | <https://epiverse-trace.github.io/tutorials-early/data/unknown_simulist.rds> |
 
 ::: {.content-visible when-format="docx"}
 
@@ -210,7 +208,7 @@ Room 1
 
 | Data | Paste screenshot below |
 |---|---|
-| validated |  |
+| epidemiological delay |  |
 | incidence plot |  |
 
 Write your answers to the questions above:
@@ -232,7 +230,7 @@ Room 2
 
 | Data | Paste screenshot below |
 |---|---|
-| validated |  |
+| epidemiological delay |  |
 | incidence plot |  |
 
 Write your answers to the questions above:
@@ -254,7 +252,7 @@ Room 3
 
 | Data | Paste screenshot below |
 |---|---|
-| validated |  |
+| epidemiological delay |  |
 | incidence plot |  |
 
 Write your answers to the questions above:
