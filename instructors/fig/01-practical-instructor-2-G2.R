@@ -5,43 +5,44 @@
 
 room_number <- 2
 
-# Validate linelist ------------------------------------------------------
+# Load packages ----------------------------------------------------------
+library(cleanepi)
+library(incidence2)
+library(tidyverse)
 
-# Activate error message
-linelist::lost_tags_action(action = "error")
-# linelist::lost_tags_action(action = "warning")
+# Read raw data ----------------------------------------------------------
+dat_linelist <- readr::read_rds(
+  "https://epiverse-trace.github.io/tutorials-early/data/ebola_simulist.rds"
+  )
 
-# Print tag types, names, and data to guide make_linelist
-linelist::tags_types()
-linelist::tags_names()
-dat_timespan
+dat_linelist %>% dplyr::glimpse()
 
-# Does the categorical variable of interest pass the validation step?
-dat_validate <- dat_timespan %>% 
-  # Tag variables
-  linelist::make_linelist(
-    id = "case_id",
-    date_onset = "date_onset",
-    gender = "sex",
-    age = "age",
-    outcome = "outcome"
-  ) %>% 
-  # Validate linelist
-  linelist::validate_linelist() %>% 
-  # Test safeguard
-  # dplyr::select(case_id, date_onset, sex)
-  # INSTEAD
-  linelist::tags_df()
+# Describe delays --------------------------------------------------------
 
+dat_delays <- dat_linelist %>% 
+  cleanepi::timespan(
+    target_column = "date_onset",
+    end_date = "date_reporting",
+    span_unit = "days",
+    span_column_name = "delay_reporting"
+  )
+
+dat_delays %>% 
+  skimr::skim(delay_reporting)
+
+dat_delays %>% 
+  ggplot(aes(delay_reporting)) +
+  geom_histogram(binwidth = 1) +
+  xlim(0,30)
 
 # Create incidence -------------------------------------------------------
 
 # What is the most appropriate time-aggregate (days, months) to plot?
-dat_incidence <- dat_validate %>%  
+dat_incidence <- dat_linelist %>%  
   # Transform from individual-level to time-aggregate
-  incidence2::incidence(
-    date_index = "date_onset",
-    groups = "outcome", # the categorical variable
+  incidence2::incidence_(
+    date_index = c(date_onset,date_outcome),
+    groups = age_category, # the categorical variable
     interval = "day",
     complete_dates = TRUE
   )
@@ -52,6 +53,9 @@ dat_incidence <- dat_validate %>%
 # Do arguments like 'fill', 'show_cases', 'angle', 'n_breaks' improve the plot?
 dat_incidence %>% 
   plot(
+    fill = "age_category", # the categorical variable
+    #nrow = 1, # 1 or 2 <KEEP OR DROP>
+    show_cases = FALSE, # <KEEP OR DROP>
     angle = 45, # <KEEP OR DROP>
     n_breaks = 5 # <KEEP OR DROP>
   )
