@@ -53,7 +53,7 @@ dat_incidence <- dat_linelist %>%
 # Do arguments like 'fill', 'show_cases', 'angle', 'n_breaks' improve the plot?
 dat_incidence %>% 
   plot(
-    fill = "sex", # the categorical variable
+    fill = "age_category", # the categorical variable
     nrow = 1, # 1 or 2 <KEEP OR DROP>
     show_cases = FALSE, # <KEEP OR DROP>
     angle = 45, # <KEEP OR DROP>

@@ -38,12 +38,12 @@ dat_delays %>%
 # Create incidence -------------------------------------------------------
 
 # What is the most appropriate time-aggregate (days, months) to plot?
-dat_incidence <- dat_linelist %>%  
+dat_incidence <- dat_linelist %>%
   # Transform from individual-level to time-aggregate
   incidence2::incidence_(
-    date_index = c(date_onset,date_outcome),
+    date_index = c(date_onset, date_outcome),
     groups = age_category, # the categorical variable
-    interval = "day",
+    interval = "week",
     complete_dates = TRUE
   )
 
@@ -53,11 +53,11 @@ dat_incidence <- dat_linelist %>%
 # Do arguments like 'fill', 'show_cases', 'angle', 'n_breaks' improve the plot?
 dat_incidence %>% 
   plot(
-    fill = "age_category", # the categorical variable
+    # fill = "age_category", # the categorical variable
     #nrow = 1, # 1 or 2 <KEEP OR DROP>
     show_cases = FALSE, # <KEEP OR DROP>
-    angle = 45, # <KEEP OR DROP>
-    n_breaks = 5 # <KEEP OR DROP>
+    angle = 90, # <KEEP OR DROP>
+    n_breaks = 3 # <KEEP OR DROP>
   )
 
 # Find plot() arguments at ?incidence2:::plot.incidence2()
