@@ -332,17 +332,17 @@ activity 2
 
 ##### activity 2
 
-| Room | Output |
-|---|---|
-| 1 | ![image](https://hackmd.io/_uploads/ry5d6xnA1e.png) |
-| 2 | ![image](https://hackmd.io/_uploads/SJ2f0e2Cyx.png) |
-| 3 | ![image](https://hackmd.io/_uploads/H1-PRlhA1g.png) |
+| Group | Delay | Incidence |
+| --- | --- | --- |
+| 1 | ![image](https://hackmd.io/_uploads/SkIzvCrMMe.png) | ![image](https://hackmd.io/_uploads/rkIuVRBGMe.png) |
+| 2 | ![image](https://hackmd.io/_uploads/rys4wCHGfl.png) | ![image](https://hackmd.io/_uploads/H1F-FAHGfe.png) |
+| 3 | ![image](https://hackmd.io/_uploads/BkoSPCBMfg.png) | ![image](https://hackmd.io/_uploads/SJpIICSGzl.png) |
 
-| Room | validation | time unit | incidence plot |
-|---|---|---|---|
-| 1 | The timespan_category (age categories) must be added as an extra variable. Declare age as “factor”. | An appropriate time unit to aggregated is using interval by month. | The argument `show_cases` can improve the visibility of `fill` categorical variables |
-| 2 | It is not required to add an extra variable. | An appropriate time unit to aggregate is using interval by day. | Keeping angle and `n_breaks` works. Dropping `fill` keeps the facets making "died" are move visible. |
-| 3 | last_exp_date and last_vax_type must be added as extra variables. Declare last_vax_type as “character”, and last_vax_date as “Date”. | An appropriate time unit to aggregated is using interval by month. | Keeping `fill` by last_vax_type works. |
+| Room | Incidence arguments | Plot arguments |
+|---|---|---|
+| 1 | Date by onset and outcome help identify the low proportion of deaths among cases in time.  | Keeping `fill` helps visualizing the delay and peak from cases to deaths in the whole population. |
+| 2 | Date by onset and outcome help identify the high proportion of deaths among cases in time. | Dropping `fill` helps identify a higher proportion of deaths in older age groups. |
+| 3 | Interval by month help identify a continuous growth and decay pattern. | Using `fill` with age category helps compare the higher proportion of cases in male compared to female. |
 
 #### Interpretation
 
@@ -353,11 +353,14 @@ Cleaning
 
 Epicurve
 
-- The argument `show_cases` can improve the visibility of `fill` categorical variables when the amount of observed cases is small.
+- COVID: Onset cases peak sharply around 2023-W03, dominated by the under-20 age group. Outcome dates are sparse and spread later, reflecting the delay between onset and death.
+- Ebola: Across all age groups, symptom onset dates peaks almost as high as outcome dates (2023-W03 to W05). Possibly with a shorter delay from onset to death than the COVID.
+- Unknown: Males had substantially higher case counts than females across all age groups, with both sexes peaking around mid-2023. Older age groups (35-60 and 60-100) make up a larger share in males, while females show a more even age distribution throughout.
 
 Delays
 
-- Using the `linelist::tags_df()` output can keep stable downstream analysis. Jointly with `linelist::lost_tags_action(action = "error")` we can improve the capacity to diagnose changes in the input data. This can prevent getting misleading outputs from automatic daily code runs or dashboards updates.
+- If the mean exceeds the median, the delay distribution is right-skewed, meaning most samples are collected relatively soon after exposure, but a small number of cases have unusually long delays that pull the average upward.
+- Recent cases are likely undercounted. If there is a lag between an event occurring and it being recorded, the most recent time periods will appear artificially low simply because many cases have not been logged yet. This can make it look like there is a recent decline when it is really just a reporting delay (also known as a right-censoring effect).
 
 # Continue your learning path
 
