@@ -5,31 +5,44 @@
 
 room_number <- #<COMPLETE> replace with 1/2/3/4
 
-# Validate linelist ------------------------------------------------------
+# Load packages ----------------------------------------------------------
+library(cleanepi)
+library(incidence2)
+library(tidyverse)
 
-# Activate error message
-linelist::lost_tags_action(action = "error")
-# linelist::lost_tags_action(action = "warning")
+# Read raw data ----------------------------------------------------------
 
-# Print tag types, names, and data to guide make_linelist
-linelist::tags_types()
-linelist::tags_names()
-dat_timespan
+# Replace the string with the URL provided (or location to local file)
+dat_linelist <- readr::read_rds(
+  "paste/complete/URL/#<COMPLETE>" #<COMPLETE>
+  )
 
-# Does the categorical variable of interest pass the validation step?
-dat_validate <- dat_timespan %>% 
-  # Tag variables
-  linelist::make_linelist(
-    #<COMPLETE>,
-    #<COMPLETE> # include one categorical variable
-  ) %>% 
-  # Validate linelist
-  linelist::#<COMPLETE> %>% 
-  # Test safeguard
-  # dplyr::select(case_id, date_onset, sex)
-  # INSTEAD
-  linelist::tags_df()
+dat_linelist %>% dplyr::glimpse()
 
+# Describe delays --------------------------------------------------------
+
+# Run and describe
+dat_delays <- dat_linelist %>% 
+  cleanepi::timespan(
+    target_column = "date_onset",
+    end_date = "date_reporting",
+    span_unit = "days",
+    span_column_name = "delay_reporting"
+  )
+
+# Run and describe
+dat_delays %>% 
+  dplyr::select(id, date_onset, date_reporting, delay_reporting)
+
+# Run and describe
+dat_delays %>% 
+  skimr::skim(delay_reporting)
+
+# Run and describe
+dat_delays %>% 
+  ggplot(aes(delay_reporting)) +
+  geom_histogram(binwidth = 1) +
+  xlim(0,30)
 
 # Create incidence -------------------------------------------------------
 
@@ -46,11 +59,13 @@ dat_incidence <- dat_validate %>%
 
 # Plot epicurve ----------------------------------------------------------
 
-# Do arguments like 'fill', 'show_cases', 'angle', 'n_breaks' improve the plot?
+# Do arguments like 'fill', 'nrow', 'show_cases', 'angle', 'n_breaks' 
+# improve the plot?
 dat_incidence %>% 
   plot(
     fill = #<COMPLETE>, # the categorical variable # <KEEP OR DROP>
-    show_cases = TRUE, # <KEEP OR DROP>
+    #nrow = 1, # 1 or 2 <KEEP OR DROP>
+    show_cases = FALSE, # <KEEP OR DROP>
     angle = 45, # <KEEP OR DROP>
     n_breaks = 5 # <KEEP OR DROP>
   )
