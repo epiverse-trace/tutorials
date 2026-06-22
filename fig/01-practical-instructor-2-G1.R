@@ -5,51 +5,45 @@
 
 room_number <- 1
 
-# Validate linelist ------------------------------------------------------
+# Load packages ----------------------------------------------------------
+library(cleanepi)
+library(incidence2)
+library(tidyverse)
 
-# Activate error message
-linelist::lost_tags_action(action = "error")
-# linelist::lost_tags_action(action = "warning")
+# Read raw data ----------------------------------------------------------
+dat_linelist <- readr::read_rds(
+  "https://epiverse-trace.github.io/tutorials-early/data/covid_simulist.rds"
+  )
 
-# Print tag types, names, and data to guide make_linelist
-linelist::tags_types()
-linelist::tags_names()
-dat_timespan
+dat_linelist %>% dplyr::glimpse()
 
-# Does the categorical variable of interest pass the validation step?
-dat_validate <- dat_timespan %>%
-  # Tag variables
-  linelist::make_linelist(
-    id = "study_id",
-    date_reporting = "date_first_pcr_positive_test",
-    gender = "sex_fem_2",
-    age = "timespan_variable",
-    allow_extra = TRUE,
-    age_category = "timespan_category"
-  ) %>%
-  # Validate linelist
-  linelist::validate_linelist(
-    allow_extra = TRUE,
-    ref_types = linelist::tags_types(
-      age_category = c("factor"),
-      allow_extra = TRUE
-    )
-  ) %>%
-  # Test safeguard
-  # dplyr::select(case_id, date_onset, sex)
-  # INSTEAD
-  linelist::tags_df()
+# Describe delays --------------------------------------------------------
 
+dat_delays <- dat_linelist %>% 
+  cleanepi::timespan(
+    target_column = "date_onset",
+    end_date = "date_reporting",
+    span_unit = "days",
+    span_column_name = "delay_reporting"
+  )
+
+dat_delays %>% 
+  skimr::skim(delay_reporting)
+
+dat_delays %>% 
+  ggplot(aes(delay_reporting)) +
+  geom_histogram(binwidth = 1) +
+  xlim(0,30)
 
 # Create incidence -------------------------------------------------------
 
 # What is the most appropriate time-aggregate (days, months) to plot?
-dat_incidence <- dat_validate %>%  
+dat_incidence <- dat_linelist %>%
   # Transform from individual-level to time-aggregate
-  incidence2::incidence(
-    date_index = "date_reporting",
-    groups = "age_category", # the categorical variable
-    interval = "month",
+  incidence2::incidence_(
+    date_index = c(date_onset, date_outcome),
+    groups = age_category, # the categorical variable
+    interval = "week",
     complete_dates = TRUE
   )
 
@@ -60,7 +54,8 @@ dat_incidence <- dat_validate %>%
 dat_incidence %>% 
   plot(
     fill = "age_category", # the categorical variable
-    show_cases = TRUE, # <KEEP OR DROP>
+    #nrow = 1, # 1 or 2 <KEEP OR DROP>
+    show_cases = FALSE, # <KEEP OR DROP>
     angle = 45, # <KEEP OR DROP>
     n_breaks = 5 # <KEEP OR DROP>
   )
