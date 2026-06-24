@@ -1,0 +1,327 @@
+---
+title: 'Introduction to probabilities'
+teaching: 10
+exercises: 2
+---
+
+:::::::::::::::::::::::::::::::::::::: questions 
+
+- What is probability?
+- What is a probability distribution?
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+::::::::::::::::::::::::::::::::::::: objectives
+
+- Understand the concept and interpretation of probability
+- Understand the idea of a probability distribution.
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+## Introduction
+Probability is a mathematical framework for quantifying uncertainty. It allows us to measure how likely an event is to occur and provides the foundation for statistical inference, risk assessment, and predictive modelling.
+
+This episode provides a brief introduction about probability,  probability distributions.  
+
+
+## What is probability?
+
+There are two interpretations of probability, both are widely used in statistics and epidemiology, although they arise from different philosophical perspectives.
+
+1. **Standard (frequentist) definition**
+
+The standard interpretation of probability is based on the long-run frequency of an event occurring in repeated observations or experiments.
+
+For example, during the 2014 Ebola outbreak in Sierra Leone, there were 14,124 reported cases, of which 3,956 resulted in death. The observed probability of death among reported cases is therefore
+$$P(death \;from \;Ebola) = \frac{3956}{14124} \approx 0.28$$.
+
+This means that approximately $28\%$ of reported Ebola cases resulted in death. Under the frequentist interpretation, probability is viewed as the proportion of times an event occurs when the same process is repeated many times under similar conditions.
+
+
+2. **Subjective probability**
+
+
+The long-run interpretation of probability can make it difficult to interpret it for single
+event--particularly for unique events that cannot be repeated many times.
+
+For example, we cannot repeatedly recreate the 2014 Ebola outbreak to directly verify its case fatality risk. In such situations, probability may be interpreted as a degree of belief based on available information, knowledge, and experience.
+
+For example:
+
+"The probability that my best friend calls today is 40%."
+
+This statement represents a subjective probability, and different individuals may assign different probabilities to the same event depending on their knowledge and assumptions. Unlike the frequentist interpretation, subjective probability is not derived from repeated experiments or observations.
+
+### Four baisc rules of probabilities
+
+Probabilities always lie between 0 and 1, where 0 represents an impossible event and 1 represents a certain event. Most probability calculations are based on a few simple rules that can be applied repeatedly.
+
+1. **Complement rule**
+
+The probability that an event does not occur is
+
+$$
+P(A^c) = 1 - P(A),
+$$
+
+where $(A^c)$ denotes the complement of event (A).
+
+For example, in the 2014 Ebola outbreak in Sierra Leone, the probability of death among reported cases was approximately
+
+$$
+P(\text{death from Ebola}) = 0.28.
+$$
+
+Therefore, the probability of recovery is
+
+$$
+P(\text{recovery from Ebola}) = 1 - 0.28 = 0.72.
+$$
+
+2. **Equally likely outcomes rule**
+
+If an experiment has (n) possible outcomes and all outcomes are equally likely, then the probability of an event (A) is
+
+$$
+P(A) = \frac{\text{number of outcomes in } A}{n}.
+$$
+
+Rolling a fair six-sided die is a classic example. Since each face is equally likely to occur,
+
+$$
+P(\text{rolling a 4}) = \frac{1}{6}.
+$$
+Similarly,
+
+$$
+P(\text{rolling an even number}) = \frac{3}{6} = \frac{1}{2},
+$$
+
+because there are three even numbers (2, 4, and 6).
+
+
+
+
+3. **Addition rule**
+
+If two events (A) and (B) are mutually exclusive (they cannot occur at the same time), then
+
+$$
+P(A \text{ or } B) = P(A \cup B) = P(A) + P(B).
+$$
+
+For example, when rolling a die, the events
+
+- (A): rolling a 2
+- (B): rolling a 5
+
+are mutually exclusive because a single roll cannot be both 2 and 5.
+
+Therefore,
+
+$$
+P(2 \text{ or } 5) = P(2) + P(5)
+= \frac{1}{6} + \frac{1}{6}
+= \frac{1}{3}.
+$$
+4. **Multiplication rule**
+
+f two events (A) and (B) are independent (the occurrence of one does not affect the probability of the other), then
+
+$$
+P(A \text{ and } B) = P(A \cap B) = P(A)P(B).
+$$
+
+For example, consider:
+
+- (A): a patient dies from Ebola, P(A)=0.28
+
+- (B): the internet is working on a given day, P(B)=0.90
+
+If these events are independent, then
+
+$$
+P(A \text{ and } B)
+= P(A)P(B)
+= 0.28 \times 0.90
+= 0.252.
+$$
+
+Thus, the probability that both events occur is 0.252.
+
+## What is a probability distribution?
+
+A **probability distribution** describes how probabilities are assigned to the possible values of a random variable. It provides a concise summary of the uncertainty and variability observed in a process and forms the foundation of many statistical methods used in epidemiology and outbreak analysis.
+
+#### Illustrative example
+
+Suppose we record the number of days from disease onset to death  for each of the 3,956 Ebola deaths in the previous example. Let $(X)$ denote the number of days from onset to death. We observe that $(X)$ can take values ranging from 1 to 20 days, as shown in Table 1.
+
+
+
+
+| **x (day)**    | 1      | 2      | 3      | 4      | 5      | 6      | 7      | 8      | 9      | 10     | 11     | 12     | 13     | 14     | 15     | 16     | 17     | 18     | 19     | 20     |
+| -------------- | ------ | ------ | ------ | ------ | ------ | ------ | ------ | ------ | ------ | ------ | ------ | ------ | ------ | ------ | ------ | ------ | ------ | ------ | ------ | ------ |
+| **nₓ (cases)** | 5      | 8      | 12     | 20     | 35     | 60     | 90     | 140    | 260    | 390    | 460    | 500    | 490    | 440    | 360    | 260    | 180    | 120    | 80     | 46     |
+| **P(X = x)**   | 0.0013 | 0.0020 | 0.0030 | 0.0051 | 0.0089 | 0.0152 | 0.0228 | 0.0354 | 0.0657 | 0.0986 | 0.1164 | 0.1264 | 0.1239 | 0.1113 | 0.0911 | 0.0657 | 0.0455 | 0.0304 | 0.0202 | 0.0116 |
+
+**Table 1**: Hypothetical probability distribution of Ebola outcome times. The probability associated with each day is computed as $P(X= x= \frac{n_x}{N})$, where $(n_x)$ is the number of cases with outcome on day $x$, and $(N=3956)$ is the total number of cases.
+
+The first row of the table lists the possible values of the random variable (X), while the second row gives the corresponding probabilities. Together, these probabilities constitute the probability distribution of (X).
+
+
+Probability distributions are often visualized using graphs. The Figure below  shows the probability mass function (PMF), which illustrates how the probabilities are distributed across the possible outcome times.
+```{r, echo=FALSE}
+# Days
+x <- 1:20
+
+# Frequencies (n_x)
+nx <- c(5, 8, 12, 20, 35, 60, 90, 140, 260, 390,
+        460, 500, 490, 440, 360, 260, 180, 120, 80, 46)
+
+# Total cases
+N <- sum(nx)
+
+# Probability mass function
+px <- nx / N
+
+barplot(px,
+        names.arg = x,
+        xlab = "Days from onset to death",
+        ylab = "Probability P(X = x)",
+        main = "Onset to death distribution",
+        col = "skyblue",
+        border = "white")
+```
+
+
+In this figure, the x-axis shows the number of days from disease onset to outcome, and the y-axis shows the probability associated with each day. The height of each bar represents the proportion of cases whose outcome occurred on that day. The collection of bars forms the probability distribution, describing how outcome times are distributed among the cases.
+
+
+::::::::::::::::: callout
+
+**Shape of a probability distribution**
+
+The shape of a probability distribution contains important information about the underlying process. In particular, the location of the highest bar, known as the mode, indicates the most likely outcome. The spread of the distribution describes how dispersed the outcomes are around the center. Distributions with a narrow spread indicate that outcomes tend to occur within a relatively small range of values, whereas distributions with a wider spread indicate greater variability or uncertainty. Thus, the shape of the distribution helps us understand both the most likely outcome and the degree of variation in the data.
+
+:::::::::::::::::
+
+:::::::::::::::: challenge
+
+
+- What can you learn from the probability distribution shown above?
+- Which outcome times are the most likely and least likely?
+- What does the shape of the distribution tell you about the variability of outcome times?
+
+::::::::::::: hint
+
+- Identify the days corresponding to the highest and lowest bars.
+- Look for the range of days where most of the probability mass is concentrated.
+- Observe how the probabilities change before and after the peak.
+
+:::::::::::::
+
+:::::::::::: solution
+
+From the probability distribution, we can conclude that:
+
+1. Very short outcome times (1–5 days) are relatively rare.
+2. The most likely outcome times occur between days 10 and 14, with the highest probability around day 12.
+3. Most outcomes are concentrated in the middle of the distribution, indicating a typical outcome time of approximately 10–14 days after onset.
+4. The probability decreases gradually for longer outcome times, producing a right tail.
+5. The distribution shows substantial variability, as outcomes can occur over a wide range of days (1–20 days).
+6. Overall, the distribution is unimodal, with a single peak, indicating one dominant period during which outcomes are most likely to occur.
+
+::::::::::::
+
+:::::::::::::::::
+
+
+### Continuous and discrete distributions
+
+There are two main types of probability distributions, depending on the type of random variable being described.
+
+1. **Discrete distributions**
+
+A discrete probability distribution is used when the random variable takes a countable number of distinct values (often integers).
+
+The Ebola example above is a discrete distribution because the variable X (number of days from onset to outcome) can only take specific values such as 1, 2, 3, …, 20. Each value has an associated probability, and the full distribution can be represented using a probability mass function **(PMF)**.
+
+2. **Continuous distributions**
+
+A continuous probability distribution is used when the random variable can take any value within a continuous range, including fractions and decimals.
+
+
+For example, variables such as height, blood pressure, incubation time (measured precisely), or time-to-event measured in hours or seconds are continuous. In this case, probabilities are not assigned to exact values (e.g.,  $P(X=162.5)$ for a person height), because this probability is essentially zero. Instead, probabilities are assigned to intervals, such as: $P(162≤X≤165)$.
+
+Continuous distributions are described using a probability density function (PDF) rather than a probability mass function (PMF). Unlike discrete distributions, probabilities in the continuous case are not assigned to individual values but to intervals of values.
+
+A useful way to visualise a continuous distribution is through a histogram, where the heights of the bars approximate the underlying probability density. As the number of bins increases, the histogram provides a more detailed approximation of the smooth density curve. 
+
+![Examples of continuous probability distributions for hieght (in **cm**) as continuous varaibles. Taken from Chapter 3 of  [OpenIntro Statistics book](https://https://www.openintro.org/book/os/). Increasing the number of bins produces a finer approximation of the underlying probability density.](fig/continuous-dist.png)
+
+This smooth curve represents a probability **density function** (also called a **density** or **distribution**). The total area under the density curve is 1, representing the entire probability space. 
+
+Unlike a discrete distribution, probabilities are not assigned to individual values. Instead, the probability that a continuous random variable falls within a given interval is represented by the **area under the density curve** over that interval. For example, the probability that an outcome occurs between two values a and b is given by the area under the curve between a and b.
+
+A key advantage of continuous probability distributions is that they allow us to estimate probabilities for values that were not directly observed in the sample. 
+
+### Parameterization of probability distributions
+
+So far, we have described probability distributions using tables and graphs. Another common approach is to describe a distribution using a **mathematical function** whose shape is determined by a set of parameters. This process is known as **parameterization**.
+
+Different families of probability distributions are characterized by different functional forms, each designed to represent particular types of data and patterns of variability. The specific shape of a distribution is governed by one or more parameters. Common examples include:
+
+* **Location parameters**, which determine where the distribution is centered;
+* **Dispersion (or scale) parameters**, which control the spread or variability of the distribution;
+* **Shape parameters**, which determine features such as skewness and tail behavior;
+* **Rate parameters**, which control how rapidly probabilities decrease or events occur.
+
+For example, the Normal distribution is parameterized by a mean $(\mu)$ and a standard deviation $(\sigma)$, while the Gamma distribution is often parameterized by a shape parameter $(\alpha)$ and a rate parameter $(\beta)$.
+
+By specifying a probability distribution through its parameters, we can summarize its key characteristics without listing every probability or plotting a graph. The mathematical function, together with its parameters, provides a compact description of the distribution and allows us to compute probabilities, quantify uncertainty, and make predictions about unobserved values.
+
+Parameterized distributions are particularly useful in statistical modelling because they enable us to represent complex data using only a few interpretable quantities, such as the average outcome, variability, and shape of the distribution.
+
+Figure 2 illustrates how the shape of a Normal distribution changes with different values of its parameters. The location parameter $(\mu)$ determines the center of the distribution, shifting the curve left or right, while the dispersion parameter $(\sigma)$ controls the spread of the distribution around the mean. Larger values of σ produce wider and flatter curves, indicating greater variability (or uncertainty) in the data, whereas smaller values produce narrower and more concentrated distributions.
+
+![**Figure 2**: Examples of Normal distributions with different values of the mean (μ) and standard deviation (σ). The mean determines the location of the distribution, while the standard deviation determines its spread. Distributions with larger standard deviations exhibit greater variability and uncertainty. Adapted from  [Krzywinski M, Altman N](https://www.nature.com/articles/nmeth.2613)](fig/normal-dist.jpg)
+
+
+:::::::::::::::::::::::: challenge
+
+<!-- summative assessment -->
+
+Suppose two diseases have the same average time from onset to outcome (12 days), but Disease A has a standard deviation of 2 days and Disease B has a standard deviation of 6 days.
+
+- Which disease has greater variability in outcome times?
+
+- Which distribution would appear wider?
+
+- Which disease would have greater uncertainty in predicting when an individual outcome will occur?
+
+- Sketch the two distributions and explain the differences.
+
+::::::::::::::::::::::::::
+
+
+
+::::::::::::::::::::::::::::::::::::: keypoints 
+
+- What is a probability distribution?
+
+- How can a probability distribution be represented using tables, graphs, and mathematical functions?
+
+- What is the difference between discrete and continuous distributions?
+
+- What do the location and spread of a distribution represent?
+
+- How do distribution parameters determine the shape of a distribution?
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+### References
+
+- OpenIntro Statistics. https://https://www.openintro.org/book/os/
+
+- Krzywinski M, Altman N. Points of significance: Importance of being uncertain. Nat Methods. 2013 Sep;10(9):809-10. doi: 10.1038/nmeth.2613. PMID: 24143821.
