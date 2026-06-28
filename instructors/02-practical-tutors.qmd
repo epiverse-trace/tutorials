@@ -59,28 +59,19 @@ Estimate $R_{t}$, _new infections_, _new reports_, _growth rate_, and _doubling/
 
 **Steps:**
 
-- Open the file `02-practical-activity-1.R` and complete all the lines marked with `#<COMPLETE>`, following the detailed steps provided within the R file.
-- Paste the URL link as a string to read input data.
-- Keep the reading function that corresponds to your input data disease.
-- Define a generation time:
-    - Access to a generation time, if available, or an approximation.
-    - Extract distribution parameters or summary statistics.
-    - Adapt to {EpiNow2} distribution interface.
-- Define the delays from infection to case report (observation):
-    - For the reporting delay, interpret the description in the `Inputs` section.
-    - For the incubation period, the steps are similar to the generation time.
-- Add generation time and delays using the {EpiNow2} helper functions in `EpiNow2::epinow()`.
-- Run `EpiNow2::epinow()` and print the summary and plot outputs.
-- Paste the outputs. Reply to questions.
+1. Open `02-practical-activity-1.R` and complete every line marked with `#<COMPLETE>`, following the instructions in the file.
+2. In the step `read_rds()`, keep the reading function that corresponds to the disease of your group (as in table below).
+3. Focus in getting 3 delays before running `EpiNow2::epinow()`
+4. Paste screenshots of the summary table and plot outputs. Answer the questions below.
 
 **Questions:**
-
-Within your room, Write your answers to these questions:
 
 - What phase of the epidemic are you observing? (Exponential growth phase, near peak, or decay end phase)
 - Is the expected change in daily reports consistent with the estimated effective reproductive number, growth rate, and doubling time?
 - Interpret: How would you communicate these results to a decision-maker?
 - Compare: What differences do you identify from other room outputs? (if available)
+
+Discuss your answers with your group before sharing with the wider room.
 
 ### Inputs
 
@@ -91,13 +82,6 @@ Within your room, Write your answers to these questions:
 | 3 | Ebola 60 days | <https://epiverse-trace.github.io/tutorials-middle/data/ebola_60days.rds> |
 | 4 | COVID-19 60 days | <https://epiverse-trace.github.io/tutorials-middle/data/covid_60days.rds> |
 
-
-| Disease | Reporting delays |
-|---|---|
-| Ebola | The time difference between symptom onset and case report follows a Lognormal distribution with uncertainty. The **meanlog** follows a Normal distribution with mean = 1.4 days and sd = 0.5 days. The **sdlog** follows a Normal distribution with mean = 0.25 days and sd = 0.2 days. Bound the Lognormal distribution with a maximum = 5 days. |
-| COVID | The time difference between symptom onset and case report follows a Gamma distribution with uncertainty. The **mean** follows a Normal distribution with mean = 2 days and sd = 0.5 days. The **standard deviation** follows a Normal distribution with mean = 1 day and sd = 0.5 days. Bound the Gamma distribution with a maximum = 5 days. |
-
-: {tbl-colwidths="[15,85]"}
 
 ::: {.content-visible when-format="docx"}
 
