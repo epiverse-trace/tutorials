@@ -184,14 +184,30 @@ Write your answers to the questions above:
 
 ##### Ebola (sample)
 
-```{r, file = "fig/02-practical-instructor-1-G2.R", eval = FALSE}
+###### valid
+
+```{r, file = "fig/02-practical-instructor-1b-G2.R", eval = FALSE}
+
+```
+
+###### prefered
+
+```{r, file = "fig/02-practical-instructor-1a-G2.R", eval = FALSE}
 
 ```
 
 
 ##### COVID (sample)
 
-```{r, file = "fig/02-practical-instructor-1-G1.R", eval = FALSE}
+###### valid
+
+```{r, file = "fig/02-practical-instructor-1b-G1.R", eval = FALSE}
+
+```
+
+###### prefered
+
+```{r, file = "fig/02-practical-instructor-1a-G1.R", eval = FALSE}
 
 ```
 
