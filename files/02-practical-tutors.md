@@ -13,58 +13,57 @@
 
 This practical is based in the following tutorial episodes:
 
-- <https://epiverse-trace.github.io/tutorials-middle/delays-access.html>
 - <https://epiverse-trace.github.io/tutorials-middle/quantify-transmissibility.html>
-- <https://epiverse-trace.github.io/tutorials-middle/delays-functions.html>
 - <https://epiverse-trace.github.io/tutorials-middle/severity-static.html>
 
 # Practical
 
 This practical has two activities.
 
-## Activity 1: Transmission
+## Activity 1: Quantify Transmission
 
 **Goal:**
 
-Estimate $R_{t}$, *new infections*, *new reports*, *growth rate*, and
-*doubling/halving time* using the following available inputs:
+Assess real-time transmission on the most recent date available. Use one
+or more of the following transmission estimates:
 
-- Incidence of reported cases per day
+- $R_t$​ (reproduction number)
+- New infections
+- New reports
+- Growth rate
+- Doubling or halving time
+
+Base this assessment on the inputs below:
+
+- Daily incidence of reported cases
 - Reporting delay
+- Historical delay distributions from prior outbreaks
 
 **Steps:**
 
-- Open the file `02-practical-activity-1.R` and complete all the lines
-  marked with `#<COMPLETE>`, following the detailed steps provided
-  within the R file.
-- Paste the URL link as a string to read input data.
-- Keep the reading function that corresponds to your input data disease.
-- Define a generation time:
-  - Access to a generation time, if available, or an approximation.
-  - Extract distribution parameters or summary statistics.
-  - Adapt to {EpiNow2} distribution interface.
-- Define the delays from infection to case report (observation):
-  - For the reporting delay, interpret the description in the `Inputs`
-    section.
-  - For the incubation period, the steps are similar to the generation
-    time.
-- Add generation time and delays using the {EpiNow2} helper functions in
-  `EpiNow2::epinow()`.
-- Run `EpiNow2::epinow()` and print the summary and plot outputs.
-- Paste the outputs. Reply to questions.
+1.  Open `02-practical-activity-1.R` and complete every line marked with
+    `#<COMPLETE>`, following the instructions in the file.
+2.  In the `read_rds()` step, keep only the reading function that
+    corresponds to your group’s disease (see table below).
+3.  Aim to define 3 delays before running `EpiNow2::epinow()`
+4.  Paste screenshots of the summary table and plot outputs, then answer
+    the questions below.
 
 **Questions:**
 
-Within your room, Write your answers to these questions:
-
-- What phase of the epidemic are you observing? (Exponential growth
-  phase, near peak, or decay end phase)
-- Is the expected change in daily reports consistent with the estimated
-  effective reproductive number, growth rate, and doubling time?
-- Interpret: How would you communicate these results to a
+- Identify the epidemic phase: Are you observing exponential growth,
+  near peak, or decay?
+- Reflect: When is the serial interval a good approximation of the
+  generation time, and when is it not?
+- Check consistency: Is the `Expected change in daily reports`
+  consistent with the estimated effective reproduction number, growth
+  rate, and doubling time?
+- Interpret the results: How would you communicate these findings to a
   decision-maker?
-- Compare: What differences do you identify from other room outputs? (if
-  available)
+  <!-- - Compare outputs: What differences do you notice compared to other groups' results (if available)? -->
+
+Discuss your answers within your group before sharing with the wider
+room.
 
 ### Inputs
 
@@ -75,18 +74,108 @@ Within your room, Write your answers to these questions:
 | 3 | Ebola 60 days | <https://epiverse-trace.github.io/tutorials-middle/data/ebola_60days.rds> |
 | 4 | COVID-19 60 days | <https://epiverse-trace.github.io/tutorials-middle/data/covid_60days.rds> |
 
-| Disease | Reporting delays |
-|----|----|
-| Ebola | The time difference between symptom onset and case report follows a Lognormal distribution with uncertainty. The **meanlog** follows a Normal distribution with mean = 1.4 days and sd = 0.5 days. The **sdlog** follows a Normal distribution with mean = 0.25 days and sd = 0.2 days. Bound the Lognormal distribution with a maximum = 5 days. |
-| COVID | The time difference between symptom onset and case report follows a Gamma distribution with uncertainty. The **mean** follows a Normal distribution with mean = 2 days and sd = 0.5 days. The **standard deviation** follows a Normal distribution with mean = 1 day and sd = 0.5 days. Bound the Gamma distribution with a maximum = 5 days. |
-
 ### Solution
 
 <!-- visible for instructors and learners after practical (solutions) -->
 
 #### Code
 
-##### Ebola (sample)
+##### Ebola (Group 2 and 3)
+
+Two solution scripts are available:
+
+- **Quick solution** — parameters are copied and pasted directly,
+  suitable for the time available during the practical.
+- **Preferred solution** — parameters are drawn from existing objects,
+  the recommended approach for reproducible workflows.
+
+###### Quick
+
+``` r
+# nolint start
+
+# Practical 2
+# Activity 1
+
+room_number <- 2 # valid for 3
+
+# Load packages -----------------------------------------------------------
+library(EpiNow2)
+library(tidyverse)
+
+
+# Read reported cases -----------------------------------------------------
+# for ebola
+dat <- read_rds(
+  "https://epiverse-trace.github.io/tutorials-middle/data/ebola_35days.rds" #<DIFFERENT PER ROOM>
+) %>%
+  dplyr::select(date, confirm = cases)
+
+
+# Define a generation time from {epiparameter} to {EpiNow2} ---------------
+
+epiparameter::epiparameter_db(
+  disease = "ebola",
+  epi_name = "serial",
+  single_epiparameter = TRUE
+)
+
+dat_generationtime <- EpiNow2::Gamma(
+  shape = 2.188,
+  scale = 6.490
+)
+
+# Define the delays from infection to case report for {EpiNow2} -----------
+
+# define delay from symptom onset to case report
+dat_reportdelay <- EpiNow2::Normal(
+  mean = EpiNow2::Normal(mean = 2, sd = 0.5),
+  sd = EpiNow2::Normal(mean = 1, sd = 0.5),
+  max = 5
+)
+
+# define a delay from infection to symptom onset
+epiparameter::epiparameter_db(
+  disease = "ebola",
+  epi_name = "incubation",
+  single_epiparameter = TRUE
+)
+
+dat_incubationtime <- EpiNow2::Gamma(
+  shape = 1.578,
+  scale = 6.528,
+  max = 38
+)
+
+# print required input
+dat_generationtime
+dat_reportdelay
+dat_incubationtime
+
+
+# Set the number of parallel cores for {EpiNow2} --------------------------
+withr::local_options(list(mc.cores = parallel::detectCores() - 1))
+
+
+# Estimate transmission using EpiNow2::epinow() ---------------------------
+# with EpiNow2::*_opts() functions for generation time, delays, and stan.
+estimates <- EpiNow2::epinow(
+  data = dat,
+  generation_time = EpiNow2::generation_time_opts(dat_generationtime),
+  delays = EpiNow2::delay_opts(dat_incubationtime + dat_reportdelay),
+  stan = EpiNow2::stan_opts(samples = 1000, chains = 3)
+)
+
+
+# Print plot and summary table outputs ------------------------------------
+summary(estimates)
+plot(estimates)
+
+
+# nolint end
+```
+
+###### Preferred
 
 ``` r
 # nolint start
@@ -136,9 +225,9 @@ dat_generationtime <- EpiNow2::Gamma(
 # Define the delays from infection to case report for {EpiNow2} -----------
 
 # define delay from symptom onset to case report
-dat_reportdelay <- EpiNow2::LogNormal(
-  meanlog = EpiNow2::Normal(mean = 1.4, sd = 0.5),
-  sdlog = EpiNow2::Normal(mean = 0.25, sd = 0.2),
+dat_reportdelay <- EpiNow2::Normal(
+  mean = EpiNow2::Normal(mean = 2, sd = 0.5),
+  sd = EpiNow2::Normal(mean = 1, sd = 0.5),
   max = 5
 )
 
@@ -198,7 +287,104 @@ plot(estimates)
 # nolint end
 ```
 
-##### COVID (sample)
+##### COVID (Group 1 and 4)
+
+Two solution scripts are available:
+
+- **Quick solution** — parameters are copied and pasted directly,
+  suitable for the time available during the practical.
+- **Preferred solution** — parameters are drawn from existing objects,
+  the recommended approach for reproducible workflows.
+
+###### Quick
+
+``` r
+# nolint start
+
+# Practical 2
+# Activity 1
+
+room_number <- 1 # valid for 4
+
+# Load packages -----------------------------------------------------------
+library(EpiNow2)
+library(tidyverse)
+
+
+# Read reported cases -----------------------------------------------------
+# for covid
+dat <- read_rds(
+  "https://epiverse-trace.github.io/tutorials-middle/data/covid_30days.rds" #<DIFFERENT PER ROOM>
+) %>%
+  dplyr::select(date, confirm)
+
+
+# Define a generation time from {epiparameter} to {EpiNow2} ---------------
+
+# access a serial interval
+epiparameter::epiparameter_db(
+  disease = "covid",
+  epi_name = "serial",
+  single_epiparameter = TRUE
+)
+
+dat_generationtime <- EpiNow2::LogNormal(
+  meanlog = 1.386,
+  sdlog = 0.568
+)
+
+# Define the delays from infection to case report for {EpiNow2} -----------
+
+# define delay from symptom onset to case report
+dat_reportdelay <- EpiNow2::Normal(
+  mean = EpiNow2::Normal(mean = 2, sd = 0.5),
+  sd = EpiNow2::Normal(mean = 1, sd = 0.5),
+  max = 5
+)
+
+# define a delay from infection to symptom onset
+
+epiparameter::epiparameter_db(
+  disease = "covid",
+  epi_name = "incubation",
+  single_epiparameter = TRUE
+)
+
+dat_incubationtime <- EpiNow2::LogNormal(
+  meanlog = 1.525,
+  sdlog = 0.629,
+  max = 20
+)
+
+# print required input
+dat_generationtime
+dat_reportdelay
+dat_incubationtime
+
+
+# Set the number of parallel cores for {EpiNow2} --------------------------
+withr::local_options(list(mc.cores = parallel::detectCores() - 1))
+
+
+# Estimate transmission using EpiNow2::epinow() ---------------------------
+# with EpiNow2::*_opts() functions for generation time, delays, and stan.
+estimates <- EpiNow2::epinow(
+  data = dat,
+  generation_time = EpiNow2::generation_time_opts(dat_generationtime),
+  delays = EpiNow2::delay_opts(dat_reportdelay + dat_incubationtime),
+  stan = EpiNow2::stan_opts(samples = 1000, chains = 3)
+)
+
+
+# Print plot and summary table outputs ------------------------------------
+summary(estimates)
+plot(estimates)
+
+
+# nolint end
+```
+
+###### Preferred
 
 ``` r
 # nolint start
@@ -249,7 +435,7 @@ dat_generationtime <- EpiNow2::LogNormal(
 # Define the delays from infection to case report for {EpiNow2} -----------
 
 # define delay from symptom onset to case report
-dat_reportdelay <- EpiNow2::Gamma(
+dat_reportdelay <- EpiNow2::Normal(
   mean = EpiNow2::Normal(mean = 2, sd = 0.5),
   sd = EpiNow2::Normal(mean = 1, sd = 0.5),
   max = 5
@@ -416,14 +602,24 @@ Interpretation Helpers:
   - growth rate include the value 0,
   - doubling or halving time include the value 0.
 
+About generation time and serial interval:
+
+- The serial interval approximates the generation time when
+  infectiousness begins after symptom onset.
+- When infectiousness starts before symptom onset, serial intervals can
+  take negative values, making this approximation unreliable.
+- Read further in the [tutorial episode on accessing
+  delays](https://epiverse-trace.github.io/tutorials-middle/delays-access.html#generation-time-vs-serial-interval)
+
 **From table**:
 
 - The values from the `summary()` output correspond to the latest
   available date under analysis.
 - The `Expected change in reports` categories (e.g., `Stable` or
   `Likely decreasing`) describe the expected change in daily cases based
-  on the posterior probability that Rt \< 1. Find the tutorial table at:
-  <https://epiverse-trace.github.io/tutorials-middle/quantify-transmissibility.html#expected-change-in-reports>
+  on the posterior probability that Rt \< 1. Find the [tutorial table
+  about
+  `expected change in reports`](https://epiverse-trace.github.io/tutorials-middle/quantify-transmissibility.html#expected-change-in-reports)
 
 **From figure**:
 
@@ -459,42 +655,43 @@ Interpretation Helpers:
   - For this reason, Ebola 35 days has no `Estimate` but only
     `Estimate based on partial data` and `Forecast`.
 
-## Activity 2: Severity
+## Activity 2: Estimate Severity
 
 **Goal:**
 
-Estimate the *naive CFR (nCFR)* and *delay-adjusted CFR (aCFR)* using
-the following inputs:
+Estimate two case fatality ratio measures:
+
+- Naive CFR (nCFR)
+- Delay-adjusted CFR (aCFR)
+
+Use the inputs below:
 
 - Reported cases (aggregate incidence by date of onset)
-- Onset to death delay
+- Onset-to-death delay
 
-**Steps:**
+**Steps**
 
-- Open the file `02-practical-activity-2.R` and complete all the lines
-  marked with `#<COMPLETE>`, following the detailed steps provided
-  within the R file.
-- Paste the URL link as a string to read input data.
-- Fill in the argument to plot an incidence curve.
-- Evaluate if the input data format needs adaptation to {cfr}.
-- Access to the probability distribution for the delay from case onset
-  to death.
-- Estimate the naive and delay-adjusted CFR.
-- Paste the outputs. Reply to questions.
+1.  Open `02-practical-activity-2.R` and complete every line marked
+    `#<COMPLETE>`, following the instructions in the file.
+2.  Plot the incidence curves for cases and deaths.
+3.  Estimate the naive and delay-adjusted CFR.
+4.  Paste screenshots of the table outputs, then answer the questions
+    below.
 
 **Questions:**
 
-Within your room, Write your answers to these questions:
-
-- What phase of the epidemic are you observing? (Exponential growth
-  phase, near peak, or decay end phase)
-- Does the time series include all the possible deaths to observe from
-  known cases?
-- How much difference is there between the nCFR and aCFR estimates?
-- Interpret: How would you communicate these results to a
+- Identify the epidemic phase: Are you observing exponential growth,
+  near peak, or decay?
+- Reflect: Does the time series include all possible deaths from known
+  cases?
+- Compare: How much difference is there between the nCFR and aCFR
+  estimates?
+- Interpret the results: How would you communicate these findings to a
   decision-maker?
-- Compare: What differences do you identify from other room outputs? (if
-  available)
+  <!-- - Compare outputs: What differences do you notice compared to other groups' results (if available)? -->
+
+Discuss your answers within your group before sharing with the wider
+room.
 
 ### Inputs
 
@@ -502,7 +699,7 @@ Within your room, Write your answers to these questions:
 |----|----|----|----|
 | 1 | COVID-19 Diamond Princess | Time serie before March 1st | <https://epiverse-trace.github.io/tutorials-middle/data/diamond_25days.rds> |
 | 2 | COVID-19 Diamond Princess | Complete time series of deaths among cases | <https://epiverse-trace.github.io/tutorials-middle/data/diamond_70days.rds> |
-| 3 | MERS Korea 2015 | Requires adaptation to {cfr} | <https://epiverse-trace.github.io/tutorials-middle/data/mers_linelist.rds> |
+| 3 | MERS Korea 2015 | Requires adaptation of `<incidence2>` to {cfr} | <https://epiverse-trace.github.io/tutorials-middle/data/mers_linelist.rds> |
 
 ### Solution
 
