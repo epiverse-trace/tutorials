@@ -25,7 +25,9 @@ disease_dat
 # step: Fill in the argument to plot an incidence curve.
 disease_incidence <- disease_dat %>%
   incidence2::incidence(
-    #<COMPLETE>
+    date_index = #<COMPLETE>,
+    counts = #<COMPLETE>, # drop line if not needed (Ebola)
+    complete_dates = TRUE
   )
 
 plot(disease_incidence)
@@ -43,10 +45,11 @@ disease_dat
 # If yes, use:
 disease_adapted <- disease_dat
 # OR
-# If not, use cfr::prepare_data() to adapted it:
+# If not, use cfr::prepare_data() to adapt the <incidence2> output to it:
 disease_adapted <- disease_incidence %>%
   cfr::prepare_data(
-    #<COMPLETE>
+    cases = "dt_onset", # drop function if not needed (COVID)
+    deaths = "dt_death"
   )
 
 disease_adapted
@@ -55,8 +58,14 @@ disease_adapted
 # step: Access to the probability distribution for the delay from case onset to death.
 
 # What delay you need to use to adjust the CFR? (based on the disease)
-disease_delay <- epiparameter::#<COMPLETE>
+disease_delay <- epiparameter::epiparameter_db(
+  disease = #<COMPLETE>,
+  epi_name = "onset-to-death",
+  single_epiparameter = TRUE
+)
 
+disease_delay
+plot(disease_delay)
 
 # Estimate naive and adjusted CFR ----------------------------------------
 # step: Estimate the naive and delay-adjusted CFR.
@@ -68,7 +77,7 @@ disease_adapted %>%
 # Estimate static delay-adjusted CFR
 disease_adapted %>%
   cfr::cfr_static(
-    delay_density = #<COMPLETE>
+    delay_density = function(x) density(disease_delay, x)
   )
 
 # step: Paste both outputs. Reply to questions.
