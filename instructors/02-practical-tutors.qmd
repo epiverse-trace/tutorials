@@ -48,30 +48,39 @@ This practical is based in the following tutorial episodes:
 
 This practical has two activities.
 
-## Activity 1: Transmission
+## Activity 1: Quantify Transmission
 
 **Goal:**
 
-Estimate $R_{t}$, _new infections_, _new reports_, _growth rate_, and _doubling/halving time_ using the following available inputs:
+Assess real-time transmission on the most recent date available. Use one or more of the following transmission estimates:
 
-- Incidence of reported cases per day
+- $R_t$​ (reproduction number)
+- New infections
+- New reports
+- Growth rate
+- Doubling or halving time
+
+Base this assessment on the inputs below:
+
+- Daily incidence of reported cases
 - Reporting delay
+- Historical delay distributions from prior outbreaks
 
 **Steps:**
 
 1. Open `02-practical-activity-1.R` and complete every line marked with `#<COMPLETE>`, following the instructions in the file.
-2. In the step `read_rds()`, keep the reading function that corresponds to the disease of your group (as in table below).
-3. Focus in getting 3 delays before running `EpiNow2::epinow()`
-4. Paste screenshots of the summary table and plot outputs. Answer the questions below.
+2. In the `read_rds()` step, keep only the reading function that corresponds to your group's disease (see table below).
+3. Aim to define 3 delays before running `EpiNow2::epinow()`
+4. Paste screenshots of the summary table and plot outputs, then answer the questions below.
 
 **Questions:**
 
-- What phase of the epidemic are you observing? (Exponential growth phase, near peak, or decay end phase)
-- Is the expected change in daily reports consistent with the estimated effective reproductive number, growth rate, and doubling time?
-- Interpret: How would you communicate these results to a decision-maker?
-- Compare: What differences do you identify from other room outputs? (if available)
+- Identify the epidemic phase: Are you observing exponential growth, near peak, or decay?
+- Check consistency: Is the `Expected change in daily reports` consistent with the estimated effective reproduction number, growth rate, and doubling time?
+- Interpret the results: How would you communicate these findings to a decision-maker?
+- Compare outputs: What differences do you notice compared to other groups' results (if available)?
 
-Discuss your answers with your group before sharing with the wider room.
+Discuss your answers within your group before sharing with the wider room.
 
 ### Inputs
 

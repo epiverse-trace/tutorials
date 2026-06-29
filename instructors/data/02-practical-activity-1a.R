@@ -47,8 +47,13 @@ dat_serialint
 plot(dat_serialint)
 
 # step: adapt {epiparameter} to {EpiNow2} distribution interface
+
+# - Does the serial interval follows a LogNormal or Gamma distribution?
+# - What are the distribution parameters of the serial interval?
+# - What function should we use? EpiNow2::LogNormal() or EpiNow2::Gamma()?
+
+# Now complete the code below
 # (note: you can copy/paste values to corresponding parameters)
-# should we use EpiNow2::LogNormal() or EpiNow2::Gamma()?
 dat_generationtime <- EpiNow2::#<COMPLETE>(
   #<COMPLETE> = #<COMPLETE>,
   #<COMPLETE> = #<COMPLETE>
@@ -70,8 +75,13 @@ dat_incubationtime
 plot(dat_incubationtime)
 
 # step: adapt {epiparameter} to {EpiNow2} distribution interface
+
+# - Does the incubation time follows a LogNormal or Gamma distribution?
+# - What are the distribution parameters of the incubation time?
+# - What function should we use? EpiNow2::LogNormal() or EpiNow2::Gamma()?
+
+# Now complete the code below
 # (note: you can copy/paste values to corresponding parameters)
-# should we use EpiNow2::LogNormal() or EpiNow2::Gamma()?
 dat_incubationtime_epinow <- EpiNow2::#<COMPLETE>(
   #<COMPLETE> = #<COMPLETE>,
   #<COMPLETE> = #<COMPLETE>
@@ -81,9 +91,9 @@ dat_incubationtime_epinow
 
 
 # step: define delay from symptom onset to case report
-# Run the code
-# Identify how to configure a
-# distribution with uncertainty
+# Run the code below:
+# - Identify how to configure a distribution with uncertainty on each parameter using EpiNow2
+# - Why should we consider uncertain distributions (over fixed distributions)?
 
 dat_reportdelay <- EpiNow2::Normal(
   mean = EpiNow2::Normal(mean = 2, sd = 0.5),
