@@ -191,30 +191,40 @@ Write your answers to the questions above:
 
 #### Code
 
-##### Ebola (sample)
+##### Ebola (Group 2 and 3)
 
-###### valid
+Two solution scripts are available:
+
+- **Quick solution** — parameters are copied and pasted directly, suitable for the time available during the practical.
+- **Preferred solution** — parameters are drawn from existing objects, the recommended approach for reproducible workflows.
+
+###### Quick
 
 ```{r, file = "fig/02-practical-instructor-1b-G2.R", eval = FALSE}
 
 ```
 
-###### prefered
+###### Preferred
 
 ```{r, file = "fig/02-practical-instructor-1a-G2.R", eval = FALSE}
 
 ```
 
 
-##### COVID (sample)
+##### COVID (Group 1 and 4)
 
-###### valid
+Two solution scripts are available:
+
+- **Quick solution** — parameters are copied and pasted directly, suitable for the time available during the practical.
+- **Preferred solution** — parameters are drawn from existing objects, the recommended approach for reproducible workflows.
+
+###### Quick
 
 ```{r, file = "fig/02-practical-instructor-1b-G1.R", eval = FALSE}
 
 ```
 
-###### prefered
+###### Preferred
 
 ```{r, file = "fig/02-practical-instructor-1a-G1.R", eval = FALSE}
 
