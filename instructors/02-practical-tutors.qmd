@@ -345,8 +345,7 @@ About generation time and serial interval:
   - The values from the `summary()` output correspond to the latest available date under analysis.
   - The `Expected change in reports` categories (e.g., `Stable` or `Likely decreasing`)
     describe the expected change in daily cases based on the posterior probability that Rt < 1.
-    Find the tutorial table at:
-    <https://epiverse-trace.github.io/tutorials-middle/quantify-transmissibility.html#expected-change-in-reports>
+    Find the [tutorial table about `expected change in reports`](https://epiverse-trace.github.io/tutorials-middle/quantify-transmissibility.html#expected-change-in-reports)
 
 **From figure**:
 
@@ -379,8 +378,8 @@ About generation time and serial interval:
 
 Estimate two case fatality ratio measures:
 
-- **Naive CFR (nCFR)**
-- **Delay-adjusted CFR (aCFR)**
+- Naive CFR (nCFR)
+- Delay-adjusted CFR (aCFR)
 
 Use the inputs below:
 
@@ -411,7 +410,7 @@ Discuss your answers within your group before sharing with the wider room.
 |---|---|---|---|
 | 1 | COVID-19 Diamond Princess | Time serie before March 1st | <https://epiverse-trace.github.io/tutorials-middle/data/diamond_25days.rds> |
 | 2 | COVID-19 Diamond Princess | Complete time series of deaths among cases | <https://epiverse-trace.github.io/tutorials-middle/data/diamond_70days.rds> |
-| 3 | MERS Korea 2015 | Requires adaptation to {cfr} | <https://epiverse-trace.github.io/tutorials-middle/data/mers_linelist.rds> |
+| 3 | MERS Korea 2015 | Requires adaptation of `<incidence2>` to {cfr} | <https://epiverse-trace.github.io/tutorials-middle/data/mers_linelist.rds> |
 
 
 
