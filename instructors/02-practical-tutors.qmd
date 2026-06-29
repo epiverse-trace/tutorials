@@ -76,9 +76,10 @@ Base this assessment on the inputs below:
 **Questions:**
 
 - Identify the epidemic phase: Are you observing exponential growth, near peak, or decay?
+- Reflect: When is the serial interval a good approximation of the generation time, and when is it not?
 - Check consistency: Is the `Expected change in daily reports` consistent with the estimated effective reproduction number, growth rate, and doubling time?
 - Interpret the results: How would you communicate these findings to a decision-maker?
-- Compare outputs: What differences do you notice compared to other groups' results (if available)?
+<!-- - Compare outputs: What differences do you notice compared to other groups' results (if available)? -->
 
 Discuss your answers within your group before sharing with the wider room.
 
@@ -333,6 +334,12 @@ there is no statistical evidence of extinction if the 90% credible intervals of:
     - growth rate include the value 0,
     - doubling or halving time include the value 0.
 
+About generation time and serial interval:
+
+- The serial interval approximates the generation time when infectiousness begins after symptom onset. 
+- When infectiousness starts before symptom onset, serial intervals can take negative values, making this approximation unreliable. 
+- Read further in the [tutorial episode on accessing delays](https://epiverse-trace.github.io/tutorials-middle/delays-access.html#generation-time-vs-serial-interval)
+
 **From table**:
 
   - The values from the `summary()` output correspond to the latest available date under analysis.
@@ -366,34 +373,37 @@ there is no statistical evidence of extinction if the 90% credible intervals of:
 :::
 
 
-## Activity 2: Severity
+## Activity 2: Estimate Severity
 
 **Goal:**
 
-Estimate the _naive CFR (nCFR)_ and _delay-adjusted CFR (aCFR)_ using the following inputs:
+Estimate two case fatality ratio measures:
+
+- **Naive CFR (nCFR)**
+- **Delay-adjusted CFR (aCFR)**
+
+Use the inputs below:
 
 - Reported cases (aggregate incidence by date of onset)
-- Onset to death delay
+- Onset-to-death delay
 
-**Steps:**
+**Steps**
 
-- Open the file `02-practical-activity-2.R` and complete all the lines marked with `#<COMPLETE>`, following the detailed steps provided within the R file.
-- Paste the URL link as a string to read input data.
-- Fill in the argument to plot an incidence curve.
-- Evaluate if the input data format needs adaptation to {cfr}.
-- Access to the probability distribution for the delay from case onset to death.
-- Estimate the naive and delay-adjusted CFR.
-- Paste the outputs. Reply to questions.
+1. Open `02-practical-activity-2.R` and complete every line marked `#<COMPLETE>`, following the instructions in the file.
+2. Plot the incidence curves for cases and deaths.
+3. Estimate the naive and delay-adjusted CFR.
+4. Paste screenshots of the table outputs, then answer the questions below.
+
 
 **Questions:**
 
-Within your room, Write your answers to these questions:
+- Identify the epidemic phase: Are you observing exponential growth, near peak, or decay?
+- Reflect: Does the time series include all possible deaths from known cases?
+- Compare: How much difference is there between the nCFR and aCFR estimates?
+- Interpret the results: How would you communicate these findings to a decision-maker?
+<!-- - Compare outputs: What differences do you notice compared to other groups' results (if available)? -->
 
-- What phase of the epidemic are you observing? (Exponential growth phase, near peak, or decay end phase)
-- Does the time series include all the possible deaths to observe from known cases?
-- How much difference is there between the nCFR and aCFR estimates?
-- Interpret: How would you communicate these results to a decision-maker?
-- Compare: What differences do you identify from other room outputs? (if available)
+Discuss your answers within your group before sharing with the wider room.
 
 ### Inputs
 
