@@ -51,7 +51,14 @@ dat_clean <- dat_raw %>%
         "last_exp_date",
         "date"
       )
-    )
+    ) %>% 
+  cleanepi::timespan(
+    target_column = "last_exp_date",
+    end_date = "date",
+    span_unit = "days",
+    span_column_name = "timespan_variable",
+    span_remainder_unit = NULL
+  )
 
 dat_clean
 
