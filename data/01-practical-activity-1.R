@@ -17,7 +17,7 @@ dat_dictionary <- tibble::tribble(
   ~options,  ~values,          ~grp, ~orders,
        "1",   "male", "#<COMPLETE>",      1L,
        "2", "female", "#<COMPLETE>",      2L,
-       "M",   "male", "#<COMPLETE>",      3L,
+       "M",   "male", "#<COMPLETE>",      3L, # drop rows if not needed
        "F", "female", "#<COMPLETE>",      4L,
        "m",   "male", "#<COMPLETE>",      5L,
        "f", "female", "#<COMPLETE>",      6L
@@ -46,8 +46,8 @@ dat_clean <- dat_raw %>%
   cleanepi::standardize_dates(
     target_columns = c(
       #<COMPLETE>,
-      #<COMPLETE>,
-      #<COMPLETE>
+      #<COMPLETE>, # drop if not needed
+      #<COMPLETE> # could be one or more
     )
   ) %>%
   cleanepi::check_date_sequence(
