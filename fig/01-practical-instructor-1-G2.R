@@ -76,7 +76,14 @@ dat_clean <- dat_raw %>%
         "case_id",
         "case_name"
       )
-    )
+    ) %>% 
+  cleanepi::timespan(
+    target_column = "date_onset",
+    end_date = "date_outcome",
+    span_unit = "days",
+    span_column_name = "timespan_variable",
+    span_remainder_unit = NULL
+  )
 
 dat_clean
 
