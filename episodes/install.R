@@ -12,4 +12,6 @@ epidemics::population(
 )
 pak::pak("cyclocomp")
 cyclocomp::cyclocomp(quote( if (condition) "foo" else "bar" ))
+pak::pak("yaml")
+library(yaml)
 # nolint end
