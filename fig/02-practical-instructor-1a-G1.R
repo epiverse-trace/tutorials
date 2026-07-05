@@ -36,17 +36,12 @@ dat_generationtime <- EpiNow2::LogNormal(
   meanlog = dat_serialint_params["meanlog"],
   sdlog = dat_serialint_params["sdlog"]
 )
-# or
-dat_generationtime <- EpiNow2::LogNormal(
-  mean = dat_serialint$summary_stats$mean,
-  sd = dat_serialint$summary_stats$sd
-)
 
 
 # Define the delays from infection to case report for {EpiNow2} -----------
 
 # define delay from symptom onset to case report
-dat_reportdelay <- EpiNow2::Normal(
+dat_reportdelay <- EpiNow2::Gamma(
   mean = EpiNow2::Normal(mean = 2, sd = 0.5),
   sd = EpiNow2::Normal(mean = 1, sd = 0.5),
   max = 5
