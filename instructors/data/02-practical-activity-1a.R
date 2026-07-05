@@ -48,9 +48,10 @@ plot(dat_serialint)
 
 # step: adapt {epiparameter} to {EpiNow2} distribution interface
 
-# - Does the serial interval follows a LogNormal or Gamma distribution?
-# - What are the distribution parameters of the serial interval?
-# - What function should we use? EpiNow2::LogNormal() or EpiNow2::Gamma()?
+# - Does the incubation time follow a LogNormal or Gamma distribution?
+# - What are the *distribution parameters* of the incubation time?
+# - Based on that distribution, which function should we use: `EpiNow2::LogNormal()` or `EpiNow2::Gamma()`?
+# - What could be a maximum number of days for this distribution? Read this from the plot.
 
 # Now complete the code below
 # (note: you can copy/paste values to corresponding parameters)
@@ -76,9 +77,10 @@ plot(dat_incubationtime)
 
 # step: adapt {epiparameter} to {EpiNow2} distribution interface
 
-# - Does the incubation time follows a LogNormal or Gamma distribution?
-# - What are the distribution parameters of the incubation time?
-# - What function should we use? EpiNow2::LogNormal() or EpiNow2::Gamma()?
+# - Does the incubation time follow a LogNormal or Gamma distribution?
+# - What are the *distribution parameters* of the incubation time?
+# - Based on that distribution, which function should we use: `EpiNow2::LogNormal()` or `EpiNow2::Gamma()`?
+# - What could be a maximum number of days for this distribution? Read this from the plot.
 
 # Now complete the code below
 # (note: you can copy/paste values to corresponding parameters)
