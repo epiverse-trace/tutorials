@@ -48,8 +48,8 @@ plot(dat_serialint)
 
 # step: adapt {epiparameter} to {EpiNow2} distribution interface
 
-# - Does the incubation time follow a LogNormal or Gamma distribution?
-# - What are the *distribution parameters* of the incubation time?
+# - Does the serial interval follow a LogNormal or Gamma distribution?
+# - What are the *distribution parameters* of the serial interval?
 # - Based on that distribution, which function should we use: `EpiNow2::LogNormal()` or `EpiNow2::Gamma()`?
 # - What could be a maximum number of days for this distribution? Read this from the plot.
 
@@ -57,7 +57,8 @@ plot(dat_serialint)
 # (note: you can copy/paste values to corresponding parameters)
 dat_generationtime <- EpiNow2::#<COMPLETE>(
   #<COMPLETE> = #<COMPLETE>,
-  #<COMPLETE> = #<COMPLETE>
+  #<COMPLETE> = #<COMPLETE>,
+  max = #<COMPLETE>
 )
 
 dat_generationtime
@@ -86,7 +87,8 @@ plot(dat_incubationtime)
 # (note: you can copy/paste values to corresponding parameters)
 dat_incubationtime_epinow <- EpiNow2::#<COMPLETE>(
   #<COMPLETE> = #<COMPLETE>,
-  #<COMPLETE> = #<COMPLETE>
+  #<COMPLETE> = #<COMPLETE>,
+  max = #<COMPLETE>
 )
 
 dat_incubationtime_epinow
@@ -97,7 +99,7 @@ dat_incubationtime_epinow
 # - Identify how to configure a distribution with uncertainty on each parameter using EpiNow2
 # - Why should we consider uncertain distributions (over fixed distributions)?
 
-dat_reportdelay <- EpiNow2::Normal(
+dat_reportdelay <- EpiNow2::Gamma(
   mean = EpiNow2::Normal(mean = 2, sd = 0.5),
   sd = EpiNow2::Normal(mean = 1, sd = 0.5),
   max = 5

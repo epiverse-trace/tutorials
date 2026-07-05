@@ -82,10 +82,15 @@ dat_incubationtime_epinow
 
 
 # step: define delay from symptom onset to case report
-# You need to interpret the description given in the Inputs table
-# located in the shared document
+# Run the code below:
+# - Identify how to configure a distribution with uncertainty on each parameter using EpiNow2
+# - Why should we consider uncertain distributions (over fixed distributions)?
 
-dat_reportdelay <- EpiNow2::#<COMPLETE>
+dat_reportdelay <- EpiNow2::Gamma(
+  mean = EpiNow2::Normal(mean = 2, sd = 0.5),
+  sd = EpiNow2::Normal(mean = 1, sd = 0.5),
+  max = 5
+)
 
 
 # step: print required input
