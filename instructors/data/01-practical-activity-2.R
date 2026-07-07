@@ -47,7 +47,7 @@ dat_delays %>%
 # Create incidence -------------------------------------------------------
 
 # What is the most appropriate time-aggregate (days, months) to plot?
-dat_incidence <- dat_validate %>%  
+dat_incidence <- dat_linelist %>%  
   # Transform from individual-level to time-aggregate
   incidence2::incidence(
     date_index = #<COMPLETE>,
@@ -58,6 +58,8 @@ dat_incidence <- dat_validate %>%
 
 
 # Plot epicurve ----------------------------------------------------------
+
+dat_incidence %>% plot()
 
 # Do arguments like 'fill', 'nrow', 'show_cases', 'angle', 'n_breaks' 
 # improve the plot?
