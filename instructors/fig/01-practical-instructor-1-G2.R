@@ -49,10 +49,10 @@ dat_clean <- dat_raw %>%
         "date_last_contact"
       )
     ) %>%
+    # first and last contact are outbreak investigation dates
+    # not part of the natural history of disease progression
     cleanepi::check_date_sequence(
       target_columns = c(
-        "date_first_contact",
-        "date_last_contact",
         "date_onset",
         "date_admission",
         "date_outcome"
