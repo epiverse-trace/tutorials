@@ -41,7 +41,7 @@ dat_raw
 # How many cleanepi functions did you use to get clean data?
 # Remove those functions not needed in the cleaning workflow
 
-dat_clean <- dat_raw %>%
+dat_raw %>%
   cleanepi::standardize_column_names() %>%
   cleanepi::standardize_dates(
     target_columns = c(
@@ -83,7 +83,7 @@ dat_clean <- dat_raw %>%
     span_remainder_unit = #<COMPLETE>
   )
 
-dat_clean
+
 
 
 # nolint end
