@@ -39,7 +39,7 @@ dat
 # step: access a serial interval (based on the disease)
 dat_serialint <- epiparameter::epiparameter_db(
   disease = #<COMPLETE>,
-  epi_name = #<COMPLETE>,
+  epi_name = "serial",
   single_epiparameter = TRUE
 )
 
@@ -69,7 +69,7 @@ dat_generationtime
 # step: define a delay from infection to symptom onset (based on the disease)
 dat_incubationtime <- epiparameter::epiparameter_db(
   disease = #<COMPLETE>,
-  epi_name = #<COMPLETE>,
+  epi_name = "incubation",
   single_epiparameter = TRUE
 )
 
@@ -123,8 +123,8 @@ withr::local_options(list(mc.cores = parallel::detectCores() - 1))
 # with EpiNow2::*_opts() functions for generation time, delays, and stan.
 estimates <- EpiNow2::epinow(
   data = dat,
-  generation_time = EpiNow2::generation_time_opts(#<COMPLETE>),
-  delays = EpiNow2::delay_opts(#<COMPLETE> + #<COMPLETE>),
+  generation_time = EpiNow2::generation_time_opts(dat_generationtime),
+  delays = EpiNow2::delay_opts(dat_reportdelay + dat_incubationtime_epinow),
   stan = EpiNow2::stan_opts(samples = 1000, chains = 3)
 )
 
