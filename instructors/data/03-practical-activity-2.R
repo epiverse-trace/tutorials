@@ -44,7 +44,7 @@ set.seed(33)
 
 multiple_chains <- epichains::simulate_chains(
   # Simulation controls
-  n_chains = #<COMPLETE>, # Number of chains to simulate
+  n_chains = 1000, # Number of chains to simulate
   statistic = "size",
   stat_threshold = 500, # Stopping criteria
   # Offspring
@@ -52,7 +52,7 @@ multiple_chains <- epichains::simulate_chains(
   mu = #<COMPLETE>,
   size = #<COMPLETE>,
   # Generation
-  generation_time = #<COMPLETE>
+  generation_time = function(x) generate(x = #<COMPLETE>, times = x)
 )
 
 multiple_chains
