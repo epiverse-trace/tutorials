@@ -38,19 +38,28 @@ dat
 
 # step: access a serial interval (based on the disease)
 dat_serialint <- epiparameter::epiparameter_db(
-  #<COMPLETE>
+  disease = #<COMPLETE>,
+  epi_name = "serial",
+  single_epiparameter = TRUE
 )
 
 dat_serialint
 plot(dat_serialint)
 
-# step: extract parameters from {epiparameter} object
-dat_serialint_params <- epiparameter::#<COMPLETE>
-
-dat_serialint_params
-
 # step: adapt {epiparameter} to {EpiNow2} distribution interface
-dat_generationtime <- EpiNow2::#<COMPLETE>
+
+# - Does the serial interval follow a LogNormal or Gamma distribution?
+# - What are the *distribution parameters* of the serial interval?
+# - Based on that distribution, which function should we use: `EpiNow2::LogNormal()` or `EpiNow2::Gamma()`?
+# - What could be a maximum number of days for this distribution? Read this from the plot.
+
+# Now complete the code below
+# (note: you can copy/paste values to corresponding parameters)
+dat_generationtime <- EpiNow2::#<COMPLETE>(
+  #<COMPLETE> = #<COMPLETE>,
+  #<COMPLETE> = #<COMPLETE>,
+  max = #<COMPLETE>
+)
 
 dat_generationtime
 
@@ -59,33 +68,42 @@ dat_generationtime
 
 # step: define a delay from infection to symptom onset (based on the disease)
 dat_incubationtime <- epiparameter::epiparameter_db(
-  #<COMPLETE>
+  disease = #<COMPLETE>,
+  epi_name = "incubation",
+  single_epiparameter = TRUE
 )
 
 dat_incubationtime
 plot(dat_incubationtime)
 
-# step: incubation period: extract distribution parameters
-dat_incubationtime_params <- epiparameter::#<COMPLETE>
+# step: adapt {epiparameter} to {EpiNow2} distribution interface
 
-dat_incubationtime_params
+# - Does the incubation time follow a LogNormal or Gamma distribution?
+# - What are the *distribution parameters* of the incubation time?
+# - Based on that distribution, which function should we use: `EpiNow2::LogNormal()` or `EpiNow2::Gamma()`?
+# - What could be a maximum number of days for this distribution? Read this from the plot.
 
-# step: incubation period: discretize and extract maximum value (p = 99%)
-dat_incubationtime_max <- dat_incubationtime %>% #<COMPLETE>
-
-dat_incubationtime_max
-  
-# step: incubation period: adapt to {EpiNow2} distribution interface
-dat_incubationtime_epinow <- EpiNow2::#<COMPLETE>
+# Now complete the code below
+# (note: you can copy/paste values to corresponding parameters)
+dat_incubationtime_epinow <- EpiNow2::#<COMPLETE>(
+  #<COMPLETE> = #<COMPLETE>,
+  #<COMPLETE> = #<COMPLETE>,
+  max = #<COMPLETE>
+)
 
 dat_incubationtime_epinow
 
 
 # step: define delay from symptom onset to case report
-# You need to interpret the description given in the Inputs table
-# located in the shared document
+# Run the code below:
+# - Identify how to configure a distribution with uncertainty on each parameter using EpiNow2
+# - Why should we consider uncertain distributions (over fixed distributions)?
 
-dat_reportdelay <- EpiNow2::#<COMPLETE>
+dat_reportdelay <- EpiNow2::Gamma(
+  mean = EpiNow2::Normal(mean = 2, sd = 0.5),
+  sd = EpiNow2::Normal(mean = 1, sd = 0.5),
+  max = 5
+)
 
 
 # step: print required input
@@ -105,7 +123,8 @@ withr::local_options(list(mc.cores = parallel::detectCores() - 1))
 # with EpiNow2::*_opts() functions for generation time, delays, and stan.
 estimates <- EpiNow2::epinow(
   data = dat,
-  #<COMPLETE>
+  generation_time = EpiNow2::generation_time_opts(dat_generationtime),
+  delays = EpiNow2::delay_opts(dat_reportdelay + dat_incubationtime_epinow),
   stan = EpiNow2::stan_opts(samples = 1000, chains = 3)
 )
 

@@ -26,7 +26,7 @@ disease_dat
 disease_incidence <- disease_dat %>%
   incidence2::incidence(
     date_index = #<COMPLETE>,
-    counts = #<COMPLETE>, # drop line if not needed (Ebola)
+    counts = #<COMPLETE>, # drop line if data input dont needed
     complete_dates = TRUE
   )
 
@@ -48,7 +48,7 @@ disease_adapted <- disease_dat
 # If not, use cfr::prepare_data() to adapt the <incidence2> output to it:
 disease_adapted <- disease_incidence %>%
   cfr::prepare_data(
-    cases = "dt_onset", # drop function if not needed (COVID)
+    cases = "dt_onset", # drop whole function if input fits cfr needs
     deaths = "dt_death"
   )
 
