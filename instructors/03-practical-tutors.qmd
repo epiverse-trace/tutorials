@@ -325,10 +325,10 @@ Estimate the potential for large outbreaks that could occur based on 1000 simula
 
 **Questions:**
 
+- How many generations does this chain have?
 - What is the story of this chain? Who infected whom, and when (with reference to the day of infection)?
-- How many chains reached a 100-case threshold?
 - What proportion of chains appear to go extinct quickly, giving you a sense of the probability of extinction?
-- Does your simulation show evidence that a single new index case could still trigger explosive regrowth of the epidemic?
+- What proportion crossed the arbitrary 100-case threshold, pointing to explosive growth from a single index case?
 
 Discuss your answers within your group before sharing with the wider room.
 
