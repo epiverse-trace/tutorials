@@ -35,43 +35,29 @@ the following available inputs:
 
 **Steps:**
 
-- Open the file `03-practical-activity-1.R` and complete all the lines
-  marked with `#<COMPLETE>`, following the detailed steps provided
-  within the R file.
-- Paste the URL links as a string to read input data.
-- Create a *directed* contact network using the linelist and contacts
-  data inputs. Paste a screenshot of the network in the report.
-- Calculate the *out-degree* for each node (infector case) in the
-  contact network, using *all* the cases observed in the linelist. Paste
-  the output histogram in the report.
-- Use the vector with the number of secondary cases per infector case to
-  fit a Negative Binomial distribution using {fitdistrplus}. Paste the
-  output parameters in the report.
-- Use {superspreading} to calculate the probability (proportion) of new
-  cases originating from a cluster of a given size (cluster size), using
-  as input the offspring distribution parameters: the reproduction
-  number and dispersion. Paste the output result in the report.
+1.  Open the file `03-practical-activity-1.R` and complete every line
+    marked with `#<COMPLETE>`, following the instructions in the file.
+2.  Paste the URL links as a string to read the linelist and contacts
+    input data for your room.
+3.  Build the directed contact network, calculate out-degree per case,
+    and fit a Negative Binomial distribution to the secondary case
+    counts.
+4.  Paste screenshots of your network, histogram, fitted parameters, and
+    cluster probability, then answer the questions below.
 
 **Questions:**
 
-Within your room, Write your answers to these questions:
+- Does the estimated dispersion parameter correlate with the contact
+  network and histogram of secondary cases?
+- What is the probability of new cases originating from a cluster of at
+  least 10 cases?
+- Would you recommend a backward contact tracing strategy?
+- Does your dispersion parameter suggest a high or low risk of
+  superspreading? Is this epidemic more likely to explode or be
+  controlled?
 
-- From descriptive and estimation steps:
-  - Does the estimated dispersion parameter correlate with the contact
-    network and histogram of secondary cases?
-- On decision making:
-  - What is the probability of new cases originating from a cluster of
-    at least 10 cases?
-  - Would you recommend a backward contact tracing strategy?
-- Interpret: How would you communicate these results to a
-  decision-maker?
-- Compare: What differences do you identify from other room outputs? (if
-  available)
-  - Which room has more infections related to fewer clusters in the
-    contact network?
-  - What room has the most skewed histogram of secondary cases?
-  - Is there a relationship between contact network clusters, histogram
-    of secondary cases, and dispersion parameter estimates?
+Discuss your answers within your group before sharing with the wider
+room.
 
 ### Inputs
 
@@ -120,9 +106,8 @@ dat_linelist <- readr::read_rds(
 
 
 # Create an epicontacts object -------------------------------------------
-# step: Create a *directed* contact network 
-# using the linelist and contacts data inputs.
-# Paste a screenshot of the network in the report.
+# step: Build a *directed* epicontacts network from the linelist
+# and contacts; paste a screenshot of the network in the report.
 
 epi_contacts <- epicontacts::make_epicontacts(
   linelist = dat_linelist,
@@ -141,9 +126,8 @@ contact_network
 
 
 # Count secondary cases per subject in contacts and linelist --------------
-# step: Calculate the *out-degree* for each node (infector case)
-# in the contact network, using *all* the cases observed in the linelist.
-# Paste the output histogram in the report.
+# step: Calculate the *out-degree* per case (all linelist cases)
+# and paste the output histogram in the report.
 
 secondary_cases <- epicontacts::get_degree(
   x = epi_contacts,
@@ -166,9 +150,8 @@ individual_reproduction_num
 
 
 # Fit a negative binomial distribution -----------------------------------
-# step: Use the vector with the number of secondary cases per infector case 
-# to fit a Negative Binomial distribution using {fitdistrplus}
-# Paste the output parameters in the report.
+# step: Fit a Negative Binomial distribution to the secondary case
+# counts using {fitdistrplus}; paste the parameters in the report.
 
 offspring_fit <- secondary_cases %>%
   fitdistrplus::fitdist(distr = "nbinom")
@@ -178,11 +161,9 @@ offspring_fit
 
 
 # Estimate proportion of new cases from a cluster of secondary cases ------
-# step: Use {superspreading} to calculate the probability (proportion)
-# of new cases originating from a cluster of a given size (cluster size),
-# using as input the offspring distribution parameters: 
-# the reproduction number and dispersion.
-# Paste the output result in the report.
+# step: Use {superspreading} with the fitted R and k to estimate
+# the probability new cases come from a cluster of a given size;
+# paste the output in the report.
 
 # Set seed for random number generator
 set.seed(33)
@@ -274,50 +255,27 @@ available inputs:
 
 **Steps:**
 
-- Open the file `03-practical-activity-2.R` and complete all the lines
-  marked with `#<COMPLETE>`, following the detailed steps provided
-  within the R file.
-- Use the input parameter for this room.
-- Create generation time as an <epiparameter> object using
-  epiparameter::epiparameter() with prob_distribution “gamma” and
-  summary statistics: mean = 3, sd = 1
-- Create 1000 simulation runs with 1 initial case. Add the input
-  offspring distribution parameters to the corresponding arguments. Add
-  the input generation time of class <epiparameter> as a function. Run
-  set.seed() and epichains::simulate_chains() together, in the same run.
-- Read the output of the selected chain to observe. Paste the screenshot
-  in the report. Write in the report a paragraph describing:
-  - the number of unknown and known infectors, their IDs.
-  - the number of generations.
-  - who infected whom in each generation, and when? i.e., the time range
-    in days of these infections per generation.
-- Run the code to create a summary data frame of the whole simulation.
-  Paste the plot output in the report.
-- Use the plot or summary data frame (or any other calculation) to write
-  in the report a description of:
-  - How many chains reached a 100 case threshold?
-  - What is the maximum size of chain? (The cumulative number of case)
-  - What is the maximum length of chain? (The number of days until the
-    chain stops)
-- Write in the report: interpretation and comparison between rooms.
+1.  Open the file `03-practical-activity-2.R` and complete every line
+    marked with `#<COMPLETE>`, following the instructions in the file.
+2.  Add the input parameters (reproduction number, dispersion, chain ID)
+    for your room.
+3.  Run `epichains::simulate_chains()` with the offspring and generation
+    time parameters, together with `set.seed()`.
+4.  Paste screenshots of your selected chain and the cumulative-cases
+    plot, then answer the questions below.
 
 **Questions:**
 
-Within your room, Write your answers to these questions:
+- How many generations does this chain have?
+- What is the story of this chain? Who infected whom, and when (with
+  reference to the day of infection)?
+- What proportion of chains appear to go extinct quickly? What could
+  this tell you about the probability of extinction?
+- What proportion crossed a 100-case threshold? What does this suggest
+  about explosive growth from a single case?
 
-- You have been assigned to explore `Chain ID`. From the output data
-  frame, describe:
-  - How many generations does this chain have?
-  - The story of this chain: Who infected whom, and when (with reference
-    to the day of infection).
-- Among simulated outbreaks:
-  - How many chains reached a 100-case threshold?
-  - What is the maximum size among all the chains?
-  - What is the maximum length among all the chains? (in days)
-- Interpret: How would you communicate these results to a
-  decision-maker?
-- Compare: What differences do you identify from other room outputs? (if
-  available)
+Discuss your answers within your group before sharing with the wider
+room.
 
 ### Inputs
 
@@ -362,8 +320,7 @@ chain_to_observe <- 957 #<DIFFERENT PER GROUP>
 
 
 # Set iteration parameters -----------------------------------------------
-# step: Read how to create a <epiparameter> class object from scratch.
-# This is a step to learn.
+# step: Learn to create an <epiparameter> class object from scratch.
 
 # Create generation time as an <epiparameter> object
 generation_time <- epiparameter::epiparameter(
@@ -375,10 +332,9 @@ generation_time <- epiparameter::epiparameter(
 
 
 # Simulate multiple chains -----------------------------------------------
-# step: Create 1000 simulation runs with 1 initial case.
-# Add the input offspring distribution parameters to the corresponding arguments.
-# Add the input generation time of class <epiparameter> as a function.
-# Run set.seed() and epichains::simulate_chains() together, in the same run
+# step: Simulate 1000 chains from 1 initial case. Add the offspring
+# and generation time parameters, and run set.seed() together with
+# simulate_chains().
 
 # Set seed for random number generator
 set.seed(33)
@@ -400,13 +356,9 @@ multiple_chains
 
 
 # Explore suggested chain ------------------------------------------------
-# step: Read the output of the selected chain to observe.
-# Paste the screenshot in the report.
-# Write in the report a paragraph describing:
-# - the number of unknown and known infectors, their IDs.
-# - the number of generations.
-# - who infected whom in each generation, and when?
-# i.e., the time range in days of these infections per generation.
+# step: Inspect the selected chain, paste a screenshot, and describe
+# in the report: number of infectors and their IDs, number of
+# generations, and who infected whom (and when) per generation.
 
 multiple_chains %>%
   # Use data.frame output from <epichains> object
@@ -416,13 +368,12 @@ multiple_chains %>%
 
 
 # Visualize --------------------------------------------------------------
-# step: Run the code to create a summary data frame of the whole simulation.
-# Paste the plot output in the report
-# Use the plot or summary data frame (or any other calculation) 
-# to write in the report a description of:
-# - How many chains reached a 100 case threshold?
-# - What is the maximum size of chain? (The cumulative number of case)
-# - What is the maximum length of chain? (The number of days until the chain stops)
+# step: Plot the simulation and build a summary data frame; paste
+# the plot output in the report. Use it to describe:
+# - proportion of chains that go extinct quickly (probability of
+#   extinction)
+# - proportion that crossed the 100-case threshold (explosive
+#   growth from one index case)
 # Write in the report: interpretation and comparison between rooms.
 
 # Daily aggregate of cases
@@ -536,6 +487,12 @@ From the plot of cumulative cases by day for each simulated chain:
 | 4 | R = 1.5, k = 0.01 | 16 | ~840 | ~20 days |
 | 5 | R = 1.5, k = 0.1 | 65 | ~890 | ~50 days |
 | 6 | R = 1.5, k = 0.5 | 216 | ~850 | ~90 days |
+
+Individual-level variation in transmission means that although the
+probability of extinction is high, new index cases also have the
+potential for explosive regrowth of the epidemic. This is reflected
+above: most simulated chains die out quickly, while a small number —
+especially at low dispersion (k) — cross the 100-case threshold.
 
 # Continue your learning path
 
