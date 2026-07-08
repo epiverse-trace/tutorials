@@ -71,7 +71,7 @@ Estimate the extent of individual-level variation (i.e. the dispersion parameter
 - Does the estimated dispersion parameter correlate with the contact network and histogram of secondary cases?
 - What is the probability of new cases originating from a cluster of at least 10 cases?
 - Would you recommend a backward contact tracing strategy?
-- Interpret: How would you communicate these results to a decision-maker?
+- Does your dispersion parameter suggest a high or low risk of superspreading? Is this epidemic more likely to explode or be controlled?
 
 Discuss your answers within your group before sharing with the wider room.
 
@@ -327,8 +327,8 @@ Estimate the potential for large outbreaks that could occur based on 1000 simula
 
 - How many generations does this chain have?
 - What is the story of this chain? Who infected whom, and when (with reference to the day of infection)?
-- What proportion of chains appear to go extinct quickly, giving you a sense of the probability of extinction?
-- What proportion crossed the arbitrary 100-case threshold, pointing to explosive growth from a single index case?
+- What proportion of chains appear to go extinct quickly? What could this tell you about the probability of extinction?
+- What proportion crossed a 100-case threshold? What does this suggest about explosive growth from a single case?
 
 Discuss your answers within your group before sharing with the wider room.
 
