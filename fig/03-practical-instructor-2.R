@@ -21,8 +21,7 @@ chain_to_observe <- 957 #<DIFFERENT PER GROUP>
 
 
 # Set iteration parameters -----------------------------------------------
-# step: Read how to create a <epiparameter> class object from scratch.
-# This is a step to learn.
+# step: Learn to create an <epiparameter> class object from scratch.
 
 # Create generation time as an <epiparameter> object
 generation_time <- epiparameter::epiparameter(
@@ -34,10 +33,9 @@ generation_time <- epiparameter::epiparameter(
 
 
 # Simulate multiple chains -----------------------------------------------
-# step: Create 1000 simulation runs with 1 initial case.
-# Add the input offspring distribution parameters to the corresponding arguments.
-# Add the input generation time of class <epiparameter> as a function.
-# Run set.seed() and epichains::simulate_chains() together, in the same run
+# step: Simulate 1000 chains from 1 initial case. Add the offspring
+# and generation time parameters, and run set.seed() together with
+# simulate_chains().
 
 # Set seed for random number generator
 set.seed(33)
@@ -59,13 +57,9 @@ multiple_chains
 
 
 # Explore suggested chain ------------------------------------------------
-# step: Read the output of the selected chain to observe.
-# Paste the screenshot in the report.
-# Write in the report a paragraph describing:
-# - the number of unknown and known infectors, their IDs.
-# - the number of generations.
-# - who infected whom in each generation, and when?
-# i.e., the time range in days of these infections per generation.
+# step: Inspect the selected chain, paste a screenshot, and describe
+# in the report: number of infectors and their IDs, number of
+# generations, and who infected whom (and when) per generation.
 
 multiple_chains %>%
   # Use data.frame output from <epichains> object
@@ -75,13 +69,12 @@ multiple_chains %>%
 
 
 # Visualize --------------------------------------------------------------
-# step: Run the code to create a summary data frame of the whole simulation.
-# Paste the plot output in the report
-# Use the plot or summary data frame (or any other calculation) 
-# to write in the report a description of:
-# - How many chains reached a 100 case threshold?
-# - What is the maximum size of chain? (The cumulative number of case)
-# - What is the maximum length of chain? (The number of days until the chain stops)
+# step: Plot the simulation and build a summary data frame; paste
+# the plot output in the report. Use it to describe:
+# - proportion of chains that go extinct quickly (probability of
+#   extinction)
+# - proportion that crossed the 100-case threshold (explosive
+#   growth from one index case)
 # Write in the report: interpretation and comparison between rooms.
 
 # Daily aggregate of cases

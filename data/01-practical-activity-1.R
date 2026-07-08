@@ -66,7 +66,7 @@ dat_raw %>%
     na_strings = #<COMPLETE>
   ) %>%
   cleanepi::clean_using_dictionary(
-    dictionary = #<COMPLETE>
+    dictionary = dat_dictionary
   ) %>%
   cleanepi::remove_constants() %>%
   cleanepi::remove_duplicates(
@@ -79,7 +79,7 @@ dat_raw %>%
     target_column = #<COMPLETE>,
     end_date = #<COMPLETE>,
     span_unit = #<COMPLETE>,
-    span_column_name = #<COMPLETE>,
+    span_column_name = "timespan_variable", # rename if needed
     span_remainder_unit = #<COMPLETE>
   )
 

@@ -25,11 +25,14 @@ dat_linelist <- readr::read_rds(
 
 
 # Create an epicontacts object -------------------------------------------
-# step: Create a *directed* contact network 
-# using the linelist and contacts data inputs.
-# Paste a screenshot of the network in the report.
+# step: Build a *directed* epicontacts network from the linelist
+# and contacts; paste a screenshot of the network in the report.
 
-epi_contacts <- epicontacts::#<COMPLETE>
+epi_contacts <- epicontacts::make_epicontacts(
+  linelist = #<COMPLETE>,
+  contacts = #<COMPLETE>,
+  directed = TRUE
+)
 
 # Print output
 epi_contacts
@@ -39,11 +42,14 @@ plot(epi_contacts)
 
 
 # Count secondary cases per subject in contacts and linelist --------------
-# step: Calculate the *out-degree* for each node (infector case)
-# in the contact network, using *all* the cases observed in the linelist.
-# Paste the output histogram in the report.
+# step: Calculate the *out-degree* per case (all linelist cases)
+# and paste the output histogram in the report.
 
-secondary_cases <- epicontacts::#<COMPLETE>
+secondary_cases <- epicontacts::get_degree(
+  x = #<COMPLETE>,
+  type = #<COMPLETE>,
+  only_linelist = TRUE
+)
 
 # Plot the histogram of secondary cases
 secondary_cases %>%
@@ -57,28 +63,34 @@ secondary_cases %>%
 
 
 # Fit a negative binomial distribution -----------------------------------
-# step: Use the vector with the number of secondary cases per infector case 
-# to fit a Negative Binomial distribution using {fitdistrplus}
-# Paste the output parameters in the report.
+# step: Fit a Negative Binomial distribution to the secondary case
+# counts using {fitdistrplus}; paste the parameters in the report.
 
-offspring_fit <- #<COMPLETE>
+offspring_fit <- secondary_cases %>%
+  fitdistrplus::fitdist(distr = "nbinom")
 
 # Print output
 offspring_fit
 
 
 # Estimate proportion of new cases from a cluster of secondary cases ------
-# step: Use {superspreading} to calculate the probability (proportion)
-# of new cases originating from a cluster of a given size (cluster size),
-# using as input the offspring distribution parameters: 
-# the reproduction number and dispersion.
-# Paste the output result in the report.
+# step: Use {superspreading} with the fitted R and k to estimate
+# the probability new cases come from a cluster of a given size;
+# paste the output in the report.
 
 # Set seed for random number generator
 set.seed(33)
 
 # Estimate the probability of new cases originating from 
 # a transmission cluster of at least 5, 10, or 25 cases
-superspreading::#<COMPLETE>
+proportion_cases_by_cluster_size <-
+  superspreading::proportion_cluster_size(
+    R = offspring_fit$estimate[#<COMPLETE>],
+    k = offspring_fit$estimate[#<COMPLETE>],
+    cluster_size = c(5, 10, 25)
+  )
+
+# Print output
+proportion_cases_by_cluster_size
 
 # nolint end
