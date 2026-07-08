@@ -29,7 +29,11 @@ dat_linelist <- readr::read_rds(
 # using the linelist and contacts data inputs.
 # Paste a screenshot of the network in the report.
 
-epi_contacts <- epicontacts::#<COMPLETE>
+epi_contacts <- epicontacts::make_epicontacts(
+  linelist = #<COMPLETE>,
+  contacts = #<COMPLETE>,
+  directed = TRUE
+)
 
 # Print output
 epi_contacts
@@ -43,7 +47,11 @@ plot(epi_contacts)
 # in the contact network, using *all* the cases observed in the linelist.
 # Paste the output histogram in the report.
 
-secondary_cases <- epicontacts::#<COMPLETE>
+secondary_cases <- epicontacts::get_degree(
+  x = #<COMPLETE>,
+  type = #<COMPLETE>,
+  only_linelist = TRUE
+)
 
 # Plot the histogram of secondary cases
 secondary_cases %>%
@@ -61,7 +69,8 @@ secondary_cases %>%
 # to fit a Negative Binomial distribution using {fitdistrplus}
 # Paste the output parameters in the report.
 
-offspring_fit <- #<COMPLETE>
+offspring_fit <- secondary_cases %>%
+  fitdistrplus::fitdist(distr = "nbinom")
 
 # Print output
 offspring_fit
@@ -79,6 +88,14 @@ set.seed(33)
 
 # Estimate the probability of new cases originating from 
 # a transmission cluster of at least 5, 10, or 25 cases
-superspreading::#<COMPLETE>
+proportion_cases_by_cluster_size <-
+  superspreading::proportion_cluster_size(
+    R = offspring_fit$estimate[#<COMPLETE>],
+    k = offspring_fit$estimate[#<COMPLETE>],
+    cluster_size = c(5, 10, 25)
+  )
+
+# Print output
+proportion_cases_by_cluster_size
 
 # nolint end
