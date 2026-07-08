@@ -25,9 +25,8 @@ dat_linelist <- readr::read_rds(
 
 
 # Create an epicontacts object -------------------------------------------
-# step: Create a *directed* contact network 
-# using the linelist and contacts data inputs.
-# Paste a screenshot of the network in the report.
+# step: Build a *directed* epicontacts network from the linelist
+# and contacts; paste a screenshot of the network in the report.
 
 epi_contacts <- epicontacts::make_epicontacts(
   linelist = #<COMPLETE>,
@@ -43,9 +42,8 @@ plot(epi_contacts)
 
 
 # Count secondary cases per subject in contacts and linelist --------------
-# step: Calculate the *out-degree* for each node (infector case)
-# in the contact network, using *all* the cases observed in the linelist.
-# Paste the output histogram in the report.
+# step: Calculate the *out-degree* per case (all linelist cases)
+# and paste the output histogram in the report.
 
 secondary_cases <- epicontacts::get_degree(
   x = #<COMPLETE>,
@@ -65,9 +63,8 @@ secondary_cases %>%
 
 
 # Fit a negative binomial distribution -----------------------------------
-# step: Use the vector with the number of secondary cases per infector case 
-# to fit a Negative Binomial distribution using {fitdistrplus}
-# Paste the output parameters in the report.
+# step: Fit a Negative Binomial distribution to the secondary case
+# counts using {fitdistrplus}; paste the parameters in the report.
 
 offspring_fit <- secondary_cases %>%
   fitdistrplus::fitdist(distr = "nbinom")
@@ -77,11 +74,9 @@ offspring_fit
 
 
 # Estimate proportion of new cases from a cluster of secondary cases ------
-# step: Use {superspreading} to calculate the probability (proportion)
-# of new cases originating from a cluster of a given size (cluster size),
-# using as input the offspring distribution parameters: 
-# the reproduction number and dispersion.
-# Paste the output result in the report.
+# step: Use {superspreading} with the fitted R and k to estimate
+# the probability new cases come from a cluster of a given size;
+# paste the output in the report.
 
 # Set seed for random number generator
 set.seed(33)
