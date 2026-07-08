@@ -491,8 +491,8 @@ From the plot of cumulative cases by day for each simulated chain:
 Individual-level variation in transmission means that although the
 probability of extinction is high, new index cases also have the
 potential for explosive regrowth of the epidemic. This is reflected
-above: most simulated chains die out quickly, while a small number —
-especially at low dispersion (k) — cross the 100-case threshold.
+above: most simulated chains die out quickly, while a small number,
+especially at low dispersion (k), cross the 100-case threshold.
 
 # Continue your learning path
 
