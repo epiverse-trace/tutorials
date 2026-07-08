@@ -50,8 +50,8 @@ dat_delays %>%
 dat_incidence <- dat_linelist %>%  
   # Transform from individual-level to time-aggregate
   incidence2::incidence(
-    date_index = #<COMPLETE>,
-    groups = #<COMPLETE>, # the categorical variable
+    date_index = #<COMPLETE>, # add one or more
+    groups = #<COMPLETE>, # add one or more
     interval = #<COMPLETE>,
     complete_dates = TRUE
   )
@@ -68,7 +68,7 @@ dat_incidence %>%
     fill = #<COMPLETE>, # the categorical variable # <KEEP OR DROP>
     #nrow = 1, # 1 or 2 <KEEP OR DROP>
     show_cases = FALSE, # <KEEP OR DROP>
-    angle = 45, # <KEEP OR DROP>
+    #angle = 45, # <KEEP OR DROP>
     n_breaks = 5 # <KEEP OR DROP>
   )
 
