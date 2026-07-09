@@ -27,8 +27,11 @@ chain_to_observe <- #<COMPLETE>
 generation_time <- epiparameter::epiparameter(
   disease = "disease x",
   epi_name = "generation time",
-  prob_distribution = "gamma",
-  summary_stats = list(mean = 3, sd = 1)
+  prob_distribution =
+    epiparameter::create_prob_distribution(
+      prob_distribution = "gamma",
+      prob_distribution_params = c(shape = 9.000, scale = 0.333)
+    )
 )
 
 
