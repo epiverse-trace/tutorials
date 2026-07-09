@@ -1,4 +1,7 @@
 library(epiparameter)
+library(EpiNow2)
+
+# access epidemiological delays -------------------------------------------
 
 # ebola serial interval
 ebola_serial <-
@@ -8,8 +11,24 @@ ebola_serial <-
     single_epiparameter = TRUE
   )
 
-# get the sd
-ebola_serial$summary_stats$sd
+# print distribution parameters
+ebola_serial
 
-# get the sample_size
-ebola_serial$metadata$sample_size
+# find maximum value
+plot(ebola_serial)
+
+
+# adapt parameters to EpiNow2 ---------------------------------------------
+
+# add parameter values to distribution function
+ebola_serial_epinow <- EpiNow2::Gamma(
+  shape = epiparameter::get_parameters(ebola_serial)[1],
+  scale = epiparameter::get_parameters(ebola_serial)[2],
+  max = 40
+)
+
+# print output
+ebola_serial_epinow
+
+# plot epinow2 distribution
+plot(ebola_serial_epinow)
