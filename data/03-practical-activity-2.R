@@ -34,6 +34,9 @@ generation_time <- epiparameter::epiparameter(
     )
 )
 
+generation_time
+
+plot(generation_time)
 
 # Simulate multiple chains -----------------------------------------------
 # step: Simulate 1000 chains from 1 initial case. Add the offspring
@@ -58,6 +61,8 @@ multiple_chains <- epichains::simulate_chains(
 
 multiple_chains
 
+# Print size of all simulated chains
+summary(multiple_chains)
 
 # Explore suggested chain ------------------------------------------------
 # step: Inspect the selected chain, paste a screenshot, and describe
@@ -106,10 +111,18 @@ aggregate_chains %>%
   geom_hline(aes(yintercept = 100), lty = 2) +
   labs(x = "Day", y = "Cumulative cases")
 
-# Print size of all simulated chains
-summary(multiple_chains)
+# Summarise the chain duration and size
+summary_chains <-
+  aggregate_chains %>%
+  dplyr::group_by(chain) %>%
+  dplyr::summarise(
+    max_day = max(day), # chain duration
+    total_cases = max(cumulative_cases) # chain size
+  ) %>%
+  dplyr::ungroup()
 
-# Count chains size over 100 cases
-sum(summary(multiple_chains) > 100)
+# Print the summary for chains above threshold
+summary_chains %>% 
+  dplyr::filter(total_cases > 100)
 
 # nolint end
