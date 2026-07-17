@@ -379,13 +379,19 @@ multiple_chains %>%
 # Daily aggregate of cases
 aggregate_chains <- multiple_chains %>%
   as_tibble() %>%
-  # Count the daily number of cases in each chain
+  # get the round number (day) of infection times
   mutate(day = ceiling(time)) %>%
-  count(chain, day, name = "cases") %>%
+  # count the number of daily incident cases in each chain
+  count(chain, day, name = "incident_cases") %>%
   # Calculate the cumulative number of cases for each chain
   group_by(chain) %>%
-  mutate(cumulative_cases = cumsum(cases)) %>%
+  mutate(cumulative_cases = cumsum(incident_cases)) %>%
   ungroup()
+
+# Print a couple of chains to better understand the output
+aggregate_chains %>% 
+  arrange(chain) %>% 
+  print(n=50)
 
 # Visualize transmission chains by cumulative cases
 aggregate_chains %>%
@@ -396,18 +402,11 @@ aggregate_chains %>%
   geom_hline(aes(yintercept = 100), lty = 2) +
   labs(x = "Day", y = "Cumulative cases")
 
-# count chains over 100 cases
-aggregate_chains %>%
-  filter(cumulative_cases >= 100) %>%
-  count(chain)
-# distribution of size of chains
-aggregate_chains %>%
-  filter(cumulative_cases >= 100) %>% 
-  skimr::skim(cumulative_cases)
-# distribution of lenght of chains
-aggregate_chains %>%
-  filter(cumulative_cases >= 100) %>% 
-  skimr::skim(day)
+# Print size of all simulated chains
+summary(multiple_chains)
+
+# Count chains size over 100 cases
+sum(summary(multiple_chains) > 100)
 
 # nolint end
 ```
