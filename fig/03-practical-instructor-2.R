@@ -27,7 +27,6 @@ chain_to_observe <- 957 #<DIFFERENT PER GROUP>
 generation_time <- epiparameter::epiparameter(
   disease = "disease x",
   epi_name = "generation time",
-  # summary_stats = list(mean = 3, sd = 1)
   prob_distribution =
     epiparameter::create_prob_distribution(
       prob_distribution = "gamma",
