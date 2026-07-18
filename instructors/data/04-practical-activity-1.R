@@ -20,7 +20,7 @@ library(tidyverse)
 # step: paste the survey link assigned to your room
 # then run the function to download the social contact data
 socialsurvey <- socialmixr::get_survey(
-  #<COMPLETE>
+  survey = #<COMPLETE>
 )
 
 socialsurvey
@@ -31,7 +31,10 @@ socialsurvey
 # - the age limits, as in the table of parameters, and
 # - TRUE or FALSE to create a symmetric matrix.
 contact_data <- socialmixr::contact_matrix(
-  #<COMPLETE>
+  survey = socialsurvey,
+  countries = #<COMPLETE>,
+  age.limits = #<COMPLETE>,
+  symmetric = #<COMPLETE>
 )
 
 contact_data
@@ -96,9 +99,9 @@ initial_conditions_free
 # Add initial_conditions_inf or initial_conditions_free
 # to the each age group as detailed in table of parameter
 initial_conditions <- base::rbind(
-  #<COMPLETE>, # age group 1
-  #<COMPLETE>, # age group 2
-  #<COMPLETE> # age group 3
+  initial_conditions_free, # age group 1
+  initial_conditions_inf, # age group 2
+  initial_conditions_free # age group 3
 )
 
 # run: Use contact matrix to assign age group names
@@ -118,7 +121,10 @@ names(demography_vector) <- rownames(socialcontact_matrix)
 # - the vector with the population size of each age group
 # - the binded matrix with initial conditions for each age group
 population_object <- epidemics::population(
-  #<COMPLETE>
+  name = #<COMPLETE>,
+  contact_matrix = socialcontact_matrix,
+  demography_vector = demography_vector,
+  initial_conditions = initial_conditions
 )
 
 population_object
@@ -139,7 +145,12 @@ transmission_rate <- recovery_rate * #<COMPLETE> # recovery rate * R0
 # - each of the previously defined disease-specific rates
 # - the total simulation time as given in table of parameter
 simulate_baseline <- epidemics::model_default(
-  #<COMPLETE>
+  population = population_object,
+  transmission_rate = transmission_rate,
+  infectiousness_rate = infectiousness_rate,
+  recovery_rate = recovery_rate,
+  time_end = #<COMPLETE>,
+  increment = #<COMPLETE>
 )
 
 simulate_baseline
