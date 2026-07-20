@@ -56,7 +56,9 @@ simulate_intervention <- epidemics::model_default(
   infectiousness_rate = infectiousness_rate,
   recovery_rate = recovery_rate,
   # Intervention
-  #<COMPLETE>,
+  intervention = list(#<COMPLETE> = #<COMPLETE>),
+  # or
+  vaccination = #<COMPLETE>,
   time_end = 1000,
   increment = 1.0
 )
