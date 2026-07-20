@@ -61,7 +61,7 @@ room.
 | Room | Country  | Survey Link                              |
 |------|----------|------------------------------------------|
 | 1    | Italy    | <https://doi.org/10.5281/zenodo.3874557> |
-| 2    | Vietnam  | <https://doi.org/10.5281/zenodo.3874802> |
+| 2    | Viet Nam | <https://doi.org/10.5281/zenodo.3874802> |
 | 3    | Zimbabwe | <https://doi.org/10.5281/zenodo.3886638> |
 
 | Parameter | Value | Notes |
@@ -76,6 +76,10 @@ room.
 ### Solution
 
 <!-- visible for instructors and learners after practical (solutions) -->
+
+<!-- TODO: regenerate tables/images below after the contact-matrix code fix
+(contactsurveys::download_survey + socialmixr::load_survey, age_limits,
+survey_pop, and removing the manual t() transpose in fig/04-practical-instructor-1.R) -->
 
 #### Outputs
 
@@ -92,7 +96,7 @@ room.
 
 | country | all compartments | new infections |
 |----|----|----|
-| Vietnam | ![image](https://hackmd.io/_uploads/BJFgQ_mvel.png) | ![image](https://hackmd.io/_uploads/HJ8-Qdmvlg.png) |
+| Viet Nam | ![image](https://hackmd.io/_uploads/BJFgQ_mvel.png) | ![image](https://hackmd.io/_uploads/HJ8-Qdmvlg.png) |
 
     epidemics::epidemic_peak(data = simulate_baseline)
     #>    demography_group compartment  time     value
@@ -153,7 +157,7 @@ Comparison between rooms:
     group to another is the same in both directions — check this by
     multiplying the mean contacts by the population size for each group.
 
-| Italy | Vietnam | Zimbabwe |
+| Italy | Viet Nam | Zimbabwe |
 |----|----|----|
 | ![image](https://hackmd.io/_uploads/HyYOZ57Dll.png) | ![image](https://hackmd.io/_uploads/HkTjb9QDxl.png) | ![image](https://hackmd.io/_uploads/Bkrhx5Xvlx.png) |
 
@@ -204,10 +208,6 @@ room.
 
 ### Inputs
 
-| Room  | Country  | Survey Link                              |
-|-------|----------|------------------------------------------|
-| 1,2,3 | Zimbabwe | <https://doi.org/10.5281/zenodo.3886638> |
-
 | Room | Intervention | Reduction/Vaccination rate | Intervention Time begin (day) | Intervention Time End (day) |
 |----|----|----|----|----|
 | 1 | School closure | Age 0–19: 0.5; Age 20-40: 0.01; Age 40+: 0.01 | 200 | 200+250 |
@@ -219,6 +219,9 @@ The duration of the intervention is 250 days.
 ### Solution
 
 <!-- visible for instructors and learners after practical (solutions) -->
+
+<!-- TODO: regenerate tables/images below after the contact-matrix code fix
+in fig/04-practical-instructor-1.R (values propagate via population_object) -->
 
 #### Outputs
 
@@ -278,13 +281,13 @@ Interpretation Helpers:
     timing and size of the peak in new infections?** Try modifying the
     intervention start time from day 200 to day 100, or changing the
     duration from 250 days to 100 days, and observe the impact on the
-    epidemic dynamics in Zimbabwe.
+    epidemic dynamics in your assigned country.
 
 2.  **How can interventions affect the timing and size of the peak in
     new infections across different countries?** Try changing the
-    population from Zimbabwe to Vietnam or Italy to observe how
-    country-specific factors like population structure and social
-    contacts influence the epidemic curve.
+    population to a different country than the one assigned to your
+    room, to observe how country-specific factors like population
+    structure and social contacts influence the epidemic curve.
 
 ## Activity 3: Combine Multiple Interventions
 
@@ -326,6 +329,9 @@ room.
 ### Solution
 
 <!-- visible for instructors and learners after practical (solutions) -->
+
+<!-- TODO: regenerate tables/images below after the contact-matrix code fix
+in fig/04-practical-instructor-1.R (values propagate via population_object) -->
 
 #### Outputs
 
@@ -378,12 +384,12 @@ Interpretation Helpers:
     and reduce the impact of the epidemic?** Experiment by independently
     adjusting the start time and duration of each intervention.
     Implement them either sequentially or with overlapping periods, and
-    observe their effects on the epidemic dynamics in Zimbabwe. This can
-    support a response plan that allows time for risk assessment and
-    efficient resource allocation. In designing an intervention
-    strategy, we need to consider context-specific factors such as:
-    Resource availability (e.g., Vaccine dose) or compare Economic
-    impacts (e.g., productivity loss, healthcare costs).
+    observe their effects on the epidemic dynamics in your assigned
+    country. This can support a response plan that allows time for risk
+    assessment and efficient resource allocation. In designing an
+    intervention strategy, we need to consider context-specific factors
+    such as: Resource availability (e.g., Vaccine dose) or compare
+    Economic impacts (e.g., productivity loss, healthcare costs).
 
 ## Code
 
@@ -400,7 +406,9 @@ room_number <- 3 #valid for all
 
 # Load packages ----------------------------------------------------------
 library(epidemics)
+library(contactsurveys)
 library(socialmixr)
+library(wpp2024)
 library(tidyverse)
 
 # Group parameters -------------------------------------------------------
@@ -410,7 +418,7 @@ library(tidyverse)
 # socialsurvey_link <- "https://doi.org/10.5281/zenodo.3874802" # vietnam
 socialsurvey_link <- "https://doi.org/10.5281/zenodo.3886638" # zimbabwe
 # socialsurvey_country <- "Italy"
-# socialsurvey_country <- "Vietnam"
+# socialsurvey_country <- "Viet Nam"
 socialsurvey_country <- "Zimbabwe"
 age_limits <- c(0, 20, 40)
 infectious_population <- 1 / 1e6 # 1 infectious out of 1,000,000
@@ -422,19 +430,33 @@ infectious_period <- 7 # days
 
 # (1) Contact matrix ------------------------------------------------------
 
-# step: paste the survey link for your room
-socialsurvey <- socialmixr::get_survey(
-  survey = socialsurvey_link
+# step: download and load the survey data for your room
+survey_files <- contactsurveys::download_survey(
+  survey = socialsurvey_link,
+  verbose = FALSE
 )
+socialsurvey <- socialmixr::load_survey(files = survey_files)
+
+# step: population structure to weight the contact matrix,
+# from {wpp2024}, for your room's country
+# NOTE: confirm this matches the country name used in wpp2024::popAge1dt$name
+data(popAge1dt, package = "wpp2024")
+
+country_pop <- popAge1dt %>%
+  dplyr::filter(name == socialsurvey_country, year == 2020) %>%
+  dplyr::select(lower.age.limit = age, population = pop) %>%
+  dplyr::mutate(population = population * 1000)
 
 # step: generate contact matrix by defining
-# survey class object, country name, 
-# age limits, and whether to make a symmetric matrix
+# survey class object, country name,
+# age limits, whether to make a symmetric matrix,
+# and the population structure to weight it
 contact_data <- socialmixr::contact_matrix(
   survey = socialsurvey,
   countries = socialsurvey_country,
-  age.limits = age_limits,
-  symmetric = TRUE
+  age_limits = age_limits,
+  symmetric = TRUE,
+  survey_pop = country_pop
 )
 
 contact_data
@@ -444,9 +466,9 @@ contact_data
 contact_data$matrix * contact_data$demography$proportion
 
 # Prepare contact matrix
-# {socialmixr} provides contacts from-to
-# {epidemics} expects contacts to-from
-socialcontact_matrix <- t(contact_data$matrix)
+# {epidemics} (from version 0.5.0) transposes the contact matrix
+# internally, so pass it exactly as returned by {socialmixr}, with no t()
+socialcontact_matrix <- contact_data$matrix
 
 socialcontact_matrix
 
@@ -503,8 +525,8 @@ demography_vector <- contact_data$demography$population
 names(demography_vector) <- rownames(socialcontact_matrix)
 
 # step: Prepare the population to model as affected by the epidemic
-# add the name of the country, 
-# the symmetric and transposed contact matrix,
+# add the name of the country,
+# the symmetric contact matrix,
 # the vector with the population size of each age group
 # the binded matrix with initial conditions for each age group
 population_object <- epidemics::population(
