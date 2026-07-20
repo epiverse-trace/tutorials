@@ -80,7 +80,7 @@ Discuss your answers within your group before sharing with the wider room.
 | Room | Country | Survey Link |
 |---|---|---|
 | 1 | Italy | <https://doi.org/10.5281/zenodo.3874557> |
-| 2 | Vietnam | <https://doi.org/10.5281/zenodo.3874802> |
+| 2 | Viet Nam | <https://doi.org/10.5281/zenodo.3874802> |
 | 3 | Zimbabwe | <https://doi.org/10.5281/zenodo.3886638> |
 
 | Parameter | Value | Notes |
@@ -174,6 +174,10 @@ Write your answers to the questions above:
 
 <!-- visible for instructors and learners after practical (solutions) -->
 
+<!-- TODO: regenerate tables/images below after the contact-matrix code fix
+(contactsurveys::download_survey + socialmixr::load_survey, age_limits,
+survey_pop, and removing the manual t() transpose in fig/04-practical-instructor-1.R) -->
+
 #### Outputs
 
 | country | all compartments | new infections |
@@ -191,7 +195,7 @@ epidemics::epidemic_peak(data = simulate_baseline)
 
 | country | all compartments | new infections |
 | -------- | -------- | -------- |
-| Vietnam | ![image](https://hackmd.io/_uploads/BJFgQ_mvel.png) | ![image](https://hackmd.io/_uploads/HJ8-Qdmvlg.png) |
+| Viet Nam | ![image](https://hackmd.io/_uploads/BJFgQ_mvel.png) | ![image](https://hackmd.io/_uploads/HJ8-Qdmvlg.png) |
 
 ```
 epidemics::epidemic_peak(data = simulate_baseline)
@@ -241,7 +245,7 @@ Comparison between rooms:
 - Using `{socialmixr}`, the symmetric contact matrix contains the *mean number of contacts* that an individual in each age group (row) reports having with individuals of the same or another age group (column).
     + Note: The contact matrix may look asymmetric, but it is *symmetric in total contacts*. That is, the total number of contacts from one group to another is the same in both directions — check this by multiplying the mean contacts by the population size for each group.
 
-| Italy | Vietnam | Zimbabwe |
+| Italy | Viet Nam | Zimbabwe |
 | --- | --- | --- |
 | ![image](https://hackmd.io/_uploads/HyYOZ57Dll.png) | ![image](https://hackmd.io/_uploads/HkTjb9QDxl.png) | ![image](https://hackmd.io/_uploads/Bkrhx5Xvlx.png) |
 
@@ -375,6 +379,9 @@ Write your answers to the questions above:
 
 <!-- visible for instructors and learners after practical (solutions) -->
 
+<!-- TODO: regenerate tables/images below after the contact-matrix code fix
+in fig/04-practical-instructor-1.R (values propagate via population_object) -->
+
 #### Outputs
 
 | intervention | all compartments | new infections |
@@ -429,7 +436,7 @@ Interpretation Helpers:
 1. **How do the start time and duration of interventions influence the timing and size of the peak in new infections?**
 Try modifying the intervention start time from day 200 to day 100, or changing the duration from 250 days to 100 days, and observe the impact on the epidemic dynamics in Zimbabwe.
 
-2. **How can interventions affect the timing and size of the peak in new infections across different countries?** Try changing the population from Zimbabwe to Vietnam or Italy to observe how country-specific factors like population structure and social contacts influence the epidemic curve.
+2. **How can interventions affect the timing and size of the peak in new infections across different countries?** Try changing the population from Zimbabwe to Viet Nam or Italy to observe how country-specific factors like population structure and social contacts influence the epidemic curve.
 
 :::
 
@@ -544,6 +551,9 @@ Write your answers to the questions above:
 ### Solution
 
 <!-- visible for instructors and learners after practical (solutions) -->
+
+<!-- TODO: regenerate tables/images below after the contact-matrix code fix
+in fig/04-practical-instructor-1.R (values propagate via population_object) -->
 
 #### Outputs
 

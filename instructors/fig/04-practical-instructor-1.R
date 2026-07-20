@@ -8,7 +8,9 @@ room_number <- 3 #valid for all
 
 # Load packages ----------------------------------------------------------
 library(epidemics)
+library(contactsurveys)
 library(socialmixr)
+library(wpp2024)
 library(tidyverse)
 
 # Group parameters -------------------------------------------------------
@@ -18,7 +20,7 @@ library(tidyverse)
 # socialsurvey_link <- "https://doi.org/10.5281/zenodo.3874802" # vietnam
 socialsurvey_link <- "https://doi.org/10.5281/zenodo.3886638" # zimbabwe
 # socialsurvey_country <- "Italy"
-# socialsurvey_country <- "Vietnam"
+# socialsurvey_country <- "Viet Nam"
 socialsurvey_country <- "Zimbabwe"
 age_limits <- c(0, 20, 40)
 infectious_population <- 1 / 1e6 # 1 infectious out of 1,000,000
@@ -30,19 +32,33 @@ infectious_period <- 7 # days
 
 # (1) Contact matrix ------------------------------------------------------
 
-# step: paste the survey link for your room
-socialsurvey <- socialmixr::get_survey(
-  survey = socialsurvey_link
+# step: download and load the survey data for your room
+survey_files <- contactsurveys::download_survey(
+  survey = socialsurvey_link,
+  verbose = FALSE
 )
+socialsurvey <- socialmixr::load_survey(files = survey_files)
+
+# step: population structure to weight the contact matrix,
+# from {wpp2024}, for your room's country
+# NOTE: confirm this matches the country name used in wpp2024::popAge1dt$name
+data(popAge1dt, package = "wpp2024")
+
+country_pop <- popAge1dt %>%
+  dplyr::filter(name == socialsurvey_country, year == 2020) %>%
+  dplyr::select(lower.age.limit = age, population = pop) %>%
+  dplyr::mutate(population = population * 1000)
 
 # step: generate contact matrix by defining
-# survey class object, country name, 
-# age limits, and whether to make a symmetric matrix
+# survey class object, country name,
+# age limits, whether to make a symmetric matrix,
+# and the population structure to weight it
 contact_data <- socialmixr::contact_matrix(
   survey = socialsurvey,
   countries = socialsurvey_country,
-  age.limits = age_limits,
-  symmetric = TRUE
+  age_limits = age_limits,
+  symmetric = TRUE,
+  survey_pop = country_pop
 )
 
 contact_data
@@ -52,9 +68,9 @@ contact_data
 contact_data$matrix * contact_data$demography$proportion
 
 # Prepare contact matrix
-# {socialmixr} provides contacts from-to
-# {epidemics} expects contacts to-from
-socialcontact_matrix <- t(contact_data$matrix)
+# {epidemics} (from version 0.5.0) transposes the contact matrix
+# internally, so pass it exactly as returned by {socialmixr}, with no t()
+socialcontact_matrix <- contact_data$matrix
 
 socialcontact_matrix
 
@@ -111,8 +127,8 @@ demography_vector <- contact_data$demography$population
 names(demography_vector) <- rownames(socialcontact_matrix)
 
 # step: Prepare the population to model as affected by the epidemic
-# add the name of the country, 
-# the symmetric and transposed contact matrix,
+# add the name of the country,
+# the symmetric contact matrix,
 # the vector with the population size of each age group
 # the binded matrix with initial conditions for each age group
 population_object <- epidemics::population(

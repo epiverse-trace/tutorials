@@ -16,7 +16,7 @@ simulate_twointerventions <- epidemics::model_default(
   recovery_rate = recovery_rate,
   # Intervention
   #<COMPLETE>
-  time_end = 600,
+  time_end = 1000,
   increment = 1.0
 )
 
@@ -51,10 +51,12 @@ infections_twointerventions$scenario <- "ADD intervention 1 + ADD intervention 2
 # Compare interventions --------------------------------------------------
 
 # Combine the data from both scenarios
+# step: add the single-intervention object saved in Activity 2 for your room
+# (e.g. infections_schoolclosure / infections_mask_mandate / infections_vaccinate)
 compare_interventions <- bind_rows(
   infections_baseline,
-  infections_intervention,
-  infections_baseline_twointerventions
+  #<COMPLETE> #<CHANGE-BY-ROOM>
+  infections_twointerventions
 )
 
 compare_interventions %>%
