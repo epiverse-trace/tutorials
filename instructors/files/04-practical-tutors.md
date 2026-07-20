@@ -34,40 +34,27 @@ infections** across age groups using the following available inputs:
 
 **Steps:**
 
-- Open the file `04-practical-activity-1.R` and complete all the lines
-  marked with `#<COMPLETE>`, following the detailed steps provided
-  within the R file.
-- Paste the survey link for your room
-- Generate contact matrix by defining survey class object, country name,
-  age limits from table of parameters, and whether to make a symmetric
-  matrix.
-- Combine the initial conditions add `initial_conditions_inf` or
-  `initial_conditions_free` to the each age group as given in table of
-  parameter.
-- Prepare the population to model as affected by the epidemic add the
-  name of the country, the symmetric and transposed contact matrix, the
-  vector with the population size of each age group, the binded matrix
-  with initial conditions for each age group.
-- Rates. add the values as given in table of parameter
-- In each function argument add the population object, each of the
-  previously defined rates, the total simulation time as given in table
-  of parameter.
-- Paste plot of total number of individual per compartment and table
-  output with peak size and time in report
-- Paste plot output of new infections in report
+1.  Open the file `04-practical-activity-1.R` and complete every line
+    marked with `#<COMPLETE>`, following the instructions in the file.
+2.  Paste the survey link for your room and generate the contact matrix
+    (country, age limits, symmetric) as given in the table of
+    parameters.
+3.  Combine the initial conditions, build the population object, set the
+    disease rates, and run `epidemics::model_default()` using the values
+    in the table of parameters.
+4.  Paste the compartments plot, the peak-size table, and the
+    new-infections plot, then answer the questions below.
 
 **Questions:**
 
-Within your room, Write your answers to these questions:
-
 - What are the time and size of the epidemic peak for *infectious
   individuals* in each age group? Use the table output.
-- Compare and describe the similarities and differences between these
-  two outputs: the table with the epidemic peak of *infectious
-  individuals* across age groups, and the plot of *new infections*
-  across age groups.
-- Compare: What differences do you observe compared to the outputs from
-  other rooms (if available)?
+- Compare and describe the similarities and differences between the
+  table of epidemic peaks for *infectious individuals* and the plot of
+  *new infections* across age groups.
+
+Discuss your answers within your group before sharing with the wider
+room.
 
 ### Inputs
 
@@ -194,34 +181,26 @@ scenario:
 
 **Steps:**
 
-- Open the file `04-practical-activity-2.R` and complete all the lines
-  marked with `#<COMPLETE>`, following the detailed steps provided
-  within the R file.
-- Create the intervention object: identify if you need to keep:
-  epidemics::intervention() or epidemics::vaccination(). then add:
-  - name of the intervention
-  - type of intervention (“rate” or “contacts”), if needed
-  - time when the intervention begins and ends (as values or matrix\*)
-    as given in table of inputs
-  - reduction or vaccination rate (as values or matrix*) *if matrix,
-    values follow same order as in the social contact matrix
-- Add the intervention argument as a list (for interventions against
-  contacts or transmission rate) or as an object (for vaccination)
-- Paste plot and table output in report
-- Plot new infections. Add intervention name if your intervention is
-  vaccination, then activate the argument exclude_compartments, run and
-  paste plot output in report
+1.  Open the file `04-practical-activity-2.R` and complete every line
+    marked with `#<COMPLETE>`, following the instructions in the file.
+2.  Create the intervention object (`epidemics::intervention()` or
+    `epidemics::vaccination()`) with the name, type, timing, and
+    reduction/vaccination rate for your room.
+3.  Add the intervention to `epidemics::model_default()`, then paste the
+    compartments plot and peak-size table.
+4.  Plot new infections against the baseline (add the intervention name,
+    and exclude compartments if your intervention is vaccination), then
+    answer the questions below.
 
 **Questions:**
-
-Within your room, write your answers to these questions:
 
 - Does the impact of the intervention, compared to the baseline, align
   with your expectations? Why or why not? Use all the available outputs.
 - Interpret the results: How would you explain these findings to a
   decision-maker?
-- Compare: What differences do you observe compared to the outputs from
-  other rooms (if available)?
+
+Discuss your answers within your group before sharing with the wider
+room.
 
 ### Inputs
 
@@ -317,23 +296,24 @@ described in the previous activity.
 
 **Steps:**
 
-- Open the file `04-practical-activity-3.R` and complete all the lines
-  marked with `#<COMPLETE>`, following the detailed steps provided
-  within the R file.
-- Complete the intervention or vaccination arguments
-- Paste table output in report
-- Plot new infections. add intervention name if your intervention is
-  vaccination, then activate the argument exclude_compartments, run and
-  paste plot output in report
+1.  Open the file `04-practical-activity-3.R` and complete every line
+    marked with `#<COMPLETE>`, following the instructions in the file.
+2.  Complete the intervention or vaccination arguments to combine the
+    two interventions assigned to your room.
+3.  Paste the peak-size table for the combined-intervention scenario.
+4.  Plot new infections comparing the baseline, single intervention, and
+    combined interventions, then answer the questions below.
 
 **Questions:**
 
-Within your room, Write your answers to these questions:
-
+- How does combining two interventions change the epidemic peak and new
+  infections compared to the single-intervention scenario from Activity
+  2?
 - Interpret the results: How would you explain these findings to a
   decision-maker?
-- Compare: What differences do you observe compared to the outputs from
-  other rooms (if available)?
+
+Discuss your answers within your group before sharing with the wider
+room.
 
 ### Inputs
 
