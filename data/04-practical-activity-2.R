@@ -26,10 +26,19 @@ rownames(socialcontact_matrix)
 # 
 # *if matrix, values follow same order as in the social contact matrix
 #  
-test_intervention <- epidemics::intervention(#<COMPLETE>
+test_intervention <- epidemics::intervention(
+  name = #<COMPLETE>,
+  type = #<COMPLETE>,
+  time_begin = 200,
+  time_end = 450,
+  reduction = #<COMPLETE>
 )
 # or
-test_intervention <- epidemics::vaccination(#<COMPLETE>
+test_intervention <- epidemics::vaccination(
+  name = #<COMPLETE>,
+  time_begin = matrix(200, nrow(socialcontact_matrix)),
+  time_end = matrix(450, nrow(socialcontact_matrix)),
+  nu = #<COMPLETE>
 )
 
 test_intervention
