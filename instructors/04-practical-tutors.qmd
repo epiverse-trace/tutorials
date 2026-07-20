@@ -287,10 +287,6 @@ Discuss your answers within your group before sharing with the wider room.
 
 ### Inputs
 
-| Room | Country | Survey Link |
-|---|---|---|
-| 1,2,3 | Zimbabwe | <https://doi.org/10.5281/zenodo.3886638> |
-
 | Room | Intervention | Reduction/Vaccination rate | Intervention Time begin (day) | Intervention Time End (day) |
 |---|---|---|---|---|
 | 1 | School closure | Age 0–19: 0.5; Age 20-40: 0.01; Age 40+: 0.01 | 200 | 200+250 |
@@ -434,9 +430,9 @@ Interpretation Helpers:
 ### Additional challenges
 
 1. **How do the start time and duration of interventions influence the timing and size of the peak in new infections?**
-Try modifying the intervention start time from day 200 to day 100, or changing the duration from 250 days to 100 days, and observe the impact on the epidemic dynamics in Zimbabwe.
+Try modifying the intervention start time from day 200 to day 100, or changing the duration from 250 days to 100 days, and observe the impact on the epidemic dynamics in your assigned country.
 
-2. **How can interventions affect the timing and size of the peak in new infections across different countries?** Try changing the population from Zimbabwe to Viet Nam or Italy to observe how country-specific factors like population structure and social contacts influence the epidemic curve.
+2. **How can interventions affect the timing and size of the peak in new infections across different countries?** Try changing the population to a different country than the one assigned to your room, to observe how country-specific factors like population structure and social contacts influence the epidemic curve.
 
 :::
 
@@ -603,7 +599,7 @@ Interpretation Helpers:
 ### Additional challenge
 
 1. **What sequence of interventions would you propose to delay the peak and reduce the impact of the epidemic?**
-Experiment by independently adjusting the start time and duration of each intervention. Implement them either sequentially or with overlapping periods, and observe their effects on the epidemic dynamics in Zimbabwe. This can support a response plan that allows time for risk assessment and efficient resource allocation. In designing an intervention strategy, we need to consider context-specific factors such as: Resource availability (e.g., Vaccine dose) or compare Economic impacts (e.g., productivity loss, healthcare costs).
+Experiment by independently adjusting the start time and duration of each intervention. Implement them either sequentially or with overlapping periods, and observe their effects on the epidemic dynamics in your assigned country. This can support a response plan that allows time for risk assessment and efficient resource allocation. In designing an intervention strategy, we need to consider context-specific factors such as: Resource availability (e.g., Vaccine dose) or compare Economic impacts (e.g., productivity loss, healthcare costs).
 
 ## Code
 
