@@ -6,6 +6,11 @@
 # step: fill in your room number
 room_number <- #<COMPLETE> replace with 1/2/3/4
 
+# step: fill in your room's assigned country name
+# note: must match the name used by both wpp2024::popAge1dt$name
+# and socialmixr::contact_matrix()
+country_name <- #<COMPLETE>
+
 # Load packages ----------------------------------------------------------
 library(epidemics)
 library(contactsurveys)
@@ -33,11 +38,10 @@ socialsurvey
 
 # run: population structure to weight the contact matrix,
 # from {wpp2024}, for your room's country
-# NOTE: confirm this matches the country name used in wpp2024::popAge1dt$name
 data(popAge1dt, package = "wpp2024")
 
 country_pop <- popAge1dt %>%
-  dplyr::filter(year == 2020, name == #<COMPLETE>) %>%
+  dplyr::filter(year == 2020, name == country_name) %>%
   dplyr::select(lower.age.limit = age, population = pop) %>%
   dplyr::mutate(population = population * 1000)
 
@@ -49,7 +53,7 @@ country_pop <- popAge1dt %>%
 # - the population structure to weight it.
 contact_data <- socialmixr::contact_matrix(
   survey = socialsurvey,
-  countries = #<COMPLETE>,
+  countries = country_name,
   age_limits = #<COMPLETE>,
   symmetric = #<COMPLETE>,
   survey_pop = country_pop
@@ -77,7 +81,7 @@ socialcontact_matrix
 
 # step: add the proportion of infectious 
 # as given in table of parameter
-initial_i <- #<COMPLETE>
+initial_i <- 1 / #<COMPLETE>
 
 # run: create an infectious vector
 initial_conditions_inf <- c(
@@ -134,7 +138,7 @@ names(demography_vector) <- rownames(socialcontact_matrix)
 # - the vector with the population size of each age group
 # - the binded matrix with initial conditions for each age group
 population_object <- epidemics::population(
-  name = #<COMPLETE>,
+  name = country_name,
   contact_matrix = socialcontact_matrix,
   demography_vector = demography_vector,
   initial_conditions = initial_conditions
@@ -163,7 +167,7 @@ simulate_baseline <- epidemics::model_default(
   infectiousness_rate = infectiousness_rate,
   recovery_rate = recovery_rate,
   time_end = #<COMPLETE>,
-  increment = #<COMPLETE>
+  increment = 1.0
 )
 
 simulate_baseline
