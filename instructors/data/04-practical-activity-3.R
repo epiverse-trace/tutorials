@@ -15,7 +15,15 @@ simulate_twointerventions <- epidemics::model_default(
   infectiousness_rate = infectiousness_rate,
   recovery_rate = recovery_rate,
   # Intervention
-  #<COMPLETE>
+  intervention = list(
+    #<COMPLETE> = #<COMPLETE>
+    # , #<COMPLETE> = #<COMPLETE>
+    # uncomment (and add a comma above) if combining two
+    # contacts/rate interventions
+  ),
+  # keep this line only if one of your two interventions
+  # is vaccination:
+  vaccination = #<COMPLETE>,
   time_end = 1000,
   increment = 1.0
 )
