@@ -38,7 +38,11 @@ test_intervention <- epidemics::vaccination(
   name = #<COMPLETE>,
   time_begin = matrix(200, nrow(socialcontact_matrix)),
   time_end = matrix(450, nrow(socialcontact_matrix)),
-  nu = #<COMPLETE>
+  nu = matrix(c(
+    #<COMPLETE>, # age group 1
+    #<COMPLETE>, # age group 2
+    #<COMPLETE> # age group 3
+  ))
 )
 
 test_intervention
