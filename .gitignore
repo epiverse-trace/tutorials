@@ -59,3 +59,4 @@ instructors/files/*.pdf
 instructors/*_files/*
 instructors/files/*_files/*
 /.quarto/
+.positai

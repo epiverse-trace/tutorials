@@ -20,12 +20,13 @@ carpentry: 'epiverse-trace'
 title: 'Outbreak analytics with R'
 
 # Date the lesson was created (YYYY-MM-DD, this is empty by default)
-created: 
+created:
 
 # Comma-separated list of keywords for the lesson
 keywords: 'forecasts, epidemic models, interventions'
 
 # Life cycle stage of the lesson
+# refer to <https://docs.carpentries.org/resources/curriculum/lesson-life-cycle.html> for details
 # possible values: pre-alpha, alpha, beta, stable
 life_cycle: 'pre-alpha'
 
@@ -64,23 +65,24 @@ contact: 'andree.valle-campos@lshtm.ac.uk'
 # - another-learner.md
 
 # Order of episodes in your lesson
-episodes: 
+episodes:
+- introduction-to-probabilities.Rmd
 - delays-introduction.Rmd
 - delays-distribution.Rmd
 
+
 # Information for Learners
-learners: 
+learners:
 
 # Information for Instructors
-instructors: 
+instructors:
 
 # Learner Profiles
-profiles: 
+profiles:
 
 # Customisation ---------------------------------------------
 #
 # This space below is where custom yaml items (e.g. pinning
 # sandpaper and varnish versions) should live
-
 
 varnish: epiverse-trace/varnish@epiversetheme
